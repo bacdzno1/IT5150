@@ -1,0 +1,3034 @@
+/* eslint-disable no-unused-vars */
+import * as functions from '../services/functions.js';
+import * as fs from 'node:fs';
+import UserCompany from '../models/user/UserCompany.js';
+import UserCompanyError from '../models/user/UserCompanyError.js';
+import TmpUser from '../models/TmpUser.js';
+import Users from '../models/user/Users.js';
+import UserHocVan from '../models/user/UserHocVan.js';
+import UserCvUpload from '../models/user/UserCvUpload.js';
+import UserThamChieu from '../models/user/UserThamChieu.js';
+import UserCompanyCrm from '../models/user/UserCompanyCrm.js';
+import TblPointCompany from '../models/tbl/TblPointCompany.js';
+import HistoryCountOtp from '../models/history/HistoryCountOtp.js';
+import "dotenv/config";
+import SaveCandidateCv from '../models/save/SaveCandidateCv.js';
+import UseKinhNghiem from '../models/use/UseKinhNghiem.js';
+import UseNgoaiNgu from '../models/use/UseNgoaiNgu.js';
+import UserTempNoAuth from '../models/user/UserTempNoAuth.js';
+import UserVidUpload from '../models/user/UserVidUpload.js';
+import TblCvPreview from '../models/tbl/TblCvPreview.js';
+import path from 'node:path';
+import SampleCv from '../models/sample/SampleCv.js';
+import jwt from 'jsonwebtoken';
+import New from '../models/new/New.js';
+import NewGhimTin from '../models/new/NewGhimTin.js';
+import NopHoSo from '../models/NopHoSo.js';
+import TblPointUsed from '../models/tbl/TblPointUsed.js';
+import TblLuuHoSoUv from '../models/tbl/TblLuuHoSoUv.js';
+import ConfigFireBaseOTP from '../models/user/ConfigFireBaseOTP.js';
+import cron from 'node-cron'
+
+// Thiết lập cron job để reset `count` về 0 vào lúc 00:00 mỗi ngày
+cron.schedule('0 0 * * *', async () => {
+    try {
+        await ConfigFireBaseOTP.updateMany({}, { $set: { count: 0 } });
+        console.log("Đã reset giá trị count về 0 cho tất cả các bản ghi");
+    } catch (error) {
+        console.error("Có lỗi xảy ra khi reset giá trị count:", error);
+    }
+});
+
+//lấy config firbase
+export const ConfigFirbase = async (req, res) => {
+    try {
+        const record = await ConfigFireBaseOTP
+            .findOneAndUpdate(
+                { count: { $lt: 10 } },       // Tìm bản ghi có count < 10
+                { $inc: { count: 1 } },       // Tăng giá trị count lên 1
+                { new: true }                 // Trả về bản ghi sau khi đã update
+            )
+            .sort({ count: 1 })               // Sắp xếp theo count giảm dần (lớn nhất ở trên cùng)
+            .exec();                          // Thực thi truy vấn
+
+        if (!record) {
+            return functions.setError(res, "Đạt giới hạn", 400)
+        }
+        return functions.success(res, "Lấy config thành công", { config: record })
+    } catch (error) {
+        return functions.setError(res, error.message);
+    }
+}
+
+//thêm config firebase
+export const InsertConfigFirebase = async (req, res) => {
+    try {
+        // Data from the request body or predefined data
+        const ListConfigFb = [
+            {
+                "email": "linhka99@gmail.com",
+                "code": "topcv1s-1",
+                "for": "topcv1s",
+                "apiKey": "AIzaSyBReJ70bhWcDm_J0Dgd_VpoYJK1HNUgcio",
+                "authDomain": "topcv1s-1.firebaseapp.com",
+                "projectId": "topcv1s-1",
+                "storageBucket": "topcv1s-1.appspot.com",
+                "messagingSenderId": "386303545537",
+                "appId": "1:386303545537:web:4584f3c3a903a0f8c9c440",
+                "measurementId": "G-2F83N6ZV22"
+            },
+            {
+                "email": "linhka99@gmail.com",
+                "code": "topcv1s-2",
+                "for": "topcv1s",
+                "apiKey": "AIzaSyCZsPvnfqTr5mqRArgYYmonUcKMvtyEvCE",
+                "authDomain": "topcv1s-2.firebaseapp.com",
+                "projectId": "topcv1s-2",
+                "storageBucket": "topcv1s-2.appspot.com",
+                "messagingSenderId": "962816308714",
+                "appId": "1:962816308714:web:5c44c554bbf0c63ae6ee93",
+                "measurementId": "G-R6PL4J6FNX"
+            },
+            {
+                "email": "linhka99@gmail.com",
+                "code": "topcv1s-3",
+                "for": "topcv1s",
+                "apiKey": "AIzaSyDGWrl2FTRQ5VRaxtpm3nzrogHxxF1416o",
+                "authDomain": "topcv1s-3.firebaseapp.com",
+                "projectId": "topcv1s-3",
+                "storageBucket": "topcv1s-3.appspot.com",
+                "messagingSenderId": "70951766778",
+                "appId": "1:70951766778:web:f1a0a720d940e2351f9743",
+                "measurementId": "G-NESEEH2QL3"
+            },
+            {
+                "email": "linhka99@gmail.com",
+                "code": "topcv1s-4",
+                "for": "topcv1s",
+                "apiKey": "AIzaSyCmawm4nHuXG5zYESM0-d7MnX4tFnv-WIU",
+                "authDomain": "topcv1s-4.firebaseapp.com",
+                "projectId": "topcv1s-4",
+                "storageBucket": "topcv1s-4.appspot.com",
+                "messagingSenderId": "955427261660",
+                "appId": "1:955427261660:web:a7f0c27ddd93def5f53819",
+                "measurementId": "G-CTY8Z5M1K4"
+            },
+            {
+                "email": "linhka99@gmail.com",
+                "code": "topcv1s-5",
+                "for": "topcv1s",
+                "apiKey": "AIzaSyD_dRlye19PXv1ot_cSsRvStlyxJ3KMxuE",
+                "authDomain": "topcv1s-5.firebaseapp.com",
+                "projectId": "topcv1s-5",
+                "storageBucket": "topcv1s-5.appspot.com",
+                "messagingSenderId": "193331520659",
+                "appId": "1:193331520659:web:d91742d2d058b22ae75966",
+                "measurementId": "G-MS4NHZ2SMN"
+            },
+            {
+                "email": "linhka99@gmail.com",
+                "code": "topcv1s-6",
+                "for": "topcv1s",
+                "apiKey": "AIzaSyC3ogSGJ7Mdm3zAiql-dmpwS3o_XNKfWi4",
+                "authDomain": "topcv1s-6.firebaseapp.com",
+                "projectId": "topcv1s-6",
+                "storageBucket": "topcv1s-6.appspot.com",
+                "messagingSenderId": "200318182212",
+                "appId": "1:200318182212:web:ab4ec967d88c943df8ad11",
+                "measurementId": "G-NBEQP7BSPW"
+            },
+            {
+                "email": "linhka99@gmail.com",
+                "code": "topcv1s-7",
+                "for": "topcv1s",
+                "apiKey": "AIzaSyC5pwmTo_Aglsk1E_e5eO_1JP9GTpnq5lM",
+                "authDomain": "topcv1s-7.firebaseapp.com",
+                "projectId": "topcv1s-7",
+                "storageBucket": "topcv1s-7.appspot.com",
+                "messagingSenderId": "884296552517",
+                "appId": "1:884296552517:web:e1ca2c8bce19987975932c",
+                "measurementId": "G-5HV2023LT1"
+            },
+            {
+                "email": "linhka99@gmail.com",
+                "code": "topcv1s-8",
+                "for": "topcv1s",
+                "apiKey": "AIzaSyCKErWkseI1yZBZD2fOEJgAFv7ApVz7zt8",
+                "authDomain": "topcv1s-8.firebaseapp.com",
+                "projectId": "topcv1s-8",
+                "storageBucket": "topcv1s-8.appspot.com",
+                "messagingSenderId": "292736396400",
+                "appId": "1:292736396400:web:6955162fcc45c1b43f58b5",
+                "measurementId": "G-PSDTWW8R4J"
+            },
+            {
+                "email": "linhka99@gmail.com",
+                "code": "topcv1s-9",
+                "for": "topcv1s",
+                "apiKey": "AIzaSyCYt1aGdgbd34Z9_7rHAs9qFAcvUnu7a-8",
+                "authDomain": "topcv1s-9.firebaseapp.com",
+                "projectId": "topcv1s-9",
+                "storageBucket": "topcv1s-9.appspot.com",
+                "messagingSenderId": "489985298674",
+                "appId": "1:489985298674:web:764f1b8b39242fe433c06b",
+                "measurementId": "G-E1J1XNJFWK"
+            },
+            {
+                "email": "linhka99@gmail.com",
+                "code": "topcv1s-10",
+                "for": "topcv1s",
+                "apiKey": "AIzaSyBi_G_S8uOkzJ5ACt6ZvSvUss1vuIoTpxg",
+                "authDomain": "topcv1s-10.firebaseapp.com",
+                "projectId": "topcv1s-10",
+                "storageBucket": "topcv1s-10.appspot.com",
+                "messagingSenderId": "734517620150",
+                "appId": "1:734517620150:web:f57f593fd59aec6afba517",
+                "measurementId": "G-YR7NV4LQD2"
+            }
+        ]
+
+        // Insert each config into the collection
+        for (let i = 0; i < ListConfigFb.length; i++) {
+            const configData = ListConfigFb[i];
+
+            // Create new config object for insertion
+            const newConfig = new ConfigFireBaseOTP({
+                id: i + 1,
+                config: configData,
+                count: 0,
+                time_reset: 0
+            });
+
+            await newConfig.save();
+        }
+
+        return res.status(200).json({
+            message: 'Đã thêm cấu hình thành công'
+        });
+    } catch (error) {
+        return res.status(500).json({
+            error: error.message
+        });
+    }
+};
+
+// Hàm đăng kí tài khoản nhà tuyển dụng khi vượt qua validate (còn luồng TblPointCompany)
+const EmployersValidateSuccess = async (data, file, ip) => {
+    try {
+        const { phoneTK, email, password, nameCompany, city, descriptions, phone } = data;
+        const image = [];
+        let logo = '';
+        const time = functions.getTime();
+        if (file && file.Image) {
+            if (Array.isArray(file.Image)) {
+                for (let i = 0; i < file.Image.length; i++) {
+                    const element = file.Image[i];
+                    const date = functions.getDate();
+                    if (i === 0) {
+                        const checkUpload = await functions.uploadFile(`${date}`, element, time);
+                        if (!checkUpload) return false;
+                        logo = checkUpload;
+                    }
+                    const checkUpload = await functions.uploadFile(`images_company/${date}`, element, time);
+                    if (!checkUpload) return false;
+                    image.push(`${date}/${checkUpload}`);
+                }
+            } else return false;
+        }
+
+        const hashedPassword = functions.createMd5(password);
+        const alias = functions.createLinkTilte(nameCompany.trim());
+        const otp = functions.randomNumber();
+        const dataUpdate = {
+            'usc_pass': hashedPassword,
+            'usc_phone': phone,
+            'usc_security': '0',
+            'usc_authentic': '0',
+            'usc_company': nameCompany.trim(),
+            'usc_city': city,
+            'usc_district': "",
+            'usc_address': "",
+            'usc_alias': alias,
+            'ip_address': ip,
+            'usc_create_time': time,
+            'usc_update_time': time,
+            'usc_logo': logo,
+            'usc_skype': "",
+            'usc_index': 0,
+            'DateOfIncorporation': "",
+            'usc_mst': "",
+            'usc_loai_hinh': "",
+            'usc_otp': otp,
+            'usc_phone_tk': phoneTK,
+            'usc_name_email': email,
+            'usc_email': email,
+            'usc_company_info': descriptions,
+            'image_com': image.join(','),
+            'financial_sector': [{ id: '' }],
+            'baocao': 1,
+        };
+
+        const check = await UserCompany.findOneAndUpdate({ usc_phone_tk: phoneTK, usc_md5: { $ne: null } }, { usc_id: 1 }).lean();
+        if (check) {
+            await UserCompany.findOneAndUpdate({ usc_phone_tk: phoneTK }, dataUpdate);
+        } else {
+            var maxid1 = await functions.getMaxId(UserCompany, 'usc_id');
+            dataUpdate.usc_id = maxid1;
+            await UserCompany.create(dataUpdate);
+
+            let id_up = await functions.getMaxId(TblPointCompany, 'id_up');
+            // Thu dọn nếu tk mới trùng id với tk cũ bị xóa 
+            await TblPointCompany.deleteMany({
+                usc_id: maxid1
+            })
+            const listNewId = await New.distinct('new_id', { new_user_id: maxid1 })
+            if (listNewId.length > 0) {
+                await New.deleteMany({ new_id: { $in: listNewId } })
+                await NewGhimTin.deleteMany({ new_id: { $in: listNewId } })
+            }
+            await NopHoSo.deleteMany({ nhs_com_id: maxid1 })
+            await TblPointUsed.deleteMany({ usc_id: maxid1 })
+            await TblLuuHoSoUv.deleteMany({ id_ntd: maxid1 })
+            // Hết thu dọn 
+
+            await TblPointCompany.create({
+                id_up,
+                usc_id: maxid1,
+                point: 0,
+                point_usc: 0,
+                day_reset_point: 0,
+                day_end: 0
+            });
+        }
+
+        await UserCompanyError.deleteMany({ err_usc_phone_tk: phoneTK });
+
+        return true;
+    } catch (error) {
+        console.log(error.message)
+        return false;
+    }
+};
+
+// đăng ký nhà tuyển dụng
+export const RegisterEmployers = async (req, res, next) => {
+    try {
+        const phoneTK = req.body.phoneTK;
+        const email_notlower = req.body.email;
+        const password = req.body.password;
+        const rePassword = req.body.rePassword;
+        const nameCompany = req.body.nameCompany;
+        const city = Number(req.body.city);
+        const descriptions = req.body.descriptions;
+        const address = req.body.address;
+        const phone = req.body.phone;
+        const file = req.files;
+        const ip = req.ip;
+        const arrMessage = {};
+        const email = email_notlower.toLowerCase();
+        if (phoneTK && password && rePassword && nameCompany && city) {
+
+            const checkNameCom = await UserCompany.findOne({ usc_company: nameCompany, usc_md5: null }).lean();
+            const checkAddress = await UserCompany.findOne({ usc_address: address, usc_md5: null }).lean();
+            const checkTrung = await UserCompany.findOne({ usc_phone_tk: phoneTK, usc_md5: null }).lean();
+            const checkmail = await UserCompany.findOne({ usc_email: email }).lean();
+            const checkPhoneTK = await functions.checkPhone(phoneTK);
+            const checkPassWord = functions.checkPassWord(password);
+
+            if (!checkPhoneTK) return functions.setError(res, 'Nhập số điện thoại không hợp lệ', 400);
+            if (checkNameCom) arrMessage.nameCompany = `Tên công ty đã được đăng ký, vui lòng kiểm tra lại.`;
+            if (checkAddress) arrMessage.address = `Địa chỉ này đã được sử dụng. Bạn vui lòng nhập địa chỉ khác.`;
+            if (checkTrung) arrMessage.phoneTK = `Số điện thoại này đã được sử dụng, vui lòng kiểm tra lại.`;
+            if (checkmail) arrMessage.phoneTK = `Email này đã được sử dụng, vui lòng kiểm tra lại.`;
+            if (password !== rePassword) arrMessage.password = `Nhập password và re-password không khớp.`;
+            if (!checkPassWord) arrMessage.password = `Mật khẩu phải ít nhất 6 ký tự, bao gồm có ít nhất 1 chữ và 1 số.`;
+
+            if (JSON.stringify(arrMessage) !== '{}') {
+                return functions.setError(res, arrMessage, 400);
+            }
+            const checkRegister = await EmployersValidateSuccess(req.body, file, ip);
+            if (checkRegister) {
+                console.log(">>> CheckRegister")
+                const checkInfo = await UserCompany.findOne({ usc_phone_tk: phoneTK }, { usc_id: 1, usc_authentic: 1, usc_email: 1, usc_company: 1, usc_logo: 1 }).lean();
+                const token = await functions.createToken({ usc_id: checkInfo.usc_id, auth: checkInfo.usc_authentic, type: 1 }, '60d');
+
+                return functions.success(res, 'Register successfully', { token, checkInfo });
+            }
+            return functions.setError(res, 'Some error occurred', 400);
+        }
+
+        return functions.setError(res, "Missing data", 400);
+    } catch (error) {
+        console.log(error.message);
+        return functions.setError(res, error.message);
+    }
+};
+
+// đăng nhập nhà tuyển dụng
+export const Login = async (req, res, next) => {
+    try {
+        const username = req.body.userName;
+        const password = req.body.password;
+        const userName = username.toLowerCase();
+        if (userName && password) {
+            const hashedPassword = functions.createMd5(password);
+            const check = await UserCompany.findOne({
+                $or: [
+                    { usc_email: userName },
+                    { usc_phone_tk: userName }
+                ],
+                usc_pass: hashedPassword
+            }, {
+                usc_id: 1, usc_phone: 1, usc_phone_tk: 1, usc_email: 1,
+                usc_company: 1, usc_city: 1, usc_district: 1, usc_address: 1,
+                usc_authentic: 1, usc_logo: 1, usc_alias: 1, usc_create_time: 1, usc_company: 1, usc_logo: 1
+            }).lean();
+            if (check) {
+                const arrAPI = {
+                    from: 'tv365com',
+                    name: '',
+                    email: '',
+                    phone: "",
+                    address: "",
+                    city: "",
+                    district: "",
+                    group: "162",
+                };
+                const logo = functions.getAvatarNTD(check.usc_create_time, check.usc_logo);
+                await UserCompany.updateOne({ usc_id: check.usc_id }, { usc_time_signin: functions.getTime() });
+                const conditionsToken = { usc_id: check.usc_id, phone: check.usc_phone_tk, usc_email: check.usc_email, auth: check.usc_authentic, type: 1, usc_company: check.usc_company, logo };
+                const token = await functions.createToken(conditionsToken, '60d');
+                const reFreshToken = await functions.createToken(conditionsToken, '1y');
+                const time = new Date();
+                time.setMinutes(0);
+                time.setMilliseconds(0);
+                time.setSeconds(0);
+                const date1 = time.setHours(8);
+                const date2 = time.setHours(18);
+                const checkCRM = await UserCompanyCrm.findOne({
+                    usc_id: check.usc_id,
+                    time_created: {
+                        $gte: date1 / 1000,
+                        $lte: date2 / 1000
+                    }
+                }).lean();
+                if (8 <= new Date().getHours() && new Date().getHours() < 18) {
+                    if (checkCRM) {
+                        await UserCompanyCrm.updateOne({ id_crm: checkCRM.id_crm }, {
+                            usc_group: 162,
+                            use_status: 4,
+                            admin: 0,
+                            active: 0,
+                            time_created: functions.getTime()
+                        });
+                    } else {
+                        const id_crm = await functions.getMaxId(UserCompanyCrm, 'id_crm');
+                        await UserCompanyCrm.create({
+                            id_crm,
+                            usc_id: check.usc_id,
+                            usc_group: 162,
+                            use_status: 4,
+                            admin: 0,
+                            active: 1,
+                            time_created: functions.getTime()
+                        });
+                    }
+                } else {
+                }
+                const data = { token, reFreshToken, user: conditionsToken };
+
+                return functions.success(res, 'Đăng nhập thành công', data);
+            }
+            return functions.setError(res, 'Tài khoản hoặc mật khẩu không chính xác', 400);
+        }
+        return functions.setError(res, 'Nhập thiếu thông tin tài khoản hoặc mật khẩu', 400);
+    } catch (error) {
+        return functions.setError(res, error.message);
+    }
+};
+
+// !quên mật khẩu nhà tuyển dụng
+export const EmployersForgotPass = async (req, res, next) => {
+    try {
+        const username = req.body.phoneTK;
+        const phoneTK = username.toLowerCase();
+
+        if (phoneTK) {
+            const checkExists = await UserCompany.findOne({
+                $or: [
+                    { usc_email: phoneTK },
+                    { usc_phone_tk: phoneTK }
+                ]
+            }, {
+                usc_id: 1, usc_company: 1, usc_pass: 1, usc_email: 1,
+                usc_phone: 1, usc_city: 1, usc_district: 1, usc_address: 1, usc_kd_crm: 1
+            }).lean();
+            if (checkExists) {
+                const arrAPI = {
+                    from: 'tv365com',
+                    group: "156",
+                };
+                const otp = functions.randomNumber();
+                if (phoneTK.includes('@')) {
+                    const startDate = new Date(new Date().toISOString().slice(0, 10)).getTime() / 1000;
+                    const endDate = startDate + 24 * 60 * 60;
+
+                    const checkCountOtp = await HistoryCountOtp.find({
+                        user_id: checkExists.usc_id,
+                        usc_phone: phoneTK,  // Thay đổi thành email
+                        type: 2, // Loại gửi OTP qua email
+                        create_time: {
+                            $gte: startDate,
+                            $lte: endDate
+                        }
+                    }).lean();
+
+                    if (checkCountOtp.length < 5) {
+                        const id = await functions.getMaxId(HistoryCountOtp, 'id');
+                        await HistoryCountOtp.create({
+                            id,
+                            user_id: checkExists.usc_id,
+                            usc_phone: phoneTK,  // Lưu email thay vì số điện thoại
+                            send_otp: otp,
+                            create_time: functions.getTime(),
+                            type: 2  // Loại gửi OTP qua email
+                        });
+
+                        await UserCompany.updateOne({
+                            usc_email: phoneTK,
+                        }, { usc_otp: otp });
+
+                        // Gửi OTP qua email
+                        functions.SendOtpMail(phoneTK, otp)
+                        // const checkSend = await functions.sendMail(
+                        //     `Mã OTP lấy lại mật khẩu tài khoản`,
+                        //     phoneTK,
+                        //     checkExists.usc_company,
+                        //     otp, 
+                        //     4
+                        // );
+
+                        return functions.success(res, 'Hãy xác thực OTP.', { id: checkExists.usc_id });
+                    }
+                    return functions.setError(res, "Hết lượt gửi otp trong ngày.", 400);
+                } else {
+                    const startDate = new Date(new Date().toISOString().slice(0, 10)).getTime() / 1000;
+                    const endDate = startDate + 24 * 60 * 60;
+
+                    const checkCountOtp = await HistoryCountOtp.find({
+                        user_id: checkExists.usc_id,
+                        usc_phone: phoneTK,
+                        type: 0,
+                        create_time: {
+                            $gte: startDate,
+                            $lte: endDate
+                        }
+                    });
+
+                    if (checkCountOtp.length < 5) {
+                        const id = await functions.getMaxId(HistoryCountOtp, 'id');
+                        await HistoryCountOtp.create({
+                            id,
+                            user_id: checkExists.usc_id,
+                            usc_phone: phoneTK,
+                            send_otp: otp,
+                            create_time: functions.getTime(),
+                            type: 0
+                        });
+                        await UserCompany.updateOne({
+                            usc_phone_tk: phoneTK,
+                        }, { usc_otp: otp });
+                        functions.sendOtpSMS(phoneTK, otp);
+                        return functions.success(res, "Hãy xác thực OTP.", { id: checkExists.usc_id });
+                    }
+                    return functions.setError(res, 'Đã hết lượt gửi otp trong ngày', 400);
+                }
+            }
+            return functions.setError(res, 'Tài khoản không tồn tại, vui lòng kiểm tra lại.', 400);
+        }
+        return functions.setError(res, 'Nhập đầy đủ các trường', 400);
+    } catch (error) {
+        return functions.setError(res, error.message);
+    }
+};
+
+// đổi mật khẩu nhà tuyển dụng
+export const UpdatePasswordEmployers = async (req, res, next) => {
+    try {
+        const idNTD = req.idNTD;
+        const passwordOld = req.body.passwordOld;
+        const password = req.body.password;
+        const rePassword = req.body.password;
+        const type = Number(req.body.type);
+        if (type === 1) {
+            if (password && rePassword) {
+                const checkPassWord = functions.checkPassWord(password);
+                if (checkPassWord) {
+                    if (password === rePassword) {
+                        const hashedPassword = functions.createMd5(password);
+                        const checkUpdate = await UserCompany.findOneAndUpdate({
+                            usc_id: idNTD
+                        }, { usc_pass: hashedPassword });
+                        if (checkUpdate) {
+                            return functions.success(res, "Đổi mật khẩu thành công.");
+                        }
+                        return functions.setError(res, 'Không tìm thấy tài khoản.', 404);
+                    }
+                    return functions.setError(res, 'Nhập password và re-password không khớp.', 400);
+                }
+                return functions.setError(res, 'Mật khẩu phải ít nhất 6 ký tự, bao gồm có ít nhất 1 chữ và 1 số.', 400);
+            }
+            return functions.setError(res, 'Missing data', 400);
+        } else {
+            if (password && rePassword && idNTD && passwordOld) {
+                const hashOldPass = functions.createMd5(passwordOld);
+                const checkExists = await UserCompany.findOne({ usc_id: idNTD, usc_pass: hashOldPass }).lean();
+                if (checkExists) {
+                    const checkPassWord = functions.checkPassWord(password);
+                    if (checkPassWord) {
+                        if (password === rePassword) {
+                            const hashedPassword = functions.createMd5(password);
+                            const checkUpdate = await UserCompany.findOneAndUpdate({
+                                usc_id: idNTD
+                            }, { usc_pass: hashedPassword });
+                            if (checkUpdate) {
+                                return functions.success(res, "Đổi mật khẩu thành công.");
+                            }
+                            return functions.setError(res, 'Không tìm thấy tài khoản.', 404);
+                        }
+                        return functions.setError(res, 'Nhập password và re-password không khớp.', 400);
+                    }
+                    return functions.setError(res, 'Mật khẩu phải ít nhất 6 ký tự, bao gồm có ít nhất 1 chữ và 1 số.', 400);
+                }
+                return functions.setError(res, 'Mật khẩu không chính xác', 400);
+            }
+            return functions.setError(res, 'Missing data', 400);
+        }
+    } catch (error) {
+        return functions.setError(res, error.message);
+    }
+};
+
+// lấy thông tin tài khoản
+export const infoNTD = async (req, res, next) => {
+    try {
+        const idNTD = req.idNTD;
+        const data = await UserCompany.findOne({
+            usc_id: idNTD
+        }, {
+            usc_email: 1,
+            usc_phone_tk: 1,
+            usc_company: 1,
+            usc_boss: 1,
+            usc_size: 1,
+            usc_phone: 1,
+            usc_mst: 1,
+            financial_sector: 1,
+            DateOfIncorporation: 1,
+            usc_skype: 1,
+            usc_website: 1,
+            usc_city: 1,
+            usc_district: 1,
+            usc_address: 1,
+            usc_company_info: 1,
+            image_com: 1,
+            usc_name: 1,
+            usc_name_add: 1,
+            usc_name_phone: 1,
+            usc_name_email: 1,
+            usc_create_time: 1,
+            usc_logo: 1,
+        }).lean();
+        if (data.DateOfIncorporation != 0) data.DateOfIncorporation = new Date(data.DateOfIncorporation * 1000);
+        data.usc_logo = functions.getAvatarNTD(data.usc_create_time, data.usc_logo);
+        data.image_com = functions.getImageNTD(data.image_com);
+        data.usc_create_time = new Date(data.usc_create_time * 1000);
+        const point = await TblPointCompany.findOne({ usc_id: idNTD }, { point_usc: 1 }).lean();
+        const endPoint = point ? point.point_usc : 0;
+        return functions.success(res, 'get data success', { point: endPoint, data });
+    } catch (error) {
+        return functions.setError(res, error.message);
+    }
+};
+
+// !cập nhật thông tin (Chưa cập nhật nhà tuyển dụng sang các site khác)
+export const UpdateInfoEmployers = async (req, res, next) => {
+    try {
+        const idNTD = req.idNTD;
+
+        // Tên công ty
+        const nameCompany = req.body.nameCompany;
+
+        // Tổng giám đốc
+        const usc_boss = req.body.usc_boss;
+
+        // Quy mô công ty
+        const quyMo = Number(req.body.quyMo);
+
+        // Số điện thoại cố định
+        const phone = req.body.phone;
+
+        // Mã số thuế
+        const mst = req.body.mst;
+
+        // Lĩnh vực hoạt động
+        const financial_sector = req.body.financial_sector;
+
+        // Ngày thành lập công ty
+        const DateOfIncorporation = req.body.DateOfIncorporation;
+
+        // Skype
+        const skype = req.body.skype;
+
+        // Website
+        const website = req.body.website;
+
+        // Thành phố
+        const city = req.body.city;
+
+        // Quận huyện
+        const district = req.body.district;
+
+        // Địa chỉ
+        const address = req.body.address;
+
+        // Giới thiệu về công ty
+        const inforCompany = req.body.inforCompany;
+
+        // Image
+        const file = req.files;
+
+        // Người liên hệ
+        const nameContact = req.body.nameContact;
+
+        // Địa chỉ liên hệ
+        const addressContact = req.body.addressContact;
+
+        // Số điện thoại liên hệ
+        const phoneContact = req.body.phoneContact;
+
+        // Email liên hệ 
+        const emailContact = req.body.emailContact;
+
+        // List link ảnh đã có (gửi lại để kiểm tra xem giữ ảnh nào, xóa ảnh nào)
+        const existImage = req.body.existImage;
+
+        if (nameCompany && phone && inforCompany && nameContact && addressContact && phoneContact && emailContact) {
+            const arrMessage = {};
+            var messageCheck = '';
+            const checkNameCom = await UserCompany.findOne({ usc_company: nameCompany, usc_md5: null, usc_id: { $ne: idNTD } }).lean();
+            const checkTrung = await UserCompany.findOne({ usc_phone: phoneContact, usc_md5: null, usc_id: { $ne: idNTD } }).lean();
+            const checkPhone = await functions.checkPhone(phoneContact);
+            const checkEmail = await functions.checkEmail(emailContact);
+            const checkAlias = await functions.checkAlias(nameCompany.trim(), idNTD)
+            console.log(checkAlias)
+            console.log(nameCompany)
+            if (!checkEmail) messageCheck = "Nhập email không hợp lệ, vui lòng kiểm tra lại.";
+            if (!checkPhone) messageCheck = "Nhập số điện thoại không hợp lệ, vui lòng kiểm tra lại.";
+            if (checkNameCom) messageCheck = "Tên công ty đã được đăng ký, vui lòng kiểm tra lại.";
+            if (checkTrung) messageCheck = "Số điện thoại này đã được sử dụng, vui lòng kiểm tra lại.";
+            if (checkAlias) messageCheck = `Tên công ty bị trùng với ${checkAlias}. Vui lòng kiểm tra lại.`;
+            if (messageCheck !== '') {
+                return functions.setError(res, messageCheck, 400);
+            }
+            const checkExists = await UserCompany.findOne({ usc_id: idNTD }, { usc_create_time: 1, usc_logo: 1, image_com: 1 }).lean();
+
+            console.log('existImage', existImage)
+            let exist_image = existImage && typeof existImage === 'string' ? existImage.split(',') : []
+            console.log('anh ', exist_image)
+            if (exist_image.length > 0) {
+                exist_image = exist_image.map(link => link.replace(/.*images_company\//, ""))
+            }
+            console.log('exist_image', exist_image)
+            let image = exist_image;
+            console.log('image', image);
+            const time = functions.getTime();
+            // Nếu có ảnh mới 
+            if (file && file.Image) {
+                if (Array.isArray(file.Image)) {
+                    for (let i = 0; i < file.Image.length; i++) {
+                        const element = file.Image[i];
+                        const date = functions.getDate(checkExists.usc_create_time * 1000);
+                        const checkUpload = await functions.uploadFile(`images_company/${date}`, element, time);
+                        if (!checkUpload) return functions.setError(res, 'Upload thất bại', 400);
+                        image.push(`${date}/${checkUpload}`);
+                    }
+
+                    // Xóa ảnh cũ
+                    const oldImage = checkExists.image_com
+                    if (oldImage && typeof oldImage === 'string') {
+                        const old_image = oldImage.split(",")
+                        const del_image = old_image.filter(img => !image.includes(img))
+                        console.log(del_image)
+                        if (Array.isArray(del_image)) {
+                            for (let i = 0; i < del_image.length; i++) {
+                                const element = del_image[i];
+                                functions.deleteFile(`./pictures/images_company/${element}`)
+                            }
+                        }
+                    }
+                    image = image.join(',');
+                    // console.log('image', image);
+                    await UserCompany.findOneAndUpdate({ usc_id: idNTD }, { "image_com": image });
+                } else return functions.setError(res, 'Upload thất bại', 400);
+            } else if (exist_image) {
+                // console.log('exist_image', exist_image);
+                // Xóa ảnh cũ
+                const oldImage = checkExists.image_com
+                if (oldImage && typeof oldImage === 'string') {
+                    const old_image = oldImage.split(",")
+                    const del_image = old_image.filter(img => !exist_image.includes(img))
+                    if (Array.isArray(del_image)) {
+                        for (let i = 0; i < del_image.length; i++) {
+                            const element = del_image[i];
+                            functions.deleteFile(`./pictures/images_company/${element}`)
+                        }
+                    }
+                }
+                await UserCompany.findOneAndUpdate({ usc_id: idNTD }, { "image_com": exist_image.join(',') });
+            }
+
+            if (file && file.Logo) {
+                const date = functions.getDate(checkExists.usc_create_time * 1000);
+                const checkUpload = await functions.uploadFile(`${date}`, file.Logo, time);
+                functions.deleteFile(`./pictures/${date}/${checkExists.usc_logo}`);
+                if (!checkUpload) return functions.setError(res, 'Upload logo thất bại', 400);
+                await UserCompany.findOneAndUpdate({ usc_id: idNTD }, { "usc_logo": checkUpload });
+            }
+
+            const arrFinanSector = [];
+            if (Array.isArray(financial_sector) && financial_sector.length > 0) {
+                financial_sector.map(item => arrFinanSector.push({ id: item.trim() }))
+            }
+
+            const fields = {
+                usc_company: nameCompany.trim(),
+                usc_size: quyMo,
+                usc_address: address,
+                usc_city: city,
+                usc_district: district,
+                usc_phone: phone,
+                usc_website: website,
+                usc_mst: mst,
+                usc_update_time: time,
+                usc_skype: skype,
+                DateOfIncorporation: new Date(DateOfIncorporation).getTime() / 1000,
+                usc_name: nameContact,
+                usc_name_add: addressContact,
+                usc_name_phone: phoneContact,
+                usc_name_email: emailContact,
+                usc_company_info: inforCompany,
+                financial_sector: arrFinanSector,
+                usc_boss: usc_boss,
+                usc_alias: functions.createLinkTilte2(nameCompany.trim())
+            };
+            await UserCompany.findOneAndUpdate({ usc_id: idNTD }, fields);
+            const checkCRM = await UserCompany.findOne({ usc_id: idNTD }, { usc_email: 1, usc_kd_crm: 1 }).lean();
+            const conditions = {
+                name: nameCompany,
+                email: checkCRM.usc_email,
+                phone: phone,
+                address: address,
+                city,
+                district,
+                group: 156,
+                ep_id: checkCRM.usc_kd_crm
+            };
+            const dataUpdate = {
+                'email': checkCRM.usc_email,
+                'name_ntd': nameCompany,
+                'city_id': city,
+                'district_id': district,
+                'address': address,
+                'phone': phone,
+            };
+
+            return functions.success(res, "Cập nhật thông tin thành công");
+        }
+        return functions.setError(res, 'Missing data', 400);
+    }
+    catch (error) {
+        return functions.setError(res, error.message);
+    }
+};
+
+// đăng kí tài khoản ứng viên theo luồng chính (bước 1)
+export const RegisterCandidate = async (req, res, next) => {
+    try {
+        const phoneTK = req.body.phoneTK;
+        const password = req.body.password;
+        const rePassword = req.body.rePassword;
+        const jobName = req.body.jobName;
+        const nganhNghe = req.body.nganhNghe;
+        const jobCity = req.body.jobCity;
+        const name = req.body.name;
+        const jobDistrict = req.body.jobDistrict;
+        if (phoneTK && password && rePassword && jobName && nganhNghe && jobCity && name && jobDistrict) {
+            const checkPhoneTK = await functions.checkPhone(phoneTK);
+            if (checkPhoneTK) {
+                const checkPassWord = functions.checkPassWord(password);
+                if (checkPassWord) {
+                    const checkExists = await Users.findOne({ use_phone_tk: phoneTK }, { use_phone_tk: 1 }).lean();
+                    if (!checkExists) {
+                        // Luồng mới: Đăng ký bước 1 là đăng ký luôn 
+
+                        const check = await TmpUser.findOne({ tmp_phone_tk: phoneTK }, { tmp_id: 1 }).lean();
+                        if (check) {
+                            const checkRegister = await candidateDidRegister(req.body, check.tmp_id, req.files);
+                            if (checkRegister === false) {
+                
+                                return functions.setError(res, "Ảnh không hợp lệ", 400);
+                            }
+                            return functions.success(res, "Lưu thông tin thành công, vui lòng chọn 1 trong 2 cách sau để hoàn thiện hồ sơ", { data: check.tmp_id });
+                        } else {
+                            const checkRegister = await candidateRegister(req.body, req.files);
+                            if (checkRegister === false) {
+                
+                                return functions.setError(res, "Ảnh không hợp lệ", 400);
+                            }
+                            return functions.success(res, "Lưu thông tin thành công, vui lòng chọn 1 trong 2 cách sau để hoàn thiện hồ sơ", { data: checkRegister });
+                        }
+                    }
+    
+                    return functions.setError(res, "Số điện thoại này đã được sử dụng, vui lòng kiểm tra lại.", 400);
+                }
+
+                return functions.setError(res, 'Mật khẩu phải ít nhất 6 ký tự, bao gồm có ít nhất 1 chữ và 1 số.', 400);
+            }
+            return functions.setError(res, "Nhập đúng định dạng số điện thoại.", 400);
+        }
+        return functions.setError(res, 'Cần nhập đầy đủ thông tin.', 400);
+    } catch (error) {
+        return functions.setError(res, error.message);
+    }
+};
+
+export const RegisterCandidate2 = async (req, res, next) => {
+    try {
+        const phoneTK = req.body.phoneTK;
+        const password = req.body.password;
+        const rePassword = req.body.rePassword;
+        const jobName = req.body.jobName;
+        const nganhNghe = req.body.nganhNghe;
+        const jobCity = req.body.jobCity;
+        const name = req.body.name;
+        const jobDistrict = req.body.jobDistrict;
+        const email_notlower = req.body.email;
+        const email = email_notlower.toLowerCase();
+        const files = req.files;
+
+        if (phoneTK && password && rePassword && jobName && nganhNghe && jobCity && name && jobDistrict && email) {
+            const checkPhoneTK = await functions.checkPhone(phoneTK);
+            const checkPassWord = functions.checkPassWord(password);
+            const checkExistsEmail = await Users.findOne({ use_mail: email }, { use_mail: 1 }).lean();
+            const checkExistsPhone = await Users.findOne({ use_phone_tk: phoneTK }, { use_phone_tk: 1 }).lean();
+            if (!checkPhoneTK) {
+                return functions.setError(res, "Nhập đúng định dạng số điện thoại.", 400);
+            }
+            if (!checkPassWord) {
+                return functions.setError(res, 'Mật khẩu phải ít nhất 6 ký tự, bao gồm có ít nhất 1 chữ và 1 số.', 400);
+            }
+            if (checkExistsEmail) {
+                return functions.setError(res, "Email này đã được sử dụng, vui lòng kiểm tra lại.", 400);
+            }
+            if (checkExistsPhone) {
+                return functions.setError(res, "Số điện thoại này đã được sử dụng, vui lòng kiểm tra lại.", 400);
+            }
+
+            // Tạo tk 
+            const arrCityJob = [];
+            const arrNganhNghe = [];
+            const arrDistrictJob = [];
+            const date = functions.getDate()
+            const time = functions.getTime()
+            const use_id = await functions.getMaxId(Users, 'use_id');
+
+            if (typeof nganhNghe === 'string' && nganhNghe !== "") {
+                nganhNghe.split(',').filter((item) => !isNaN(Number(item.trim()))).map(item => arrNganhNghe.push({ id: item.trim() }))
+            }
+            if (typeof jobCity === 'string' && jobCity !== "") {
+                jobCity.split(',').filter((item) => !isNaN(Number(item.trim()))).map(item => arrCityJob.push({ id: item.trim() }))
+            }
+            if (typeof jobDistrict === 'string' && jobDistrict !== "") {
+                jobDistrict.split(',').filter((item) => !isNaN(Number(item.trim()))).map(item => arrDistrictJob.push({ id: item.trim() }))
+            }
+
+            let logo = ''
+            if (files && files.Image) {
+                logo = await functions.uploadFile(`${date}`, files.Image, time, ['.jpg', '.png', '.jpeg', '.gif', '.jfif', '.png'])
+                if (logo === false) {
+                    return functions.setError(res, "Ảnh không hợp lệ", 400);
+                }
+            }
+
+            await Users.create({
+                use_id,
+                use_phone_tk: phoneTK,
+                use_pass: functions.createMd5(password),
+                use_time: time,
+                use_authentic: 0,
+                use_job_name: jobName,
+                use_city_job: arrCityJob,
+                use_nganh_nghe: arrNganhNghe,
+                use_create_time: time,
+                use_update_time: time,
+                use_config: 3,
+                use_logo: logo,
+                use_email_contact: email,
+                // birthday: new Date(birthday).getTime() / 1000,
+                // exp_years: exp,
+                use_show: 1,
+                use_name: name,
+                use_district_job: arrDistrictJob,
+                use_mail: email,
+            })
+
+            // Trong trường hợp tk mới trùng id tk cũ bị xóa 
+            await candidateCleanUp(use_id)
+
+            const Token = await functions.createToken({ use_id, phone: phoneTK, type: 2, auth: 0, userName: name }, '60d');
+
+            return functions.success(res, 'Đăng ký thành công', {
+                Token,
+                use_id,
+                phone: phoneTK,
+                email: email,
+                use_mail: email,
+                type: 2,
+                auth: 0,
+                userName: name,
+                use_logo: functions.getAvatarCandi(time, logo),
+                usc_search: 1,
+            })
+        }
+        return functions.setError(res, 'Cần nhập đầy đủ thông tin.', 400);
+    } catch (error) {
+        return functions.setError(res, error.message);
+    }
+}
+
+// hàm xử lí logic đăng kí ứng viên bước 1 nếu ứng viên đã từng đăng kí 
+const candidateDidRegister = async (data, tmp_id, file) => {
+    try {
+        let logo = '';
+
+        const time = functions.getTime();
+        if (file && file.Image) {
+            const date = functions.getDate();
+            logo = await functions.uploadFile(`tmp_uv/${date}`, file.Image, time, ['.jpg', '.png', '.jpeg', '.gif', '.jfif', '.png']);
+            if (logo === false) return false;
+            const checkImage = await TmpUser.findOne({ tmp_id }, { tmp_image: 1, tmp_time: 1 }).lean();
+            if (checkImage.tmp_image) {
+                const date = new Date(checkImage.tmp_time * 1000).toISOString().slice(0, 10).replaceAll('-', '/');
+                functions.deleteFile(`./pictures/tmp_uv/${date}/${checkImage.tmp_image}`);
+            }
+            await TmpUser.updateOne({ tmp_phone_tk: data.phoneTK }, { tmp_image: logo });
+        }
+
+        await TmpUser.updateOne({ tmp_phone_tk: data.phoneTK }, {
+            tmp_pass: functions.createMd5(data.password),
+            tmp_phone: data.phoneTK,
+            tmp_job_name: data.jobName,
+            tmp_job_city: Array.isArray(data.jobCity) ? data.jobCity.join(',') : `${data.jobCity}`,
+            tmp_nganh_nghe: Array.isArray(data.nganhNghe) ? data.nganhNghe.join(',') : `${data.nganhNghe}`,
+            tmp_time: functions.getTime(),
+            tmp_job_district: Array.isArray(data.jobDistrict) ? data.jobDistrict.join(',') : `${data.jobDistrict}`
+        });
+        return true;
+    } catch (error) {
+        return false;
+    }
+};
+
+// hàm xử lí logic đăng kí ứng viên bước 1 nếu ứng viên chưa từng đăng kí 
+const candidateRegister = async (data, file) => {
+    try {
+        let logo = '';
+        const time = functions.getTime();
+
+        if (file && file.Image) {
+            const date = functions.getDate();
+            logo = await functions.uploadFile(`tmp_uv/${date}`, file.Image, time, ['.jpg', '.png', '.jpeg', '.gif', '.jfif', '.png']);
+            if (logo === false) return false;
+        }
+
+        const db_max_id = await TmpUser.findOne({}, { tmp_emp: 1 }).sort({ tmp_id: -1 }).lean();
+        const last_val = db_max_id ? db_max_id.tmp_emp : 0;
+
+        let new_val = 0;
+        let key = 0;
+        let emp_id = 0;
+
+        const tmp_id = await functions.getMaxId(TmpUser, 'tmp_id');
+        await TmpUser.create({
+            tmp_id,
+            tmp_phone_tk: data.phoneTK,
+            tmp_pass: functions.createMd5(data.password),
+            tmp_job_name: data.jobName,
+            tmp_job_city: Array.isArray(data.jobCity) ? data.jobCity.join(',') : `${data.jobCity}`,
+            tmp_nganh_nghe: Array.isArray(data.nganhNghe) ? data.nganhNghe.join(',') : `${data.nganhNghe}`,
+            tmp_time: functions.getTime(),
+            tmp_emp: new_val,
+            tmp_image: logo,
+            tmp_authentic: 0,
+            tmp_name: data.name,
+            tmp_job_district: Array.isArray(data.jobDistrict) ? data.jobDistrict.join(',') : `${data.jobDistrict}`
+        });
+        const arrAPI = {
+            name: "Chưa cập nhật",
+            city: 0,
+            email: "",
+            district: 0,
+            address: "Chưa cập nhật",
+            phone: data.phoneTK,
+            ep_id: emp_id,
+            id_cus_from: tmp_id,
+            resoure: 3,
+            status: 12,
+            from: "uv365com",
+            group: 200,
+            type: 2,
+        };
+        functions.addUvCRM(arrAPI, tmp_id);
+        return tmp_id;
+    } catch (error) {
+        console.log(error.message)
+        return false;
+    }
+};
+
+// Hàm dọn dẹp nếu ứng viên bị xóa thủ công
+const candidateCleanUp = async (iduv) => {
+    try {
+        if (iduv && !isNaN(Number(iduv))) {
+            const use_id = Number(iduv)
+            // if (!isNaN(use_id)) {
+            // const checkExist = await Users.findOne({ use_id: use_id })
+            // if (checkExist) {
+            // Xóa CV 
+            await SaveCandidateCv.deleteMany({ iduser: use_id })
+            await UserCvUpload.deleteMany({ use_id: use_id })
+            await UserVidUpload.deleteMany({ use_id: use_id })
+            // Xóa hồ sơ ứng tuyển 
+            await NopHoSo.deleteMany({ nhs_use_id: use_id })
+            // Xóa ứng viên đã lưu 
+            await TblLuuHoSoUv.deleteMany({ id_uv: use_id })
+            // Xóa thông tin cá nhân (4 mục)
+            await UserHocVan.deleteMany({ use_id: use_id })
+            await UseNgoaiNgu.deleteMany({ use_id: use_id })
+            await UseKinhNghiem.deleteMany({ use_id: use_id })
+            await UserThamChieu.deleteMany({ id_user: use_id })
+            // }
+            // }
+        }
+    } catch (error) {
+        console.log('candidateCleanUp\n', error);
+    }
+}
+
+// đăng kí tài khoản ứng viên bước 2 (tạo cv online)
+export const CandidateRegisterByCVOnline = async (req, res, next) => {
+    try {
+        const id = req.body.id;
+        const cv = req.body.cv;
+        // console.log(cv)
+        const idcv = req.body.idcv;
+        const lang = req.body.lang;
+        let linkNew = '';
+        const height_cv = req.body.height_cv;
+        const arrCityJob = [];
+        const arrNganhNghe = [];
+        const arrDistrictJob = [];
+        if (id && cv && idcv && lang) {
+            const check = await TmpUser.findOne({ tmp_id: id }).lean();
+            if (check) {
+                const { tmp_phone_tk, tmp_pass, tmp_job_name, tmp_job_city, tmp_time, tmp_nganh_nghe, tmp_job_district } = check;
+                let tmp_image = check.tmp_image;
+                const data = JSON.parse(cv).avatar;
+                const JsonCV = JSON.parse(cv);
+                const use_id = await functions.getMaxId(Users, 'use_id');
+                if (tmp_job_city !== "") {
+                    tmp_job_city.split(',').map(item => arrCityJob.push({ id: item.trim() }));
+                }
+                if (tmp_nganh_nghe !== "") {
+                    tmp_nganh_nghe.split(',').map(item => arrNganhNghe.push({ id: item.trim() }));
+                }
+                if (tmp_job_district !== "") {
+                    tmp_job_district.split(',').map(item => arrDistrictJob.push({ id: item.trim() }));
+                }
+                const date = functions.getDate(tmp_time * 1000);
+                if (tmp_image && tmp_image !== "" && data == "/images/cv/mau-cv/no_avatar.jpg") {
+                    const path = `./pictures/tmp_uv/${date}/${tmp_image}`;
+                    const pathNew = `./pictures/${date}/${tmp_image}`;
+                    await functions.copyFile(path, pathNew, `./pictures/${date}`);
+                    functions.deleteFile(path);
+                }
+
+                if (data !== "/images/cv/mau-cv/no_avatar.jpg") {
+                    if (tmp_image && tmp_image !== "") {
+                        const path = `./pictures/tmp_uv/${date}/${tmp_image}`;
+                        functions.deleteFile(path);
+                    }
+                    const nameFileOld = data.split('/').pop();
+                    linkNew = `./upload/cv_uv/uv_${use_id}/${nameFileOld}`;
+                    tmp_image = `./pictures/${date}/${nameFileOld}`;
+                    await functions.copyFile(`./tmp/${nameFileOld}`, linkNew, `./upload/cv_uv/uv_${use_id}`);
+                    await functions.copyFile(`./tmp/${nameFileOld}`, tmp_image, `./pictures/${date}`);
+                    tmp_image = nameFileOld;
+                    JsonCV.avatar = `${process.env.DOMAIN_API}/upload/cv_uv/uv_${use_id}/${nameFileOld}`;
+                    functions.deleteFile(`./tmp/${nameFileOld}`);
+                }
+                const time = functions.getTime();
+                const userName = JSON.parse(cv).name.replaceAll('+', ' ');
+                await Users.create({
+                    use_id,
+                    use_phone_tk: tmp_phone_tk,
+                    use_pass: tmp_pass,
+                    use_time: tmp_time,
+                    use_authentic: 0,
+                    use_job_name: tmp_job_name,
+                    use_city_job: arrCityJob,
+                    use_nganh_nghe: arrNganhNghe,
+                    use_create_time: tmp_time,
+                    use_update_time: tmp_time,
+                    use_config: 3,
+                    tmp_id: id,
+                    use_logo: tmp_image,
+                    use_name: userName,
+                    use_district_job: arrDistrictJob,
+                });
+
+                // Trong trường hợp tk mới trùng id tk cũ bị xóa 
+                await candidateCleanUp(use_id)
+
+                const idSave = await functions.getMaxId(SaveCandidateCv, 'id');
+                await SaveCandidateCv.create({
+                    id: idSave,
+                    iduser: use_id,
+                    idcv,
+                    lang,
+                    html: JSON.stringify(JsonCV),
+                    nameimg: linkNew != '' ? linkNew.replace('.', '..') : null,
+                    status: 2,
+                    cv: 0,
+                    createdate: time,
+                    height_cv,
+                    name_cv_hide: `u_cv_hide_${time}.png`,
+                    name_cv: `u_cv_${time}.png`,
+                    cv_order: 0
+                });
+
+                await TmpUser.deleteOne({ tmp_id: id });
+                const Token = await functions.createToken({ use_id, phone: tmp_phone_tk, type: 2, auth: 0, userName }, '60d');
+
+                // Tạm thời chưa cần xác thực (hiện không dùng)
+                await UserTempNoAuth.deleteMany({ use_id: use_id })
+                await UserTempNoAuth.create({
+                    use_id: use_id,
+                    token: Token,
+                })
+
+                const linkHide = `http://localhost:9020/xem-cv-u${use_id}-c${idcv}-t1`;
+                const linkNoHide = `http://localhost:9020/xem-cv-u${use_id}-c${idcv}-t0`;
+
+                functions.renderImageFromUrl(
+                    linkHide,
+                    `./upload/cv_uv/uv_${use_id}`,
+                    `./upload/cv_uv/uv_${use_id}/u_cv_hide_${time}.png`,
+                    use_id);
+                functions.renderImageFromUrl(
+                    linkNoHide,
+                    `./upload/cv_uv/uv_${use_id}`,
+                    `./upload/cv_uv/uv_${use_id}/u_cv_${time}.png`,
+                    use_id);
+
+                const link = `http://localhost:9020/xem-cv2-u${use_id}-c${idcv}`;
+                // functions.renderPdfFromUrl(link, use_id, idcv);
+
+                let base64StringPDF = ""
+                let pdf = await functions.renderPdfFromUrlNew(link)
+                if (pdf.result) {
+                    let buffer = pdf.file
+                    buffer = new Buffer.from(buffer, "base64");
+                    base64StringPDF = buffer.toString("base64");
+
+                }
+
+
+                // Đồng bộ ứng viên 
+                await functions.addUvToVn(
+                    use_id,
+                    userName,
+                    tmp_phone_tk,
+                    tmp_pass,
+                    JsonCV?.position || "",
+                    tmp_nganh_nghe,
+                    tmp_job_city,
+                    JsonCV?.menu[0]?.content?.content?.content?.address || "",
+                    JsonCV?.menu[0]?.content?.content?.content?.email || "",
+                    3,
+                    1,
+                    JsonCV?.avatar || '',
+                    `${process.env.DOMAIN_API}/upload/cv_uv/uv_${use_id}/u_cv_${time}.png`,
+                    `${process.env.DOMAIN_API}/upload/cv_uv/uv_${use_id}/u_cv_hide_${time}.png`,
+                    tmp_job_city && tmp_job_city.split(',')[0],
+                    tmp_job_district && tmp_job_district.split(',')[0],
+                    JsonCV?.menu[0]?.content?.content?.content?.address || "",
+                    functions.getTime(new Date(JsonCV?.menu[0]?.content?.content?.content?.birthday || "")),
+                    `${process.env.DOMAIN_API}`,
+                    JSON.stringify(JsonCV),
+                    tmp_time,
+                    0
+                )
+
+                return functions.success(res,
+                    'Đăng ký tài khoản thành công',
+                    {
+                        Token,
+                        use_id,
+                        phone: tmp_phone_tk,
+                        type: 2,
+                        auth: 0,
+                        userName,
+                        use_logo: functions.getAvatarCandi(tmp_time, tmp_image),
+                        usc_search: 1,
+                        base64StringPDF
+                    });
+            }
+            return functions.setError(res, "Bạn cần đăng kí bước 1 trước", 400);
+        }
+        return functions.setError(res, "Missing data", 400);
+    } catch (error) {
+        console.log(error.message)
+        return functions.setError(res, error.message);
+    }
+};
+
+// đăng kí tài khoản ứng viên bước 2 (tải cv)(hỏi đ.c Long chuyên viên tạo ứng viên)
+export const CandidateRegisterByUploadCV = async (req, res, next) => {
+    try {
+        const id = req.body.id;
+        const file = req.files;
+        const birthday = req.body.birthday;
+        const exp = req.body.exp;
+        const bangcap = req.body.bangcap;
+        let type = req.body.type; // 1 - file, 2 - video
+        if (!type) type = 1
+        if (file && file.CV && birthday && exp && bangcap && id) {
+            const check = await TmpUser.findOne({ tmp_id: id }).lean();
+            if (check) {
+                const { tmp_phone_tk, tmp_pass, tmp_job_name, tmp_name, tmp_job_city, tmp_image, tmp_phone, tmp_time, tmp_nganh_nghe, tmp_job_district } = check;
+                const date = functions.getDate();
+                const time = functions.getTime();
+                const use_id = await functions.getMaxId(Users, 'use_id');
+                const upload = type == 1 ? (await functions.uploadCV(`uv_${use_id}`, file.CV, time)) : (await functions.uploadVideo(`uv_vid_${use_id}`, file.CV, time))
+                if (upload === false) return functions.setError(res, 'Định dạng không hợp lệ', 400);
+                if (tmp_image && tmp_image !== "") {
+                    const date = functions.getDate(tmp_time * 1000);
+                    const path = `./pictures/tmp_uv/${date}/${tmp_image}`;
+                    const pathNew = `./pictures/${date}/${tmp_image}`;
+                    await functions.copyFile(path, pathNew, `./pictures/${date}/`);
+                    functions.deleteFile(path);
+                }
+                // const use_id = await functions.getMaxId(Users, 'use_id');
+                const arrCityJob = [];
+                const arrNganhNghe = [];
+                const arrDistrictJob = [];
+                if (tmp_job_city !== "") {
+                    tmp_job_city.split(',').map(item => arrCityJob.push({ id: item.trim() }));
+                }
+                if (tmp_nganh_nghe !== "") {
+                    tmp_nganh_nghe.split(',').map(item => arrNganhNghe.push({ id: item.trim() }));
+                }
+                if (tmp_job_district !== "") {
+                    tmp_job_district.split(',').map(item => arrDistrictJob.push({ id: item.trim() }));
+                }
+                await Users.create({
+                    use_id,
+                    use_phone_tk: tmp_phone_tk,
+                    use_pass: tmp_pass,
+                    use_time: tmp_time,
+                    use_authentic: 0,
+                    use_job_name: tmp_job_name,
+                    use_city_job: arrCityJob,
+                    use_nganh_nghe: arrNganhNghe,
+                    use_create_time: tmp_time,
+                    use_update_time: tmp_time,
+                    use_config: 3,
+                    tmp_id: id,
+                    use_logo: tmp_image,
+                    birthday: new Date(birthday).getTime() / 1000,
+                    exp_years: exp,
+                    use_show: 1,
+                    use_name: tmp_name,
+                    use_district_job: arrDistrictJob,
+                });
+
+                // Trong trường hợp tk mới trùng id tk cũ bị xóa 
+                await candidateCleanUp(use_id)
+
+                const id_hocvan = await functions.getMaxId(UserHocVan, 'id_hocvan');
+                await UserHocVan.create({
+                    id_hocvan,
+                    use_id,
+                    bang_cap: bangcap
+                });
+                let idupload = 0
+                if (type == 1) {
+                    const id_upload = await functions.getMaxId(UserCvUpload, 'id_upload');
+                    await UserCvUpload.create({
+                        id_upload,
+                        use_id,
+                        link: upload,
+                        timecreate: time
+                    });
+                    functions.hideInfoCV(id_upload, `${process.env.DOMAIN_API}/${upload}`, UserCvUpload);
+                    idupload = id_upload
+                } else {
+                    const id_upload = await functions.getMaxId(UserVidUpload, 'id_upload');
+                    await UserVidUpload.create({
+                        id_upload,
+                        use_id,
+                        link: upload,
+                        timecreate: time
+                    })
+                    idupload = id_upload
+                }
+
+                const id_thamchieu = await functions.getMaxId(UserThamChieu, 'id_thamchieu');
+                await UserThamChieu.create({ id_thamchieu, id_user: use_id });
+                await TmpUser.deleteOne({ tmp_id: id });
+                const Token = await functions.createToken({ use_id, phone: tmp_phone_tk, type: 2, auth: 0, userName: tmp_name }, '60d');
+
+                // Tạm thời chưa cần xác thực
+                await UserTempNoAuth.deleteMany({ use_id: use_id })
+                await UserTempNoAuth.create({
+                    use_id: use_id,
+                    token: Token,
+                })
+
+
+                const checkUpload = await UserCvUpload.findOne({ id_upload: idupload })
+                // Đồng bộ ứng viên 
+                await functions.addUvToVn(
+                    use_id,
+                    tmp_name,
+                    tmp_phone_tk,
+                    tmp_pass,
+                    tmp_job_name || "",
+                    tmp_nganh_nghe,
+                    tmp_job_city,
+                    "",
+                    "",
+                    3,
+                    1,
+                    `${process.env.DOMAIN_API}/pictures/${date}/${tmp_image}`,
+                    type == 1 ? `${process.env.DOMAIN_API}/${upload}` : '',
+                    type == 1 ? checkUpload.link_scan : '',
+                    tmp_job_city && tmp_job_city.split(',')[0],
+                    tmp_job_district && tmp_job_district.split(',')[0],
+                    "",
+                    functions.getTime(new Date(birthday)),
+                    `${process.env.DOMAIN_API}`,
+                    '',
+                    tmp_time,
+                    0
+                )
+
+                return functions.success(res,
+                    'Đăng ký tài khoản thành công',
+                    {
+                        Token,
+                        use_id,
+                        phone: tmp_phone_tk,
+                        type: 2,
+                        auth: 0,
+                        userName: tmp_name,
+                        use_logo: functions.getAvatarCandi(tmp_time, tmp_image),
+                        usc_search: 1,
+                    });
+            }
+            return functions.setError(res, 'Bạn cần đăng kí bước 1 trước', 400);
+        }
+        return functions.setError(res, "Missing data", 400);
+    } catch (error) {
+        return functions.setError(res, error.message);
+    }
+};
+
+// Luồng đăng ký đăng tải mới 
+export const CandidateRegisterByUploadCV2 = async (req, res, next) => {
+    try {
+        const id = req.iduv
+        const file = req.files;
+        const birthday = req.body.birthday;
+        const exp = req.body.exp;
+        const bangcap = req.body.bangcap;
+        let type = req.body.type;
+        if (!type) type = 1
+        // console.log('id', id)
+        // console.log('file', file)
+        // console.log('birthday', birthday)
+        // console.log('exp', exp)
+        // console.log('bangcap', bangcap)
+        if (file && file.CV && birthday && !isNaN(Number(exp)) && bangcap && id) {
+            const checkUser = await Users.findOne({ use_id: id })
+            if (checkUser) {
+
+                const time = functions.getTime();
+                const date = functions.getDate();
+                const upload = type == 1 ? (await functions.uploadCV(`uv_${id}`, file.CV, time)) : (await functions.uploadVideo(`uv_vid_${id}`, file.CV, time))
+
+                await Users.findOneAndUpdate({ use_id: id }, {
+                    $set: {
+                        birthday: functions.getTime(new Date(birthday)),
+                        exp_years: Number(exp),
+                    }
+                })
+
+                const id_hocvan = await functions.getMaxId(UserHocVan, 'id_hocvan');
+                await UserHocVan.create({
+                    id_hocvan,
+                    use_id: id,
+                    bang_cap: bangcap
+                });
+
+                let idupload = 0
+                if (type == 1) {
+                    const id_upload = await functions.getMaxId(UserCvUpload, 'id_upload');
+                    await UserCvUpload.create({
+                        id_upload,
+                        use_id: id,
+                        link: upload,
+                        timecreate: time
+                    });
+                    functions.hideInfoCV(id_upload, `${process.env.DOMAIN_API}/${upload}`, UserCvUpload);
+                    idupload = id_upload
+                } else {
+                    const id_upload = await functions.getMaxId(UserVidUpload, 'id_upload');
+                    await UserVidUpload.create({
+                        id_upload,
+                        use_id: id,
+                        link: upload,
+                        timecreate: time
+                    })
+                    idupload = id_upload
+                }
+                return functions.success(res, 'Tải file lên thành công')
+            }
+            return functions.setError(res, 'Not found', 404);
+        }
+        return functions.setError(res, "Missing data", 400);
+    } catch (error) {
+        return functions.setError(res, error.message);
+    }
+}
+
+// upload avatarCV
+export const uploadAvatarCV = async (req, res, next) => {
+    try {
+        let image64 = req.body.image64;
+        if (image64) {
+            const type = image64.substring(5, image64.indexOf(';'));
+            const str = functions.randomString(15);
+            let fileName;
+            if (type === 'image/png') {
+                image64 = image64.replace('data:image/png;base64,', '');
+                fileName = str + '.png';
+            } else {
+                image64 = image64.replace('data:image/jpeg;base64,', '');
+                fileName = str + '.jpg';
+            }
+            image64 = image64.replace(' ', '+');
+            const fileData = Buffer.from(image64, 'base64');
+            if (!fs.existsSync("./tmp/")) {
+                fs.mkdirSync("./tmp/", { recursive: true });
+            }
+            fs.writeFileSync(`./tmp/${fileName}`, fileData);
+
+            functions.deleteOldFiles('./tmp/')
+
+            return functions.success(res, "Upload thành công", { path: `./tmp/${fileName}`, img: `${process.env.DOMAIN_API}/tmp/${fileName}` });
+        }
+        return functions.setError(res, "Missing data", 400);
+    } catch (error) {
+        console.log(error.message)
+        return functions.setError(res, error.message);
+    }
+};
+
+// đăng kí tài khoản ứng viên theo luồng tạo CV trước
+export const CreateCVInOrderToRegister = async (req, res, next) => {
+    try {
+        const { phone, username, password, jobName, address, ddlv, nganhNghe, dataCVJson, idcv, lang, height_cv, rePassword, district } = req.body;
+        const email_notlower = req.body.email
+        const email = email_notlower.toLowerCase();
+        const arrCityJob = [];
+        const arrNganhNghe = [];
+        const arrDistrictJob = [];
+        let logo = '';
+        if (phone && password && nganhNghe && ddlv && idcv && dataCVJson && district) {
+            const checkPhoneTK = await functions.checkPhone(phone);
+            if (checkPhoneTK) {
+                const checkPassWord = functions.checkPassWord(password);
+                if (checkPassWord) {
+                    if (password === rePassword) {
+                        const checkExistsEmail = await Users.findOne({ use_email_contact: email }, { use_phone_tk: 1 }).lean();
+                        const checkExistsPhone = await Users.findOne({ use_phone_tk: phone }, { use_phone_tk: 1 }).lean();
+                        if (checkExistsEmail) {
+            
+                            return functions.setError(res, "Email này đã được sử dụng, vui lòng kiểm tra lại.", 400);
+                        }
+                        if (checkExistsPhone) {
+            
+                            return functions.setError(res, "Số điện thoại này đã được sử dụng, vui lòng kiểm tra lại.", 400);
+                        }
+                        const checkExists = await Users.findOne({
+                            $or: [
+                                { use_phone_tk: phone },
+                                { use_email_contact: email }
+                            ],
+                        }, { use_phone_tk: 1 }).lean();
+                        ddlv.split(',').map(item => arrCityJob.push({ id: item.trim() }));
+                        nganhNghe.split(',').map(item => arrNganhNghe.push({ id: item.trim() }));
+                        district.split(',').map(item => arrDistrictJob.push({ id: item.trim() }));
+                        if (!checkExists) {
+                            const time = functions.getTime();
+                            const use_id = await functions.getMaxId(Users, 'use_id');
+
+                            const idSave = await functions.getMaxId(SaveCandidateCv, 'id');
+
+                            const dataCV = JSON.parse(dataCVJson).avatar;
+                            const jsonCV = JSON.parse(dataCVJson)
+                            // console.log(dataCV, typeof dataCV)
+                            const date = functions.getDate();
+                            let linkNew = '';
+                            if (dataCV !== "/images/cv/no_avatar.jpg") {
+                                const nameFileOld = dataCV.split('/').pop();
+                                linkNew = `./upload/cv_uv/uv_${use_id}/${nameFileOld}`;
+                                logo = `./pictures/${date}/${nameFileOld}`;
+
+                                await functions.copyFile(`./tmp/${nameFileOld}`, linkNew, `./upload/cv_uv/uv_${use_id}`);
+                                await functions.copyFile(`./tmp/${nameFileOld}`, logo, `./pictures/${date}`);
+
+                                jsonCV.avatar = `${process.env.DOMAIN_API}/upload/cv_uv/uv_${use_id}/${nameFileOld}`
+                                logo = nameFileOld;
+                                functions.deleteFile(`./tmp/${nameFileOld}`);
+                            }
+                            const new_user = await Users.create({
+                                use_id,
+                                use_phone: phone,
+                                use_phone_tk: phone,
+                                use_email_contact: email,
+                                use_pass: functions.createMd5(password),
+                                use_time: time,
+                                use_authentic: 0,
+                                use_name: username,
+                                address: address,
+                                use_job_name: jobName,
+                                use_city_job: arrCityJob,
+                                use_nganh_nghe: arrNganhNghe,
+                                use_create_time: time,
+                                use_update_time: time,
+                                use_config: 3,
+                                use_res: 1,
+                                use_logo: logo,
+                                use_district_job: arrDistrictJob,
+                            });
+                            console.log(new_user)
+
+                            // Trong trường hợp tk mới trùng id tk cũ bị xóa 
+                            await candidateCleanUp(use_id)
+
+                            const new_cv = await SaveCandidateCv.create({
+                                id: idSave,
+                                iduser: use_id,
+                                idcv,
+                                lang,
+                                // html: dataCVJson,
+                                html: JSON.stringify(jsonCV),
+                                nameimg: linkNew != '' ? linkNew.replace('.', '..') : null,
+                                status: 2,
+                                cv: 0,
+                                createdate: time,
+                                height_cv,
+                                // cv_name,
+                                name_cv_hide: `u_cv_hide_${time}.png`,
+                                name_cv: `u_cv_${time}.png`,
+                                cv_order: 0
+                            });
+
+                            console.log(new_cv)
+
+                            const Token = await functions.createToken({ use_id, phone, type: 2, auth: 0 }, '60d');
+
+                            // Tạm thời chưa cần xác thực
+                            await UserTempNoAuth.deleteMany({ use_id: use_id })
+                            await UserTempNoAuth.create({
+                                use_id: use_id,
+                                token: Token,
+                            })
+
+                            const linkHide = `http://localhost:9020/xem-cv-u${use_id}-c${idcv}-t1`;
+                            const linkNoHide = `http://localhost:9020/xem-cv-u${use_id}-c${idcv}-t0`;
+
+                            functions.renderImageFromUrl(
+                                linkHide,
+                                `./upload/cv_uv/uv_${use_id}`,
+                                `./upload/cv_uv/uv_${use_id}/u_cv_hide_${time}.png`,
+                                use_id
+                            );
+
+                            functions.renderImageFromUrl(
+                                linkNoHide,
+                                `./upload/cv_uv/uv_${use_id}`,
+                                `./upload/cv_uv/uv_${use_id}/u_cv_${time}.png`,
+                                use_id
+                            );
+
+                            await SampleCv.findOneAndUpdate({ id: idcv }, { $inc: { download: 1 } })
+                            const link = `http://localhost:9020/xem-cv2-u${use_id}-c${idcv}`;
+                            // functions.renderPdfFromUrl(link, use_id, idcv);
+
+                            // functions.renderImageFromUrl(
+                            //     link,
+                            //     `./dowload/cv_pdf/user_${use_id}/cvid_${idcv}`,
+                            //     `./dowload/cv_pdf/user_${use_id}/cvid_${idcv}/${idcv}-job247.png`,
+                            //     use_id
+                            // )
+
+                            let base64StringPDF = ""
+                            let pdf = await functions.renderPdfFromUrlNew(link)
+                            if (pdf.result) {
+                                let buffer = pdf.file
+                                buffer = new Buffer.from(buffer, "base64");
+                                base64StringPDF = buffer.toString("base64");
+                            }
+
+                            // Đồng bộ ứng viên 
+                            await functions.addUvToVn(
+                                use_id,
+                                jsonCV?.name || username,
+                                phone,
+                                functions.createMd5(password),
+                                jsonCV?.position || "",
+                                nganhNghe,
+                                ddlv,
+                                address,
+                                email,
+                                3,
+                                1,
+                                jsonCV?.avatar || '',
+                                `${process.env.DOMAIN_API}/upload/cv_uv/uv_${use_id}/u_cv_${time}.png`,
+                                `${process.env.DOMAIN_API}/upload/cv_uv/uv_${use_id}/u_cv_hide_${time}.png`,
+                                ddlv && ddlv.split(',')[0],
+                                district && district.split(',')[0],
+                                address,
+                                functions.getTime(new Date(jsonCV?.menu[0]?.content?.content?.content?.birthday || "")),
+                                `${process.env.DOMAIN_API}`,
+                                JSON.stringify(jsonCV),
+                                time,
+                                0
+                            )
+                            console.log('Dữ liệu API trả về:', {
+                                Token,
+                                use_id,
+                                phone: phone,
+                                type: 2,
+                                auth: 0,
+                                userName: username,
+                                use_logo: functions.getAvatarCandi(time, logo),
+                                usc_search: 1,
+                                base64StringPDF
+                            });
+
+                            return functions.success(res,
+                                'Đăng ký tài khoản thành công',
+                                {
+                                    Token,
+                                    use_id,
+                                    phone: phone,
+                                    type: 2,
+                                    auth: 0,
+                                    userName: username,
+                                    use_logo: functions.getAvatarCandi(time, logo),
+                                    usc_search: 1,
+                                    base64StringPDF
+                                });
+
+                        }
+        
+                        return functions.setError(res, "Email này đã được sử dụng, vui lòng kiểm tra lại.", 400);
+                    }
+    
+                    return functions.setError(res, "Mật khẩu nhập lại không chính xác", 400);
+                }
+
+                return functions.setError(res, 'Mật khẩu phải ít nhất 6 ký tự, bao gồm có ít nhất 1 chữ và 1 số.', 400);
+            }
+            return functions.setError(res, "Nhập đúng định dạng số điện thoại.", 400);
+        }
+        return functions.setError(res, "Missing data", 400);
+    } catch (error) {
+        return functions.setError(res, error.message);
+    }
+};
+
+// đăng nhập ứng viên
+export const LoginCandidate = async (req, res, next) => {
+    try {
+        const { username, password } = req.body;
+        const user_name = username.toLowerCase();
+        console.log(user_name)
+        if (user_name, password) {
+            const checkExits = await Users.findOne({
+                $or: [
+                    { use_phone_tk: user_name },
+                    { $expr: { $eq: [{ $toLower: "$use_email_contact" }, user_name] } }
+                ],
+                use_pass: functions.createMd5(password)
+            }, { use_id: 1, use_authentic: 1, use_email_contact: 1, use_name: 1, use_phone_tk: 1 }).lean();
+            if (checkExits) {
+                await Users.updateOne({ use_id: checkExits.use_id }, {
+                    use_update_time: functions.getTime(),
+                    last_login: functions.getTime()
+                });
+
+                const updateTV = await functions.updateTimeTv(checkExits.use_phone_tk);
+                console.log(updateTV)
+
+                // Mức độ hoàn thiện hồ sơ
+                const percentHoSo = await percentHoSoComplete(checkExits.use_id)
+
+                const data = {
+                    use_id: checkExits.use_id,
+                    auth: checkExits.use_authentic,
+                    type: 2,
+                    userName: checkExits.use_name,
+                    use_phone_tk: checkExits.use_phone_tk,
+                    use_mail: checkExits.use_email_contact,
+                    percentHoSo: percentHoSo,
+                    use_logo: functions.getAvatarCandi(checkExits.use_create_time, checkExits.use_logo)
+                };
+                console.log(data);
+                console.log(checkExits.use_logo)
+
+                console.log('1234')
+                const Token = await functions.createToken(data, '60d');
+                const RefreshToken = await functions.createToken(data, '1y');
+
+                // Đã đăng nhập thì phải xác thực nếu chưa
+                await UserTempNoAuth.deleteMany({ use_id: Number(checkExits.use_id) })
+                console.log(data)
+
+                return functions.success(res, "Đăng nhập thành công", { data: { Token, RefreshToken, data } });
+            }
+            return functions.setError(res, "Tài khoản hoặc mật khẩu không chính xác", 400);
+        }
+        return functions.setError(res, "missing data", 400);
+    } catch (error) {
+        return functions.setError(res, error.message);
+    }
+};
+
+// quên mật khẩu tài khoản ứng viên
+export const ForgotPassUv = async (req, res, next) => {
+    try {
+        const user_name = req.body.username;
+        const username = user_name.toLowerCase();
+        if (username) {
+            const checkExists = await Users.findOne({
+                $or: [
+                    { use_phone_tk: username },
+                    { $expr: { $eq: [{ $toLower: "$use_email_contact" }, username] } }
+                ],
+            }, { use_id: 1, use_pass: 1, use_name: 1 }).lean();
+            if (checkExists) {
+                await Users.updateOne({ use_id: checkExists.use_id }, {
+                    use_update_time: functions.getTime()
+                });
+                const otp = functions.randomNumber();
+                if (username.includes('@')) {
+                    const startDate = new Date(new Date().toISOString().slice(0, 10)).getTime() / 1000;
+                    const endDate = startDate + 24 * 60 * 60;
+
+                    const checkCountOtp = await HistoryCountOtp.find({
+                        user_id: checkExists.use_id,
+                        usc_phone: username,  // Thay đổi thành email
+                        type: 1, // Loại gửi OTP qua email
+                        create_time: {
+                            $gte: startDate,
+                            $lte: endDate
+                        }
+                    }).lean();
+
+                    if (checkCountOtp.length < 5) {
+                        const id = await functions.getMaxId(HistoryCountOtp, 'id');
+                        await HistoryCountOtp.create({
+                            id,
+                            user_id: checkExists.use_id,
+                            usc_phone: username,  // Lưu email thay vì số điện thoại
+                            send_otp: otp,
+                            create_time: functions.getTime(),
+                            type: 1  // Loại gửi OTP qua email
+                        });
+
+                        await Users.updateOne({
+                            use_email_contact: username,
+                        }, { use_otp: otp });
+
+                        // Gửi OTP qua email
+                        functions.SendOtpMail(username, otp)
+                        // const checkSend = await functions.sendMail(
+                        //     `Mã OTP lấy lại mật khẩu tài khoản`,
+                        //     username,
+                        //     checkExists.use_name,
+                        //     otp, 
+                        //     1
+                        // );
+
+                        return functions.success(res, 'Hãy xác thực OTP.', { id: checkExists.use_id });
+                    }
+                    return functions.setError(res, "Hết lượt gửi otp trong ngày.", 400);
+
+                } else {
+                    const startDate = new Date(new Date().toISOString().slice(0, 10)).getTime() / 1000;
+                    const endDate = startDate + 24 * 60 * 60;
+
+                    const checkCountOtp = await HistoryCountOtp.find({
+                        user_id: checkExists.use_id,
+                        usc_phone: username,
+                        type: 0,
+                        create_time: {
+                            $gte: startDate,
+                            $lte: endDate
+                        }
+                    }).lean();
+                    if (checkCountOtp.length < 5) {
+                        const id = await functions.getMaxId(HistoryCountOtp, 'id');
+                        await HistoryCountOtp.create({
+                            id,
+                            user_id: checkExists.use_id,
+                            usc_phone: username,
+                            send_otp: otp,
+                            create_time: functions.getTime(),
+                            type: 0
+                        });
+                        await Users.updateOne({
+                            use_phone_tk: username,
+                        }, { use_otp: otp });
+                        functions.sendOtpSMS(username, otp);
+                        return functions.success(res, "Hãy xác thực OTP.", { id: checkExists.use_id });
+                    }
+                    return functions.setError(res, "Hết lượt gửi otp trong ngày.", 400);
+                }
+            }
+            return functions.setError(res, 'Không tìm thấy tài khoản', 404);
+        }
+        return functions.setError(res, 'missing data', 400);
+    } catch (error) {
+        return functions.setError(res, error.message);
+    }
+};
+
+// xác nhận otp UV
+export const ConfirmOTP = async (req, res, next) => {
+    try {
+        const otp = Number(req.body.otp);
+        const id = Number(req.body.id);
+        const type = Number(req.body.type);
+        let check = '';
+        if (id && otp && type) {
+            if (type === 1) {
+                check = await Users.findOne({ use_id: id, use_otp: otp }).lean();
+            } else {
+                check = await UserCompany.findOne({ usc_id: id, usc_otp: otp }).lean();
+            }
+            if (check) {
+                // Cập nhật lại tk và gửi token
+                if (type === 1) {
+                    await Users.updateOne({ use_id: id }, { use_authentic: 1 });
+                    check = await Users.findOne({ use_id: id, use_otp: otp }).lean();
+                } else {
+                    await UserCompany.updateOne({ usc_id: id }, { usc_authentic: 1 });
+                    check = await UserCompany.findOne({ usc_id: id, usc_otp: otp }).lean();
+                }
+
+                delete check.password
+                const conditionsToken = { auth: 1, type: type == 1 ? 2 : 1, check };
+                if (type === 1) conditionsToken.use_id = id;
+                else conditionsToken.usc_id = id
+                const token = await functions.createToken(conditionsToken, '60d');
+                return functions.success(res, 'Xác nhận otp hợp lệ', { token, data: check });
+            }
+            return functions.setError(res, "OTP không đúng, vui lòng kiểm tra lại", 400);
+        }
+        return functions.setError(res, "Missing data", 400);
+    } catch (error) {
+        console.log(error.message)
+        return functions.setError(res, error.message);
+    }
+};
+
+// xác thực tài khoản 
+export const AuthenAccount = async (req, res, next) => {
+    try {
+        let token = '';
+        if (req.type === 1) {
+            await UserCompany.updateOne({ usc_id: req.idNTD }, { usc_authentic: 1 });
+            const check = await UserCompany.findOne({ usc_id: req.idNTD }, { usc_id: 1, usc_phone_tk: 1, usc_authentic: 1 }).lean();
+            const conditionsToken = { usc_id: check.usc_id, phone: check.usc_phone_tk, auth: check.usc_authentic, type: 1 };
+            token = await functions.createToken(conditionsToken, '60d');
+        } else {
+            await Users.updateOne({ use_id: Number(req.iduv) }, { use_authentic: 1 });
+            const check = await Users.findOne({ use_id: Number(req.iduv) }, { use_id: 1, phone: 1, use_authentic: 1 }).lean();
+            const conditionsToken = { use_id: check.use_id, phone: check.phone, type: 2, auth: check.use_authentic };
+            token = await functions.createToken(conditionsToken, '60d');
+        }
+        return functions.success(res, 'Xác thực tài khoản thành công', { token });
+    } catch (error) {
+        return functions.setError(res, error.message);
+    }
+};
+
+// đổi mật khẩu ứng viên
+export const changePassUv = async (req, res) => {
+    try {
+        const iduv = req.iduv;
+        const { passowrdOld, password, rePassword, type } = req.body;
+        if (type == 1) {
+            // send by otp
+            if (password && rePassword) {
+                if (password === rePassword) {
+                    const check = functions.checkPassWord(password);
+                    if (check) {
+                        await Users.findOneAndUpdate({ use_id: iduv }, {
+                            use_pass: functions.createMd5(password)
+                        });
+                        const result = await Users.findOne({ use_id: iduv }, { use_id: 1, phone: 1, use_authentic: 1 }).lean();
+                        // console.log(result)
+                        const conditionsToken = { use_id: result.use_id, phone: result.phone, type: 2, auth: result.use_authentic };
+                        const token = await functions.createToken(conditionsToken, '60d');
+                        return functions.success(res, 'Đổi mật khẩu thành công', { token });
+                    }
+                    return functions.setError(res, 'Password chưa đủ mạnh', 400);
+                }
+                return functions.setError(res, 'Nhập lại password không chính xác', 400);
+            }
+            return functions.setError(res, "Missing data", 400);
+        }
+        if (type == 2) {
+            // người dùng đổi mật khẩu
+            if (passowrdOld && password && rePassword) {
+                if (password === rePassword) {
+                    const check = functions.checkPassWord(password);
+                    if (check) {
+                        const checkUpdate = await Users.findOneAndUpdate({ use_id: iduv, use_pass: functions.createMd5(passowrdOld) }, {
+                            use_pass: functions.createMd5(password)
+                        });
+                        if (checkUpdate) {
+                            const result = await Users.findOne({ use_id: iduv }, { use_id: 1, phone: 1, use_authentic: 1 }).lean();
+                            const conditionsToken = { use_id: result.use_id, phone: result.phone, type: 2, auth: result.use_authentic };
+                            const token = await functions.createToken(conditionsToken, '60d');
+                            return functions.success(res, 'Đổi mật khẩu thành công', { token });
+                        }
+                        return functions.setError(res, 'Mật khẩu cũ chưa chính xác', 400);
+                    }
+                    return functions.setError(res, 'Password chưa đủ mạnh', 400);
+                }
+                return functions.setError(res, 'Nhập lại password không chính xác', 400);
+            }
+            return functions.setError(res, "Missing data", 400);
+        }
+        return functions.setError(res, 'missing data', 400);
+    } catch (error) {
+        console.log(error.message)
+        return functions.setError(res, error.message);
+    }
+};
+
+// đổi mật khẩu ntd
+export const changePassNtd = async (req, res) => {
+    try {
+        const idNTD = req.idNTD;
+        const { passowrdOld, password, rePassword, type } = req.body;
+        if (type == 1) {
+            // send by otp
+            if (password && rePassword) {
+                if (password === rePassword) {
+                    const check = functions.checkPassWord(password);
+                    if (check) {
+                        await UserCompany.findOneAndUpdate({ usc_id: idNTD }, {
+                            usc_pass: functions.createMd5(password)
+                        });
+                        const result = await UserCompany.findOne({ usc_id: idNTD }, { usc_pass: 0 }).lean();
+                        const conditionsToken = { usc_id: result.usc_id, phone: result.usc_phone_tk, type: 1, auth: result.usc_authentic };
+                        const token = await functions.createToken(conditionsToken, '60d');
+                        return functions.success(res, 'Đổi mật khẩu thành công', { token });
+                    }
+                    return functions.setError(res, 'Password chưa đủ mạnh', 400);
+                }
+                return functions.setError(res, 'Nhập lại password không chính xác', 400);
+            }
+            return functions.setError(res, "Missing data", 400);
+        }
+        if (type == 2) {
+            // người dùng đổi mật khẩu
+            if (passowrdOld && password && rePassword) {
+                if (password === rePassword) {
+                    const check = functions.checkPassWord(password);
+                    if (check) {
+                        const checkUpdate = await Users.findOneAndUpdate({ usc_id: idNTD, usc_pass: functions.createMd5(passowrdOld) }, {
+                            use_pass: functions.createMd5(password)
+                        });
+                        if (checkUpdate) {
+                            const result = await UserCompany.findOne({ usc_id: idNTD }, { usc_pass: 0 }).lean();
+                            const conditionsToken = { usc_id: result.usc_id, phone: result.usc_phone_tk, type: 1, auth: result.usc_authentic };
+                            const token = await functions.createToken(conditionsToken, '60d');
+                            return functions.success(res, 'Đổi mật khẩu thành công', { token });
+                        }
+                        return functions.setError(res, 'Mật khẩu cũ chưa chính xác', 400);
+                    }
+                    return functions.setError(res, 'Password chưa đủ mạnh', 400);
+                }
+                return functions.setError(res, 'Nhập lại password không chính xác', 400);
+            }
+            return functions.setError(res, "Missing data", 400);
+        }
+        return functions.setError(res, 'missing data', 400);
+    } catch (error) {
+        console.log(error.message)
+        return functions.setError(res, error.message);
+    }
+};
+
+// Xử lý OTP theo firebase 
+export const ConfirmOtpFb = async (req, res) => {
+    try {
+        // const otp = Number(req.body.otp);
+        const id = Number(req.body.id);
+        const type = Number(req.body.type);
+        let check = '';
+        if (id && type) {
+            if (type === 1) {
+                check = await Users.findOne({ use_id: id }).lean();
+            } else {
+                check = await UserCompany.findOne({ usc_id: id }).lean();
+            }
+            if (check) {
+                // Cập nhật lại tk và gửi token
+                if (type === 1) {
+                    await Users.updateOne({ use_id: id }, { use_authentic: 1 });
+
+                    // Đồng bộ xác thực - tool
+
+                    check = await Users.findOne({ use_id: id }).lean();
+                } else {
+                    await UserCompany.updateOne({ usc_id: id }, { usc_authentic: 1 });
+                    check = await UserCompany.findOne({ usc_id: id }).lean();
+                }
+
+                delete check.password
+                const conditionsToken = { auth: 1, type: type == 1 ? 2 : 1, check };
+                if (type === 1) conditionsToken.use_id = id;
+                else conditionsToken.usc_id = id
+                const token = await functions.createToken(conditionsToken, '60d');
+                return functions.success(res, 'Xác nhận otp hợp lệ', { token, data: check });
+            }
+            return functions.setError(res, "OTP không đúng, vui lòng kiểm tra lại", 400);
+        }
+        return functions.setError(res, "Missing data", 400);
+    } catch (error) {
+        console.log(error.message)
+        return functions.setError(res, error.message);
+    }
+}
+export const GetAuthenticateOtp = async (req, res) => {
+    try {
+        const username = req.body.username;
+        const type = req.body.type;
+        if (type == 2) {
+            const checkExists = await Users.findOne({
+                $or: [
+                    { use_phone_tk: username },
+                    { use_email_contact: username }
+                ],
+            }, { use_id: 1, use_pass: 1, use_name: 1 }).lean();
+            if (checkExists) {
+                await Users.updateOne({ use_id: checkExists.use_id }, {
+                    use_update_time: functions.getTime()
+                });
+                const otp = functions.randomNumber();
+                const startDate = new Date(new Date().toISOString().slice(0, 10)).getTime() / 1000;
+                const endDate = startDate + 24 * 60 * 60;
+
+                const checkCountOtp = await HistoryCountOtp.find({
+                    user_id: checkExists.use_id,
+                    usc_phone: username,
+                    type: 1,
+                    create_time: {
+                        $gte: startDate,
+                        $lte: endDate
+                    }
+                }).lean();
+
+                if (checkCountOtp.length < 5) {
+                    const id = await functions.getMaxId(HistoryCountOtp, 'id');
+                    await HistoryCountOtp.create({
+                        id,
+                        user_id: checkExists.use_id,
+                        usc_phone: username,
+                        send_otp: otp,
+                        create_time: functions.getTime(),
+                        type: 1
+                    });
+                    await Users.updateOne({
+                        use_email_contact: username,
+                    }, { use_otp: otp });
+                    // Gửi OTP qua email
+                    functions.SendOtpMail(username, otp)
+                    // const checkSend = await functions.sendMail(
+                    //     `Mã OTP lấy lại mật khẩu tài khoản`,
+                    //     username,
+                    //     checkExists.use_name,
+                    //     otp, 
+                    //     2
+                    // );
+
+                    return functions.success(res, 'Hãy xác thực OTP.', { id: checkExists.use_id });
+                } else {
+                    return functions.setError(res, "Hết lượt gửi otp trong ngày.", 400);
+                }
+            }
+            return functions.setError(res, 'Không tìm thấy tài khoản', 404);
+        } else {
+            console.log(username)
+            const checkExists = await UserCompany.findOne({
+                $or: [
+                    { usc_phone_tk: username },
+                    { usc_email: username }
+                ],
+            }, { usc_id: 1, usc_pass: 1, usc_name: 1 }).lean();
+            if (checkExists) {
+                await UserCompany.updateOne({ usc_id: checkExists.cse_id }, {
+                    usc_update_time: functions.getTime()
+                });
+                const otp = functions.randomNumber();
+                const startDate = new Date(new Date().toISOString().slice(0, 10)).getTime() / 1000;
+                const endDate = startDate + 24 * 60 * 60;
+
+                const checkCountOtp = await HistoryCountOtp.find({
+                    user_id: checkExists.usc_id,
+                    usc_phone: username,
+                    type: 2,
+                    create_time: {
+                        $gte: startDate,
+                        $lte: endDate
+                    }
+                }).lean();
+
+                if (checkCountOtp.length < 5) {
+                    const id = await functions.getMaxId(HistoryCountOtp, 'id');
+                    await HistoryCountOtp.create({
+                        id,
+                        user_id: checkExists.usc_id,
+                        usc_phone: username,
+                        send_otp: otp,
+                        create_time: functions.getTime(),
+                        type: 2
+                    });
+                    await UserCompany.updateOne({
+                        usc_email: username,
+                    }, { usc_otp: otp });
+                    // Gửi OTP qua email
+                    functions.SendOtpMail(username, otp)
+                    // const checkSend = await functions.sendMail(
+                    //     `Mã OTP lấy lại mật khẩu tài khoản`,
+                    //     username,
+                    //     checkExists.usc_company,
+                    //     otp, 
+                    //     3
+                    // );
+
+                    return functions.success(res, 'Hãy xác thực OTP.', { id: checkExists.usc_id });
+
+                } else {
+                    return functions.setError(res, "Hết lượt gửi otp trong ngày.", 400);
+                }
+            }
+            return functions.setError(res, 'Không tìm thấy tài khoản', 404);
+        }
+        return functions.setError(res, 'missing data', 400);
+    } catch (error) {
+        return functions.setError(res, error.message);
+    }
+}
+
+// Kiểm tra mức độ hoàn thiện hồ sơ của ứng viên
+const percentHoSoComplete = async (iduv) => {
+    try {
+        let percent = 0
+        const existUser = await Users.findOne({ use_id: iduv })
+        if (existUser) {
+            const thamChieu = await UserThamChieu.findOne({ id_user: iduv }, { id_thamchieu: 1 })
+            if (thamChieu) percent += 12.5;
+            const kinhNghiem = await UseKinhNghiem.findOne({ use_id: iduv }, { id_kinhnghiem: 1 })
+            if (kinhNghiem) percent += 12.5;
+            const ngoaiNgu = await UseNgoaiNgu.findOne({ use_id: iduv }, { id_ngoaingu: 1 })
+            if (ngoaiNgu) percent += 12.5;
+            const bangCap = await UserHocVan.findOne({ use_id: iduv }, { id_hocvan: 1 })
+            if (bangCap) percent += 12.5;
+            // Thông tin cá nhân
+            if (existUser?.lg_honnhan) percent += 12.5;
+            // Kĩ năng bản thân
+            if (existUser?.ki_nang_ban_than) percent += 12.5;
+            // Mục tiêu nghề nghiệp
+            if (existUser?.muc_tieu_nghe_nghiep) percent += 12.5;
+            // Công việc mong muốn
+            if (existUser?.cap_bac_mong_muon) percent += 12.5;
+
+            return percent
+        } else {
+            return 0
+        }
+    } catch (error) {
+        console.log(error.message)
+        return 0
+    }
+}
+
+export const test = async (req, res) => {
+    try {
+        const cv = await SaveCandidateCv.findOne({ iduser: 2348 })
+        const exp = functions.getUvTimeExp2(JSON.parse(cv.html))
+        return functions.success(res, 'Done 3000', { exp })
+    } catch (error) {
+        return functions.setError(res, error.message);
+    }
+}
+
+export const PreviewCv = async (req, res) => {
+    try {
+        // Xóa tất cả nếu đã quá 24 tiếng 
+        const oneDayAgo = functions.getTime() - 3600 * 24
+        await TblCvPreview.deleteMany({ createdate: { $lt: oneDayAgo } })
+
+        const directoryPath = './tmp/previewcv';
+        functions.deleteOldFiles(directoryPath, 1)
+        // const files = await fs.promises.readdir(directoryPath);
+
+        // for (const file of files) {
+        //     const filePath = path.join(directoryPath, file);
+        //     const stats = await fs.promises.stat(filePath);
+        //     const creationTime = stats.birthtime; // get the creation time of the file
+        //     const currentTime = new Date();
+        //     const timeDifference = (currentTime - creationTime) / (1000 * 60 * 60); // difference in hours
+
+        //     if (timeDifference > 1) {
+        //         fs.promises.unlink(filePath); // delete the file if it's more than 1 hour old
+        //         // console.log(`Deleted file: ${filePath}`);
+        //     }
+        // }
+
+        // preview 
+
+        const {
+            idcv,
+            username,
+            jobName,
+            dataCVJson,
+            phone,
+            email,
+            birthday,
+            address,
+            lang,
+            height_cv,
+        } = req.body
+
+        if (idcv && dataCVJson) {
+            const time = functions.getTime();
+            const idSave = await functions.getMaxId(TblCvPreview, 'id');
+            const iduser = await functions.getMaxId(TblCvPreview, 'iduser');
+
+            // await TblCvPreview.deleteMany({ iduser: iduser })
+
+            const dataCV = JSON.parse(dataCVJson).avatar;
+            const jsonCV = JSON.parse(dataCVJson)
+
+            const date = functions.getDate();
+            let linkNew = '';
+
+            // console.log('jsonCV.avatar before', jsonCV.avatar);
+            if (dataCV !== "/images/cv/no_avatar.jpg") {
+                const nameFileOld = dataCV.split('/').pop();
+                linkNew = `./tmp/previewcv/upload/cv_uv/uv_${iduser}/${nameFileOld}`;
+
+                const result = functions.checkFileExist(`./tmp/${nameFileOld}`)
+                await functions.copyFile(`./tmp/${nameFileOld}`, linkNew, `./tmp/previewcv/upload/cv_uv/uv_${iduser}`);
+                // console.log('result', result);
+
+                jsonCV.avatar = (result == true) ? `${process.env.DOMAIN_API}/tmp/previewcv/upload/cv_uv/uv_${iduser}/${nameFileOld}` : dataCV
+            }
+            // console.log('jsonCV.avatar after', jsonCV.avatar);
+
+            await TblCvPreview.create({
+                id: idSave,
+                iduser: iduser,
+                idcv,
+                lang: lang || 1,
+                // html: dataCVJson,
+                html: JSON.stringify(jsonCV),
+                nameimg: linkNew != '' ? linkNew.replace('.', '..') : null,
+                status: 2,
+                cv: 0,
+                createdate: time,
+                height_cv: height_cv || 0,
+                name_cv_hide: `u_cv_hide_${time}.png`,
+                name_cv: `u_cv_${time}.png`,
+                cv_order: 0
+            })
+
+            // puppeteer
+            const linkNoHide = `http://localhost:9020/xem-cv3-u${iduser}-c${idcv}`;
+            await functions.renderImageFromUrl(
+                linkNoHide,
+                `./tmp/previewcv/upload/cv_uv/uv_${iduser}`,
+                `./tmp/previewcv/upload/cv_uv/uv_${iduser}/u_cv_${time}.png`,
+                iduser
+            );
+
+            functions.deleteEmptySubfolders(directoryPath)
+
+            return functions.success(res, 'Ảnh preview', { data: `${process.env.DOMAIN_API}/tmp/previewcv/upload/cv_uv/uv_${iduser}/u_cv_${time}.png` })
+        }
+        return functions.setError(res, "Missing data", 400);
+    } catch (error) {
+        console.log(error.message);
+        return functions.setError(res, error.message);
+    }
+}
+
+export const previewCv2 = async (req, res) => {
+    try {
+
+        // Xóa tất cả nếu đã quá 24 tiếng 
+        const oneDayAgo = functions.getTime() - 3600 * 24
+        await TblCvPreview.deleteMany({ createdate: { $lt: oneDayAgo } })
+
+        const {
+            idcv,
+            username,
+            jobName,
+            dataCVJson,
+            phone,
+            email,
+            birthday,
+            address,
+            lang,
+            height_cv,
+        } = req.body
+
+        if (idcv && dataCVJson) {
+            const time = functions.getTime();
+            const idSave = await functions.getMaxId(TblCvPreview, 'id');
+            const iduser = await functions.getMaxId(TblCvPreview, 'iduser');
+
+            // await TblCvPreview.deleteMany({ iduser: iduser })
+
+            const dataCV = JSON.parse(dataCVJson).avatar;
+            const jsonCV = JSON.parse(dataCVJson)
+
+            const date = functions.getDate();
+            let linkNew = '';
+
+            // console.log('jsonCV.avatar before', jsonCV.avatar);
+            if (dataCV !== "/images/cv/mau-cv/no_avatar.jpg") {
+                const nameFileOld = dataCV.split('/').pop();
+                linkNew = `./tmp/previewcv/upload/cv_uv/uv_${iduser}/${nameFileOld}`;
+
+                const result = functions.checkFileExist(`./tmp/${nameFileOld}`)
+                await functions.copyFile(`./tmp/${nameFileOld}`, linkNew, `./tmp/previewcv/upload/cv_uv/uv_${iduser}`);
+                // console.log('result', result);
+
+                jsonCV.avatar = (result == true) ? `${process.env.DOMAIN_API}/tmp/previewcv/upload/cv_uv/uv_${iduser}/${nameFileOld}` : dataCV
+            }
+            // console.log('jsonCV.avatar after', jsonCV.avatar);
+
+            await TblCvPreview.create({
+                id: idSave,
+                iduser: iduser,
+                idcv,
+                lang: lang || 1,
+                // html: dataCVJson,
+                html: JSON.stringify(jsonCV),
+                nameimg: linkNew != '' ? linkNew.replace('.', '..') : null,
+                status: 2,
+                cv: 0,
+                createdate: time,
+                height_cv: height_cv || 0,
+                name_cv_hide: `u_cv_hide_${time}.png`,
+                name_cv: `u_cv_${time}.png`,
+                cv_order: 0
+            })
+
+            return functions.success(res, 'OK', { id: iduser })
+        }
+        return functions.setError(res, "Missing data", 400);
+    } catch (error) {
+        console.log(error.message);
+        return functions.setError(res, error.message);
+    }
+}
+
+export const DetailCVPreview = async (req, res) => {
+    try {
+        const id = !isNaN(Number(req.body.id)) ? req.body.id : (await functions.getTokenUser(req));
+        const idcv = Number(req.body.idcv);
+        const data = {};
+        if (idcv) {
+            if (id) {
+                const checkExists = await TblCvPreview.findOne({ idcv: idcv, iduser: id }).lean();
+                if (checkExists) {
+                    if (checkExists?.nameimg && typeof checkExists.nameimg === 'string') {
+                        checkExists.nameimg = `${process.env.DOMAIN_API}` + checkExists.nameimg.replace('..', '').replace('./', '/')
+                    }
+                    data.result = checkExists;
+                    data.type = 1;
+                    let alias = '';
+                    if (checkExists?.idcv) {
+                        const sample = await SampleCv.findOne({ id: idcv }).lean()
+                        if (sample) {
+                            alias = sample.alias
+                        }
+                    }
+                    data.alias = alias
+                    return functions.success(res, 'get data success', { data });
+                } else {
+                    // const result = await SampleCv.findOne({ id: idcv }).lean();
+                    // data.result = result;
+                    // data.type = 0;
+                }
+            } else {
+                // const result = await SampleCv.findOne({ id: idcv }).lean();
+                // data.result = result;
+                // data.type = 0;
+            }
+
+            // console.log('data', data);
+            // return functions.success(res, 'get data success', { data });
+            // return functions.setError(res, 'missing data', 400);
+        }
+        return functions.setError(res, 'missing data', 400);
+    } catch (error) {
+        return functions.setError(res, error.message);
+    }
+}
+
+// Puppeteer ahead
+export const generatePdfAhead = async (req, res) => {
+    try {
+        // Xóa tất cả nếu đã quá 24 tiếng 
+        const oneDayAgo = functions.getTime() - 3600 * 24
+        await TblCvPreview.deleteMany({ createdate: { $lt: oneDayAgo } })
+
+        const directoryPath = './tmp/pdf';
+        functions.deleteOldFiles(directoryPath, 1)
+        // const files = await fs.promises.readdir(directoryPath);
+
+        const {
+            uuid,
+            idcv,
+            dataCVJson,
+            lang,
+            height_cv,
+        } = req.body
+
+        if (uuid && idcv && dataCVJson) {
+            const time = functions.getTime();
+            const idSave = await functions.getMaxId(TblCvPreview, 'id');
+            const iduser = await functions.getMaxId(TblCvPreview, 'iduser');
+
+            // await TblCvPreview.deleteMany({ iduser: iduser })
+
+            const dataCV = JSON.parse(dataCVJson).avatar;
+            const jsonCV = JSON.parse(dataCVJson)
+
+            const date = functions.getDate();
+            let linkNew = '';
+
+            // console.log('jsonCV.avatar before', jsonCV.avatar);
+            if (dataCV !== "/images/cv/mau-cv/no_avatar.jpg") {
+                const nameFileOld = dataCV.split('/').pop();
+                linkNew = `./tmp/previewcv/upload/cv_uv/uv_${iduser}/${nameFileOld}`;
+
+                const result = functions.checkFileExist(`./tmp/${nameFileOld}`)
+                await functions.copyFile(`./tmp/${nameFileOld}`, linkNew, `./tmp/previewcv/upload/cv_uv/uv_${iduser}`);
+                // console.log('result', result);
+
+                jsonCV.avatar = (result == true) ? `${process.env.DOMAIN_API}/tmp/previewcv/upload/cv_uv/uv_${iduser}/${nameFileOld}` : dataCV
+            }
+            // console.log('jsonCV.avatar after', jsonCV.avatar);
+
+            await TblCvPreview.create({
+                id: idSave,
+                iduser: iduser,
+                idcv,
+                lang: lang || 1,
+                // html: dataCVJson,
+                html: JSON.stringify(jsonCV),
+                nameimg: linkNew != '' ? linkNew.replace('.', '..') : null,
+                status: 2,
+                cv: 0,
+                createdate: time,
+                height_cv: height_cv || 0,
+                name_cv_hide: `u_cv_hide_${time}.png`,
+                name_cv: `u_cv_${time}.png`,
+                cv_order: 0
+            })
+
+            // puppeteer
+            const linkNoHide = `http://localhost:9020/xem-cv3-u${iduser}-c${idcv}`;
+            // await functions.renderImageFromUrl(
+            //     linkNoHide,
+            //     `./tmp/previewcv/upload/cv_uv/uv_${iduser}`,
+            //     `./tmp/previewcv/upload/cv_uv/uv_${iduser}/u_cv_${time}.png`,
+            //     iduser
+            // );
+            functions.renderPdfFromUrlToDir(
+                linkNoHide,
+                `./tmp/pdf/${uuid}`,
+                `./tmp/pdf/${uuid}/${uuid}.pdf`
+            )
+
+            functions.deleteEmptySubfolders(directoryPath)
+
+            return functions.success(res, 'PDF ahead', { iduser })
+        }
+        return functions.setError(res, 'missing data', 400)
+    } catch (error) {
+        return functions.setError(res, error.message);
+    }
+}
+
+// Chờ PDF, nếu cần 
+export const waitAndDownloadPdf = async (req, res) => {
+    try {
+        const {
+            uuid,
+            iduser,
+            idcv
+        } = req.body
+        if (uuid && iduser && idcv) {
+            const time = functions.getTime();
+            const filePath = `./tmp/pdf/${uuid}/${uuid}.pdf`
+            let downloaded = false
+
+            let base64StringPDF = ""
+            while ((functions.getTime() - time < 5) && !downloaded) {
+                fs.access(filePath, fs.constants.F_OK, (err) => {
+                    if (err) {
+                        console.log('waitAndDownloadPdf waiting...', uuid);
+                    } else {
+                        fs.readFile(filePath, (err, data) => {
+                            let buffer = data
+                            buffer = new Buffer.from(buffer, "base64");
+                            base64StringPDF = buffer.toString("base64");
+                            downloaded = true
+                        })
+                    }
+                })
+
+                await functions.sleep(100)
+                console.log('waitAndDownloadPdf sleep...');
+            }
+            if (downloaded) {
+                return functions.success(res, 'Thành công', {
+                    base64StringPDF
+                })
+            }
+
+            // fallback
+            if (!downloaded) {
+                console.log('Fallback');
+                const link = `http://localhost:9020/xem-cv3-u${iduser}-c${idcv}`;
+                // let base64StringPDF = ""
+                let pdf = await functions.renderPdfFromUrlNew(link)
+                if (pdf.result) {
+                    let buffer = pdf.file
+                    buffer = new Buffer.from(buffer, "base64");
+                    base64StringPDF = buffer.toString("base64");
+                }
+
+                return functions.success(res, 'Fallback', {
+                    base64StringPDF
+                });
+            }
+        } else {
+            return functions.setError(res, 'missing data', 400)
+        }
+    } catch (error) {
+        return functions.setError(res, error.message);
+    }
+}
+
+// Kiểm tra xác thức (khi cần)
+// Lấy lại thông tin (khi cần)
+export const getAccountDetail = async (req, res) => {
+    try {
+        const {
+            id,
+            type
+        } = req.body
+
+        let userId = Number(id) || 0
+        let userType = Number(type) || 0
+
+        if (req?.headers && req?.headers?.authorization) {
+            const token = req.headers.authorization.split(' ')[1];
+            const result = jwt.decode(token).data;
+            userType = Number(result?.type) || 0
+            if (userType == 2) {
+                userId = Number(result?.use_id) || 0
+            }
+            if (userType == 1) {
+                userId = Number(result?.usc_id) || 0
+            }
+        }
+
+        if (userId && userType) {
+            let returnData = {
+                name: '',
+                phone: '',
+                avatar: '',
+                auth: 0,
+                Token: '',
+            }
+
+            if (userType == 2) {
+                const checkExists = await Users.findOne({ use_id: Number(userId) })
+                if (checkExists) {
+                    // const datadegree = await UserHocVan.findOne({ use_id: Number(userId) });
+                    const datadegree = await UserHocVan.aggregate([
+                        { $match: { use_id: Number(userId) } },
+                        {
+                            $project: {
+                                id_hocvan: 1,
+                                use_id: 1,
+                                truong_hoc: 1,
+                                bang_cap: 1,
+                                tg_batdau: 1,
+                                tg_ketthuc: 1,
+                                chuyen_nganh: 1,
+                                xep_loai: 1,
+                                thongtin_bosung: 1,
+                                new_category_id: 1,
+                            }
+                        }
+                    ]);
+                    const datalangue = await UseNgoaiNgu.aggregate([
+                        { $match: { use_id: Number(userId) } },
+                        {
+                            $project: {
+                                id_ngoaingu: 1,
+                                use_id: 1,
+                                id_ngonngu: 1,
+                                chung_chi: 1,
+                                ket_qua: 1,
+                            }
+                        }
+                    ]);
+                    const dataexp = await UseKinhNghiem.aggregate([
+                        { $match: { use_id: Number(userId) } },
+                        {
+                            $project: {
+                                id_kinhnghiem: 1,
+                                use_id: 1,
+                                use_chucdanh: 1,
+                                use_cty_lamviec: 1,
+                                tg_batdau: 1,
+                                tg_ketthuc: 1,
+                                them_thongtin: 1,
+                            }
+                        }
+                    ]);
+                    const datarefer = await UserThamChieu.aggregate([
+                        { $match: { id_user: Number(userId) } },
+                        {
+                            $project: {
+                                id_thamchieu: 1,
+                                id_user: 1,
+                                email: 1,
+                                chuc_vu: 1,
+                                company: 1,
+                                ho_ten: 1,
+                                sdt: 1,
+                            }
+                        }
+                    ]);
+                    const tokenObj = {
+                        use_id: checkExists.use_id,
+                        auth: checkExists?.use_authentic,
+                        type: 2,
+                        userName: checkExists?.use_name,
+                        use_phone_tk: checkExists?.use_phone_tk,
+                    }
+                    const Token = await functions.createToken(tokenObj, '60d');
+                    returnData = {
+                        name: checkExists?.use_name,
+                        phone: checkExists?.use_phone_tk,
+                        avatar: functions.getAvatarCandi(checkExists?.use_create_time, checkExists?.use_logo) || '/images/candidate/ava_default.png',
+                        auth: checkExists?.use_authentic,
+                        use_mail: checkExists?.use_mail,
+                        use_phone_contact: checkExists?.use_phone,
+                        use_email_contact: checkExists?.use_email_contact,
+                        use_city_job: checkExists?.use_city_job,
+                        use_nganh_nghe: checkExists?.use_nganh_nghe,
+                        use_district_job: checkExists?.use_district_job,
+                        use_city: checkExists?.use_city,
+                        use_district: checkExists?.use_district,
+                        gender: checkExists?.gender,
+                        address: checkExists?.address,
+                        lg_honnhan: checkExists?.lg_honnhan,
+                        school_name: checkExists?.school_name,
+                        rank: checkExists?.rank,
+                        exp_years: checkExists?.exp_years,
+                        salary: checkExists?.salary,
+                        work_option: checkExists?.work_option,
+                        cap_bac_mong_muon: checkExists?.cap_bac_mong_muon,
+                        muc_tieu_nghe_nghiep: checkExists?.muc_tieu_nghe_nghiep,
+                        ki_nang_ban_than: checkExists?.ki_nang_ban_than,
+                        birthday: checkExists?.birthday,
+                        use_job_name: checkExists?.use_job_name,
+                        Token: Token,
+                    }
+
+                    return functions.success(res, 'Success', { data: returnData, datadegree, datalangue, dataexp, datarefer })
+                }
+            }
+
+            if (userType == 1) {
+                const checkExists = await UserCompany.findOne({ usc_id: Number(userId) })
+                if (checkExists) {
+                    const tokenObj = {
+                        usc_id: checkExists?.usc_id,
+                        phone: checkExists?.usc_phone_tk,
+                        auth: checkExists?.usc_authentic,
+                        type: 1,
+                        usc_company: checkExists?.usc_company,
+                    }
+                    const Token = await functions.createToken(tokenObj, '60d');
+                    returnData = {
+                        name: checkExists?.usc_company,
+                        phone: checkExists?.usc_phone_tk,
+                        avatar: functions.getAvatarNTD(checkExists?.usc_create_time, checkExists?.usc_logo) || '/images/candidate/ava_default.png',
+                        auth: checkExists?.usc_authentic,
+                        Token: Token,
+                    }
+
+                    return functions.success(res, 'Success', { data: returnData })
+                }
+            }
+
+            // return functions.success(res, 'Success', { data: returnData })
+
+            return functions.setError(res, 'not found', 400);
+        }
+        return functions.setError(res, 'missing data', 400);
+
+    } catch (error) {
+        return functions.setError(res, error.message);
+    }
+}
+
+export const isPhoneUsedEmployer = async (req, res) => {
+    try {
+        const {
+            phone
+        } = req.body
+
+        if (phone && (await functions.checkPhone(phone))) {
+            const checkExist = await UserCompany.findOne({ usc_phone_tk: phone })
+            if (checkExist) {
+                return functions.success(res, 'Thanh cong', { used: true })
+            } else {
+                return functions.success(res, 'Thanh cong', { used: false })
+            }
+        } else {
+            return functions.setError(res, 'missing data', 400)
+        }
+    } catch (error) {
+        return functions.setError(res, error?.message, 500)
+    }
+}
+
+
+// Service check chưa đồng bộ thì đồng bộ
+export const addUvToVnCheck = async () => {
+    while (true) {
+        try {
+            // // Lock file
+            // const lockFileLocation = './services'
+            // const lockFilePath = path.join(lockFileLocation, 'addUvToVnCheck.lock')
+            // if (fs.existsSync(lockFilePath)) {
+            //     console.log('Already run');
+            //     const extra = functions.getRandomInt(10000, 20000)
+            //     console.log('Wait for ', 5 * 60 * 1000 + extra);
+            //     await functions.sleep(5 * 60 * 1000 + extra)
+            // }
+            // fs.writeFileSync(lockFilePath, '')
+
+            // console.log('Service addUvToVnCheck Start')
+            // console.time('Service addUvToVnCheck')
+
+            // // test
+            // await functions.sleep(5 * 60 * 1000)
+
+            const startDate = new Date()
+            startDate.setHours(0, 0, 0, 1)
+            const endDate = new Date()
+            endDate.setHours(23, 59, 59, 0)
+            const startTime = functions.getTime(startDate)
+            const endTime = functions.getTime(endDate)
+
+            const listUvNotSync = await Users.find({
+                idTimViec365: { $eq: 0 },
+                use_create_time: {
+                    $gte: startTime,
+                    $lte: endTime
+                }
+            })
+            console.log('Tìm thấy ', listUvNotSync.length);
+
+            if (listUvNotSync.length > 0) {
+                for (let i = 0; i < listUvNotSync.length; i++) {
+                    const uv = listUvNotSync[i];
+
+                    // ƯU TIÊN: Nếu UV tạo CV thì dùng CV 
+                    const checkCV = await SaveCandidateCv.findOne({ iduser: uv.use_id }).sort({ createdate: -1 })
+                    if (checkCV) {
+                        const JsonCv = functions.safeJSONparse(checkCV?.html)
+
+                        await functions.addUvToVn(
+                            uv.use_id,
+                            uv.use_name,
+                            uv.use_phone_tk,
+                            uv.use_pass,
+                            JsonCv?.position || "Chưa cập nhật",
+                            Array.isArray(uv.use_nganh_nghe) ? uv.use_nganh_nghe.map((item) => (item?.id || 0)).filter((item) => item != 0).join(',') : '0',
+                            Array.isArray(uv.use_city_job) ? uv.use_city_job.map((item) => (item?.id || 0)).filter((item) => item != 0).join(',') : '0',
+                            JsonCv?.menu[0]?.content?.content?.content?.address || 'Chi tiết ở CV',
+                            JsonCv?.menu[0]?.content?.content?.content?.email || 'Chi tiết ở CV',
+                            3,
+                            1,
+                            JsonCv?.avatar || '',
+                            `${process.env.DOMAIN_API}/upload/cv_uv/uv_${uv.use_id}/u_cv_${uv.use_create_time}.png`,
+                            `${process.env.DOMAIN_API}/upload/cv_uv/uv_${uv.use_id}/u_cv_hide_${uv.use_create_time}.png`,
+                            uv?.use_city || (Array.isArray(uv.use_city_job) && uv.use_city_job.length > 0 ? uv.use_city_job.map((item) => (item?.id || 0)).filter((item) => item != 0)[0] : '0'),
+                            uv?.use_district || (Array.isArray(uv.use_district_job) && uv.use_district_job.length > 0 ? uv.use_district_job.map((item) => (item?.id || 0)).filter((item) => item != 0)[0] : '0'),
+                            JsonCv?.menu[0]?.content?.content?.content?.address || 'Chi tiết ở CV',
+                            functions.getTime(new Date(JsonCv?.menu[0]?.content?.content?.content?.birthday || "")),
+                            'viecs.com',
+                            checkCV?.html,
+                            uv.use_create_time,
+                            uv.use_authentic,
+                        )
+
+                        console.log('Đồng bộ UV ', uv.use_id);
+                    } else {
+                        // Nếu UV Upload CV thì dùng upload 
+                        const checkUpload = await UserCvUpload.findOne({ use_id: uv.use_id })
+                        if (checkUpload) {
+                            const date = functions.getDate(uv.use_create_time * 1000)
+
+                            await functions.addUvToVn(
+                                uv.use_id,
+                                uv.use_name,
+                                uv.use_phone_tk,
+                                uv.use_pass,
+                                uv.use_job_name || 'Chi tiết ở CV',
+                                Array.isArray(uv.use_nganh_nghe) ? uv.use_nganh_nghe.map((item) => (item?.id || 0)).filter((item) => item != 0).join(',') : '0',
+                                Array.isArray(uv.use_city_job) ? uv.use_city_job.map((item) => (item?.id || 0)).filter((item) => item != 0).join(',') : '0',
+                                uv?.address || 'Chi tiết ở CV',
+                                uv?.use_mail || uv?.use_email_contact || 'Chi tiết ở CV',
+                                3,
+                                1,
+                                `${process.env.DOMAIN_API}/pictures/${date}/${uv?.use_logo}`,
+                                `${process.env.DOMAIN_API}/${checkUpload?.link}`,
+                                checkUpload?.link_scan,
+                                uv?.use_city || (Array.isArray(uv.use_city_job) && uv.use_city_job.length > 0 ? uv.use_city_job.map((item) => (item?.id || 0)).filter((item) => item != 0)[0] : '0'),
+                                uv?.use_district || (Array.isArray(uv.use_district_job) && uv.use_district_job.length > 0 ? uv.use_district_job.map((item) => (item?.id || 0)).filter((item) => item != 0)[0] : '0'),
+                                uv?.address || 'Chi tiết ở CV',
+                                uv?.birthday,
+                                'topcv1s.com',
+                                '',
+                                uv.use_create_time,
+                                uv.use_authentic,
+                            )
+
+                            console.log('Đồng bộ UV ', uv.use_id);
+
+                        } else {
+                            const checkVid = await UserVidUpload.findOne({ use_id: uv.use_id })
+                            if (checkVid) {
+                                const date = functions.getDate(uv.use_create_time * 1000)
+
+                                await functions.addUvToVn(
+                                    uv.use_id,
+                                    uv.use_name,
+                                    uv.use_phone_tk,
+                                    uv.use_pass,
+                                    uv.use_job_name || 'Chi tiết ở CV',
+                                    Array.isArray(uv.use_nganh_nghe) ? uv.use_nganh_nghe.map((item) => (item?.id || 0)).filter((item) => item != 0).join(',') : '0',
+                                    Array.isArray(uv.use_city_job) ? uv.use_city_job.map((item) => (item?.id || 0)).filter((item) => item != 0).join(',') : '0',
+                                    uv?.address || 'Chi tiết ở CV',
+                                    uv?.use_mail || uv?.use_email_contact || 'Chi tiết ở CV',
+                                    3,
+                                    1,
+                                    `${process.env.DOMAIN_API}/pictures/${date}/${uv?.use_logo}`,
+                                    ``,
+                                    '',
+                                    uv?.use_city || (Array.isArray(uv.use_city_job) && uv.use_city_job.length > 0 ? uv.use_city_job.map((item) => (item?.id || 0)).filter((item) => item != 0)[0] : '0'),
+                                    uv?.use_district || (Array.isArray(uv.use_district_job) && uv.use_district_job.length > 0 ? uv.use_district_job.map((item) => (item?.id || 0)).filter((item) => item != 0)[0] : '0'),
+                                    uv?.address || 'Chi tiết ở CV',
+                                    uv?.birthday,
+                                    'topcv1s.com',
+                                    '',
+                                    uv.use_create_time,
+                                    uv.use_authentic,
+                                )
+
+                                console.log('Đồng bộ UV ', uv.use_id);
+                            } else {
+                                console.log('Không Đồng bộ được UV ', uv.use_id);
+                            }
+                        }
+                    }
+                }
+            }
+
+            // console.timeEnd('Service addUvToVnCheck')
+
+            // End lock
+            // if (fs.existsSync(lockFilePath)) {
+            // fs.unlinkSync(lockFilePath)
+            // }
+        } catch (error) {
+            console.log(error.message);
+            console.log('Retry');
+            addUvToVnCheck()
+        }
+
+        await functions.sleep(5 * 60 * 1000)
+    }
+}
+// ONLY RUN ON SERVICE
+// addUvToVnCheck()
+
+// Service check uv chưa có ảnh cv => tạo lại 
+export const reGenCvImage = async () => {
+    try {
+
+    } catch (error) {
+        console.log('reGenCvImage', error.message);
+    }
+}

@@ -1,0 +1,193 @@
+Tổng số: 48
+new_id: 171863
+new_title: Nhân viên Kế hoạch Sản xuất
+new_alias: nhan-vien-ke-hoach-san-xuat
+
+new_id: 171864
+new_title: NHÂN VIÊN KỸ THUẬT TRIỂN KHAI VÀ BẢO TRÌ MẠNG VIỄN THÔNG (HÀ ĐÔNG, CHƯƠNG MỸ)
+new_alias: nhan-vien-ky-thuat-trien-khai-va-bao-tri-mang-vien-thong-ha-dong-chuong-my
+
+new_id: 171865
+new_title: CHUYÊN VIÊN KINH DOANH DỊCH VỤ VIỄN THÔNG (HÀ ĐÔNG)
+new_alias: chuyen-vien-kinh-doanh-dich-vu-vien-thong-ha-dong
+
+new_id: 171866
+new_title: NHÂN VIÊN KỸ THUẬT TRIỂN KHAI VÀ BẢO TRÌ MẠNG VIỄN THÔNG (TẠI QUẬN HOÀNG MAI, HÀ NỘI)
+new_alias: nhan-vien-ky-thuat-trien-khai-va-bao-tri-mang-vien-thong-tai-quan-hoang-mai-ha-noi
+
+new_id: 171867
+new_title: NHÂN VIÊN KINH DOANH DỊCH VỤ VIỄN THÔNG (TẠI QUẬN HOÀNG MAI, HÀ NỘI)
+new_alias: nhan-vien-kinh-doanh-dich-vu-vien-thong-tai-quan-hoang-mai-ha-noi
+
+new_id: 171868
+new_title: NHÂN VIÊN KỸ THUẬT TRIỂN KHAI VÀ BẢO TRÌ MẠNG VIỄN THÔNG (HÀ ĐÔNG, CHƯƠNG MỸ)
+new_alias: nhan-vien-ky-thuat-trien-khai-va-bao-tri-mang-vien-thong-ha-dong-chuong-my
+
+new_id: 171869
+new_title: CHUYÊN VIÊN KINH DOANH DỊCH VỤ VIỄN THÔNG (HÀ ĐÔNG)
+new_alias: chuyen-vien-kinh-doanh-dich-vu-vien-thong-ha-dong
+
+new_id: 171870
+new_title: NHÂN VIÊN KỸ THUẬT TRIỂN KHAI VÀ BẢO TRÌ MẠNG VIỄN THÔNG (TẠI QUẬN HOÀNG MAI, HÀ NỘI)
+new_alias: nhan-vien-ky-thuat-trien-khai-va-bao-tri-mang-vien-thong-tai-quan-hoang-mai-ha-noi
+
+new_id: 171871
+new_title: NHÂN VIÊN KINH DOANH DỊCH VỤ VIỄN THÔNG (TẠI QUẬN HOÀNG MAI, HÀ NỘI)
+new_alias: nhan-vien-kinh-doanh-dich-vu-vien-thong-tai-quan-hoang-mai-ha-noi
+
+new_id: 171872
+new_title: Nhân viên Kế hoạch Sản xuất
+new_alias: nhan-vien-ke-hoach-san-xuat
+
+new_id: 171873
+new_title: CHUYÊN VIÊN CHÍNH/CHUYÊN VIÊN CAO CẤP AN NINH MẠNG - KHỐI CÔNG NGHỆ THÔNG TIN
+new_alias: chuyen-vien-chinhchuyen-vien-cao-cap-an-ninh-mang-khoi-cong-nghe-thong-tin
+
+new_id: 171874
+new_title: CHUYÊN VIÊN CHÍNH/CHUYÊN VIÊN HỖ TRỢ TÍN DỤNG
+new_alias: chuyen-vien-chinhchuyen-vien-ho-tro-tin-dung
+
+new_id: 171875
+new_title: KỸ THUẬT VIÊN BẢO TRÌ HẠ TẦNG VIỄN THÔNG (MỸ THO)
+new_alias: ky-thuat-vien-bao-tri-ha-tang-vien-thong-my-tho
+
+new_id: 171876
+new_title: NHÂN VIÊN DỊCH VỤ KHÁCH HÀNG (GÒ CÔNG)
+new_alias: nhan-vien-dich-vu-khach-hang-go-cong
+
+new_id: 171877
+new_title: NHÂN VIÊN THU CƯỚC DỊCH VỤ VIỄN THÔNG (GÒ CÔNG)
+new_alias: nhan-vien-thu-cuoc-dich-vu-vien-thong-go-cong
+
+new_id: 171878
+new_title: CHUYÊN VIÊN KINH DOANH (QUẬN THỐT NỐT; HUYỆN CỜ ĐỎ)
+new_alias: chuyen-vien-kinh-doanh-quan-thot-not-huyen-co-do
+
+new_id: 171879
+new_title: Công nhân phụ lót đệm cao su Tập sự
+new_alias: cong-nhan-phu-lot-dem-cao-su-tap-su
+
+new_id: 171880
+new_title: Thợ lắp dựng giàn giáo
+new_alias: tho-lap-dung-gian-giao
+
+new_id: 171881
+new_title: Giám sát dân dụng
+new_alias: giam-sat-dan-dung
+
+new_id: 171882
+new_title: Công nhân phụ gia công-chế tạo
+new_alias: cong-nhan-phu-gia-cong-che-tao
+
+new_id: 171883
+new_title: Công nhân vận hành
+new_alias: cong-nhan-van-hanh
+
+new_id: 171884
+new_title: Thợ Hàn
+new_alias: tho-han
+
+new_id: 171885
+new_title: Giám sát trưởng An toàn, Sức khỏe
+new_alias: giam-sat-truong-an-toan-suc-khoe
+
+new_id: 171886
+new_title: Lập kế hoạch bảo dưỡng cấp cao
+new_alias: lap-ke-hoach-bao-duong-cap-cao
+
+new_id: 171887
+new_title: Nhân viên Lập kế hoạch bảo dưỡng
+new_alias: nhan-vien-lap-ke-hoach-bao-duong
+
+new_id: 171888
+new_title: Tổng giám đốc
+new_alias: tong-giam-doc
+
+new_id: 171889
+new_title: Giám sát trưởng Kỹ thuật & Dự án nhà máy
+new_alias: giam-sat-truong-ky-thuat-du-an-nha-may
+
+new_id: 171890
+new_title: Cán bộ phân tích kinh doanh PMO
+new_alias: can-bo-phan-tich-kinh-doanh-pmo
+
+new_id: 171891
+new_title: Cán bộ cấp cao – An ninh Nội bộ
+new_alias: can-bo-cap-cao-an-ninh-noi-bo
+
+new_id: 171892
+new_title: Giám sát kiểm soát tuân thủ
+new_alias: giam-sat-kiem-soat-tuan-thu
+
+new_id: 171893
+new_title: Kỹ sư công nghệ
+new_alias: ky-su-cong-nghe
+
+new_id: 171894
+new_title: Kỹ thuật viên Tuyển khoáng
+new_alias: ky-thuat-vien-tuyen-khoang
+
+new_id: 171895
+new_title: Công nhân vận hành
+new_alias: cong-nhan-van-hanh
+
+new_id: 171896
+new_title: Chuyên viên thu hồi công nợ
+new_alias: chuyen-vien-thu-hoi-cong-no
+
+new_id: 171897
+new_title: Payable Accountant (Head Quarter)
+new_alias: payable-accountant-head-quarter
+
+new_id: 171898
+new_title: Kế toán tổng hợp _ General Accountant (Head Quarter)
+new_alias: ke-toan-tong-hop-general-accountant-head-quarter
+
+new_id: 171899
+new_title: Kế toán Tổng Hợp _Accountant Analyst (Head Quarter)
+new_alias: ke-toan-tong-hop-accountant-analyst-head-quarter
+
+new_id: 171900
+new_title: Kế toán thanh toán - Chi nhánh Mekong
+new_alias: ke-toan-thanh-toan-chi-nhanh-mekong
+
+new_id: 171901
+new_title: Poultry Team Leader (Head Quarter)
+new_alias: poultry-team-leader-head-quarter
+
+new_id: 171902
+new_title: HR General (Head Office)
+new_alias: hr-general-head-office
+
+new_id: 171903
+new_title: General Accountant (Head Office)
+new_alias: general-accountant-head-office
+
+new_id: 171904
+new_title: HR Senior Analyst (focus on Recruitment & Training)
+new_alias: hr-senior-analyst-focus-on-recruitment-training
+
+new_id: 171905
+new_title: Nhân viên bảo trì
+new_alias: nhan-vien-bao-tri
+
+new_id: 171906
+new_title: Financial Planning & Analysis Specialist (Head Office)
+new_alias: financial-planning-analysis-specialist-head-office
+
+new_id: 171907
+new_title: Chuyên viên kinh doanh - Khu vực Miền Nam
+new_alias: chuyen-vien-kinh-doanh-khu-vuc-mien-nam
+
+new_id: 171908
+new_title: NHÂN VIÊN KINH DOANH DỊCH VỤ VIỄN THÔNG (H. KẾ SÁCH, H. THẠNH TRỊ, H. TRẦN ĐỀ, TX VĨNH CHÂU, TP SÓC TRĂNG)
+new_alias: nhan-vien-kinh-doanh-dich-vu-vien-thong-h-ke-sach-h-thanh-tri-h-tran-de-tx-vinh-chau-tp-soc-trang
+
+new_id: 171909
+new_title: KỸ THUẬT VIÊN (TX VĨNH CHÂU, H. TRẦN ĐỀ, SÓC TRĂNG...)
+new_alias: ky-thuat-vien-tx-vinh-chau-h-tran-de-soc-trang
+
+new_id: 171910
+new_title: NHÂN VIÊN CHĂM SÓC KHÁCH HÀNG TẠI NHÀ (H. TRẦN ĐỀ, H. LONG PHÚ, TT ĐẠI NGÃI)
+new_alias: nhan-vien-cham-soc-khach-hang-tai-nha-h-tran-de-h-long-phu-tt-dai-ngai
+
