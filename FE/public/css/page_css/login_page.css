@@ -1,0 +1,117 @@
+#content{
+font-family: Roboto;
+}
+.login-content{
+    height: calc(100vh - 0px);
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(/images/img/backgroundlogin.png);
+}
+.login-box {
+    max-height: calc(100vh - 30px);
+}
+.login-content::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #58585899;
+}
+
+.login-box{
+    max-width: calc(100% - 30px);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    gap: 136px;
+    justify-content: space-between;
+    z-index: 2;
+    transform: translate(-50%, -50%);
+}
+
+.login-box .login-img{
+    background-color: #E6F2F3;
+    padding: 20px;
+}
+
+.login-box .login-uv, .login-box .login-ntd{
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.login-box .login-act{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.login-box .login-act .login-title{
+    color: #2D3E5D;
+    margin-bottom: 32px;
+}
+.login-box .login-act .login-title li{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.login-box .login-act .login-title li::before{
+    content: "";
+    display: block;
+    background-color: #00b14f;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+}
+
+.login-act .login-btn{
+    padding: 15px 26px;
+    border-radius: 40px;
+}
+.login-box .login-uv-mb, .login-box .login-ntd-mb{
+    display: none;
+}
+.page-title{
+    position: absolute;
+    top: 32px;
+    text-align: center;
+    font-size: 32px;
+    color: #ffffff;
+    z-index: 1;
+    right: 50%;
+    transform: translate(50%, 0);
+}
+@media only screen and (max-width: 1024px){
+    .login-box{
+        gap: unset;
+        width: 100%;
+    }
+    .login-box .login-uv, .login-box .login-ntd{
+        transform: scale(0.9);
+    }
+    .page-title{
+        top: 24px;
+        font-size: 24px;
+    }
+}
+
+@media only screen and (max-width:768px){
+    .login-box .login-uv, .login-box .login-ntd{
+        display: none;
+    }
+    .login-box .login-uv-mb, .login-box .login-ntd-mb{
+        display: block;
+        flex: 0 0 45%;
+    }
+    .login-box .login-uv-mb img, .login-box .login-ntd-mb img{
+        padding: 18px;
+    }
+    .page-title{
+        font-size: 24px;
+    }
+}

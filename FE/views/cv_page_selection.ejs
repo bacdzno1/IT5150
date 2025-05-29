@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow" />
+    <meta name="description"
+        content="<%= des %>">
+    <meta name="twitter:card" content="<%= title %>">
+    <meta name="twitter:site" content="TopCv1s">
+    <meta name="twitter:title" content="<%= title %>">
+    <meta name="twitter:description"
+        content="<%= des %>">
+    <meta property="og:site_name" content="TopCv1s">
+    <meta property="og:image" content="http://localhost:9020/images/img/icon_head.png">
+    <meta property="og:url" content="http://localhost:9020<%= url %>">
+    <meta property="og:type" content="website">
+    <title><%= title %></title>
+    <link rel="canonical" href="http://localhost:9020<%= url %>">
+    <link rel="icon" href="/images/img/icon_head.png">
+    <link rel="preload" as="style" href="/css/common.css">
+    <link rel="stylesheet" href="/css/common.css" as="style">
+    <link rel="preload" as="style" href="/css/header.css">
+    <link rel="stylesheet" href="/css/header.css" as="style">
+    <link rel="preload" as="style" href="/css/cv_page_selection.css">
+    <link rel="stylesheet" href="/css/page_css/cv_page_selection.css" as="style">
+    <link rel="preload" as="style" href="/css/cv_page.css">
+    <link rel="stylesheet" href="/css/page_css/cv_page.css" as="style">
+    <!-- <script src="/js/jquery.min.js"></script> -->
+    <!-- <meta name="robots" content="noindex, nofollow" /> -->
+    <script
+        type="application/ld+json">{"@context": "https://schema.org","@type": "ItemPage","url": "http://localhost:9020","mainEntityOfPage": "Tìm việc nhanh, tuyển dụng tốt nhất tại TopCv1s"}</script>
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"EmploymentAgency","name":"topcv1s.com","alternateName":"Tìm Việc Nhanh, Tuyển Dụng Hiệu Quả | TopCv1s.com","logo":"http://localhost:9020/images/img/icon_head.png","image":"http://localhost:9020/images/img/icon_head.png","url":"http://localhost:9020"}</script>
+    <script
+        type="application/ld+json">{"@context":"http://schema.org","@type":"WebSite","url":"http://localhost:9020/"}</script>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "DesPage",
+            "url": "http://localhost:9020<%= url %>",
+            "title": "<%= title %>",
+            "description": "Lựa chọn mẫu CV <%= data_cv.name %> bạn yêu thích tại kho CV mẫu của TopCv1s. Các mẫu CV <%= data_cv.name %> do chuyên gia thiết kế đa phong cách, form mẫu để ứng viên có đa dạng sự lựa chọn. Viết CV theo nội dung gợi ý, nhanh sở hữu mẫu CV <%= data_cv.name %> tốt nhất.",
+            "thumbnail": "http://localhost:9020/images/img/default_logo.jpg"
+        } 
+    </script>
+    <meta name="google-site-verification" content="lwyGMjMCHXSuJXWOc3iy1MG_Hd6yRBARF5H8NuMxUPg" />
+</head>
+
+<body>
+    <%- include('layouts/header', {}); %>
+        <div id="content" style="padding-top:80px">
+            <div class="breadcrumb">
+                <div class="container">
+                    <div class="breadcrumb-list fs-7">
+                        <a href="/" class="color-main fw-600">Trang chủ</a>
+                        <img src="/images/icon/arrow-right.svg" width="14" height="14" alt="Breadcrumb Next Icon">
+                        <a class="color-main" href="/cv-xin-viec">CV xin việc</a>
+                        <img src="/images/icon/arrow-right.svg" width="14" height="14" alt="Breadcrumb Next Icon">
+                        <span>
+                            <%= data_cv.name %>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <img src="/images/img/bannercvrec-min.webp" loading="eager" style="display:none;" id="preloadImage">
+            <div class="banner" style="background-image: url('/images/img/bannercvrec-min.webp');">
+                <div class="banner-box container d-flex">
+                    <div class="banner-til">
+                        <h1 class="banner-til-top">
+                            <span>
+                                <%= h1tit%>
+                            </span>
+                        </h1>
+                        <div class="banner-til-bot ">
+                            Tham khảo các ví dụ mẫu CV <%= data_cv.name %> được chọn lọc dưới đây để tạo nhanh CV của
+                                bạn hoặc chọn mẫu khác phù hợp với cá nhân bạn.
+                        </div>
+                        <a class="bg-main color-white btn-create-cv" href="/cv-xin-viec">Tạo CV ngay</a>
+                    </div>
+                    <div class="banner-cv-box">
+                        <img class="banner-cv-img"
+                            loading="eager"
+                            src="<%= response.data.data.data[0] ? response.data.data.data[0].image : '/images/img/cover-cv.png' %>"
+                            width="400" height="568"
+                            onerror="this.onerror=null;this.src='/images/img/cover-cv.png';"
+                            alt="<%= response.data.data.data[0] ? response.data.data.data[0].name : 'CV banner' %>">
+                    </div>
+                </div>
+            </div>
+            <div class="cv-cont">
+                <div class="cv-body container">
+                    <h2 class="cv-title color-default">
+                        Đề xuất CV <%= data_cv.name %>
+                    </h2>
+                    <div class="cv-list">
+                        <% if (response.data.data.data.length> 0) { %>
+                            <% response.data.data.data.forEach(function(item) { %>
+                                <div class="cv-unit">
+                                    <div class="unit-title">
+                                        <%= item.name %>
+                                    </div>
+                                    <div class="cv-img">
+                                        <img class="body-cv" loading="lazy" src="<%= item.cover_image %>" width="145" height="260"
+                                            onerror="this.onerror=null;this.src='/images/img/body-cv.png';"
+                                            alt="<%= item.name %>">
+                                        <div class="cv-act">
+                                            <button class="preview-cv-btn fw-500" data-img1="<%= item.image %>"
+                                                data-img2="<%= item.image2 %>" data-img3="<%= item.image3 %>"
+                                                data-color="<%= item.codecolor %>" data-name="<%= item.name %>" data-alias="<%= item.alias %>" data-id="<%= item.id %>">Xem
+                                                Trước CV</button>
+                                            <a class="create-cv-btn fs-7" target="_blank"
+                                                href="/tao-cv/<%= item.alias %>-<%= item.id %>">Tạo CV</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% }); %>
+                                    <% } else { %>
+                                        <h3 class="color-alert mb-0 fs-6">Đang cập nhật...</h3>
+                                        <% } %>
+                    </div>
+                </div>
+            </div>
+            <link rel="stylesheet" href="/css/ck_blog.css" as="style">
+            <% if (response.data.data.blog && response.data.data.blog.idnganh !=0) { %>
+                <div class="guide-bg">
+                    <div class="container">
+                        <div class="guide_cnt">
+                            <div class="cv-guide">
+                                <p class="guide-des ck-content fst-italic">
+                                    <%- response.data.data.blog.mota %>
+                                </p>
+                                <div class="guide-body ck-content">
+                                    <%- response.data.data.blog.noidung %>
+                                </div>
+                            </div>
+                            <div class="cv-toc">
+                                <div class="cv_toc_tit">
+                                    <span class="cv_toc_tit_name">Mục lục</span>
+                                    <span class="cv_toc_tit_hide">[ẩn]</span>
+                                </div>
+                                <ul id="toc-list">
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+        </div>
+        <div id="myModal" class="modal">
+            <div id="modal-body"></div>
+        </div>
+
+        <div class="modal_cv" id="modal_cv">
+            <div class="modal_cnt">
+                <div class="modal_view">
+                    <img loading="lazy" class="w-100 img_cv_preview" src="/images/img/CV_Copywirter-01_1.png"
+                        alt="Mẫu CV">
+                    <img loading="lazy" src="/images/icon/plus_zoom_cv.png" class="plus_zoom_cv" alt="Xem trước CV">
+                </div>
+                <div class="modal_act">
+                    <button class="modal_cls" style="cursor: pointer;">
+                        <img loading="lazy" width="17" height="17" alt="Close Cv" src="/images/icon/cls_view_cv.svg">
+                    </button>
+                    <div class="modal_tit">
+                        CV xin việc nhân viên bán hàng 01
+                    </div>
+                    <div class="modal_item">
+                        <label>
+                            Màu sắc
+                        </label>
+                        <div class="color_list">
+                            <div class="color_item active">
+                                <span style="background-color: #FAAF40;"></span>
+                            </div>
+                            <div class="color_item">
+                                <span style="background-color: #2B3990;"></span>
+                            </div>
+                            <div class="color_item">
+                                <span style="background-color: #00b14f;"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="modal_cv_used" style="cursor: pointer;" data-url="">
+                        Dùng mẫu này
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Xem trước Full -->
+        <link rel="stylesheet" href="/css/page_css/xem_truoc_full.css">
+        <div class="overlay zoom_cv" id="zoom_cv" style="display: none;">
+            <div class="wapper">
+                <div class="auth_form po_r">
+                    <div class="p_left">
+                        <div class="frame_img">
+                            <img loading="lazy" class="img_cv" src="" alt="CV" style="width: 1000px; height: auto">
+                            <img loading="lazy" class="close_zoom_cv" src="/images/cv/close_zoom_cv.png" alt="close">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <link rel="stylesheet" href="/css/footer.css" as="style">
+        <%- include('layouts/footer', {}); %>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const previewBtns = document.querySelectorAll('.preview-cv-btn');
+                    const cvUnits = document.querySelectorAll('.cv-unit');
+
+                    // Attach event listener to each preview button
+                    previewBtns.forEach(function (previewBtn) {
+                        previewBtn.addEventListener('click', function (event) {
+                            event.stopPropagation();
+
+                            const cvUnit = this.closest('.cv-unit');
+
+                            if (cvUnit) {
+                                // Get the data-preview-image attribute value
+                                const previewImage = cvUnit.getAttribute('data-preview-image');
+                                cvUnit.classList.toggle('show-hover-image');
+                            }
+                        });
+                    });
+
+                    document.addEventListener('click', function (event) {
+                        cvUnits.forEach(function (cvUnit) {
+                            if (!cvUnit.contains(event.target)) {
+                                cvUnit.classList.remove('show-hover-image');
+                            }
+                        });
+                    });
+                });
+            </script>
+            <script>
+                $(document).ready(function () {
+                    $('.guide_cnt a').each(function() {
+                        var link = $(this).attr('href');
+                        if (link && (link.endsWith('.docx') || link.endsWith('.pdf') || link.endsWith('.xlsx'))) {
+                            $(this).attr('link-active', '0');
+                        }
+                    });
+                    let timer;
+                    let $modal = $('#myModal');
+                    let $modalBody = $('#modal-body');
+
+                    $('.cv-guide a').hover(function (e) {
+                        const $link = $(this);
+                        const url = $link.attr('href');
+                        if ($link.attr('link-active') == '0') {
+                            console.log("Hủy");
+                            return;
+                        }
+                        // Hiển thị modal với hiệu ứng fadeIn
+                        $modal.stop(true, true).fadeIn(300);
+
+                        // Lấy dữ liệu từ URL
+                        $.ajax({
+                            url: url,
+                            method: 'GET',
+                            success: function (data) {
+                                // Tạo một phần tử DOM tạm thời để phân tích HTML
+                                const tempDiv = $('<div>').html(data);
+
+                                // Tìm tất cả các thẻ <script> với type="application/ld+json"
+                                const jsonLdScripts = tempDiv.find('script[type="application/ld+json"]');
+
+                                // Lấy thẻ <script> cuối cùng
+                                const lastJsonLdScript = jsonLdScripts.last().html();
+
+                                if (lastJsonLdScript) {
+                                    try {
+                                        // Phân tích dữ liệu JSON-LD
+                                        const jsonLdData = JSON.parse(lastJsonLdScript);
+                                        console.log(jsonLdData);
+
+                                        // Hiển thị dữ liệu trong modal
+                                        $modalBody.html(`
+                                    <img class="w-100" src="${jsonLdData.thumbnail || 'http://localhost:9020/images/img/default_logo.jpg'}">
+                                    <div class="modal-des">${jsonLdData.description || 'N/A'}</div>
+                                `);
+                                    } catch (e) {
+                                        console.error('Không thể phân tích dữ liệu JSON-LD', e);
+                                        $modalBody.html('<div>Không thể phân tích dữ liệu JSON-LD</div>');
+                                    }
+                                } else {
+                                    console.log('Không tìm thấy thẻ <script> JSON-LD nào');
+                                }
+                            },
+                            error: function () {
+                                console.error('Không thể lấy nội dung trang');
+                                $modalBody.html('<p>Không thể lấy nội dung trang</p>');
+                            }
+                        });
+
+                        // Tính toán vị trí của modal liên tục khi di chuyển chuột
+                        $link.on('mousemove', function (e) {
+                            const cursorX = e.clientX;
+                            const cursorY = e.clientY;
+                            const modalWidth = $modal.outerWidth();
+                            const modalHeight = $modal.outerHeight();
+                            const windowWidth = $(window).width();
+                            const windowHeight = $(window).height();
+
+                            // Điều chỉnh vị trí modal dựa trên con trỏ chuột và viewport
+                            let left, top;
+                            if (cursorX > windowWidth / 2) {
+                                left = cursorX - modalWidth - 10; // Modal nằm bên trái con trỏ chuột
+                            } else {
+                                left = cursorX + 10; // Modal nằm bên phải con trỏ chuột
+                            }
+
+                            if (cursorY + modalHeight > windowHeight) {
+                                top = windowHeight - modalHeight - 10; // Modal nằm phía trên con trỏ chuột
+                            } else if (cursorY < modalHeight + 10) {
+                                top = 10; // Modal nằm phía dưới con trỏ chuột
+                            } else {
+                                top = cursorY - 10; // Modal ở vị trí con trỏ chuột
+                            }
+
+                            // Đặt vị trí của modal
+                            $modal.css({
+                                top: top + 'px',
+                                left: left + 'px'
+                            });
+                        });
+                    }, function () {
+                        // Ẩn modal với hiệu ứng fadeOut khi rời chuột khỏi liên kết
+                        timer = setTimeout(function () {
+                            $modal.stop(true, true).fadeOut(300);
+                        }, 0); // Thay đổi thời gian delay nếu cần
+
+                        // Gỡ bỏ sự kiện mousemove khi rời khỏi liên kết
+                        $(this).off('mousemove');
+                    });
+
+                    // Xử lý nút đóng modal
+                    $('.close').click(function () {
+                        $modal.hide();
+                    });
+                });
+            </script>
+            <script>
+                $(document).ready(function () {
+                    $('.nav-item').hover(function () {
+                        $(this).children('.nav-dropdown').stop(true, true).fadeIn(300);
+                    }, function () {
+                        $(this).children('.nav-dropdown').stop(true, true).fadeOut(300);
+                    });
+                });
+                $(document).ready(function () {
+                    const tocList = $('#toc-list');
+                    const headers = $('.guide-body h2, .guide-body h3, .guide-body h4');
+
+                    headers.each(function (index) {
+                        const header = $(this);
+                        const text = header.text();
+                        const id = 'header-' + index;
+                        header.attr('id', id);
+
+                        const listItem = $('<li></li>')
+                            .text(text)
+                            .click(function () {
+                                $('html, body').animate({
+                                    scrollTop: $('#' + id).offset().top - 80
+                                }, 500);
+                            });
+
+                        const tag = header.prop('tagName').toLowerCase();
+                        if (tag === 'h3') {
+                            listItem.css('margin-left', '20px');
+                        } else if (tag === 'h4') {
+                            listItem.css('margin-left', '40px');
+                        }
+
+                        tocList.append(listItem);
+                    });
+
+                    $('.cv_toc_tit').click(function () {
+                        tocList.toggle();
+                        const toggleText = tocList.is(':visible') ? '[ẩn]' : '[hiện]';
+                        $('.cv_toc_tit_hide').text(toggleText);
+                    });
+                    $('.blog-sh').click(function () {
+                        const content = $('.guide-body');
+                        const toc = $('.cv-toc');
+                        if (content.is(':visible') && toc.is(':visible')) {
+                            content.slideUp();
+                            toc.slideUp();
+                            $(this).text('Hiện thêm');
+                        } else {
+                            content.slideDown();
+                            toc.slideDown();
+                            $(this).text('Thu gọn');
+                        }
+                    });
+                });
+            </script>
+            <script>
+                $(document).ready(function () {
+                    $('.preview-cv-btn').each(function () {
+                        $(this).click(function () {
+                            const img = $(this).attr('data-img1')
+                            const img2 = $(this).attr('data-img2')
+                            const img3 = $(this).attr('data-img3')
+                            const name = $(this).attr('data-name')
+                            const alias = $(this).attr('data-alias')
+                            const id = $(this).attr('data-id')
+                            let imgs = [];
+                            imgs.push(img)
+                            imgs.push(img2)
+                            imgs.push(img3)
+                            $('.color_item').first().addClass('active');
+                            colors = $(this).attr('data-color').split(',')
+                            $('.modal_view .img_cv_preview').attr('src', img)
+                            $('.modal_tit').text(name)
+                            $('.color_item span').each(function (index) {
+                                if (index < colors.length) {
+                                    $(this).css('background-color', '#' + colors[index]);
+                                }
+                            });
+                            $('.color_item').each(function (index) {
+                                if (index < colors.length) {
+                                    $(this).find('span').css('background-color', '#' + colors[index]);
+                                    $(this).click(function () {
+                                        $('.color_item').removeClass("active");
+                                        $(this).addClass("active")
+                                        $('.modal_view .img_cv_preview').attr('src', imgs[index])
+                                    })
+                                }
+                            });
+                            $('#modal_cv').show();
+                            $('.plus_zoom_cv').click(function () {
+                                $(".overlay.zoom_cv .img_cv").attr("src", $('.modal_view .img_cv_preview').attr('src'))
+                                $('.overlay.zoom_cv').show()
+                            })
+                            $('.modal_cv_used').click(function () {
+                                window.location.href = `/tao-cv/${alias}-${id}`
+                            })
+                        })
+                    })
+
+                    $('.modal_cls').click(function () {
+                        $('#modal_cv').hide();
+                        $('.color_item').removeClass('active');
+                        // $('.color_item').first().addClass('active');
+                    })
+
+                    $('.close_zoom_cv').click(function () {
+                        $('#modal_cv').show()
+                        $('.overlay.zoom_cv').hide()
+                    })
+                })
+            </script>
+            
+            
+</body>
+
+</html>

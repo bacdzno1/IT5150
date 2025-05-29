@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" href="/images/img/icon_head.png">
+    <title>Danh sách ứng viên</title>
+    <link rel="preload" href="/css/admin/ntd_post.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/admin/ntd_post.css">
+    </noscript>
+    <link rel="preload" href="/css/common.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/common.css">
+    </noscript>
+    <link rel="preload" href="/css/admin/leftnav_admin.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/admin/leftnav_admin.css">
+    </noscript>
+</head>
+<body>
+    <div class="cnt">
+        <div class="cnt-left" id="leftNav">
+            <%- include('../layouts/leftnav_admin', {}); %>
+        </div>
+        <div class="cnt-right" id="rightContent">
+            <div class="ntd-post-news-container">
+                <div class="ntd-post-title fs-4 pt-4 pb-3"><b>Nhà tuyển dụng tự đăng</b></div>
+                <div class="news-search-bar pt-2">
+                    <input class="input-info" id="new_id" type="text" placeholder="Nhập Id">
+                    <input class="input-info" id="new_user_id" type="text" placeholder="ID công ty">
+                    <input class="input-info" id="new_title" type="text" placeholder="Tiêu đề">
+                    <input class="input-info" id="usc_company" type="text" placeholder="Tên công ty">
+                    <select class="input-info" id="new_cat_id">
+                        <option value="" selected>Chọn ngành nghề</option>
+                        <% for (let i=0; i < cateList.length; i++) { %>
+                            <option value="<%= cateList[i].cat_id %>">
+                                <%= cateList[i].cat_name %>
+                            </option>
+                        <% } %>
+                    </select>
+                    <select class="input-info" id="new_city">
+                        <option value="" selected>Chọn tỉnh thành</option>
+                        <% for (let i=0; i < listCities.length; i++) { %>
+                            <option value="<%= listCities[i].cit_id %>">
+                                <%= listCities[i].cit_name %>
+                            </option>
+                        <% } %>
+                    </select>
+                    <input class="input-info" id="from" type="date" placeholder="Từ">
+                    <input class="input-info" id="to" type="date" placeholder="Đến">
+                    <div class="btn-search-news">
+                        <button class="btn-search">Tìm kiếm</button>
+                    </div>
+                </div>
+                <div class="news-count pt-2">
+                </div>
+                <div class="news-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>ID</th>
+                                <th>ID cty</th>
+                                <th>Tiêu đề</th>
+                                <th>Tên công ty</th>
+                                <th>Số điện thoại</th>
+                                <th>Địa chỉ</th>
+                                <th>Ngày đăng tin</th>
+                                <th>Số UV UT</th>
+                                <th>Ghim box hấp dẫn</th>
+                                <th>Ghim box lương cao</th>
+                                <th>Thời hạn ghim tin</th>
+                                <th>Ghim</th>
+                                <th>Sửa</th>
+                                <th>Xóa</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ntdPostNews">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="loading-box" style="display: none;">
+                    <div class="loading-img">
+                        <img src="/images/icon/Rolling.svg">            
+                    </div>
+                </div>
+                <div class="cnt-mag-paginate d-flex justify-c flex-wr pt-2">
+                </div>
+            </div>
+        </div>
+        <div class="box-ghim-tin">
+            <div id="ghimForm">
+                <div class="text-c mb-2">Những ô dấu sao (*) là bắt buộc phải nhập</div>
+                <div class="date-ghim mb-2">
+                    <label for="dateGhim"><span class="asterisk">*</span>Ghim trang chủ đến ngày:</label>
+                    <input type="date" id="dateGhim">
+                </div>
+                <div class="checkbbox-ghim">
+                    <input class="mr-10px" type="checkbox" id="box_hot">
+                    <label class="mr-10px" for="box_hot">Box hấp dẫn</label>
+                    <input class="mr-10px" type="checkbox" id="box_cao">
+                    <label class="mr-10px" for="box_cao">Box lương cao</label>
+                </div>
+                <div class="form-buttons">
+                    <button id="updateGhim">Cập nhật</button>
+                </div>
+            </div>
+        </div>
+        <div class="edit-info">
+            <div id="editForm">
+                <div class="form-edit-title text-c fs-5 mb-3"><b>Chỉnh sửa tin tuyển dụng</b></div>
+                <div class="form-group">
+                    <label for="idCongTy"><span class="asterisk">*</span>ID công ty:</label>
+                    <input type="text" id="idCongTy">
+                </div>
+                <div class="form-group">
+                    <label for="tieuDeTin"><span class="asterisk">*</span>Tiêu đề tin:</label>
+                    <input type="text" id="tieuDeTin">
+                </div>
+                <div class="form-group">
+                    <label for="chonCapBac"><span class="asterisk">*</span>Chọn cấp bậc:</label>
+                    <select id="chonCapBac">
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="chonNganh">Chọn ngành nghề:</label>
+                    <select id="chonNganh">
+                        <option></option>
+                        <option>IT phần mềm</option>
+                        <option>Hành chính văn phòng</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="chonTieuChiCongViec">Chọn tiêu chí công việc:</label>
+                    <select id="chonTieuChiCongViec">
+                        <option></option>
+                        <option>Việc nhẹ</option>
+                        <option>Lương cao</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="chonDiaDiemLamViec">Chọn địa điểm làm việc:</label>
+                    <select id="chonDiaDiemLamViec">
+                        <option></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="chonQuanHuyen"><span class="asterisk">*</span>Chọn quận/huyện:</label>
+                    <select id="chonQuanHuyen">
+                        <option></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="diaChiChiTiet"><span class="asterisk">*</span>Địa chỉ chi tiết:</label>
+                    <input type="text" id="diaChiChiTiet">
+                </div>
+                <div class="form-group">
+                    <label for="hoaHong">Hoa hồng:</label>
+                    <input type="text" id="hoaHong">
+                </div>
+                <div class="form-group">
+                    <label for="thoiGianThuViec">Thời gian thử việc:</label>
+                    <input type="text" id="thoiGianThuViec">
+                </div>
+                <div class="form-group">
+                    <label for="hinhThucLamViec"><span class="asterisk">*</span>Hình thức làm việc:</label>
+                    <select id="hinhThucLamViec">
+                        <option></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="mucLuong"><span class="asterisk">*</span>Mức lương:</label>
+                    <select id="mucLuong">
+                        <option></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="soLuongCanTuyen"><span class="asterisk">*</span>Số lượng cần tuyển:</label>
+                    <input type="text" id="soLuongCanTuyen">
+                </div>
+                <div class="form-group">
+                    <label for="chonKinhNghiemLamViec"><span class="asterisk">*</span>Chọn kinh nghiệm làm việc:</label>
+                    <select id="chonKinhNghiemLamViec">
+                        <option></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="chonBangCap"><span class="asterisk">*</span>Chọn bằng cấp:</label>
+                    <select id="chonBangCap">
+                        <option></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="chonGioiTinh"><span class="asterisk">*</span>Chọn giới tính:</label>
+                    <select id="chonGioiTinh">
+                        <option></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="hanNop"><span class="asterisk">*</span>Hạn nộp:</label>
+                    <input type="date" id="hanNop" value="2025-07-27">
+                </div>
+                <div class="form-group">
+                    <label for="moTaCongViec"><span class="asterisk">*</span>Mô tả công việc:</label>
+                    <textarea id="moTaCongViec"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="yeuCauCongViec"><span class="asterisk">*</span>Yêu cầu công việc:</label>
+                    <textarea id="yeuCauCongViec"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="quyenLoi"><span class="asterisk">*</span>Quyền lợi:</label>
+                    <textarea id="quyenLoi"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="hoSo"><span class="asterisk">*</span>Hồ sơ:</label>
+                    <textarea id="hoSo"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="nguoiLienHe">Người liên hệ:</label>
+                    <input type="text" id="nguoiLienHe">
+                </div>
+                <div class="form-group">
+                    <label for="diaChiLienHe">Địa chỉ liên hệ:</label>
+                    <input type="text" id="diaChiLienHe">
+                </div>
+                <div class="form-group">
+                    <label for="sdtLienHe">SĐT liên hệ:</label>
+                    <input type="text" id="sdtLienHe">
+                </div>
+                <div class="form-group">
+                    <label for="emailLienHe">Email liên hệ:</label>
+                    <input type="email" id="emailLienHe">
+                </div>
+                <div class="form-buttons">
+                    <button type="submit" id="updateForm">Cập nhật</button>
+                    <button type="button" id="closeForm">Làm lại</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="/js/jquery.min.js"></script>
+<script>
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    function formatDate(dateString) {
+        var date = new Date(dateString * 1000);
+        var day = String(date.getDate()).padStart(2, '0');
+        var month = String(date.getMonth() + 1).padStart(2, '0');
+        var year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    }
+
+    function formatDateTime(date, startOfDay = true) {
+        const pad = (num) => String(num).padStart(2, '0');
+        const day = pad(date.getDate());
+        const month = pad(date.getMonth() + 1);
+        const year = date.getFullYear();
+        const hour = startOfDay ? '00' : '23';
+        const minute = startOfDay ? '00' : '59';
+        const second = startOfDay ? '00' : '59';
+        const millisecond = startOfDay ? '000' : '999';
+        return `${year}-${month}-${day}T${hour}:${minute}:${second}.${millisecond}`;
+    }
+    function deleteCookie(name) {
+        document.cookie = name + '=; Max-Age=0; path=/;';
+    }
+    function logout() {
+        deleteCookie('adminToken');
+        deleteCookie('adminRefToken');
+        deleteCookie('adm_id');
+        deleteCookie('adm_name');
+        deleteCookie('adm_email');
+        deleteCookie('adm_phone');
+        deleteCookie('adm_bophan');
+        deleteCookie('id_bophankd');
+        deleteCookie('adm_picture');
+        deleteCookie('typeadmin');
+        deleteCookie('isLogin');
+        deleteCookie('confirmBoxSeen')
+        window.location.href = '/admin';
+    }
+    $(document).ready(function () {
+        function convertEpochToDate(epochSeconds) {
+            const milliseconds = epochSeconds * 1000;
+            const date = new Date(milliseconds);
+            const day = date.getUTCDate();
+            const month = date.getUTCMonth() + 1; // Tháng trong JavaScript bắt đầu từ 0
+            const year = date.getUTCFullYear();
+            const formattedDate = `${day}/${month}/${year}`;
+            
+            return formattedDate;
+        }
+        var totalNews;
+        var totalPage;
+        var pageSize = 10;
+        $(".btn-search").click(function () {
+            renderTable(1);
+        });
+        //
+        function renderTable(page) {
+            let conditions = {};
+            let new_id = $('#new_id').val();
+            if (new_id) {
+                conditions.new_id = +new_id;
+            }
+            let new_user_id = $('#new_user_id').val();
+            if (new_user_id) {
+                conditions.new_user_id = new_user_id;
+            }
+            let new_title = $('#new_title').val();
+            if (new_title) {
+                conditions.new_title = new_title;
+            }
+            let usc_company = $('#usc_company').val();
+            if (usc_company) {
+                conditions.usc_company = usc_company;
+            }
+            let new_cat_id = $('#new_cat_id').val();
+            if (new_cat_id) {
+                conditions.new_cat_id = new_cat_id;
+            }
+            let new_city = $('#new_city').val();
+            if (new_city) {
+                conditions.new_city = new_city;
+            }
+            let fromDate = $('#from').val();
+            let toDate = $('#to').val();
+            let from, to;
+            if (fromDate) {
+                from = formatDateTime(new Date(fromDate), true);
+            }
+            if (toDate) {
+                to = formatDateTime(new Date(toDate), false);
+            }
+
+            $.ajax({
+                url: "http://localhost:3057/api/topcv1s/admin/list",
+                type: "POST",
+                headers: {
+                    "Authorization": "Bearer " + getCookie('adminToken')
+                },
+                contentType: "application/json",
+                data: JSON.stringify({
+                    page: page,
+                    pageSize: pageSize,
+                    module: 20,
+                    conditions: conditions,
+                    from: from, 
+                    to: to
+                }),
+                beforeSend: function() {
+                    $('.loading-box').show();
+                },
+                success: function (response) {
+                    if (response.data.result == true) {
+                        let listNews = response.data.data;
+                        let start = (page - 1) * pageSize;
+                        totalNews = response.data.total;
+                        totalPage = Math.ceil(totalNews / pageSize);
+                        $(".news-count").empty();
+                        $(".news-count").append('<div class="fs-4"><b>Số tin: ' + totalNews + '</b></div>');
+                        let tableBody = $('#ntdPostNews');
+                        tableBody.empty();
+                        listNews.forEach((newItem, index) => {
+                            let dateCreated = formatDate(newItem.new_create_time);
+                            var slugCompany = convertToSlug(newItem.usc_company);
+                            var slugNews = convertToSlug(newItem.new_title);
+                            var time_expired = newItem.expired ? convertEpochToDate(newItem.expired) : "-";
+                            let row = `<tr>
+                                        <td>${index + 1}</td>
+                                        <td>${newItem.new_id}</td>
+                                        <td>${newItem.new_user_id}</td>
+                                        <td><b><a href="${slugNews}-${newItem.new_id}" target="_blank">${newItem.new_title}</a></b></td>
+                                        <td><b><a href="${slugCompany}" target="_blank">${newItem.usc_company}</a></b></td>
+                                        <td>${newItem.usc_phone_tk}</td>
+                                        <td>${newItem.usc_address}</td>
+                                        <td>${dateCreated}</td>
+                                        <td>${newItem.uvCount}</td>
+                                        <td>${newItem.new_hot == 0 ? '<img src="/images/icon/checkx.svg" width="15" height="15" alt="Check Icon">' : '<img src="/images/icon/check.svg" width="15" height="15" alt="Check Icon">'}</td>
+                                        <td>${newItem.new_cao == 0 ? '<img src="/images/icon/checkx.svg" width="15" height="15" alt="Check Icon">' : '<img src="/images/icon/check.svg" width="15" height="15" alt="Check Icon">'}</td>
+                                        <td>${time_expired}</td>
+                                        <td><img class="ghim-icon" src="/images/icon/plusicon.svg" width="15" height="15" alt="Check Icon" data-id="${newItem.new_id}"></td>
+                                        <td><img class="edit-icon" src="/images/icon/editicon.svg" width="15" height="15" alt="Edit Icon"></td>
+                                        <td><img src="/images/icon/delete.svg" width="15" height="15" alt="Delete Icon"></td>
+                                    </tr>`;
+                            tableBody.append(row);
+                        });
+                        Paginate(totalPage, page);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    try {
+                        if (xhr.status === 402) {
+                            logout();
+                        }
+                        let response = JSON.parse(xhr.responseText);
+                        let errorMessage = response.message || "Unknown error"; 
+
+                        alert(errorMessage);
+                        console.log('Error message:', errorMessage);
+                    } catch (e) {
+                        alert("An error occurred while processing the error message.");
+                        console.log('Parsing error:', e);
+                    }
+                },
+                complete: function() {
+                    $('.loading-box').hide();
+                }
+            });
+        }
+        //Phân trang
+        function Paginate(totalPage, currentPage) {
+            $('.cnt-mag-paginate').empty();
+            $('.cnt-mag-paginate').append('<div class="pagi_pre_all"><<</div>');
+            $('.cnt-mag-paginate').append('<div class="pagi_pre"><</div>');
+            var startPage, endPage;
+            if (totalPage <= 4) {
+                startPage = 1;
+                endPage = totalPage;
+            } else if (currentPage <= 2) {
+                startPage = 1;
+                endPage = Math.min(totalPage, 4);
+            } else if (currentPage >= totalPage - 1) {
+                startPage = Math.max(1, totalPage - 3);
+                endPage = totalPage;
+            } else {
+                startPage = currentPage - 2;
+                endPage = currentPage + 2;
+            }
+            if (startPage > 1) {
+                $('.cnt-mag-paginate').append('<div class="pagi_page">1</div>');
+                if (startPage > 2) {
+                    $('.cnt-mag-paginate').append('<div class="pagi_page">...</div>');
+                }
+            }
+            for (let i = startPage; i <= endPage; i++) {
+                if (i === currentPage) {
+                    $('.cnt-mag-paginate').append('<div class="pagi_page active">' + i + '</div>');
+                } else {
+                    $('.cnt-mag-paginate').append('<div class="pagi_page">' + i + '</div>');
+                }
+            }
+            if (endPage < totalPage) {
+                if (endPage < totalPage - 1) {
+                    $('.cnt-mag-paginate').append('<div class="pagi_page">...</div>');
+                }
+                $('.cnt-mag-paginate').append('<div class="pagi_page">' + totalPage + '</div>');
+            }
+            $('.cnt-mag-paginate').append('<div class="pagi_next">></div>');
+            $('.cnt-mag-paginate').append('<div class="pagi_next_all">>></div>');
+            $('.pagi_page').click(function () {
+                if (!$(this).hasClass('active') && !$(this).text().includes('...')) {
+                    let selectedPage = parseInt($(this).text());
+                    $('.pagi_page').removeClass('active');
+                    $(this).addClass('active');
+                    renderTable(selectedPage);
+                    Paginate(totalPage, selectedPage);
+                }
+            });
+            $('.pagi_pre').click(function () {
+                if (currentPage > 1) {
+                    let prevPage = currentPage - 1;
+                    renderTable(prevPage);
+                    Paginate(totalPage, prevPage);
+                }
+            });
+            $('.pagi_next').click(function () {
+                if (currentPage < totalPage) {
+                    let nextPage = currentPage + 1;
+                    renderTable(nextPage);
+                    Paginate(totalPage, nextPage);
+                }
+            });
+            $('.pagi_pre_all').click(function () {
+                renderTable(1);
+                Paginate(totalPage, 1);
+            });
+            $('.pagi_next_all').click(function () {
+                renderTable(totalPage);
+                Paginate(totalPage, totalPage);
+            });
+        }
+        // Khởi tạo trang đầu tiên và tổng số trang
+        $.ajax({
+            url: "http://localhost:3057/api/topcv1s/admin/list",
+            type: "POST",
+            headers: {
+                "Authorization": "Bearer " + getCookie('adminToken')
+            },
+            contentType: "application/json",
+            data: JSON.stringify({
+                page: 1, pageSize: pageSize, module: 20
+            }),
+            success: function (response) {
+                if (response.data.result == true) {
+                    totalNews = response.data.total;
+                    totalPage = Math.ceil(totalNews / pageSize);
+                    Paginate(totalPage, 1);
+                    renderTable(1);
+                }
+            },
+            error: function (xhr, status, error) {
+                try {
+                    if (xhr.status === 402) {
+                        logout();
+                    }
+                    let response = JSON.parse(xhr.responseText);
+                    let errorMessage = response.message || "Unknown error"; 
+
+                    alert(errorMessage);
+                    console.log('Error message:', errorMessage);
+                } catch (e) {
+                    alert("An error occurred while processing the error message.");
+                    console.log('Parsing error:', e);
+                }
+            },
+        });
+        //
+        function convertToSlug(text) {
+            return text.toLowerCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/[^a-z0-9 ]+/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-');
+        }
+    })
+</script>
+<script>;
+    $(document).ready(function() {
+        var dataId;
+        var box_hot = 0;
+        var box_cao = 0;
+        var today = new Date().toISOString().split('T')[0];
+        $('#dateGhim').attr('min', today);
+        $('#closeForm').click(function() {
+            $('.edit-info').hide();
+        });
+
+        $('#updateForm').submit(function(event) {
+            event.preventDefault(); 
+            $('.edit-info').hide();
+        });
+        
+        $(document).on('click', '.edit-icon', function() {
+            $('.edit-info').fadeIn();
+        });
+
+        $(document).mouseup(function(e) {
+            var editContainer = $(".edit-info div");
+            if (!editContainer.is(e.target) && editContainer.has(e.target).length === 0) {
+                $('.edit-info').fadeOut();
+            }
+
+            var ghimContainer = $(".box-ghim-tin div");
+            if (!ghimContainer.is(e.target) && ghimContainer.has(e.target).length === 0) {
+                $('.box-ghim-tin').fadeOut();
+            }
+        });
+
+        $(document).on('click', '.ghim-icon', function() {
+            $('.box-ghim-tin').fadeIn();
+            dataId = $(this).data("id");
+        });
+
+        $('#updateGhim').click(function(){
+            event.preventDefault(); 
+            console.log(dataId);
+            var dateGhim = $('#dateGhim').val();
+            if(dateGhim){
+                
+            }
+            else{
+                alert('Vui lòng chọn hạn');
+            }
+            if ($('#box_hot').is(":checked"))
+            {
+                box_hot = 1;
+            }
+            if ($('#box_cao').is(":checked"))
+            {
+                box_cao = 1;
+            }
+            if(dataId && dataId != "" && dateGhim){
+                console.log(box_hot);
+                console.log(box_cao);
+                $.ajax({
+                    url: "http://localhost:3057/api/topcv1s/admin/PinNew",
+                    type: "POST",
+                    headers: {
+                        "Authorization": "Bearer " + getCookie('adminToken')
+                    },
+                    data:{
+                        new_id: dataId,
+                        new_hot: box_hot,
+                        new_cao: box_cao,
+                        expired: dateGhim
+                    },
+                    success: function (response) {
+                        alert(response.data.message);
+                        location.reload();
+                    },
+                    error: function (xhr, status, error) {
+                        alert("Ghim tin thất bại");
+                    },
+                });
+            }
+            else{
+                alert("Có lỗi xảy ra");
+            }
+            hideGhim();  
+        });
+        function hideGhim(){
+            dataId = ""; 
+            $('.box-ghim-tin').fadeOut();
+        }
+    });
+</script>
+</html>

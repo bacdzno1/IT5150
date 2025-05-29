@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" href="/images/img/icon_head.png">
+    <title>Danh sách ứng viên</title>
+    <link rel="preload" href="/css/admin/regis_new_ntd.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/admin/regis_new_ntd.css">
+    </noscript>
+    <link rel="preload" href="/css/common.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/common.css">
+    </noscript>
+    <link rel="preload" href="/css/admin/leftnav_admin.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/admin/leftnav_admin.css">
+    </noscript>
+</head>
+<body>
+    <div class="cnt">
+        <div class="cnt-left" id="leftNav">
+            <%- include('../layouts/leftnav_admin', {}); %>
+        </div>
+        <div class="cnt-right" id="rightContent">
+            <div class="regis-new-ntd-container">
+                <div class="regis-ntd-title fs-4 pt-4 pb-3"><b>Nhà tuyển dụng đăng ký</b></div>
+                <div class="ntd-search-bar pt-2">
+                    <input class="input-info" id="usc_id" type="text" placeholder="Nhập Id">
+                    <input class="input-info" id="usc_company" type="text" placeholder="Tên công ty">
+                    <input class="input-info" id="usc_email" type="email" placeholder="Nhập SĐT (tk đăng ký)">
+                    <input class="input-info" id="usc_phone_tk" type="text" placeholder="Nhập email (tk đăng ký)">
+                    <input class="input-info" id="usc_name_email" type="text" placeholder="Nhập email liên hệ">
+                    <input class="input-info" id="usc_name_phone" type="text" placeholder="Nhập SĐT">
+                    <input class="input-info" id="usc_mst" type="text" placeholder="MST">
+                    <select class="input-info" id="vip">
+                        <option value="" selected disabled>Chọn vip</option>
+                        <option value="0">Chưa vip</option>
+                        <option value="1">Vip</option>
+                    </select>
+                    <select class="input-info" id="usc_city">
+                        <option value="" selected>Chọn tỉnh thành</option>
+                        <% for (let i=0; i < listCities.length; i++) { %>
+                            <option value="<%= listCities[i].cit_id %>">
+                                <%= listCities[i].cit_name %>
+                            </option>
+                            <% } %>
+                    </select>
+                    <select class="input-info" id="usc_district" data-city-array="<%= JSON.stringify(city_array) %>">
+                        <option value="" selected>Chọn quận huyện</option>
+                    </select>
+                    <input class="input-info" id="from" type="date" placeholder="Từ">
+                    <input class="input-info" id="to" type="date" placeholder="Đến">
+                    <div class="btn-search-ntd">
+                        <button class="btn-search">Tìm kiếm</button>
+                    </div>
+                </div>
+                <div class="ntd-count pt-2">
+                </div>
+                <div class="ntd-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>ID</th>
+                                <th>Tên công ty</th>
+                                <th>SĐT (TK đăng nhập)</th>
+                                <th>Email (TK đăng nhập)</th>
+                                <th>Email</th>
+                                <th>SĐT</th>
+                                <th>Skype</th>
+                                <th>Địa chỉ</th>
+                                <th>Website</th>
+                                <th>MST</th>
+                                <th>Trạng thái vip</th>
+                                <th>Ngày đăng ký</th>
+                                <th>Active</th>
+                                <th>Index</th>
+                                <th>Sửa</th>
+                                <th>Id chuyên viên</th>
+                                <th>Id quản lý chung</th>
+                            </tr>
+                        </thead>
+                        <tbody id="newRegisteredEmp">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="loading-box" style="display: none;">
+                    <div class="loading-img">
+                        <img src="/images/icon/Rolling.svg">            
+                    </div>
+                </div>
+                <div class="cnt-mag-paginate d-flex justify-c flex-wr pt-2">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="/js/jquery.min.js"></script>
+<script>
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    function formatDate(dateString) {
+        var date = new Date(dateString * 1000);
+        var day = String(date.getDate()).padStart(2, '0');
+        var month = String(date.getMonth() + 1).padStart(2, '0');
+        var year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    }
+
+    function formatDateTime(date, startOfDay = true) {
+        const pad = (num) => String(num).padStart(2, '0');
+        const day = pad(date.getDate());
+        const month = pad(date.getMonth() + 1);
+        const year = date.getFullYear();
+        const hour = startOfDay ? '00' : '23';
+        const minute = startOfDay ? '00' : '59';
+        const second = startOfDay ? '00' : '59';
+        const millisecond = startOfDay ? '000' : '999';
+        return `${year}-${month}-${day}T${hour}:${minute}:${second}.${millisecond}`;
+    }
+    function deleteCookie(name) {
+        document.cookie = name + '=; Max-Age=0; path=/;';
+    }
+    function logout() {
+        deleteCookie('adminToken');
+        deleteCookie('adminRefToken');
+        deleteCookie('adm_id');
+        deleteCookie('adm_name');
+        deleteCookie('adm_email');
+        deleteCookie('adm_phone');
+        deleteCookie('adm_bophan');
+        deleteCookie('id_bophankd');
+        deleteCookie('adm_picture');
+        deleteCookie('typeadmin');
+        deleteCookie('isLogin');
+        deleteCookie('confirmBoxSeen')
+        window.location.href = '/admin';
+    }
+    $(document).ready(function () {
+        var totalEmps;
+        var totalPage;
+        var pageSize = 10;
+        $(".btn-search").click(function () {
+            renderTable(1);
+        });
+        //
+        function renderTable(page) {
+            let conditions = {};
+            let usc_id = $('#usc_id').val();
+            if (usc_id) {
+                conditions.usc_id = +usc_id;
+            }
+            let usc_company = $('#usc_company').val();
+            if (usc_company) {
+                conditions.usc_company = usc_company;
+            }
+            let usc_email = $('#usc_email').val();
+            if (usc_email) {
+                conditions.usc_email = usc_email;
+            }
+            let usc_phone_tk = $('#usc_phone_tk').val();
+            if (usc_phone_tk) {
+                conditions.usc_phone_tk = usc_phone_tk;
+            }
+            let usc_name_email = $('#usc_name_email').val();
+            if (usc_name_email) {
+                conditions.usc_name_email = usc_name_email;
+            }
+            let usc_name_phone = $('#usc_name_phone').val();
+            if (usc_name_phone) {
+                conditions.usc_name_phone = usc_name_phone;
+            }
+            let usc_mst = $('#usc_mst').val();
+            if (usc_mst) {
+                conditions.usc_mst = usc_mst;
+            }
+            let usc_city = $('#usc_city').val();
+            if (usc_city) {
+                conditions.usc_city = usc_city;
+            }
+            let usc_district = $('#usc_district').val();
+            if (usc_district) {
+                conditions.usc_district = usc_district;
+            }
+            let vip = $('#vip').val();
+            if (vip) {
+                conditions.vip = vip;
+            }
+            let fromDate = $('#from').val();
+            let toDate = $('#to').val();
+            let from, to;
+            if (fromDate) {
+                from = formatDateTime(new Date(fromDate), true);
+            }
+            if (toDate) {
+                to = formatDateTime(new Date(toDate), false);
+            }
+
+            $.ajax({
+                url: "http://localhost:3057/api/topcv1s/admin/list",
+                type: "POST",
+                headers: {
+                    "Authorization": "Bearer " + getCookie('adminToken')
+                },
+                contentType: "application/json",
+                data: JSON.stringify({
+                    page: page,
+                    pageSize: pageSize,
+                    module: 14,
+                    conditions: conditions,
+                    from: from, 
+                    to: to
+                }),
+                beforeSend: function() {
+                    $('.loading-box').show();
+                },
+                success: function (response) {
+                    if (response.data.result == true) {
+                        let newRegisteredEmps = response.data.data;
+                        let start = (page - 1) * pageSize;
+                        totalEmps = response.data.total;
+                        totalPage = Math.ceil(totalEmps / pageSize);
+                        $(".ntd-count").empty();
+                        $(".ntd-count").append('<div class="fs-4"><b>Số NTD: ' + totalEmps + '</b></div>');
+                        let tableBody = $('#newRegisteredEmp');
+                        tableBody.empty();
+                        newRegisteredEmps.forEach((emp, index) => {
+                            let dateRegis = formatDate(emp.usc_create_time);
+                            var slug = convertToSlug(emp.usc_company);
+                            let row = `<tr>
+                                        <td>${index+1}</td>
+                                        <td>${emp.usc_id}</td>
+                                        <td><b><a href="${slug}" target="_blank">${emp.usc_company}</a></b></td>
+                                        <td>${emp.usc_phone_tk}</td>
+                                        <td>${emp.usc_email}</td>
+                                        <td>${emp.usc_name_email ? emp.usc_name_email : "Chưa cập nhật"}</td>
+                                        <td>${emp.usc_name_phone ? emp.usc_name_phone : "Chưa cập nhật"}</td>
+                                        <td>${emp.usc_skype ? emp.usc_skype : "Chưa cập nhật"}</td>
+                                        <td>${emp.usc_address ? emp.usc_address : "Chưa cập nhật"}</td>
+                                        <td>${emp.usc_website ? emp.usc_website : "Chưa cập nhật"}</td>
+                                        <td>${emp.usc_mst}</td>
+                                        <td><input type="checkbox" ${emp.vip === 1 ? 'checked' : ''} disabled></td>
+                                        <td>${dateRegis}</td>
+                                        <td><input type="checkbox" ${emp.usc_active === 1 ? 'checked' : ''} disabled></td>
+                                        <td><input type="checkbox" ${emp.usc_index === 1 ? 'checked' : ''} disabled></td>
+                                        <td><img src="/images/icon/editicon.svg" width="15" height="15" alt="Edit Icon"></td>
+                                        <td>${emp.usc_kd}</td>
+                                        <td>${emp.adminDetails ? emp.adminDetails.emp_id : ''}</td>
+                                    </tr>`;
+                            tableBody.append(row);
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    try {
+                        if (xhr.status === 402) {
+                            logout();
+                        }
+                        let response = JSON.parse(xhr.responseText);
+                        let errorMessage = response.message || "Unknown error"; 
+
+                        alert(errorMessage);
+                        console.log('Error message:', errorMessage);
+                    } catch (e) {
+                        alert("An error occurred while processing the error message.");
+                        console.log('Parsing error:', e);
+                    }
+                },
+                complete: function() {
+                    $('.loading-box').hide();
+                }
+            });
+        }
+        //Phân trang
+        function Paginate(totalPage, currentPage) {
+            $('.cnt-mag-paginate').empty();
+            $('.cnt-mag-paginate').append('<div class="pagi_pre_all"><<</div>');
+            $('.cnt-mag-paginate').append('<div class="pagi_pre"><</div>');
+            var startPage, endPage;
+            if (totalPage <= 4) {
+                startPage = 1;
+                endPage = totalPage;
+            } else if (currentPage <= 2) {
+                startPage = 1;
+                endPage = Math.min(totalPage, 4);
+            } else if (currentPage >= totalPage - 1) {
+                startPage = Math.max(1, totalPage - 3);
+                endPage = totalPage;
+            } else {
+                startPage = currentPage - 2;
+                endPage = currentPage + 2;
+            }
+            if (startPage > 1) {
+                $('.cnt-mag-paginate').append('<div class="pagi_page">1</div>');
+                if (startPage > 2) {
+                    $('.cnt-mag-paginate').append('<div class="pagi_page">...</div>');
+                }
+            }
+            for (let i = startPage; i <= endPage; i++) {
+                if (i === currentPage) {
+                    $('.cnt-mag-paginate').append('<div class="pagi_page active">' + i + '</div>');
+                } else {
+                    $('.cnt-mag-paginate').append('<div class="pagi_page">' + i + '</div>');
+                }
+            }
+            if (endPage < totalPage) {
+                if (endPage < totalPage - 1) {
+                    $('.cnt-mag-paginate').append('<div class="pagi_page">...</div>');
+                }
+                $('.cnt-mag-paginate').append('<div class="pagi_page">' + totalPage + '</div>');
+            }
+            $('.cnt-mag-paginate').append('<div class="pagi_next">></div>');
+            $('.cnt-mag-paginate').append('<div class="pagi_next_all">>></div>');
+            $('.pagi_page').click(function () {
+                if (!$(this).hasClass('active') && !$(this).text().includes('...')) {
+                    let selectedPage = parseInt($(this).text());
+                    $('.pagi_page').removeClass('active');
+                    $(this).addClass('active');
+                    renderTable(selectedPage);
+                    Paginate(totalPage, selectedPage);
+                }
+            });
+            $('.pagi_pre').click(function () {
+                if (currentPage > 1) {
+                    let prevPage = currentPage - 1;
+                    renderTable(prevPage);
+                    Paginate(totalPage, prevPage);
+                }
+            });
+            $('.pagi_next').click(function () {
+                if (currentPage < totalPage) {
+                    let nextPage = currentPage + 1;
+                    renderTable(nextPage);
+                    Paginate(totalPage, nextPage);
+                }
+            });
+            $('.pagi_pre_all').click(function () {
+                renderTable(1);
+                Paginate(totalPage, 1);
+            });
+            $('.pagi_next_all').click(function () {
+                renderTable(totalPage);
+                Paginate(totalPage, totalPage);
+            });
+        }
+        // Khởi tạo trang đầu tiên và tổng số trang
+        $.ajax({
+            url: "http://localhost:3057/api/topcv1s/admin/list",
+            type: "POST",
+            headers: {
+                "Authorization": "Bearer " + getCookie('adminToken')
+            },
+            contentType: "application/json",
+            data: JSON.stringify({
+                page: 1, pageSize: pageSize, module: 14
+            }),
+            success: function (response) {
+                if (response.data.result == true) {
+                    totalEmps = response.data.total;
+                    totalPage = Math.ceil(totalEmps / pageSize);
+                    Paginate(totalPage, 1);
+                    renderTable(1);
+                }
+            },
+            error: function (xhr, status, error) {
+                try {
+                    if (xhr.status === 402) {
+                        logout();
+                    }
+                    let response = JSON.parse(xhr.responseText);
+                    let errorMessage = response.message || "Unknown error"; 
+
+                    alert(errorMessage);
+                    console.log('Error message:', errorMessage);
+                } catch (e) {
+                    alert("An error occurred while processing the error message.");
+                    console.log('Parsing error:', e);
+                }
+            },
+        });
+        // Lọc danh sách quận huyện theo tỉnh thành
+        $('#usc_city').change(function() {
+            var selectedCityId = $(this).val(); 
+            var cityArray = JSON.parse($('#usc_district').attr('data-city-array'));
+            if(selectedCityId) {
+                var districts = cityArray.filter(function(city) {
+                    return city.cit_parent == selectedCityId;
+                });
+            }
+            $('#usc_district').empty();
+            $('#usc_district').append('<option value="" selected>Chọn quận huyện</option>');
+            districts.forEach(function(district) {
+                $('#usc_district').append('<option value="' + district.cit_id + '">' + district.cit_name + '</option>');
+            });
+        });
+        //
+        function convertToSlug(text) {
+            return text.toLowerCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/[^a-z0-9 ]+/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-');
+        }
+    })
+</script>
+</html>

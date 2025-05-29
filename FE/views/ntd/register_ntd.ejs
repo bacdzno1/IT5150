@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta name="robots" content="noindex, follow" /> -->
+    <meta name="robots" content="index, follow" />
+    <meta name="google-site-verification" content="lwyGMjMCHXSuJXWOc3iy1MG_Hd6yRBARF5H8NuMxUPg" />
+
+    <meta name="description"
+        content="Đăng ký ngay tài khoản nhà tuyển dụng để tiếp cận với ứng viên tiềm năng nhất cho các vị trí đang tuyển dụng nhanh chóng, hiệu quả trên TopCv1s.">
+    <meta name="twitter:card" content="Tạo tài khoản nhà tuyển dụng để tiếp cận ứng viên tiềm năng">
+    <meta name="twitter:site" content="TopCv1s">
+    <meta name="twitter:title" content="Tạo tài khoản nhà tuyển dụng để tiếp cận ứng viên tiềm năng">
+    <meta name="twitter:description"
+        content="Đăng ký ngay tài khoản nhà tuyển dụng để tiếp cận với ứng viên tiềm năng nhất cho các vị trí đang tuyển dụng nhanh chóng, hiệu quả trên TopCv1s." />
+    <meta property="og:site_name" content="TopCv1s">
+    <meta property="og:image" content="http://localhost:9020/images/img/icon_head.png">
+    <meta property="og:url" content="http://localhost:9020<%= url %>">
+    <meta property="og:type" content="website">
+    <title>Tạo tài khoản nhà tuyển dụng để tiếp cận ứng viên tiềm năng</title>
+    <link rel="icon" href="/images/img/icon_head.png">
+    <link rel="canonical" href="http://localhost:9020<%= url %>">
+    <link rel="preload" href="/css/ntd/register_ntd.css" as="style">
+    <link rel="stylesheet" href="/css/ntd/register_ntd.css" as="style">
+
+    <link rel="preload" href="/css/common.css" as="style">
+    <link rel="stylesheet" href="/css/common.css" as="style">
+
+    <link rel="preload" href="/css/header.css" as="style">
+    <link rel="stylesheet" href="/css/header.css" as="style">
+
+    <!-- <link rel="preload" href="/css/footer.css" as="style">
+    <noscript>
+        <link rel="stylesheet" href="/css/footer.css">
+    </noscript> -->
+    <link rel="preload" href="/css/custom_select2.css" as="style">
+    <link rel="stylesheet" href="/css/custom_select2.css" as="style">
+    <!-- <script src="/js/jquery.min.js"></script> -->
+    <script
+        type="application/ld+json">{"@context": "https://schema.org","@type": "ItemPage","url": ""http://localhost:9020<%= url %>","mainEntityOfPage": "Trang Tin Tức Việc Làm Số 1 - Tìm Việc, Tuyển Dụng Hiệu Quả, Miễn Phí"}</script>
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"EmploymentAgency","name":"topcv1s.com","alternateName":"Tìm Việc Nhanh, Tuyển Dụng Hiệu Quả | TopCv1s.com","logo":"http://localhost:9020/images/img/icon_head.png","image":"http://localhost:9020/images/img/icon_head.png","url":"http://localhost:9020"}</script>
+    <script
+        type="application/ld+json">{"@context":"http://schema.org","@type":"WebSite","url":"http://localhost:9020/"}</script>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "DesPage",
+            "url": "http://localhost:9020<%= url %>",
+            "title": "Tạo tài khoản nhà tuyển dụng để tiếp cận ứng viên tiềm năng",
+            "description": "Đăng ký ngay tài khoản nhà tuyển dụng để tiếp cận với ứng viên tiềm năng nhất cho các vị trí đang tuyển dụng nhanh chóng, hiệu quả trên TopCv1s.",
+            "thumbnail": "http://localhost:9020/images/img/default_logo.jpg"
+        } 
+    </script>
+</head>
+
+<body>
+    <%- include('../layouts/header', {}); %>
+        <div id="content" style="padding-top:80px">
+            <div class="regis_form container">
+                <div class="regis_content bg-white">
+                    <h1 class="regis_title text-c fs-4 fw-600">
+                        TẠO TÀI KHOẢN NHÀ TUYỂN DỤNG ĐỂ TÌM ỨNG VIÊN VÀ ĐĂNG TIN MIỄN PHÍ
+                    </h1>
+                    <div class="regis_detail d-flex flex-wr justify-b">
+                        <div class="regis_box regis_loc">
+                            <h2 class="fs-6 mb-0">
+                                <label for="eml_loc" class="fw-600">Email <span>*</span></label>
+                            </h2>
+                            <input class="regis_inp" type="email" id="eml_loc" placeholder="Nhập địa chỉ email của bạn">
+                        </div>
+                        <div class="regis_box-1 regis_pass">
+                            <h2 class="fs-6 mb-0">
+                                <label for="eml_pass" class="fw-600">Mật khẩu đăng nhập <span>*</span></label>
+                            </h2>
+                            <input class="regis_inp" type="password" id="eml_pass" placeholder="Vui lòng nhập mật khẩu">
+                        </div>
+                        <div class="regis_box-1 regis_repass">
+                            <h2 class="fs-6 mb-0">
+                                <label for="eml_repass" class="fw-600">Xác nhận lại mật khẩu <span>*</span></label>
+                            </h2>
+                            <input class="regis_inp" type="password" id="eml_repass" placeholder="Vui lòng nhập mật khẩu">
+                        </div>
+                        <div class="regis_box regis_pos">
+                            <h2 class="fs-6 mb-0">
+                                <label for="eml_pos" class="fw-600">Tên công ty <span>*</span></label>
+                            </h2>
+                            <input class="regis_inp" type="text" id="eml_pos" placeholder="Tên công ty">
+                        </div>
+                        <div class="regis_box regis_phone">
+                            <h2 class="fs-6 mb-0">
+                                <label for="eml_phone" class="fw-600">Số điện thoại <span>*</span></label>
+                            </h2>
+                            <input class="regis_inp" type="number" id="eml_phone" placeholder="Vui lòng nhập số điện thoại">
+                        </div>
+                        
+                        <div class="regis_box-1 regis_city">
+                            <h2 class="fs-6 mb-0">
+                                <label for="eml_city" class="fw-600">Thành phố <span>*</span></label>
+                            </h2>
+                            <select class="regis_inp" id="eml_city">
+                                <!-- <option value=""></option> -->
+                                <% for (let i=0; i < listCities.length; i++) { %>
+                                    <option value="<%= listCities[i].cit_id %>"><%= listCities[i].cit_name %></option>
+                                    <% } %>
+                            </select>
+                        </div>
+                        <div class="regis_box-1 regis_disc">
+                            <h2 class="fs-6 mb-0">
+                                <label for="eml_disc" class="fw-600">Quận huyện <span>*</span></label>
+                            </h2>
+                            <select class="regis_inp" id="eml_disc">
+                                
+                            </select>
+                        </div>
+                    </div>
+                    <div class="regis_con d-flex justify-c">
+                        <div class="d-flex gap-2 mb-0 fw-400">
+                            <label for="conf_reg" class="checkbox-container">
+                                <input type="checkbox" id="conf_reg">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label for="conf_reg">Tôi đã đọc và đồng ý <a href="" class="fw-700 color-main">Điều khoản
+                                    dịch vụ</a> và <a href="" class="fw-700 color-main">Chính sách bảo mật</a> của
+                                Topcv1s</label>
+                        </div>
+                    </div>
+                    <div id="regis-btn" class="regis-btn d-flex justify-c">
+                        <h3 class="fw-700 fs-6 color-main mb-0">
+                            Đăng ký
+                        </h3>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <script type="module">
+            $(document).ready(function () {
+                $('#regis-btn').css('pointer-events', 'none').css('opacity', '0.5');
+
+                $('#conf_reg').change(function () {
+                    if ($(this).is(':checked')) {
+                        $('#regis-btn').css('pointer-events', 'auto').css('opacity', '1');
+                        $(this).prop('disabled', true);
+                    } else {
+                        $('#regis-btn').css('pointer-events', 'none').css('opacity', '0.5');
+                    }
+                });
+                //Đăng ký ứng viên bước 1
+                $('#regis-btn').click(function () {
+                    if (!$('#conf_reg').is(':checked')) {
+                        alert('Vui lòng đồng ý với Điều khoản dịch vụ và Chính sách bảo mật');
+                        return;
+                    }
+                    let eml_phone = $('#eml_phone').val();
+                    let eml_pass = $('#eml_pass').val();
+                    let eml_repass = $('#eml_repass').val();
+                    let eml_city = $('#eml_city').val();
+                    let eml_disc = $('#eml_disc').val();
+                    let eml_pos = $('#eml_pos').val();
+                    let eml_loc = $('#eml_loc').val();
+                    // Kiểm tra dữ liệu đầu vào
+                    if (!eml_phone || !eml_pass || !eml_repass || !eml_pos || !eml_loc || !eml_disc || !eml_city) {
+                        alert('Vui lòng nhập đầy đủ thông tin');
+                        return;
+                    } else if (eml_pass !== eml_repass) {
+                        alert('Mật khẩu nhập lại chưa chính xác');
+                        return;
+                    }
+                    // Tạo đối tượng dữ liệu
+                    let data = {
+                        phoneTK: eml_phone,
+                        password: eml_pass,
+                        rePassword: eml_repass,
+                        nameCompany: eml_pos,
+                        email: eml_loc,
+                        city: eml_city,
+                        //  image: "url", 
+                        //  descriptions: '',
+                        //  ip: 1,
+                        //  file: 'url',
+                        address: eml_disc,
+                    };
+                    //  console.log(data)
+                    // Gọi API để đăng ký tài khoản
+                    $.ajax({
+                        url: "http://localhost:3050/api/topcv1s/user/RegisterEmployers",
+                        type: "POST",
+                        data: data,
+                        success: function (response) {
+                            console.log(">>> response: ",response.data);
+                            
+                            document.cookie = `accessToken=${response.data.token}; max-age=3600; path=/`;
+                            document.cookie = `usc_id=${response.data.checkInfo.usc_id}; max-age=3600; path=/`;
+                            document.cookie = `auth=${response.data.checkInfo.usc_authentic}; max-age=3600; path=/`;
+                            document.cookie = `logo=${response.data.checkInfo.usc_logo}; max-age=3600; path=/`;
+                            document.cookie = `phone=${response.data.checkInfo.usc_phone_tk}; max-age=3600; path=/`;
+                            document.cookie = `usc_email=${response.data.checkInfo.usc_email}; max-age=3600; path=/`;
+                            document.cookie = `type=1; max-age=3600; path=/`;
+                            document.cookie = `usc_company=${response.data.checkInfo.usc_company}; max-age=3600; path=/`;
+                            document.cookie = `isLogin=true; max-age=3600; path=/`;
+                            alert('Đăng ký thành công!');
+                            window.location.href = '/ntd/quan-ly-nha-tuyen-dung';
+                        },
+                        error: function (xhr, status, error) {
+                            let response = JSON.parse(xhr.responseText);
+                            let errorMessages = response.error.message;
+                            let alertMessage = "";
+                            for (let key in errorMessages) {
+                                if (errorMessages.hasOwnProperty(key)) {
+                                    alertMessage += errorMessages[key] + "\n";
+                                }
+                            }
+                            alert(typeof errorMessages === "string" ? errorMessages : alertMessage);
+                            // alert(alertMessage);
+                            console.log('Error:', errorMessages, typeof errorMessages);
+                        }
+                    });
+                });
+            });
+        </script>
+        <link rel="stylesheet" href="/css/footer.css">
+        <%- include('../layouts/footer', {}); %>
+            <script src="/js/custom_select.js"></script>
+            <script>
+                $('#eml_city').CustomSelect({
+                    placeholder: 'Chọn tỉnh thành',
+                    searchPlaceholder: 'Tìm kiếm...',
+                    multiple: false
+                });
+
+                $('#eml_disc').CustomSelect({
+                    placeholder: 'Chọn quận huyện',
+                    searchPlaceholder: 'Tìm kiếm...',
+                    multiple: false
+                });
+                $('#eml_city').change(function () {
+                    var id = parseInt($(this).val());
+                    $.ajax({
+                        url: '/api/getDistrict',
+                        method: 'POST',
+                        data: { id: id },
+                        success: function (response) {
+                            if (response.district.length > 0) {
+                                $('#eml_disc').empty();
+                                response.district.forEach(function (city) {
+                                    $('#eml_disc').append('<option value="' + city.cit_id + '">' + city.cit_name + '</option>');
+                                });
+
+                                $('#eml_disc').trigger('update');
+
+                            }
+                        },
+                        error: function (err) {
+                            console.error('Error:', err);
+                        }
+                    });
+                });
+
+            </script>
+            <script>
+                // Function to add user to CRM manually
+                const addUserToCrmManually = async () => {
+                    const phone = $('#eml_phone').val();
+                    const email = $('#eml_loc').val();
+                    const companyName = $('#eml_pos').val();
+                    const selectedCity = $('#eml_city').val();
+
+                    const isPhoneValid = phone && /^[0-9]{10}$/.test(phone);
+                    const isEmailValid = email && /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
+                    if (isPhoneValid) {
+                        const result = await $.post('http://localhost:3050/api/topcv1s/user/isPhoneUsedEmployer', { phone });
+                        if (result.used == true) {
+                            console.log('Số điện thoại đã tồn tại');
+                            return;
+                        }
+                    }
+
+                    const dataSend = {
+                        name: companyName,
+                        email,
+                        phone,
+                        city: selectedCity
+                    };
+
+                    const checkCookieSend = getCookie('dataSend');
+                    const hasSend = !!checkCookieSend && checkCookieSend === JSON.stringify(dataSend);
+
+                    if (hasSend) {
+                        console.log('Đã gửi thông tin');
+                        return;
+                    }
+                    if (isPhoneValid || isEmailValid) {
+                        try {
+                           console.log("Vui lòng kiểm tra lại Số điện thoại hoặc Email!!!")
+                        } catch (error) {
+                            console.error('AJAX Error:', error);
+                        }
+                    } else {
+                        console.log('Số điện thoại hoặc email không hợp lệ');
+                    }
+                };
+
+                // Function to handle blur events and city change
+                const handleBlur = async () => {
+                    await addUserToCrmManually();
+                };
+
+                $(document).ready(function () {
+                    // Call handleBlur when any of these fields lose focus
+                    $('#eml_phone, #eml_loc, #eml_pos').on('blur', handleBlur);
+
+                    // Call handleBlur when the city dropdown changes
+                    $('#eml_city').on('change', async function () {
+                        await handleBlur();
+
+                        const cityId = parseInt($(this).val());
+                        try {
+                            const response = await $.ajax({
+                                url: '/api/getDistrict',
+                                method: 'POST',
+                                data: { id: cityId }
+                            });
+
+                            if (response.district.length > 0) {
+                                $('#eml_disc').empty().append('<option value="">Chọn quận huyện</option>');
+                                response.district.forEach(district => {
+                                    $('#eml_disc').append(`<option value="${district.cit_id}">${district.cit_name}</option>`);
+                                });
+                                $('#eml_disc').trigger('update');
+                            }
+                        } catch (err) {
+                            console.error('Error:', err);
+                        }
+                    });
+
+                    // Remove cookie data on window unload
+                    $(window).on('beforeunload', function () {
+                        deleteCookie('dataSend');
+                    });
+                });
+
+                // Function to get a cookie value by name
+                function getCookie(name) {
+                    const value = `; ${document.cookie}`;
+                    const parts = value.split(`; ${name}=`);
+                    if (parts.length === 2) return parts.pop().split(';').shift();
+                }
+
+                // Function to set a cookie by name
+                function setCookie(name, value, days = 7) {
+                    const expires = `; expires=${new Date(Date.now() + days * 864e5).toUTCString()}`;
+                    document.cookie = `${name}=${encodeURIComponent(value)}${expires}; path=/`;
+                }
+
+                // Function to delete a cookie by name
+                function deleteCookie(name) {
+                    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+                }
+            </script>
+
+            
+            
+</body>
+
+</html>

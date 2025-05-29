@@ -1,0 +1,293 @@
+#content {
+    font-family: Roboto;
+
+}
+
+.candi-content {
+    position: relative;
+    background: #F6F6F6;
+    padding-top: 40px;
+    padding-bottom: 60px;
+}
+
+.candi-content .container {
+    gap: 40px;
+}
+
+.candi-head {
+    gap: 44px;
+    margin-bottom: 40px;
+    display: flex;
+}
+
+.candi-name {
+    font-size: 32px;
+    margin-bottom: 7px;
+}
+
+.candi-id,
+.candi-view {
+    color: #666666;
+}
+
+.candi-view {
+    margin-bottom: 34px;
+}
+
+.candi-more {
+    padding: 10px 27px;
+    border-radius: 46px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.candi-detail,
+.candi-cv {
+    margin-bottom: 50px;
+}
+
+.candi-detail-title,
+.candi-cv-title,
+.candi-propose-title {
+    padding-left: 6px;
+    border-left: 6px solid #00b14f;
+    margin-bottom: 30px;
+}
+
+.candi-detail-cont {
+    margin-bottom: 40px;
+}
+
+.candi-detail-item-1 {
+    flex: 0 0 50%;
+    margin-bottom: 21px;
+}
+
+.candi-detail-item {
+    flex: 0 0 100%;
+    margin-bottom: 21px;
+}
+
+.candi-detail-save,
+.candi-detail-print,
+.candi-detail-email,
+.candi-detail-rate {
+    padding: 7px 12px;
+    gap: 14px;
+    border-radius: 10px;
+    border: 1px solid #00b14f;
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+}
+
+.candi-propose-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 28.75px;
+}
+
+.candi-propose-item {
+    padding: 15px 22px;
+    border-radius: 15px;
+}
+
+.candi-propose-item:hover {
+    background-color: #E6F2F3;
+}
+
+.candi-propose-pos {
+    margin-bottom: 5px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.candi-propose-name {
+    margin-bottom: 13.75px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.candi-propose-detail {
+    color: #4F4F4F;
+}
+
+.candi-propose-detail {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 13px;
+}
+
+.candi-propose-gener {
+    gap: 6px;
+}
+
+.candi-propose-avar {
+    position: relative;
+    align-self: flex-start
+}
+
+.candi-propose-onl {
+    position: absolute;
+    background: #F4FCE9;
+    border-radius: 32px;
+    font-size: 10px;
+    padding: 2px 8px;
+    right: 5%;
+    bottom: 10%;
+    min-width: 46px;
+}
+.candi-detail-save span {
+    color: black;
+}
+
+.candi-name {
+    margin-top: 0;
+}
+
+.candi-cv-img {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.outline_main {
+    outline: 1px solid #00b14f;
+}
+
+.color-danger {
+    color: red;
+}
+
+.candi-detail-save {
+    cursor: pointer;
+}
+
+.custom-select-input input {
+    border: none;
+}
+
+.overlay{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9;
+}
+.more_info{
+    z-index: 10;
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background: #fff;
+    border-radius:10px;
+    padding:20px;
+    font-family: 'Roboto';
+}
+.d_flex{
+    display: flex;
+}
+.fl_cl{
+    flex-direction: column;
+}
+.g_20{
+    gap: 20px;
+}
+.jt_ct{
+    justify-content: center;
+}
+.cf_see_infor{
+    border: none;
+    background: #00b14f;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+.not_cf_see{
+    border: none;
+    background: red;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+
+@media only screen and (max-width:1366px) {
+    .candi-banner {
+        display: none;
+    }
+}
+
+@media only screen and (max-width:1024px) {
+    .candi-propose-list {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 28.75px;
+    }
+}
+
+@media only screen and (max-width:768px) {
+    .candi-detail-act {
+        display: block !important;
+    }
+
+    .candi-detail-save,
+    .candi-detail-print,
+    .candi-detail-email,
+    .candi-detail-rate {
+        width: 100%;
+        margin-bottom: 18px;
+    }
+}
+
+@media only screen and (max-width:576px) {
+
+    .candi-detail-item,
+    .candi-detail-item-1 {
+        flex: 0 0 100%;
+        margin-bottom: 21px;
+    }
+
+    .candi-propose-avar img {
+        width: 72.45px;
+        height: 72.45px;
+    }
+
+    .candi-propose-detail {
+        grid-template-columns: 1fr 1fr;
+        font-size: 13px;
+    }
+
+    .candi-propose-gener:first-child,
+    .candi-propose-gener:last-child {
+        grid-column: 1 / span 2;
+    }
+
+    .candi-propose-onl {
+        right: -10%;
+        bottom: 10%;
+    }
+
+    .candi-head {
+        display: block;
+    }
+
+    .candi-avar {
+        display: flex;
+        margin-bottom: 16px;
+        justify-content: center;
+    }
+
+    .candi-name {
+        text-align: center;
+    }
+}

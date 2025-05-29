@@ -1,0 +1,709 @@
+#content {
+    font-family: Roboto;
+    background-color: #f3f5f7;
+    padding-top: 80px;
+}
+.cover {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(/images/img/room-desk-min_11zon.webp);
+}
+
+.cover img {
+    z-index: 3;
+}
+.comp-header::after {
+    /* content: "";
+    position: absolute;
+    width: 100%;
+    max-width:100%;
+    max-height:100%;
+    height: 100%;
+    background-color: #00b14f99; */
+
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    height: 100%;
+    background-color: #00b14f99;
+}
+.company-body {
+    background-color: lightgrey;
+}
+.cover-photo {
+    width: 100%;
+    object-fit: cover;
+
+    background-size: cover;
+    background-position: center;
+    border-bottom: 1px solid #ccc;
+}
+
+.profile-picture {
+    width: 198px;
+    height: 198px;
+    border: 10px solid #fff;
+    border-radius: 50%;
+    object-fit: cover;
+    position: relative;
+    top: 100px;
+    left: 60px;
+}
+
+.comp-container {
+    padding: 0%;
+    background-color: #07777f;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.comp-header {
+    min-height: 350px;
+    position: relative;
+    border-radius: 18px;
+    overflow: hidden;
+}
+.profile-details {
+    position: relative;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    margin-left: 300px;
+    z-index: 3;
+    padding-bottom: 20px;
+}
+
+.profile-name {
+    font-size: medium;
+    color: white;
+    font-size: 24px;
+    padding-top: 39px;
+    margin: 0;
+}
+
+.profile-contact {
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+}
+.profile-details .btn {
+    margin-right: 82px;
+}
+
+.btn {
+    align-items: center;
+
+    background-color: white;
+    width: 191px;
+    height: 39px;
+    display: flex;
+    gap: 5px;
+    padding-left: 20px;
+
+    border-radius: 10px;
+}
+
+
+.btn p {
+    white-space: nowrap;
+    margin: 0;
+}
+
+.btn:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Add hover effect for shadow */
+    cursor: pointer;
+}
+
+.border-none {
+    border: none;
+}
+.comp-detail {
+    display: flex;
+
+    margin-top: 30px;
+    gap: 50px;
+    /* align-items: ; */
+    padding-bottom: 60px;
+}
+
+.content-left {
+    display: flex;
+    flex-direction: column;
+    width: calc(60% - 25px);
+}
+.content-right {
+    width: calc(40% - 25px);
+
+    border-radius: 15px;
+
+    height: fit-content;
+}
+
+.mini {
+    display: flex;
+    background-color: white;
+    border-color: white;
+    gap: 10px;
+    border: none;
+    outline: none;
+}
+
+
+.intro {
+    background-color: white;
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 40px;
+}
+
+.intro-body {
+    padding: 13px 28px 22px 28px;
+}
+.intro-tit{
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+.intro-body-content {
+    font-size: 16px;
+    max-height: 200px;
+    overflow: hidden;
+    margin-bottom: 22px;
+    transition: max-height 0.3s ease-out;
+}
+
+.intro-body-content.expanded {
+    max-height: none;
+}
+.arrow-icon {
+    transition: transform 0.3s ease-out;
+}
+
+.arrow-icon.rotated {
+    transform: rotate(180deg);
+}
+.intro-item:not(:last-child){
+    margin-bottom: 8px;
+}
+
+.intro-toggle{
+    cursor: pointer;
+}
+.intro .comp-title {
+    color: white;
+    font-size: 20px;
+    padding: 14px 28px 9px 28px;
+}
+.comp-title {
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.comp-title-right {
+    border-radius: 15px 15px 0 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: white;
+    font-size: 20px;
+    padding: 14px 28px 9px 28px;
+}
+
+.top-icon {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.contact-body {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    padding: 43px;
+    padding-top: 9px;
+}
+
+.bottom-icon {
+    display: flex;
+    gap: 10px;
+}
+
+.gap-5 {
+    gap: 30px;
+}
+
+.recuit-unit-info {
+    flex-grow: 1;
+}
+
+.recuit-body {
+    margin-left: 18px;
+
+    padding-right: 26px;
+}
+    
+.recuit-unit-top {
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.recuit-unit-top p {
+    flex-basis: 100%;
+    margin-top: 0;
+}
+
+.recuit-unit {
+    display: flex;
+    padding: 10px;
+    gap: 26px;
+}
+
+.recuit-unit img {
+    align-self: center;
+}
+
+
+.search-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #d5d5d5;
+    border-radius: 10px;
+    gap: 4px;
+    padding: 13px 10px;
+    background-color: #fff; /* Background color of the search bar */
+    flex: 1;
+}
+
+.search-container input[type="text"] {
+    border: none;
+    outline: none;
+    font-size: 12px;
+    flex: 1;
+}
+.search-container select {
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 12px;
+}
+
+.search-container .search-icon img {
+    width: 20px;
+    height: 20px;
+}
+
+.navigation {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 12px;
+    margin-top: 12px;
+}
+
+.search-row {
+    display: flex;
+
+    gap: 10px;
+    margin-top: 20px;
+}
+.recuit-unit-top{
+    margin-bottom: 20px;
+}
+.search-job {
+    border-radius: 10px;
+    background-color: #00b14f;
+    border: none;
+    padding: 10px 21px;
+    gap: 6px;
+}
+
+.search-job p {
+    padding-left: 5px;
+}
+.search-input {
+    font-size: 12px;
+}
+.recuit-gener > div{
+    background-color: #F1F1F1;
+    border-radius: 5px;
+    padding: 9px;
+}
+.recuit-gener{
+    flex-wrap: wrap;
+}
+.recuit-unit-tit h3{
+    font-size: 18px;
+}
+.recuit-act{
+    display: flex;
+    gap: 17px;
+    align-self: flex-end;
+}
+.recuit-appl{
+    padding: 9px 14px;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 5px;
+    background-color: #00b14f;
+    border: none;
+    flex-shrink: 0;
+}
+.recuit-save{
+    cursor: pointer;
+    border-radius: 5px;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    background-color: #0075801A;
+    justify-content: center;
+    align-items: center;
+    border: none;
+}
+
+.comp-recuit .comp-title {
+    color: white;
+    font-size: 20px;
+    padding: 14px 28px 9px 28px;
+}
+.comp-recuit{
+    border-radius: 18px;
+    overflow: hidden;
+}
+.recuit-list {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    padding: 20px;
+}
+.pt-3 {
+    padding-top: 20px;
+}
+.links {
+    display: flex;
+    gap: 20px;
+}
+.clickable .bookmark {
+    background: var(--Mu-button, #0075801a);
+}
+
+.clickable button {
+    cursor: pointer; /* Ensure the cursor is a pointer to indicate clickability */
+    white-space: nowrap;
+    border: none;
+    border-radius: 5px;
+}
+
+.clickable button:hover {
+    background-color: #04aa6d; /* Green */
+    color: white;
+}
+
+.other-title {
+    color: #00b14f;
+    font-size: 20px;
+}
+.other-unit {
+    display: flex;
+    padding: 12px;
+}
+
+.other-unit-img {
+    margin-right: 28px;
+}
+
+.other-unit-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: start;
+}
+.other-unit {
+    background-color: white;
+    align-items: center;
+}
+
+.other-unit-info .jobs {
+    background-color: #EDEDED;
+    padding: 4px 8px;
+    font-size: 13px;
+}
+
+.other-unit-info img {
+    border-color: #ccc;
+}
+
+.other-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.other-unit-img {
+    border: 1px solid rgba(213, 213, 213, 1);
+    padding: 11px;
+}
+.other-unit .btn {
+    align-items: center;
+    margin-left: auto;
+    background-color: white;
+    width: fit-content;
+    height: 39px;
+    display: flex;
+    gap: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 6px;
+    border: 1px solid #00b14f;
+}
+
+.other-unit .btn img {
+    border: none;
+    margin: unset;
+}
+
+.change {
+    margin-left: 20px;
+}
+
+.outline_main{
+    outline: 1px solid #00b14f;
+}   
+
+.logo_comp_job{
+    flex-shrink: 0;
+}
+.hidden {
+    display: none;
+}
+.gach_duoi{
+    padding-bottom: 10px;
+    border-bottom:1px solid ;
+}
+.icon_contact{
+    width: 20px;
+    height: 20px;
+}
+.img_cpn{
+    min-width: 200px;
+    min-height: 200px;
+    max-width: 200px;
+    max-height: 200px;
+    object-fit: cover;
+}
+.list_img_cpn{
+    display: flex;
+    gap: 10px;
+    overflow: auto;
+}
+@media only screen and (max-width: 1206px) {
+    .recuit-unit {
+        justify-content: unset;
+    }
+
+    .comp-detail {
+        flex-direction: column; /* Change to vertical layout for smaller screens */
+    }
+    .content-left,.content-right {
+        width: 100%;
+    }
+    .content-right {
+        width: 100%;
+    }
+    .profile-details {
+        flex-direction: column;
+        margin-left: 0;
+        margin-top: 70px;
+        align-items: center;
+    }
+
+    .profile-contact {
+        flex-direction: column;
+    }
+    .profile-contact .btn {
+        align-self: center;
+    }
+    .comp-header {
+        height: unset;
+    }
+    .cover {
+        display: flex;
+        justify-content: center;
+    }
+
+    .cover img {
+        left: 0;
+    }
+
+    .links {
+        display: flex;
+        gap: 90px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .recuit-gener {
+        gap: 5px;
+        flex-wrap: wrap;
+        row-gap: 12px;
+    }
+
+    .recuit-gener .clickable {
+        flex-basis: 35%;
+        margin-left: auto;
+    }
+    .profile-name {
+        padding: 40px 20px 0;
+        text-align: center;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .links {
+        flex-direction: column;
+        gap: unset;
+    }
+    .search-row {
+        flex-direction: column;
+    }
+
+    .recuit-unit-apply {
+        align-self: center;
+    }
+
+    .other-list {
+        display: flex;
+
+        flex-direction: row;
+        overflow: scroll;
+        max-width: 430px;
+        flex-wrap: nowrap;
+        scrollbar-width: none;
+    }
+    .search-row button {
+        width: unset;
+    }
+    .dropdown-arrow {
+        margin-left: auto;
+    }
+
+    #comp-1 {
+        margin-left: unset;
+        margin-right: unset;
+    }
+
+    #comp-2 {
+        margin-left: unset;
+        margin-right: unset;
+    }
+
+    .other-unit {
+        flex-basis: 168px;
+        flex-shrink: 0;
+
+        margin-right: 10px; /* Add spacing between items */
+        flex-direction: column;
+    }
+    .other {
+        margin-bottom: 50px;
+    }
+    .other-unit-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+    .other-unit .btn {
+        margin-left: unset;
+    }
+    .other-unit {
+        height: unset;
+    }
+    .container {
+        width: unset !important;
+    }
+
+    .search-job {
+        width: 100%;
+    }
+
+    .profile-details {
+        padding-bottom: 41.5px;
+        align-items: center;
+    }
+
+    .profile-contact {
+        gap: 15px;
+    }
+
+    .links div {
+        padding-top: 0;
+    }
+    .other-unit .btn {
+        margin-top: 10px;
+    }
+
+    .recuit-unit-top {
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 12px;
+    }
+
+    .recuit-unit-bottom {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .recuit-unit-top h3 {
+        order: 1;
+        margin-bottom: 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 230px;
+    }
+
+    .recuit-unit-top h4 {
+        order: 3;
+        margin: 0;
+    }
+
+    .recuit-unit-top p {
+        order: 2;
+        margin: 0;
+    }
+
+    .search-container input[type="text"] {
+        max-width: 220px;
+    }
+    .recuit-gener .clickable {
+        flex-basis: 100%;
+        margin-left: auto;
+    }
+
+    #comp-2 {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .other {
+        padding-left: 16.5px;
+        padding-right: 16.5px;
+    }
+
+    .comp-title {
+        border-radius: unset;
+    }
+
+    .comp-title-right {
+        border-radius: unset;
+    }
+
+    .content-right {
+        border-radius: unset;
+    }
+    .logo_comp_job {
+        width: 50px;
+        height: auto;
+        align-self: flex-start !important;
+    }
+    .recuit-act {
+        align-self: flex-start;
+    }
+}

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, follow" />
+    <meta name="google-site-verification" content="lwyGMjMCHXSuJXWOc3iy1MG_Hd6yRBARF5H8NuMxUPg" />
+
+    <title>Document</title>
+    <link rel="canonical" href="http://localhost:9020<%= url %>">
+    <link rel="preload" href="/css/ntd/manacansave_ntd.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/ntd/manacansave_ntd.css">
+    </noscript>
+
+    <link rel="preload" href="/css/common.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/common.css">
+    </noscript>
+
+    <link rel="preload" href="/css/leftnav_ntd.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/leftnav_ntd.css">
+    </noscript>
+    <link rel="preload" href="/css/header_ntd.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/header_ntd.css">
+    </noscript>
+
+    <link rel="preload" href="/css/footer.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/footer.css">
+    </noscript>
+    <script src="/js/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="cnt">
+        <div class="cnt-left" id="leftNav">
+            <%- include('../layouts/leftnav_ntd', {}); %>
+        </div>
+        <div class="cnt-right" id="rightContent">
+            <%- include('../layouts/header_ntd', {}); %>
+                <div class="cnt-det">
+                    <div class="cnt-top d-flex justify-b">
+                        <div class="cnt-info bg-white d-flex align-c">
+                            <div class="cnt-avar rounded-circle">
+                                <img class="rounded-circle" src="/images/img/cskh_image.jpg" width="114" height="114"
+                                    alt="Logo CSKH">
+                            </div>
+                            <div class="cnt-gen fw-600">
+                                <div class="cnt-gen-name mb-20px">
+                                    Chuyên viên hỗ trợ: <span class="color-main">Mrs. Nguyễn Hồng</span>
+                                </div>
+                                <div class="cnt-gen-phone mb-20px">
+                                    SĐT - Zalo: <span class="color-main">0972319116</span>
+                                </div>
+                                <div class="cnt-gen-mail">
+                                    Email: <span class="color-alert">nguyenhongg2609@gmail.com</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cnt-ban d-flex align-c">
+                            <div class="cnt-ban-tit fw-700 color-white text-c">
+                                Tuyển dụng nhanh, tuyển dụng hiệu quả, đăng tin miễn phí
+                            </div>
+                            <div class="cnt-ban-logo">
+                                <img src="/images/logo/biglogo.svg" width="250" height="107" alt="Logo Image">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cnt-mag">
+                        <div class="cnt-mag-title fs-4 fw-700 color-main mb-3">
+                            HỒ SƠ ỨNG VIÊN ĐÃ LƯU
+                        </div>
+                        <div class="cnt-mag-fil mb-3">
+                            <button class="cnt-mag-excel fw-700 color-white d-flex align-c fs-8">
+                                <img src="/images/icon/down_ico.svg" width="21" height="19" alt="Export Icon">Xuất excel
+                            </button>
+                        </div>
+                        <div class="cnt-mag-table">
+                            <table id="candidateTable">
+                                <tr>
+                                    <th>
+                                        STT
+                                    </th>
+                                    <th>
+                                        Ứng viên
+                                    </th>
+                                    <th>
+                                        Vị trí
+                                    </th>
+                                    <th>
+                                        Ngày xem hồ sơ
+                                    </th>
+                                    <th>
+                                    </th>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="cnt-mag-paginate d-flex justify-c flex-wr">
+                            <div class="pagi_pre_all">
+                                << </div>
+                                    <div class="pagi_pre">
+                                        < </div>
+                                            <div class="pagi_page active" data-page='1'>
+                                                1
+                                            </div>
+                                            <div class="pagi_page" data-page='2'>
+                                                2
+                                            </div>
+                                            <div class="pagi_page" data-page='3'>
+                                                3
+                                            </div>
+                                            <div class="pagi_page" data-page='4'>
+                                                ...
+                                            </div>
+                                            <div class="pagi_page" data-page='8'>
+                                                8
+                                            </div>
+                                            <div class="pagi_page" data-page='9'>
+                                                9
+                                            </div>
+                                            <div class="pagi_page" data-page='10'>
+                                                10
+                                            </div>
+                                            <div class="pagi_next">
+                                                >
+                                            </div>
+                                            <div class="pagi_next_all">
+                                                >>
+                                            </div>
+                                    </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <%- include('../layouts/footer', {}); %>
+                <script>
+                    $(document).ready(function () {
+                        $(window).scroll(function () {
+                            var $leftNav = $('.lnav');
+                            var $rightContent = $('#rightContent');
+                            var rightContentHeight = $rightContent.outerHeight(true);
+                            var rightContentOffsetTop = $rightContent.offset().top;
+                            var rightContentBottom = rightContentOffsetTop + rightContentHeight;
+                            var scrollTop = $(window).scrollTop();
+                            var windowHeight = $(window).height();
+                            var leftNavHeight = $leftNav.outerHeight(true);
+                
+                            if (scrollTop + leftNavHeight > rightContentBottom) {
+                                $leftNav.css({
+                                    position: 'absolute',
+                                    top: (rightContentHeight - leftNavHeight) + 'px',
+                                    overflow: 'auto'
+                                });
+                
+                            } else {
+                                $leftNav.css({
+                                    position: 'fixed',
+                                    top: '0'
+                                });
+                            }
+                        });
+                    });
+
+                    $(document).ready(function () {
+                        $('.nhead-rig-togm').click(function () {
+                            $('#mobileMenu').slideDown(300);
+                        });
+                        $('.menu-mb-close').click(function () {
+                            $('#mobileMenu').slideUp(300);
+                        });
+                    });
+                    $(document).ready(function () {
+                        $(".tog-mb").click(function () {
+                            $(this).next(".menu-mb-clist").slideToggle();
+                        });
+                    });
+
+                    $(document).ready(function () {
+                        var currentPage = 1;
+                        var pageSize = 10;
+                        var totalItems = 0;
+                        var accessToken = getCookie('accessToken');
+                
+                        //Fomat time
+                        function formatDate(timestamp) {
+                            var date = new Date(timestamp * 1000);
+                            var day = ("0" + date.getDate()).slice(-2);
+                            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                            var year = date.getFullYear();
+                            var hours = ("0" + date.getHours()).slice(-2);
+                            var minutes = ("0" + date.getMinutes()).slice(-2);
+                            var seconds = ("0" + date.getSeconds()).slice(-2);
+                
+                            return `${day}/${month}/${year} - ${hours}:${minutes}:${seconds}`;
+                        }
+                
+                        function fetchData(page) {
+                            $.ajax({
+                                url: 'http://localhost:3051/api/topcv1s/ntd/CandiDidSave',
+                                method: 'POST',
+                                contentType: 'application/json',
+                                headers: {
+                                    Authorization: 'Bearer ' + accessToken
+                                },
+                                data: JSON.stringify({
+                                    page: page,
+                                    pageSize: pageSize
+                                }),
+                                dataType: 'json',
+                                success: function (response) {
+                                    console.log(response.data.data)
+                                    totalItems = response.data.total;
+                                    updateTable(response.data.data,page);
+                                    updatePagination();
+                                },
+                                error: function (error) {
+                                    console.error('Error fetching data:', error);
+                                }
+                            });
+                        }
+                
+                        function updateTable(data,page) {
+                            let tableBody = $('#candidateTable');
+                            tableBody.find("tr:gt(0)").remove();
+                
+                            data.forEach((item, index) => {
+                                let row = `<tr data-id="${item.id_hoso}">
+                                    <td>${index + (page-1)*10 + 1}</td>
+                                    <td>
+                                        <div class="d-flex align-c flex-dr-c gap-2 color-main">
+                                            <span class="fw-600">${item.use_name}</span>
+                                            <a class="fw-500" href="./ung-vien-uv-${item.use_id}">(Xem chi tiết)</a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="fw-600 color-main">${item.use_job_name}</span>
+                                    </td>
+                                    <td class="fw-600">${formatDate(item.create_time)}</td>
+                                    <td>
+                                        <img class="remove_can" src="/images/icon/remove_icon.svg" width="18" height="23" alt="Remove Icon">
+                                    </td>
+                                </tr>`;
+                                tableBody.append(row);
+                            });
+                
+                            //Remove
+                            $('.remove_can').on('click', function () {
+                                var row = $(this).closest('tr');
+                                var id_hoso = row.data('id');
+                                if (confirm('Bạn có chắc chắn muốn xóa ứng viên này đi ?')) {
+                                    $.ajax({
+                                        url: 'http://localhost:3051/api/topcv1s/ntd/DeleteCandiDidSave',
+                                        method: 'POST',
+                                        contentType: 'application/json',
+                                        headers: {
+                                            Authorization: 'Bearer ' + accessToken
+                                        },
+                                        data: JSON.stringify({
+                                            id_hoso: id_hoso
+                                        }),
+                                        success: function (response) {
+                                            if (response) {
+                                                alert('Xóa ứng viên thành công')
+                                                fetchData(currentPage);
+                                            } else {
+                                                console.error(response.message);
+                                            }
+                                        },
+                                        error: function (error) {
+                                            console.error('Error fetching data:', error);
+                                        }
+                                    })
+                                }
+                            });
+                
+                        }
+                
+                        function updatePagination() {
+                            var totalPages = Math.ceil(totalItems / pageSize);
+                            $('.cnt-mag-paginate').empty();
+                            $('.cnt-mag-paginate').append('<div class="pagi_pre_all"><<</div>');
+                            $('.cnt-mag-paginate').append('<div class="pagi_pre"><</div>');
+                
+                            var startPage, endPage;
+                            if (totalPages <= 4) {
+                                startPage = 1;
+                                endPage = totalPages;
+                            } else if (currentPage <= 2) {
+                                startPage = 1;
+                                endPage = Math.min(totalPages, 4);
+                            } else if (currentPage >= totalPages - 1) {
+                                startPage = Math.max(1, totalPages - 3);
+                                endPage = totalPages;
+                            } else {
+                                startPage = currentPage - 2;
+                                endPage = currentPage + 2;
+                            }
+                
+                            if (startPage > 1) {
+                                addPageButton(1);
+                                if (startPage > 2) {
+                                    $('.cnt-mag-paginate').append($('<div class="pagi_page">...</div>'));
+                                }
+                            }
+                
+                            for (var i = startPage; i <= endPage; i++) {
+                                addPageButton(i);
+                            }
+                
+                            if (endPage < totalPages) {
+                                if (endPage < totalPages - 1) {
+                                    $('.cnt-mag-paginate').append($('<div class="pagi_page">...</div>'));
+                                }
+                                addPageButton(totalPages);
+                            }
+                
+                            $('.cnt-mag-paginate').append('<div class="pagi_next">></div>');
+                            $('.cnt-mag-paginate').append('<div class="pagi_next_all">>></div>');
+                
+                            $('.pagi_pre').prop('disabled', currentPage <= 1);
+                            $('.pagi_next').prop('disabled', currentPage >= totalPages);
+                        }
+                
+                        function addPageButton(page) {
+                            var pageBtn = $('<div class="pagi_page"></div>').text(page).attr('data-page', page);
+                            if (page === currentPage) {
+                                pageBtn.addClass('active');
+                            }
+                
+                            pageBtn.click((function (page) {
+                                return function () {
+                                    if (page !== currentPage) {
+                                        currentPage = page;
+                                        fetchData(currentPage);
+                                        $('html, body').animate({
+                                            scrollTop: $('#candidateTable').offset().top - 200
+                                        }, 1000);
+                                    }
+                                };
+                            })(page));
+                            $('.cnt-mag-paginate').append(pageBtn);
+                        }
+                
+                
+                        // Previous page handler
+                        $(document).on('click', '.pagi_pre', function () {
+                            if (currentPage > 1) {
+                                currentPage--;
+                                fetchData(currentPage);
+                            }
+                        });
+                
+                        // Next page handler
+                        $(document).on('click', '.pagi_next', function () {
+                            if (currentPage < Math.ceil(totalItems / pageSize)) {
+                                currentPage++;
+                                fetchData(currentPage);
+                            }
+                        });
+                
+                        // First page handler
+                        $(document).on('click', '.pagi_pre_all', function () {
+                            currentPage = 1;
+                            fetchData(currentPage);
+                        });
+                
+                        // Last page handler
+                        $(document).on('click', '.pagi_next_all', function () {
+                            currentPage = Math.ceil(totalItems / pageSize);
+                            fetchData(currentPage);
+                        });
+                
+                        // Initial fetch of data (first page)
+                        fetchData(currentPage);
+                
+                        function getCookie(name) {
+                            var value = "; " + document.cookie;
+                            var parts = value.split("; " + name + "=");
+                            if (parts.length === 2) return parts.pop().split(";").shift();
+                        }
+                        $('.cnt-mag-excel').click(function() {
+                            exportToExcel();
+                        });
+
+                        function exportToExcel() {
+                            if(totalItems == 0){
+                                alert('Chưa có hồ sơ ứng viên nào được lưu.');
+                                return
+                            }
+                            var $table = $('#candidateTable');
+                            var $rows = $table.find('tr');
+                            var csvContent = "";
+
+                            var $headers = $table.find('thead tr th');
+                            var headerData = [];
+                            $headers.each(function() {
+                                headerData.push('"' + $(this).text().trim() + '"');
+                            });
+                            csvContent += headerData.join(",") + "\n";
+
+                            $rows.each(function() {
+                                var $cells = $(this).find('td');
+                                var rowData = [];
+                                $cells.each(function() {
+                                    rowData.push('"' + $(this).text().trim() + '"');
+                                });
+                                csvContent += rowData.join(",") + "\n";
+                            });
+
+                            var bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
+                            var blob = new Blob([bom, csvContent], { type: 'text/csv;charset=utf-8;' });
+                            var url = URL.createObjectURL(blob);
+
+                            var $a = $('<a></a>').attr('href', url).attr('download', 'candidate_list.csv');
+                            $('body').append($a);
+                            $a[0].click();
+                            $a.remove();
+                        }
+                    });
+                </script>
+                
+                
+</body>
+
+</html>

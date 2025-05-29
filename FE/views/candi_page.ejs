@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow" />
+    <meta name="description" content="Bạn nghĩ việc tìm ứng viên miễn phí mà chất lượng là không thể? Hãy thay đổi cách nhìn và khám phá phương pháp tuyển dụng tối ưu cho doanh nghiệp của bạn.">
+    <meta name="twitter:card" content="Chìa Khóa Tìm Ứng Viên Miễn Phí, Chất Lượng Vượt Trội">
+    <meta name="twitter:site" content="TopCv1s">
+    <meta name="twitter:title" content="Chìa Khóa Tìm Ứng Viên Miễn Phí, Chất Lượng Vượt Trội">
+    <meta name="twitter:description" content="Bạn nghĩ việc tìm ứng viên miễn phí mà chất lượng là không thể? Hãy thay đổi cách nhìn và khám phá phương pháp tuyển dụng tối ưu cho doanh nghiệp của bạn.">
+    <meta property="og:site_name" content="TopCv1s">
+    <meta property="og:image" content="http://localhost:9020/images/img/icon_head.png">
+    <meta property="og:url" content="http://localhost:9020<%= url %>">
+    <meta property="og:type" content="website">
+    <title>Chìa Khóa Tìm Ứng Viên Miễn Phí, Chất Lượng Vượt Trội</title>
+    <link rel="icon" href="/images/img/icon_head.png">
+    <link rel="canonical" href="http://localhost:9020<%= url %>">
+    <link rel="preload" as="style" href="/css/page_css/candi_page.css">
+    <link rel="stylesheet" href="/css/page_css/candi_page.css" as="style">
+    <link rel="preload" as="style" href="/css/common.css">
+    <link rel="stylesheet" href="/css/common.css" as="style">
+    <link rel="preload" as="style" href="/css/header.css">
+    <link rel="stylesheet" href="/css/header.css" as="style">
+    <link rel="preload" as="style" href="/css/search_job.css">
+    <link rel="stylesheet" href="/css/search_job.css" as="style">
+    <link rel="preload" href="/css/custom_select2.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/custom_select2.css">
+    </noscript>
+    <!-- <script src="/js/jquery.min.js"></script> -->
+    <!-- <script src="/js/custom_select.js"></script> -->
+    <script
+    type="application/ld+json">{"@context": "https://schema.org","@type": "ItemPage","url": "http://localhost:9020<%= url %>","mainEntityOfPage": "Trang Tin Tức Việc Làm Số 1 - Tìm Việc, Tuyển Dụng Hiệu Quả, Miễn Phí"}</script>
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"EmploymentAgency","name":"topcv1s.com","alternateName":"Tìm Việc Nhanh, Tuyển Dụng Hiệu Quả | TopCv1s.com","logo":"http://localhost:9020/images/img/icon_head.png","image":"http://localhost:9020/images/img/icon_head.png","url":"http://localhost:9020"}</script>
+    <script
+        type="application/ld+json">{"@context":"http://schema.org","@type":"WebSite","url":"http://localhost:9020/"}</script>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "DesPage",
+            "url": "http://localhost:9020<%= url %>",
+            "title": "Chìa Khóa Tìm Ứng Viên Miễn Phí, Chất Lượng Vượt Trội",
+            "description": "Bạn nghĩ việc tìm ứng viên miễn phí mà chất lượng là không thể? Hãy thay đổi cách nhìn và khám phá phương pháp tuyển dụng tối ưu cho doanh nghiệp của bạn.",
+            "thumbnail": "http://localhost:9020/images/img/default_logo.jpg"
+        } 
+    </script> 
+    <meta name="google-site-verification" content="lwyGMjMCHXSuJXWOc3iy1MG_Hd6yRBARF5H8NuMxUPg" />
+</head>
+
+<body id="body">
+    <%- include('layouts/header', {}); %>
+        <div id="content" style="padding-top:80px">
+            <%- include('layouts/search_candi'); %>
+            <div class="lcandi">
+                <div class="lcandi-breadcrumbs container">
+                    <ol class="d-flex align-c fs-7">
+                        <li class="breadcrumb">
+                            <a href="/">
+                                Trang chủ
+                            </a>
+                        </li>
+                        <li class="breadcrumb-active">
+                            <!-- <a href="/tim-ung-vien"> -->
+                                Tìm ứng viên
+                            <!-- </a> -->
+                        </li>
+                    </ol>
+                </div>
+                <div class="lcandi-content container d-flex">
+                    <div class="lcandi-left">
+                        <div class="lcandi-list d-flex flex-dr-c">
+                            <% if (response.data.data.data && response.data.data.data.length > 0) { %>
+                                <% response.data.data.data.forEach(function(item, index) { %>
+                                    <div class="lcandi-list-item d-flex align-c justify-b bg-white gap-3">
+                                        <div class="lcandi-list-info d-flex gap-4">
+                                            <div class="lcandi-list-avar">
+                                                <a href="/<%= convertToUrl(item.use_name) %>-uv-<%= item.use_id %>">
+                                                    <img class="rounded-circle outline_main" width="116" height="116" alt="Avar Ứng viên"
+                                                        onerror="this.onerror=null;this.src='/images/img/default_logo.jpg';" src="<%= item.use_logo %>" loading="<%= index === 0 ? 'eager' : 'lazy' %>" decoding="<%= index === 0 ? 'auto' : 'async' %>">
+                                                </a>
+                                                <div class="lcandi-list-onltime color-main">
+                                                </div>
+                                            </div>
+                                            <div class="lcandi-list-detail">
+                                                <div class="d-flex gap-4 mb-3">
+                                                    <div class="lcandi-list-avar-mb rounded-circle">
+                                                        <a href="/<%= convertToUrl(item.use_name) %>-uv-<%= item.use_id %>">
+                                                            <img class="rounded-circle outline_main" width="98" height="98" alt="Avar Ứng viên"
+                                                                onerror="this.onerror=null;this.src='/images/img/default_logo.jpg';" src="<%= item.use_logo %>" loading="<%= index === 0 ? 'eager' : 'lazy' %>" decoding="<%= index === 0 ? 'auto' : 'async' %>">
+                                                        </a>
+                                                        <div class="lcandi-list-onltime color-main">
+                                                        </div>
+                                                    </div>
+                                                    <div class="locandi-list-mb">
+                                                        <h3 class="lcandi-list-pos fs-4 fw-600">
+                                                            <a href="/<%= convertToUrl(item.use_name) %>-uv-<%= item.use_id %>">
+                                                                <%= item.use_job_name %>
+                                                            </a>
+                                                        </h3>
+                                                        <a class="lcandi-list-name fs-5 color-main" href="/<%= convertToUrl(item.use_name) %>-uv-<%= item.use_id %>">
+                                                            <%= item.use_name %>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="lcandi-list-gener d-flex">
+                                                    <div class="lcandi-list-gloc d-flex align-c gap-2 w-50">
+                                                        <img src="/images/icon/ion_location-outline.svg" width="20" height="20"
+                                                            alt="Địa chỉ">
+                                                            <% if (item.use_city_job.length> 0) { %>
+                                                                <% item.use_city_job.forEach(function(city, index) { %>
+                                                                    <%= city %>
+                                                                        <% if (index < item.use_city_job.length - 1) { %>, <% }
+                                                                                %>
+                                                                                <% }); %>
+                                                                                    <% } else { %>
+                                                                                        Chưa cập nhật
+                                                                                        <% } %>
+                                                        
+                                                    </div>
+                                                    <div class="lcandi-list-gpos d-flex align-c gap-2">
+                                                        <img src="/images/icon/pajamas_work.svg" width="20" height="20"
+                                                            alt="Công việc">
+                                                        <%= findExp(parseInt(item.exp_years)) %>
+                                                    </div>
+                                                    <div class="lcandi-list-gpos d-flex align-c gap-2 w-50">
+                                                        <img src="/images/icon/clock.svg" width="20"
+                                                            height="20" alt="time_update">
+                                                        <span>Cập nhật <%= getTimeRemain(item.use_update_time).value +  ' ' + getTimeRemain(item.use_update_time).type%> trước</span>
+                                                    </div>
+                                                    <div class="lcandi-list-gtime d-flex align-c gap-2">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="lcandi-list-btn d-flex flex-dr-c justify-b gap-3 align-c">
+                                            <button class="lcandi-list-save color-main bg-white d-flex align-c fs-5 <%= item.checkSave == true ? 'saved' : "" %>" data_id ="<%= item.use_id %>">
+                                                <img src="/images/icon/<%=item.checkSave==true ?'saved_candi_icon.svg':'save_candi_icon.svg'%>" alt="icon">   
+                                                <span><%= item.checkSave == true ? 'Đã lưu' : "Lưu" %></span>
+                                            </button>
+                                            <a class="lcandi-list-contact bg-main color-white fs-5 d-flex justify-c align-c" target="_blank" href="/<%= convertToUrl(item.use_name) %>-uv-<%= item.use_id %>">
+                                                Liên hệ
+                                            </a>
+                                        </div>
+                                    </div>
+                                <% }); %>
+                            <% } %>
+                        </div>
+                        <div class="d-flex justify-c">
+                            <button class="lcandi-list-more fw-600 bg-main color-white">
+                                Xem thêm <img class="loading-icon" width="10" height="10" alt="loading" src="/images/icon/loadingicon.gif">
+                            </button>
+                        </div>
+                        <!-- <div class="lcandi-fil">
+                            <div class="lcandi-fil-act d-flex">
+                                <div class="lcandi-fil-nav">
+                                    Liên hệ
+                                </div>
+                                <div class="lcandi-fil-nav active">
+                                    Hà Nội
+                                </div>
+                                <div class="lcandi-fil-nav">
+                                    Hồ Chí Minh
+                                </div>
+                                <div class="lcandi-fil-nav">
+                                    Miền Bắc
+                                </div>
+                                <div class="lcandi-fil-nav">
+                                    Miền Nam
+                                </div>
+
+                            </div>
+                            <div class="lcandi-fil-list d-flex flex-dr-c">
+                                <div class="lcandi-fil-item d-flex justify-b bg-white align-c gap-3">
+                                    <div class="lcandi-fil-info d-flex align-c gap-4">
+                                        <div class="lcandi-fil-avar">
+                                            <img class="rounded-circle" width="116" height="116" alt="Avar Ứng viên"
+                                                src="/images/test/imguv.png">
+                                            <div class="lcandi-fil-onltime color-main">
+                                                5 ngày
+                                            </div>
+                                        </div>
+                                        <div class="lcandi-fil-detail">
+                                            <div class="d-flex gap-4">
+                                                <div class="lcandi-fil-avar-mb">
+                                                    <img class="rounded-circle" width="98" height="98"
+                                                        alt="Avar Ứng viên" src="/images/test/imguv.png">
+                                                    <div class="lcandi-fil-onltime color-main">
+                                                        5 ngày
+                                                    </div>
+                                                </div>
+                                                <div class="locandi-fil-mb">
+                                                    <div class="lcandi-fil-pos fs-4 fw-600">
+                                                        NHÂN VIÊN PHÁT TRIỂN THỊ TRƯỜNG
+                                                    </div>
+                                                    <div class="lcandi-fil-name fs-5 color-main">
+                                                        NGUYỄN THỊ MINH NGỌC
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="lcandi-fil-gener d-flex">
+                                                <div class="lcandi-fil-gloc d-flex align-c gap-2">
+                                                    <img src="/images/icon/ion_location-outline.svg" width="20"
+                                                        height="20" alt="Địa chỉ">
+                                                    Hà Nội
+                                                </div>
+                                                <div class="lcandi-fil-gpos d-flex align-c gap-2">
+                                                    <img src="/images/icon/pajamas_work.svg" width="20" height="20"
+                                                        alt="Công việc">
+                                                    Chi tiết trong CV
+                                                </div>
+                                                <div class="lcandi-fil-gtime d-flex align-c gap-2">
+                                                    <img src="/images/icon/carbon_time.svg" width="20" height="20"
+                                                        alt="Thời gian">
+                                                    5 ngày
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="lcandi-fil-btn d-flex flex-dr-c justify-b gap-3 align-c">
+                                        <button class="lcandi-fil-save color-main bg-white d-flex align-c gap-3 fs-5">
+                                            <img src="/images/icon/mdi_heart.svg" width="23" height="23"
+                                                alt="Lưu việc làm">
+                                            Lưu
+                                        </button>
+                                        <button class="lcandi-fil-contact bg-main color-white fs-5">
+                                            Liên hệ
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="lcandi-right">
+                        <h2 class="icandi-head fs-4 fw-700 bg-main color-white text-c mb-0">
+                            Liên hệ ứng viên
+                        </h2>
+                        <div class="icandi-onl bg-white">
+                            <div class="icandi-onl-more color-main">
+                                <a href="">
+                                    Tất cả >>
+                                </a>
+                            </div>
+                            <div class="icandi-onl-list">
+                                <!-- <div class="icandi-onl-item d-flex gap-3 fw-600">
+                                    <div class="icandi-onl-avar">
+                                        <img class="rounded-circle" width="64" height="64" alt="Avar Ứng viên"
+                                            src="/images/test/imguv.png">
+                                        <div class="icandi-onl-btn rounded-circle">
+
+                                        </div>
+                                    </div>
+                                    <div class="icandi-onl-info">
+                                        <div class="icandi-onl-name mb-2">
+                                            BÙI THỊ THANH MAI
+                                        </div>
+                                        <div class="icandi-onl-loc">
+                                            HÀ NỘI
+                                        </div>
+                                        <div class="icandi-onl-pos">
+                                            NHÂN VIÊN BÁN HÀNG
+                                        </div>
+                                    </div>
+                                </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="lcandi">
+                    <div class="container blog_container">
+                        <div class="blog_find_candidate">
+                            <p>
+                                Doanh nghiệp của bạn đang gặp khó khăn trong việc tuyển dụng khi chi phí ngày càng leo thang mà chất lượng ứng viên lại không như mong đợi? Đây là thực trạng chung mà nhiều công ty phải đối mặt trong thời đại tuyển dụng cạnh tranh gay gắt. Nhưng, làm thế nào để tìm ứng viên miễn phí mà vẫn đảm bảo chất lượng, phù hợp với nhu cầu phát triển của doanh nghiệp? Đây chính là bài toán mà nhiều nhà tuyển dụng đang đau đầu tìm lời giải, và giải pháp có thể đơn giản hơn bạn nghĩ. Hãy cùng khám phá ngay giải pháp toàn diện tới từ TopCv1s - giúp doanh nghiệp dễ dàng tìm ứng viên miễn phí, chất lượng cao, từ đó tối ưu quy trình tuyển dụng một cách hiệu quả và tiết kiệm nhất.
+                            </p>
+                           <h2 id="section1">1. Thực trạng tuyển dụng hiện đại - bài toán khó khi thu hút ứng viên tiềm năng</h2>
+                           <p>Trong bối cảnh thị trường lao động hiện đại, vấn đề tuyển dụng đang trở thành một thách thức lớn đối với nhiều doanh nghiệp. Chi phí tuyển dụng ngày càng tăng cao là một trong những nguyên nhân khiến nhiều nhà tuyển dụng phải đau đầu. Theo các nghiên cứu gần đây, một quy trình tuyển dụng truyền thống có thể tiêu tốn không chỉ thời gian mà còn rất nhiều nguồn lực tài chính. Các chi phí này bao gồm quảng cáo việc làm, phí cho các dịch vụ tuyển dụng, thời gian nhân viên dành cho việc phỏng vấn, và thậm chí là các khoản chi cho việc đào tạo nhân viên mới. Điều này dẫn đến việc các doanh nghiệp cần phải cân nhắc kỹ lưỡng trước khi quyết định tuyển dụng nhân sự mớ</p>
+                            <img class="blog_img_find_candidate" src="/images/blog_img/quy-trinh-tuyen-dung.jpg" alt="Quy trình tuyển dụng truyền thống gây tốn kém về nguồn lực tài chính">
+                            <p class="blig_img_title">Quy trình tuyển dụng truyền thống gây tốn kém về nguồn lực tài chính</p>
+                            <p>Tuy nhiên, không chỉ đơn thuần là chi phí, mà chất lượng ứng viên tìm việc cũng đang gặp nhiều vấn đề. Nhiều doanh nghiệp nhận thấy rằng số lượng ứng viên tham gia tuyển dụng không đồng nghĩa với chất lượng. Dù có rất nhiều hồ sơ và <a href="/cv-xin-viec">CV xin việc</a> gửi đến, nhưng phần lớn trong số đó không đáp ứng được yêu cầu của vị trí tuyển dụng. Điều này làm tăng thêm áp lực cho các bộ phận nhân sự, khi mà họ phải sàng lọc rất nhiều hồ sơ không đạt yêu cầu. Những ứng viên tài năng dần khan hiếm, tạo ra một cuộc chiến cạnh tranh gay gắt giữa các doanh nghiệp. Điều này cũng dẫn đến việc các nhà tuyển dụng phải tìm cách thu hút những ứng viên chất lượng, nhưng lại không biết phải bắt đầu từ đâu.
+                                Mong muốn thực tế của doanh nghiệp hiện nay chính là tìm kiếm những ứng viên không chỉ đáp ứng được tiêu chuẩn về chuyên môn mà còn có khả năng phù hợp với văn hóa doanh nghiệp. Sự kết hợp này không chỉ giúp nâng cao hiệu suất làm việc mà còn tạo ra một môi trường làm việc tích cực, nơi mà nhân viên cảm thấy hạnh phúc và gắn bó lâu dài. Tuy nhiên, để đạt được điều này, các doanh nghiệp cần phải đổi mới cách thức tuyển dụng, áp dụng những chiến lược hiện đại hơn, và tìm kiếm những kênh tiếp cận phù hợp hơn với ứng viên tiềm năng.
+                            </p>
+                                <img class="blog_img_find_candidate" src="/images/blog_img/doanh-nghiep-mong-muon.jpg" alt="Doanh nghiệp mong muốn tìm kiếm những ứng viên phù hợp nhất">
+                                <p class="blig_img_title">Doanh nghiệp mong muốn tìm kiếm những ứng viên phù hợp nhất</p>
+                                <p>Sự xuất hiện của website TopCv1s đã mở ra một hướng đi mới cho các doanh nghiệp trong việc tìm kiếm ứng viên chất lượng. Với các công cụ thông minh và hệ thống lọc hồ sơ hiện đại, TopCv1s giúp nhà tuyển dụng dễ dàng kết nối với những ứng viên phù hợp nhất. Thay vì phải dành hàng giờ đồng hồ để sàng lọc hồ sơ, các doanh nghiệp có thể sử dụng nền tảng này để nhanh chóng tìm ra những ứng viên tiềm năng.
+                                    Đồng thời, TopCv1s cũng mang đến những giải pháp tối ưu cho ứng viên. Các ứng viên có thể dễ dàng tìm kiếm việc làm phù hợp với chuyên môn và sở thích của mình. Nền tảng này cung cấp thông tin chi tiết về các vị trí tuyển dụng, giúp ứng viên có cái nhìn rõ nét hơn về công việc mà họ ứng tuyển. Điều này không chỉ nâng cao trải nghiệm tìm việc mà còn giúp ứng viên có cơ hội thể hiện bản thân một cách tốt nhất. Với những tính năng hiện đại và linh hoạt, TopCv1s thực sự trở thành một công cụ hữu ích thu hút hàng ngàn ứng viên tiềm năng và tạo điều kiện tốt cho các doanh nghiệp trong việc vượt qua bài toán tìm kiếm ứng viên
+                                </p>
+                                <h2 id="section2">2. Lợi ích khi sử dụng TopCv1s để tìm ứng viên chất lượng</h2>
+                                <p>Trong bối cảnh thị trường lao động ngày càng cạnh tranh, việc tìm kiếm ứng viên phù hợp cho doanh nghiệp không chỉ là một thách thức mà còn là một yếu tố quyết định đến sự phát triển bền vững của công ty. TopCv1s đã nổi lên như một giải pháp hiệu quả, mang đến nhiều lợi ích cho các doanh nghiệp.</p>
+                                <h3 id="section2_1">2.1. Đăng tin tuyển dụng dễ dàng, miễn phí</h3>
+                                <p>Đầu tiên, một trong những ưu điểm lớn nhất của TopCv1s là khả năng <a href="/ntd/dang-tin-tuyen-dung">đăng tin tuyển dụng</a> hoàn toàn miễn phí. Điều này đặc biệt hữu ích cho các doanh nghiệp vừa và nhỏ, vốn có ngân sách hạn chế cho các hoạt động tuyển dụng. Việc tiết kiệm chi phí mà vẫn có thể đăng tải thông tin tuyển dụng đến hàng triệu ứng viên tiềm năng giúp doanh nghiệp tăng khả năng tìm kiếm nhân tài mà không lo về vấn đề tài chính. Hơn nữa, chỉ cần <a href="/dang-ky-nha-tuyen-dung">đăng ký tài khoản</a> , quy trình đăng tin trên TopCv1s sẽ trở nên đơn giản và dễ thực hiện, giúp các nhà tuyển dụng tiết kiệm thời gian trong việc đăng tải thông tin tuyển dụng.</p>
+                                <img class="blog_img_find_candidate" src="/images/blog_img/dang-tin-tuyen-dung.jpg" alt="Đăng tin tuyển dụng dễ dàng, miễn phí">
+                                <p class="blig_img_title">Đăng tin tuyển dụng dễ dàng, miễn phí</p>
+                                <p>Thêm vào đó, TopCv1s cung cấp một giao diện thân thiện, dễ sử dụng, giúp người dùng có thể nhanh chóng tạo và đăng tải các thông tin tuyển dụng. Với vài bước đơn giản, doanh nghiệp có thể thiết lập một tin tuyển dụng hấp dẫn, bao gồm mô tả công việc chi tiết, yêu cầu ứng viên và thông tin liên hệ. Sự tiện lợi này không chỉ tiết kiệm thời gian mà còn mang lại hiệu quả cao hơn trong việc tiếp cận ứng viên.</p>
+                                <h3 id="section2_2">2.2. Tiếp cận hàng ngàn ứng viên tiềm năng</h3>
+                                <p>Một trong những lợi ích nổi bật nhất khi sử dụng TopCv1s là khả năng tiếp cận hàng ngàn ứng viên tiềm năng, điều này không chỉ mang lại cho doanh nghiệp một nguồn nhân lực đa dạng mà còn đảm bảo chất lượng của những ứng viên được lựa chọn. Với cộng đồng ứng viên lớn và chuyên nghiệp, TopCv1s đã khẳng định vị thế của mình như một nền tảng hàng đầu trong lĩnh vực tuyển dụng. Cụ thể, TopCv1s tập trung vào việc kết nối các doanh nghiệp với những ứng viên phù hợp từ nhiều lĩnh vực khác nhau, từ công nghệ thông tin, <a href="/tim-viec-lam-marketing">marketing</a>  cho đến <a href="/tim-viec-lam-nhan-vien-kinh-doanh">nhân viên kinh doanh</a>, điều này tạo ra một bức tranh đa dạng về nguồn nhân lực sẵn có.</p>
+                                <img class="blog_img_find_candidate" src="/images/blog_img/tiep-can-hang-ngan-ung-vien.jpg" alt="Tiếp cận hàng ngàn ứng viên tiềm năng">
+                                <p class="blig_img_title">Tiếp cận hàng ngàn ứng viên tiềm năng</p>
+                                <p>Việc có một cộng đồng ứng viên đa dạng và chất lượng không chỉ giúp doanh nghiệp dễ dàng tìm ra ứng viên tiềm năng mà còn mở rộng cơ hội tìm kiếm cho những vị trí đặc thù mà doanh nghiệp cần. Khi sử dụng TopCv1s, các doanh nghiệp có thể tiếp cận những ứng viên có chuyên môn cao, kinh nghiệm phong phú và thái độ làm việc tích cực. Hơn nữa, điều này cũng giúp tăng cường khả năng cạnh tranh của doanh nghiệp trong thị trường lao động, khi mà việc thu hút nhân tài đang trở thành một thách thức lớn trong bối cảnh hiện nay.</p>
+        
+                                <h3 id="section2_3">2.3. Công cụ hỗ trợ tìm ứng viên thông minh</h3>
+                                <p>TopCv1s sử dụng công nghệ trí tuệ nhân tạo (AI) và các công cụ lọc ứng viên hiện đại để giúp nhà tuyển dụng dễ dàng hơn trong việc tìm kiếm và lựa chọn ứng viên phù hợp với yêu cầu công việc. Công nghệ AI cho phép hệ thống tự động phân tích và đánh giá hồ sơ ứng viên dựa trên các tiêu chí cụ thể mà nhà tuyển dụng đã đề ra. Điều này không chỉ tiết kiệm thời gian mà còn giúp nâng cao độ chính xác trong việc lựa chọn ứng viên.</p>
+                                <p>Ngoài ra, TopCv1s cung cấp khả năng xem hồ sơ ứng viên một cách chi tiết, từ thông tin cá nhân, trình độ học vấn, đến kinh nghiệm làm việc. Nhờ vào giao diện thân thiện và dễ sử dụng, nhà tuyển dụng có thể nhanh chóng truy cập vào các thông tin cần thiết để đưa ra quyết định đúng đắn. Việc nắm rõ hồ sơ ứng viên giúp doanh nghiệp hiểu rõ hơn về năng lực và tiềm năng phát triển của từng ứng viên, từ đó có thể đưa ra những quyết định tuyển dụng hợp lý hơn.</p>
+                                <img class="blog_img_find_candidate" src="/images/blog_img/cong-cu-ho-tro.jpg" alt="Công cụ hỗ trợ tìm ứng viên thông minh">
+                                <p class="blig_img_title">Công cụ hỗ trợ tìm ứng viên thông minh</p>
+                                <p>Một điểm nổi bật khác của TopCv1s là tính năng lọc ứng viên đa dạng, cho phép nhà tuyển dụng tìm kiếm ứng viên theo nhiều ngành nghề khác nhau. Với việc cung cấp một nguồn ứng viên phong phú, TopCv1s giúp doanh nghiệp dễ dàng tìm ra những ứng viên tiềm năng trong một thời gian ngắn. Các ngành nghề được phân chia rõ ràng, giúp nhà tuyển dụng dễ dàng tìm kiếm ứng viên theo nhu cầu cụ thể của mình.</p>
+                                <p>Hệ thống tìm kiếm thông minh này không chỉ đơn thuần là một công cụ, mà còn là một trợ lý đáng tin cậy trong quá trình tuyển dụng. TopCv1s cung cấp cho nhà tuyển dụng những gợi ý và phân tích cần thiết để lựa chọn ứng viên phù hợp nhất cho vị trí công việc. Điều này không chỉ giúp tiết kiệm thời gian, mà còn nâng cao chất lượng của đội ngũ nhân sự trong doanh nghiệp</p>
+                                <p>Khi áp dụng TopCv1s vào quy trình tuyển dụng, nhà tuyển dụng không chỉ tiếp cận được những ứng viên chất lượng mà còn có thể tối ưu hóa thời gian và công sức trong việc tìm kiếm nhân sự phù hợp. Nhờ vào những tính năng thông minh và tiện ích mà nền tảng này mang lại, quy trình tuyển dụng trở nên dễ dàng hơn bao giờ hết, tạo điều kiện cho các doanh nghiệp phát triển bền vững trong thời gian dài</p>
+                                <h2 id="section3">3. Mẹo giúp tối ưu việc tìm ứng viên miễn phí, chất lượng với TopCv1s</h2>
+                                <p>Để tối ưu hóa việc tìm kiếm ứng viên miễn phí và chất lượng trên nền tảng TopCv1s, một trong những điều đầu tiên cần chú ý là xây dựng thương hiệu nhà tuyển dụng chuyên nghiệp. Một thương hiệu mạnh không chỉ giúp thu hút ứng viên mà còn tạo dựng niềm tin và sự uy tín cho doanh nghiệp. Thương hiệu nhà tuyển dụng không chỉ thể hiện qua logo hay màu sắc mà còn phản ánh văn hóa, giá trị cốt lõi và môi trường làm việc của doanh nghiệp. Điều này đòi hỏi nhà tuyển dụng cần phải đầu tư thời gian và công sức để phát triển thương hiệu một cách đồng bộ và hiệu quả</p>
+                                <p>Một trong những cách hiệu quả để thu hút sự chú ý của ứng viên là viết mô tả doanh nghiệp một cách ấn tượng. Mô tả này cần nêu rõ những điểm mạnh, giá trị độc đáo và những lợi ích mà ứng viên có thể nhận được khi gia nhập vào đội ngũ của bạn. Hãy tập trung vào việc truyền tải văn hóa doanh nghiệp, cơ hội phát triển nghề nghiệp và các phúc lợi mà công ty cung cấp. Một mô tả rõ ràng và hấp dẫn sẽ giúp ứng viên dễ dàng nhận diện và cảm thấy hứng thú với cơ hội nghề nghiệp mà bạn đang cung cấp.</p>
+                                <p>Tiếp theo, việc chăm chút hồ sơ doanh nghiệp trên TopCv1s cũng là một yếu tố quan trọng trong quá trình thu hút ứng viên. Hãy đảm bảo rằng mọi thông tin trên hồ sơ doanh nghiệp đều được cập nhật đầy đủ và chính xác. Hình ảnh và các tài liệu giới thiệu về công ty cần được thiết kế đẹp mắt và chuyên nghiệp. Một hồ sơ hấp dẫn sẽ giúp tạo ấn tượng tích cực và giữ chân sự chú ý của ứng viên lâu hơn. Đừng quên tạo các liên kết tới các trang mạng xã hội của công ty để ứng viên có thể tìm hiểu thêm về doanh nghiệp từ nhiều nguồn khác nhau.</p>
+                                <img class="blog_img_find_candidate" src="/images/blog_img/meo-giup-toi-uu.jpg" alt="Mẹo giúp tối ưu việc tìm ứng viên miễn phí, chất lượng với TopCv1s">
+                                <p class="blig_img_title">Mẹo giúp tối ưu việc tìm ứng viên miễn phí, chất lượng với TopCv1s</p>
+                                <p>Bên cạnh đó, việc sử dụng phương pháp ghim tin tuyển dụng lên trang chủ cũng là một chiến lược hữu hiệu để thu hút nhiều ứng viên. Khi tin tuyển dụng được ghim lên trang chủ, khả năng tiếp cận ứng viên sẽ cao hơn rất nhiều. Hãy đảm bảo rằng nội dung tin tuyển dụng rõ ràng, ngắn gọn và dễ hiểu, đồng thời nhấn mạnh những điểm nổi bật của vị trí tuyển dụng. Một tin tuyển dụng hấp dẫn và được đặt ở vị trí dễ nhìn thấy sẽ giúp tăng cơ hội thu hút được nhiều ứng viên chất lượng.</p>
+                                <p>Trong quá trình tuyển chọn ứng viên, việc chọn lọc một cách hiệu quả cũng rất quan trọng. Bạn nên có một quy trình đánh giá rõ ràng để xác định các tiêu chí phù hợp với từng vị trí tuyển dụng. Việc này không chỉ giúp tiết kiệm thời gian mà còn đảm bảo bạn tìm ra những ứng viên phù hợp nhất với văn hóa và nhu cầu của công ty. Hãy sử dụng các công cụ hỗ trợ để quản lý và phân loại hồ sơ ứng viên, từ đó có thể dễ dàng theo dõi tiến trình tuyển dụng.</p>
+                                <p>Ngoài ra, hãy tạo ra một trải nghiệm tuyển dụng tích cực cho ứng viên. Đảm bảo rằng quy trình tuyển dụng diễn ra nhanh chóng và rõ ràng. Hãy thường xuyên cập nhật trạng thái hồ sơ của ứng viên để họ biết được tiến trình ứng tuyển của mình. Một trải nghiệm tốt sẽ tạo ấn tượng tích cực và tăng khả năng ứng viên quay lại ứng tuyển cho những vị trí sau này.</p>
+                                <p>Cuối cùng, để tối ưu hóa hiệu quả tìm kiếm ứng viên miễn phí trên TopCv1s, đừng quên duy trì sự tương tác với các ứng viên tiềm năng. Hãy tạo dựng mối quan hệ và thường xuyên cập nhật thông tin về công ty, các chương trình tuyển dụng mới cũng như những thay đổi trong quy trình làm việc. Sự quan tâm và chăm sóc này sẽ khiến ứng viên cảm thấy được coi trọng và thúc đẩy họ ứng tuyển cho những cơ hội trong tương lai.</p>
+                                <p>Nhìn chung, việc tìm ứng viên miễn phí và chất lượng không còn là một thách thức khó khăn với sự hỗ trợ từ <a href="/">TopCv1s</a>. Nền tảng này không chỉ giúp các nhà tuyển dụng dễ dàng tiếp cận với nguồn ứng viên đa dạng mà còn tối ưu hóa quy trình tuyển dụng bằng cách tiết kiệm thời gian và chi phí. Với các tính năng vượt trội và giao diện thân thiện, TopCv1s là giải pháp lý tưởng cho mọi doanh nghiệp đang tìm kiếm nhân tài phù hợp. Hãy bắt đầu trải nghiệm ngay hôm nay để nhanh chóng tìm ra những ứng viên xuất sắc nhất cho đội ngũ của bạn!</p>
+                            </div>
+                            <div class="table_index">
+                                <span>Mục lục</span>
+                                <ul>
+                                    <li><a href="#section1">1. Thực trạng tuyển dụng hiện đại - bài toán khó khi thu hút ứng viên tiềm năng</a></li>
+                                    <li>
+                                        <a href="#section2">2. Lợi ích khi sử dụng TopCv1s để tìm ứng viên chất lượng</a>
+                                        <ul>
+                                            <li><a href="#section2_1">2.1. Đăng tin tuyển dụng dễ dàng, miễn phí</a></li>
+                                            <li><a href="#section2_2">2.2. Tiếp cận hàng ngàn ứng viên tiềm năng</a></li>
+                                            <li><a href="#section2_3">2.3. Công cụ hỗ trợ tìm ứng viên thông minh</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#section3">3. Mẹo giúp tối ưu việc tìm ứng viên miễn phí, chất lượng với TopCv1s</a></li>
+                                </ul>
+                            </div>
+                    </div>
+                </div>
+        </div>
+        <link rel="stylesheet" href="/css/footer.css" as="style">
+        <%- include('layouts/footer', {}); %>
+            <!-- <script src="/js/jquery.min.js"></script> -->
+            <script src="/js/custom_select.js"></script>
+            <script>
+                $(document).ready(function () {
+                    $('.nav-item').hover(function () {
+                        $(this).children('.nav-dropdown').stop(true, true).fadeIn(300);
+                    }, function () {
+                        $(this).children('.nav-dropdown').stop(true, true).fadeOut(300);
+                    });
+                    $('.table_index a').on('click', function(e) {
+                        e.preventDefault(); 
+
+                        var target = $(this.getAttribute('href')); 
+
+                        if (target.length) {
+                            $('html, body').animate({
+                                scrollTop: target.offset().top -100
+                            }, 800);
+                        }
+                    });
+                });
+            </script>
+
+            <script>
+                $(document).ready(function () {
+                    function checkSavedProfile(dataID, button) {
+                        var accessToken = getCookie('accessToken');
+
+                        if (!accessToken) {
+                            alert('Vui lý đăng nhập để thực hiện thao tác');
+                            $('#login_ntd_modal').show();
+                        }
+                        else{
+                            var data = {
+                                id_uv: dataID
+                            };
+                            $.ajax({
+                            url: 'http://localhost:3051/api/topcv1s/ntd/SaveCandi',
+                            type: 'POST',
+                            headers: {
+                                Authorization: 'Bearer ' + accessToken
+                            },
+                            data: data,
+                            success: function (response) {
+                                if (response.data.result_save == 1) {
+                                    alert('Đã lưu hồ sơ');
+                                    button.addClass('saved');
+                                    button.find("img").attr({
+                                        "src": "/images/icon/saved_candi_icon.svg",
+                                    });
+                                    button.find("span").text('Đã lưu').prop('disabled', true);
+                                } else {
+                                    alert('Bỏ lưu hồ sơ thành công');
+                                    button.removeClass('saved');
+                                    button.find("img").attr({
+                                        "src": "/images/icon/save_candi_icon.svg",
+                                    });
+                                    button.find("span").text('Lưu').prop('disabled', true);
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                                console.error('Error:', error);
+                                alert('Có lỗi khi kết nối với server.');
+                            }
+                        });
+                    }
+                    }
+                    $(document).on('click', '.lcandi-list-save', function () {
+                        var button = $(this);
+                        var dataID = button.attr('data_id');
+
+                        // Check if profile is already saved
+                        checkSavedProfile(dataID, button);
+                    });
+                })
+            </script>
+            <script>
+                $(document).ready(function(){
+                    let currentPage = 1;
+                    $(document).on('click', '.lcandi-list-more', function() {
+                        currentPage++; 
+                        loadMoreData(currentPage);
+                    });
+
+                    function handleSearch() {
+                        var searchText = $('#s_key').val();
+                        var searchCity = $('#s_loc').val();
+                        var params = {};
+                        if (searchText) {
+                            params.name = searchText;
+                        }
+                        if (searchCity && searchCity != 0) {
+                            params.city = searchCity;
+                        }
+                        var queryString = $.param(params);
+                        var newUrl = '/tim-ung-vien';
+                        if (queryString) {
+                            newUrl += '?' + queryString;
+                        }
+                        window.location.href = newUrl;
+                    }
+
+                    $('.search-btn').click(function () {
+                        handleSearch()
+                    });
+
+                    // $("#s_loc").change(function() {
+                    //     handleSearch()
+                    // })
+                
+                    function loadMoreData(page) {
+                        var url = 'http://localhost:3053/api/topcv1s/new/SearchCandi';
+                        var nameValue = getParameterByName('name', window.location.href);
+                        var cityValue = getParameterByName('city', window.location.href);
+                        var catidValue = getParameterByName('catid', window.location.href);
+                        var district = getParameterByName('district', window.location.href);
+                        var exp = getParameterByName('exp', window.location.href);
+                        var money = getParameterByName('money', window.location.href);
+                        var address = getParameterByName('address', window.location.href);
+                        var level = getParameterByName('level', window.location.href);
+                        var type = getParameterByName('type', window.location.href);
+                        var accessToken = getCookie('accessToken');
+                        // console.log(nameValue);
+                        $.ajax({
+                            url: url,
+                            type: 'POST',
+                            contentType: 'application/json',
+                            headers: {
+                                Authorization: 'Bearer ' + accessToken
+                            },
+                            data: JSON.stringify({
+                                keywords: nameValue,
+                                city: cityValue,
+                                pageSize: 10,
+                                page: page
+                            }),
+                            beforeSend: function() {
+                                $('.loading-icon').show();
+                            },
+                            success: function (response) {
+                                if (response.data.data.length > 0) {
+                                    totalItems = response.data.total;
+                                    response.data.data.forEach((item, index) => {
+                                        var slug = convertToSlug(item.use_name);
+                                        var citiesHtml = item.use_city_job.map(function (city) {
+                                            return `${city}, `;
+                                        }).join('').slice(0, -2);
+                                        var isSaved = item.checkSave ? true : false;
+                                        var saveButtonText = isSaved ? 'Đã lưu' : 'Lưu';
+                                        var saveButtonClass = isSaved ? 'saved' : '';
+                                        var saveImg = isSaved?'/images/icon/saved_candi_icon.svg':'/images/icon/save_candi_icon.svg';
+                                        var html = `
+                                        <div class="lcandi-list-item d-flex align-c justify-b bg-white gap-3">
+                                            <div class="lcandi-list-info d-flex gap-4">
+                                                <div class="lcandi-list-avar">
+                                                    <a href="${slug}-uv-${item.use_id}">
+                                                        <img class="rounded-circle outline_main" loading="lazy" width="116" height="116" alt="Avar Ứng viên"
+                                                            onerror="this.onerror=null;this.src='/images/img/default_logo.jpg';" src="${item.use_logo}">
+                                                    </a>
+                                                    <div class="lcandi-list-onltime color-main">
+                                                    </div>
+                                                </div>
+                                                <div class="lcandi-list-detail">
+                                                    <div class="d-flex gap-4 mb-3">
+                                                        <div class="lcandi-list-avar-mb rounded-circle">
+                                                            <a href="${slug}-uv-${item.use_id}">
+                                                                <img class="rounded-circle outline_main" width="98" height="98" alt="Avar Ứng viên"
+                                                                    onerror="this.onerror=null;this.src='/images/img/default_logo.jpg';" src="${item.use_logo}">
+                                                            </a>
+                                                            <div class="lcandi-list-onltime color-main">
+                                                            </div>
+                                                        </div>
+                                                        <div class="locandi-list-mb">
+                                                            <h3 class="lcandi-list-pos fs-4 fw-600">
+                                                                <a href="${slug}-uv-${item.use_id}">
+                                                                    ${item.use_job_name}
+                                                                </a>
+                                                            </h3>
+                                                            <a class="lcandi-list-name fs-5 color-main" href="${slug}-uv-${item.use_id}">
+                                                                ${item.use_name}
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="lcandi-list-gener d-flex">
+                                                        <div class="lcandi-list-gloc d-flex align-c gap-2 w-50">
+                                                            <img src="/images/icon/ion_location-outline.svg" width="20" height="20"
+                                                                alt="Địa chỉ">
+                                                            ${citiesHtml}
+                                                        </div>
+                                                        <div class="lcandi-list-gpos d-flex align-c gap-2">
+                                                            <img src="/images/icon/pajamas_work.svg" width="20" height="20"
+                                                                alt="Công việc">
+                                                            ${findExp(parseInt(item.exp_years))}
+                                                        </div>
+                                                        <div class="lcandi-list-gpos d-flex align-c gap-2 w-50">
+                                                            <img src="/images/icon/clock.svg" width="20"
+                                                                height="20" alt="time_update">
+                                                            <span>Cập nhật ${ getTimeRemain(item.use_update_time).value +  ' ' + getTimeRemain(item.use_update_time).type} trước</span>
+                                                        </div>
+                                                        <div class="lcandi-list-gtime d-flex align-c gap-2">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="lcandi-list-btn d-flex flex-dr-c justify-b gap-3 align-c">
+                                                <button class="lcandi-list-save color-main bg-white d-flex align-c fs-5 ${saveButtonClass}" data_id ="${item.use_id}">
+                                                    <img src="${saveImg}" alt="icon">   
+                                                    <span>${saveButtonText}</span>
+                                                </button>
+                                                <a href="${slug}-uv-${item.use_id}" class="lcandi-list-contact bg-main color-white fs-5 d-flex justify-c align-c">
+                                                    Liên hệ
+                                                </a>
+                                            </div>
+                                        </div>`;
+                                    $('.lcandi-list').append(html);
+                                })
+                                }
+                            },
+                            error: function (error) {
+                                console.log('Error fetching data:', error);
+                            },
+                            complete: function() {
+                                $('.loading-icon').hide();
+                            }
+                        });
+                    }
+                    function convertToSlug(text) {
+                        return text.toLowerCase()
+                            .normalize('NFD')
+                            .replace(/[\u0300-\u036f]/g, '')
+                            .replace(/[^a-z0-9 ]+/g, '')
+                            .replace(/\s+/g, '-')
+                            .replace(/-+/g, '-');
+                    }
+
+                    function getParameterByName(name, url) {
+                        if (!url) url = window.location.href;
+                        name = name.replace(/[\[\]]/g, "\\$&");
+                        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                            results = regex.exec(url);
+                        if (!results) return null;
+                        if (!results[2]) return '';
+                        return decodeURIComponent(results[2].replace(/\+/g, " "));
+                    }
+                    function findExp(exp_id) {
+                        const Exp = listSizeExp.find(item => item.hasOwnProperty(exp_id.toString()));
+                        return Exp ? Exp[exp_id] : "Xem trong CV";
+                    }
+                    const listSizeExp = [
+                        {0: "Chưa có kinh nghiệm"},
+                        {1: "0 - 1 năm kinh nghiệm"},
+                        {2: "Hơn 1 năm kinh nghiệm"},
+                        {3: "Hơn 2 năm kinh nghiệm"},
+                        {4: "Hơn 3 năm kinh nghiệm"},
+                        {5: "Hơn 4 năm kinh nghiệm"},
+                        {6: "Hơn 5 năm kinh nghiệm"},
+                        {7: "Hơn 10 năm kinh nghiệm"},
+                    ];
+                    function getTimeRemain(timeup){
+                        const currentTime = Math.floor(Date.now() / 1000);
+                        const time = currentTime - timeup; 
+                        if(time > 946080000 ){
+                            return {value : Math.round(time / (60 * 60 * 24 * 30 * 365)), type : 'năm'};
+                        }
+                        else if(time > 2592000){
+                            return {value : Math.round(time / (60 * 60 * 24 * 30)), type : 'tháng'};
+                        }
+                        else if(time > 86400 ){
+                            return {value : Math.round(time / (60 * 60 * 24)), type : 'ngày'};
+                        }
+                        else if(time > 3600){
+                            return {value : Math.round(time / (60 * 60)), type : 'giờ'};
+                        }
+                        else{
+                            return {value : Math.round(time / (60)), type : 'phút'};
+                        }
+                    }
+                })
+
+
+
+
+            </script>
+            
+            
+</body>
+
+</html>

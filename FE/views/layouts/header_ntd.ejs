@@ -1,0 +1,211 @@
+<div class="nhead bg-white d-flex justify-b">
+    <div class="nhead-lef fw-500">
+        <span class="color-main">Điểm mất phí lọc hồ sơ: </span>
+        <span class="nhead-left-p">0</span>
+    </div>
+    <div class="nhead-rig d-flex align-c justify-b">
+        <div class="nhead-rig-nav fw-500 d-flex align-c">
+            <div class="nhead-rig-nav-i">
+                <a href="/">
+                    Trang chủ
+                </a>
+            </div>
+            <div class="nhead-rig-nav-i">
+                <a href="">
+                    Bảng giá
+                </a>
+            </div>
+            <div class="nhead-rig-nav-i">
+                <a href="/tin-tuc">
+                    Tin tức
+                </a>
+            </div>
+            <div class="nhead-rig-nav-i">
+                <a href="/tim-ung-vien">
+                    Tìm ứng viên
+                </a>
+            </div>
+        </div>
+        <div class="nhead-rig-not">
+            <img width="26.25" height="30.62" alt="Notify Icon" src="/images/icon/notify_icon.svg">
+        </div>
+        <div class="nhead-rig-logm">
+            <a href="/">
+                <img src="/images/img/logomobile.svg" width="100" height="40" alt="Logo Mobile">
+            </a>
+        </div>
+        <div class="nhead-rig-togm">
+            <img src="/images/icon/eva_menu-outline.svg" width="40" height="40" alt="Nav Btn Mobile">
+        </div>
+        <button class="nhead-rig-logout bg-main color-white d-flex align-c gap-3 fw-700" onclick="logout()">
+            <img width="27.71" height="26.25" alt="Logout Icon" src="/images/icon/logout-icon.svg">
+            Đăng xuất
+        </button>
+    </div>
+</div>
+<div id="mobileMenu" class="menu-mb" style="display: none;">
+    <div class="menu-mb-head d-flex align-c justify-b bg-main">
+        <div class="menu-mb-close">
+            <img width="30" height="30" src="/images/icon/closemenumb.svg" alt="Close Icon">
+        </div>
+        <a href="/">
+            <img width="100" height="40" src="/images/img/logomobile2.svg" alt="Logo Menu Mobile">
+        </a>
+        <div class="/images/icon/notimenumb.svg.svg">
+            <img src="/images/icon/notimenumb.svg" width="50" height="50" alt="Notify Icon">
+        </div>
+    </div>
+    <div class="menu-mb-body d-flex flex-dr-c">
+        <div class="menu-mb-comp d-flex align-c bg-white">
+            <img class="menu-mb-complog rounded-circle outline_main"
+                onerror="this.onerror=null;this.src='/images/img/default_logo.jpg';" width="80" height="80"
+                alt="Comp Logo">
+            <div class="menu-mb-compinf fw-700 fs-5">
+                <div class="menu-mb-compna mb-2">
+                    Công ty Cổ phần OMEGA
+                </div>
+                <div class="menu-mb-comppo">
+                    <span class="color-main">Điểm mất phí lọc hồ sơ: </span><span class="color-alert point_mb">0</span>
+                </div>
+
+            </div>
+        </div>
+        <div class="menu-mb-item">
+            <a class="menu-mb-des bg-white" href="/ntd/quan-ly-nha-tuyen-dung">
+                <img src="/images/icon/icon_mb_all.svg" width="25" height="22">
+                Quản lý chung
+            </a>
+        </div>
+        <div class="menu-mb-item">
+            <div class="menu-mb-des tog-mb bg-white">
+                <img src="/images/icon/icon_mb_job.svg" width="20" height="24.6">
+                Tin tuyển dụng
+            </div>
+            <div class="menu-mb-clist">
+                <div class="d-flex flex-dr-c gap-3">
+                    <a class="menu-mb-citem" href="/ntd/dang-tin-tuyen-dung">
+                        Đăng tin mới
+                    </a>
+                    <a class="menu-mb-citem" href="/ntd/quan-ly-tin-dang">
+                        Tin đã đăng
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="menu-mb-item">
+            <div class="menu-mb-des tog-mb bg-white">
+                <img src="/images/icon/icon_mb_job.svg" width="20" height="24.6">
+                Quản lý hồ sơ
+            </div>
+            <div class="menu-mb-clist">
+                <div class="d-flex flex-dr-c gap-3">
+                    <a class="menu-mb-citem" href="/ntd/chuyen-vien-gui-ung-vien">
+                        Chuyên viên gửi ứng viên
+                    </a>
+                    <a class="menu-mb-citem" href="/ntd/quan-ly-ung-vien-ung-tuyen">
+                        Ứng viên đến ứng tuyển
+                    </a>
+                    <a class="menu-mb-citem" href="/ntd/quan-ly-diem-loc">
+                        Ứng viên từ điểm lọc
+                    </a>
+                    <a class="menu-mb-citem" href="/ntd/quan-ly-ung-vien-da-luu">
+                        Hồ sơ ứng viên đã lưu
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="menu-mb-item">
+            <div class="menu-mb-des tog-mb bg-white">
+                <img src="/images/icon/icon_mb_acc.svg" width="27" height="22.74">
+                Quản lý tài khoản
+            </div>
+            <div class="menu-mb-clist">
+                <div class="d-flex flex-dr-c gap-3">
+                    <a class="menu-mb-citem" href="/ntd/cap-nhat-thong-tin-cong-ty">
+                        Cập nhật thông tin
+                    </a>
+                    <a class="menu-mb-citem" href="/ntd/doi-mat-khau-nha-tuyen-dung">
+                        Đổi mật khẩu
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-c">
+            <button class="menu-mb-logout bg-main color-white d-flex align-c gap-3" onclick="logout()">
+                <img width="27.71" height="26.25" alt="Logout Icon" src="/images/icon/logout-icon.svg">
+                Đăng xuất
+            </button>
+        </div>
+    </div>
+</div>
+<script>
+    var name = getCookieNew('usc_company');
+    var logo = getCookie('logo');
+    if (name && name != '') {
+        // $('.menu-mb-compna').text(name);
+        var alias = convertToAlias(name)
+        var link_cpn = `<a href="/${alias}">${name}</a>`
+        $('.menu-mb-compna').html(link_cpn);
+    }
+    else {
+        $('.menu-mb-compna').text("Chưa cập nhật");
+    }
+
+    $('.menu-mb-complog').attr("src", logo);
+
+    $.ajax({
+        url: URL_API_NTD + "/PointCpn",
+        type: "POST",
+        contentType: "application/json",
+        headers: {
+            "Authorization": "Bearer " + getCookie('accessToken')
+        },
+        success: function (response) {
+            console.log(response.data.point_usc)
+            $('.nhead-left-p,.point_mb').text(response.data.point_usc)
+
+        },
+        error: function (xhr, status, error) {
+            console.error('Error:', error);
+        }
+    });
+
+    function deleteCookie(name) {
+        document.cookie = name + '=; Max-Age=0; path=/;';
+    }
+
+    function logout() {
+        deleteCookie('accessToken');
+        deleteCookie('refreshToken');
+        deleteCookie('auth');
+        deleteCookie('logo');
+        deleteCookie('phone');
+        deleteCookie('type');
+        deleteCookie('usc_company');
+        deleteCookie('usc_id');
+        deleteCookie('usc_name');
+        deleteCookie("usc_email");
+        deleteCookie('usc_name_add');
+        deleteCookie('usc_name_email');
+        deleteCookie('usc_name_phone');
+        deleteCookie('confirmBoxSeen');
+        deleteCookie('phoneForOtp')
+        deleteCookie('usc_email');
+        window.location.href = '/';
+    }
+    function getCookie(name) {
+        var value = "; " + document.cookie;
+        var parts = value.split("; " + name + "=");
+        if (parts.length === 2) return parts.pop().split(";").shift();
+    }
+    function getCookieNew(name) {
+        const nameEQ = name + "=";
+        const ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
+        }
+        return null;
+    }
+</script>

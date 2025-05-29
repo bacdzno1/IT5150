@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" href="/images/img/icon_head.png">
+    <title>Thêm tài khoản admin</title>
+    <link rel="preload" href="/css/admin/admin_add_account.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/admin/admin_add_account.css">
+    </noscript>
+    <link rel="preload" href="/css/common.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/common.css">
+    </noscript>
+    <link rel="preload" href="/css/admin/leftnav_admin.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/admin/leftnav_admin.css">
+    </noscript>
+</head>
+<body>
+    <div class="cnt">
+        <div class="cnt-left" id="leftNav">
+            <%- include('../layouts/leftnav_admin', {}); %>
+        </div>
+        <div class="cnt-right" id="rightContent">
+            <div class="regis-new-ntd-container">
+                <div class="regis-ntd-title fs-4 pt-4 pb-3"><b>Thêm tài khoản admin</b></div>
+                <div class="ntd-count pt-2">
+                </div>
+                <div class="ntd-update">
+                    <div class="ntd-item">
+                        <div class="ntd-label">
+                            Tên đăng nhập
+                        </div>
+                        <div class="ntd-form">
+                            <input type="text" id="admin_account">
+                        </div>
+                    </div>
+                    <div class="ntd-item">
+                        <div class="ntd-label">
+                            Họ và tên
+                        </div>
+                        <div class="ntd-form">
+                            <input type="text" id="admin_name">
+                        </div>
+                    </div>
+                    <div class="ntd-item">
+                        <div class="ntd-label">
+                            Số điện thoại
+                        </div>
+                        <div class="ntd-form">
+                            <input type="text" id="admin_phone">
+                        </div>
+                    </div>
+                    <div class="ntd-item">
+                        <div class="ntd-label">
+                            Mật khẩu
+                        </div>
+                        <div class="ntd-form">
+                            <input type="password" id="admin_pass">
+                        </div>
+                    </div>
+                    <div class="ntd-item">
+                        <div class="ntd-label">
+                            Nhập lại mật khẩu
+                        </div>
+                        <div class="ntd-form">
+                            <input type="password" id="admin_repass">
+                        </div>
+                    </div>
+                    <div class="ntd-item">
+                        <div class="ntd-label">
+                            Email
+                        </div>
+                        <div class="ntd-form">
+                            <input type="email" id="admin_email">
+                        </div>
+                    </div>
+                    <div class="ntd-item">
+                        <div class="ntd-label">
+                            Phòng ban
+                        </div>
+                        <div class="ntd-form">
+                            <select id="depart_id">
+                                <option value="0">
+                                    Chọn phòng ban
+                                </option>
+                                <option value="1">
+                                    Biên tập
+                                </option>
+                                <option value="2">
+                                    Kinh doanh
+                                </option>
+                                <option value="3">
+                                    SEO
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="ntd-item">
+                        <div class="ntd-label">
+                            Phân quyền
+                        </div>
+                        <div class="ntd-add-all mb-2">
+                            <input type="checkbox" id="add_all">
+                            <label for="add_all" class="fw-700 color-main">Chọn tất cả</label>
+                        </div>
+                        <div class="ntd-form">
+                            <% if(modules && modules.data.data.data.length > 0){ %>
+                                <table id="modules_list">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Chọn
+                                            </th>
+                                            <th>
+                                                Danh sách
+                                            </th>
+                                            <th>
+                                                Thêm
+                                            </th>
+                                            <th>
+                                                Sửa
+                                            </th>
+                                            <th>
+                                                Xóa
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% modules.data.data.data.forEach(function(item) { %>
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" class="select-row" value=" <%= item.mod_id %>">
+                                                </td>
+                                                <td class="color-main mod-name fw-500">
+                                                    <%= item.mod_name %>
+                                                </td>
+                                                <td>
+                                                    <input type="checkbox" class="row-action add-action" disabled>
+                                                </td>
+                                                <td>
+                                                    <input type="checkbox" class="row-action edit-action" disabled>
+                                                </td>
+                                                <td>
+                                                    <input type="checkbox" class="row-action delete-action" disabled>
+                                                </td>
+                                            </tr>
+                                        <% }); %>
+                                    </tbody>
+                                </table>
+
+                            <% } %>
+                        </div>
+                    </div>
+                    <div class="ntd-act">
+                        <button class="ntd-cancel-btn">
+                            Hủy
+                        </button>
+                        <button class="ntd-update-btn">
+                            Tạo mới
+                        </button>
+                    </div>
+                </div>
+
+                <div class="loading-box" style="display: none;">
+                    <div class="loading-img">
+                        <img src="/images/icon/Rolling.svg">            
+                    </div>
+                </div>
+                <div class="cnt-mag-paginate d-flex justify-c flex-wr pt-2">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="/js/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#add_all').change(function() {
+            var isChecked = $(this).is(':checked');
+            $('#modules_list input[type="checkbox"]').prop('checked', isChecked);
+            $('#modules_list .row-action').prop('disabled', !isChecked);
+        });
+
+        $('#modules_list').on('change', '.select-row', function() {
+            var isChecked = $(this).is(':checked');
+            var rowActions = $(this).closest('tr').find('.row-action');
+            rowActions.prop('disabled', !isChecked);
+            if (!isChecked) {
+                rowActions.prop('checked', false);
+            }
+        });
+    });
+</script>
+<script>
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    function formatDate(dateString) {
+        var date = new Date(dateString * 1000);
+        var day = String(date.getDate()).padStart(2, '0');
+        var month = String(date.getMonth() + 1).padStart(2, '0');
+        var year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    }
+
+    function formatDateTime(date, startOfDay = true) {
+        const pad = (num) => String(num).padStart(2, '0');
+        const day = pad(date.getDate());
+        const month = pad(date.getMonth() + 1);
+        const year = date.getFullYear();
+        const hour = startOfDay ? '00' : '23';
+        const minute = startOfDay ? '00' : '59';
+        const second = startOfDay ? '00' : '59';
+        const millisecond = startOfDay ? '000' : '999';
+        return `${year}-${month}-${day}T${hour}:${minute}:${second}.${millisecond}`;
+    }
+    function deleteCookie(name) {
+        document.cookie = name + '=; Max-Age=0; path=/;';
+    }
+    function logout() {
+        deleteCookie('adminToken');
+        deleteCookie('adminRefToken');
+        deleteCookie('adm_id');
+        deleteCookie('adm_name');
+        deleteCookie('adm_email');
+        deleteCookie('adm_phone');
+        deleteCookie('adm_bophan');
+        deleteCookie('id_bophankd');
+        deleteCookie('adm_picture');
+        deleteCookie('typeadmin');
+        deleteCookie('isLogin');
+        deleteCookie('confirmBoxSeen')
+        window.location.href = '/admin';
+    }
+    
+    $(document).ready(function () {
+        function convertToSlug(text) {
+            return text.toLowerCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/[^a-z0-9 ]+/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-');
+        }
+        $('.ntd-update-btn').click(function(){
+            var admin_account = $('#admin_account').val();
+            var admin_name = $('#admin_name').val();
+            var admin_phone = $('#admin_phone').val();
+            var admin_pass = $('#admin_pass').val();
+            var admin_repass = $('#admin_repass').val();
+            var admin_email = $('#admin_email').val() ? $('#admin_email').val() : "";
+            var depart_id = $('#depart_id').val() ? $('#depart_id').val() :0;
+            if (!admin_account) {
+                alert("Vui lòng nhập tài khoản");
+                $('#admin_account').trigger('forcus')
+                return;
+            }
+            if (!admin_name) {
+                alert("Vui lòng nhập tên tài khoản");
+                $('#admin_name').trigger('forcus')
+                return;
+            }
+            if (!admin_pass) {
+                alert("Vui lòng nhập mật khẩu");
+                $('#admin_pass').trigger('forcus')
+                return;
+            }
+            if (!admin_repass) {
+                alert("Vui lòng nhập xác nhận mật khẩu");
+                $('#admin_repass').trigger('forcus')
+                return;
+            }
+            if (admin_pass !== admin_repass) {
+                alert("Mật khẩu và xác nhận mật khẩu không khớp.");
+                return;
+            }
+            if(confirm("Xác nhận tạo tài khoản")){
+                let permissions = [];
+                let language = [];
+                let category = [];
+                $('#modules_list tbody tr').each(function() {
+                    let row = $(this);
+                    let isChecked = row.find('.select-row').is(':checked');
+                    if (isChecked) {
+                        let add = row.find('.add-action').is(':checked') ? 1 : 0;
+                        let edit = row.find('.edit-action').is(':checked') ? 1 : 0;
+                        let deleteAction = row.find('.delete-action').is(':checked') ? 1 : 0;
+                        let adu_admin_module_id = Number(row.find('.select-row').val());
+                        permissions.push({
+                            adu_admin_module_id: adu_admin_module_id,
+                            adu_add: add,
+                            adu_edit: edit,
+                            adu_delete: deleteAction
+                        });
+                    }
+                });
+                let requestData = {
+                    adm_loginname: admin_account,
+                    adm_name: admin_name,
+                    adm_phone: admin_phone,
+                    password: admin_pass,
+                    rePassword: admin_repass,
+                    adm_email: admin_email,
+                    adm_bophan: depart_id,
+                    permision: JSON.stringify(permissions),
+                    category: JSON.stringify([]),
+                    language: JSON.stringify([]),
+                    adm_all_category: 1
+                };
+
+                $.ajax({
+                    url: 'http://localhost:3057/api/topcv1s/admin/createAdminUser',
+                    method: 'POST',
+                    headers: {
+                        "Authorization": "Bearer " + getCookie('adminToken')
+                    },
+                    contentType: 'application/json',
+                    data: JSON.stringify(requestData),
+                    success: function(response) {
+                        alert('Tạo tài khoản thành công!');
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        alert('Có lỗi xảy ra: ' + errorThrown);
+                    }
+                });
+            } 
+        });
+    })
+</script>
+</html>

@@ -1,0 +1,118 @@
+.nhead{
+    padding: 12px 80px;
+}
+
+.nhead-lef{
+    background: #0075801A;
+    padding: 12px 27.5px;
+    border-radius: 40px;
+}
+.nhead-left-p{
+    color: #FF0C0C;
+}
+.nhead-rig{
+    gap: 34px;
+}
+.nhead-rig-nav{
+    gap: 34px;
+    color: #333333;
+}
+.nhead-rig-not{
+    cursor: pointer;
+}
+.nhead-rig-logout{
+    border-radius: 8px;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+}
+.nhead-rig-logm, .nhead-rig-togm{
+    display: none;
+}
+#mobileMenu{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100000;
+    height: 100%;
+}
+.menu-mb-head {
+    padding: 14px 29px;
+}
+.menu-mb-body{
+    background-color: #F7F8FC;
+    padding: 19px 20px 31px 20px;
+    gap: 20px;
+    height: 90%;
+    overflow: auto;
+}
+.menu-mb-des{
+    padding: 16px;
+    border-radius: 8px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 500;
+}
+.menu-mb-comp{
+    gap: 20px;
+    padding: 9px 16px;
+    border-radius: 8px;
+}
+.tog-mb::after{
+    flex: 1;
+    display: flex;
+    content: url(/images/icon/menumbdrop.svg);
+    justify-content: flex-end;
+}
+.menu-mb-clist{
+    display: none;
+    margin-top: 8px;
+}
+.menu-mb-citem{
+    padding: 12px 32px;
+    background: #0075801A;
+    border-radius: 8px;
+}
+.menu-mb-logout{
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+}
+.outline_main{
+    outline: 1px solid #00b14f;;
+}
+@media only screen and (max-width: 1500px){
+    .cnt-ban-tit{
+        font-size: 24px;
+    }
+}
+@media only screen and (max-width: 1366px){
+    .nhead{
+        padding: 12px 20px;
+    }
+}
+@media only screen and (max-width: 1200px){
+    .nhead-rig{
+        gap: 10px;
+    }
+    .nhead-rig-nav{
+        gap: 10px;
+    }
+    .nhead-lef{
+        padding: 12px 15px;
+    }
+}
+@media only screen and (max-width:1024px) {
+    .nhead-rig-logm, .nhead-rig-togm{
+        display: block;
+    }
+    .nhead-lef,.nhead-rig-nav,.nhead-rig-logout{
+        display: none;
+    }
+    .nhead-rig{
+        flex: 1;
+    }
+}

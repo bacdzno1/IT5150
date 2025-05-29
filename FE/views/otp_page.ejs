@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="lwyGMjMCHXSuJXWOc3iy1MG_Hd6yRBARF5H8NuMxUPg" />
+    <link rel="icon" href="/images/img/icon_head.png">
+    <title>Xác thực OTP</title>
+    <link rel="preload" href="/css/otp_page.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/otp_page.css">
+    </noscript>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="canonical" href="http://localhost:9020<%= url %>">
+    <script src="/js/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="otp_cnt">
+        <div class="container">
+            <div class="otp-back">
+                <a href="/">
+                    <svg width="31" height="18" viewBox="0 0 31 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M10.7194 2.84785C11.0127 2.52683 11.1724 2.10225 11.1648 1.66354C11.1572 1.22483 10.9829 0.806251 10.6787 0.495988C10.3744 0.185726 9.96389 0.00800433 9.53366 0.000263828C9.10342 -0.00747668 8.68703 0.155368 8.37221 0.454493L1.17357 7.79261L0 8.98928L1.17357 10.186L8.37 17.5241C8.68307 17.8327 9.10249 18.0036 9.53793 17.9999C9.97337 17.9963 10.39 17.8184 10.698 17.5046C11.0061 17.1908 11.1809 16.7661 11.1849 16.3221C11.1889 15.8781 11.0217 15.4502 10.7194 15.1307L6.35721 10.6827H29.3393C29.7797 10.6827 30.2021 10.5043 30.5136 10.1867C30.825 9.86913 31 9.43841 31 8.98928C31 8.54016 30.825 8.10944 30.5136 7.79186C30.2021 7.47429 29.7797 7.29587 29.3393 7.29587H6.35721L10.7194 2.84785Z"
+                            fill="#F8F8F8"></path>
+                    </svg>
+                </a>
+            </div>
+            <div class="otp-box">
+                <div class="otp-left">
+                    <img src="/images/logo/logo.svg" alt="Logo Site" width="160" height="70">
+                    <img src="/images/img/loginuvimg.svg" alt="Banner Otp">
+                </div>
+                <div class="otp-form">
+                    <div class="otp-form-title">
+                        TOPCV1S.COM HỖ TRỢ XÁC THỰC TÀI KHOẢN BẰNG THAO TÁC ĐƠN GIẢN, NHANH CHÓNG
+                    </div>
+                    <p>(Mã OTP được TopCv1s gửi về <%= "email của bạn" %>: <span class="blue"
+                                style="color: #00b14f;"></span>)</p>
+                    <div class="otp_">
+
+                    </div>
+                    <div id="otp_box" class="box_confirm" style="display: none;">
+                        <input id="otp_input" type="text" maxlength="6"
+                            style="background: repeating-linear-gradient(90deg, #4C5BD4 0, #4C5BD4 1ch, transparent 0, transparent 1.8ch) 0 100%/10ch 2px no-repeat; font: 6ch 'Droid Sans Mono', Consolas, monospace; padding: 0; border: none; width: 280px; margin: 0 auto 24px auto; letter-spacing: 0.8ch; outline: 0;" />
+                        <span id="otp_error" class="text_error"></span>
+                        <button id="verify_otp" class="btn_confirm" type="button">Xác
+                            nhận</button>
+                        <div id="otp_countdown" style="text-align: center;"></div>
+                        <button id="resend_otp" class="refesh_otp" type="button" disabled style="cursor: not-allowed;">Gửi lại</button>
+                    </div>
+                    <div id="send_otp_box" class="box_confirm">
+                        <button id="send_otp" class="btn_confirm send_otp" type="button">Gửi mã OTP</button>
+                    </div>
+                    <div id="captcha"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script>
+    <script src="https://cdn.rawgit.com/hilios/jQuery.countdown/2.2.0/dist/jquery.countdown.min.js"></script>
+
+    <script>
+        let isWaiting = false;
+
+        function getPhoneNumberFromCookies() {
+            var type = getCookie('type');
+            if (!type) {
+                if (getCookie('phoneForOtp')) {
+                    var cookie = getCookie('phoneForOtp');
+                    return cookie;
+                }
+                return null;
+            }
+            else if (type == 1) {
+                var cookie = getCookie('phone');
+                return cookie;
+            }
+            else if (type == 2) {
+                var cookie = getCookie('use_phone_tk');
+                return cookie;
+            }
+        }
+
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        function getCookieNew(cookieName) {
+            const name = cookieName + "=";
+            const decodedCookie = decodeURIComponent(document.cookie);
+            const cookieArray = decodedCookie.split(";");
+
+            for (let i = 0; i < cookieArray.length; i++) {
+                let cookie = cookieArray[i];
+                while (cookie.charAt(0) === " ") {
+                    cookie = cookie.substring(1);
+                }
+                if (cookie.indexOf(name) === 0) {
+                    return cookie.substring(name.length, cookie.length);
+                }
+            }
+
+            return "";
+        }
+
+        const handleWait = () => {
+            const countdown = new Date().getTime() + 0.5 * 60 * 1000;
+            isWaiting = true;
+            $('#otp_countdown').countdown(countdown, function (event) {
+                $(this).html(event.strftime('Chưa nhận được OTP? Hãy gửi lại sau: %M:%S'));
+                $('#resend_otp').prop('disabled', true).css("cursor", "not-allowed");
+            }).on('finish.countdown', function () {
+                isWaiting = false;
+                $('#resend_otp').prop('disabled', false).css("cursor", "pointer");
+            });
+        };
+
+        const handleVerify = async () => {
+            const otp = $('#otp_input').val();
+            if (otp == '') {
+                alert('Vui lòng nhập mã xác thực OTP');
+                return;
+            }
+            var id = getCookie('use_id') || getCookie('usc_id')
+            var type = getCookie('type')
+            type = type == 2 ? 1 : 2;
+            $.ajax({
+                method: "POST",
+                url: "http://localhost:3050/api/topcv1s/user/ConfirmOTP",
+                data: {
+                    otp: otp,
+                    id: id,
+                    type: type,
+                },
+                success: function (result) {
+                    if (result && result.data.result) {
+                        checkAndDownloadCV();
+                        console.log(result);
+                        document.cookie = `accessToken=${result.data.token}; max-age=${60 * 24 * 60 * 60}`;
+                        document.cookie = `auth=1; max-age=${60 * 24 * 60 * 60}`;
+                        alert(result.data.message);
+                        window.location.href = '/';
+                    } else {
+                        alert(result.data.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    var response = JSON.parse(xhr.responseText);
+                    alert(response.error.message || "Đã có lỗi xảy ra\nVui lòng thử lại sau");
+                }
+            });
+        };
+
+        $('#verify_otp').on('click', handleVerify);
+
+        const type = getCookie('type');
+        const phone = getPhoneNumberFromCookies();
+        const use_mail = getCookieNew('use_mail') || getCookieNew('usc_email');
+        $('.blue').text(use_mail)
+
+        function setCookie(name, value, days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); // Tính thời gian hết hạn
+            const expires = "expires=" + date.toUTCString();
+            document.cookie = name + "=" + value + ";" + expires + ";path=/";
+        }
+
+        function checkAndDownloadCV() {
+            const base64String = localStorage.getItem('viec3s_cv');
+            
+            if (base64String) {
+                let userName = localStorage.getItem('viec3s_name') || 'CV';
+                userName = userName.replace(/\s+/g, '');
+                downloadAsPDF(base64String, userName);
+                localStorage.removeItem('viec3s_cv');
+                localStorage.removeItem('viec3s_name');
+            } else {
+                console.log('Không tìm thấy dữ liệu topcv1s_cv trong localStorage');
+            }
+        }
+
+        function downloadAsPDF(base64String, cv_name) {
+            const downloadLink = document.createElement('a');
+            downloadLink.href = `data:application/octet-stream;base64,${base64String}`;
+            downloadLink.download = `${cv_name}.pdf`;
+            downloadLink.click();
+        }
+
+        // $(document).on("click", ".icon_close", function () {
+        //     $("#m_formxacthuc").hide();
+        //     setCookie("active_account", "1", 1);
+        // });
+
+        // $("#btn_confirm_xn").click(function () {
+        $("#send_otp_box, #resend_otp").click(function () {
+            const use_mail = getCookieNew('use_mail') || getCookieNew('usc_email');
+            let thiss = $(this);
+            if (use_mail) {
+                $.ajax({
+                    method: "POST",
+                    url: "http://localhost:3050/api/topcv1s/user/GetAuthenticateOtp",
+                    data: {
+                        username: use_mail,
+                        type: type
+                    },
+                    success: function (response) {
+                        if (response.data && response.data.result) {
+                            alert("Yêu cầu nhận OTP đã được gửi thành công!");
+                            $('.form-account').hide();
+                            $('.title_attend').hide();
+                            $('#send_otp_box').hide();
+                            $('#otp_box').show();
+                            handleWait();
+                        } else {
+                            alert("Đã có lỗi xảy ra: " + ("Vui lòng thử lại sau."));
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        var response = JSON.parse(xhr.responseText);
+                        alert(response.error.message || "Đã có lỗi xảy ra, Vui lòng thử lại sau");
+                    }
+                });
+            } else {
+                alert("Vui lòng nhập email đã đăng ký")
+                return;
+            }
+        });
+
+        const codeverify = () => {
+            var code = $("#otp_input").val();
+            console.log(">>> code: ", code);
+
+            if (code != '') {
+                $.ajax({
+                    url: '/ConfirmOTPByAccount',
+                    type: 'POST',
+                    data: {
+                        phone: phone,
+                        type: type,
+                        otp: code,
+                    },
+                    dataType: "JSON",
+                    success: function (data) {
+                        console.log(">>> data 2: ", data);
+                        if (data.result) {
+                            alert(data.message);
+                            setCookie("auth", 1, 60)
+                            window.location.href = '/';
+                        } else {
+                            alert("Lỗi vui lòng thử lại");
+                            window.location.reload();
+                        }
+                    }
+                });
+            } else {
+                alert("Nhập mã xác thực");
+            }
+        };
+    </script>
+    
+    
+</body>
+
+</html>

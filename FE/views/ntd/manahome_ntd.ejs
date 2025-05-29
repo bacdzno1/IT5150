@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, follow" />
+    <meta name="google-site-verification" content="lwyGMjMCHXSuJXWOc3iy1MG_Hd6yRBARF5H8NuMxUPg" />
+
+    <title>Quản lý chung nhà tuyển dụng</title>
+    <link rel="canonical" href="http://localhost:9020<%= url %>">
+    <link rel="preload" href="/css/ntd/manahome_ntd.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/ntd/manahome_ntd.css">
+    </noscript>
+
+    <link rel="preload" href="/css/common.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/common.css">
+    </noscript>
+
+    <link rel="preload" href="/css/leftnav_ntd.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/leftnav_ntd.css">
+    </noscript>
+    <link rel="preload" href="/css/header_ntd.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/header_ntd.css">
+    </noscript>
+
+    <link rel="preload" href="/css/footer.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/footer.css">
+    </noscript>
+    <script src="/js/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="cnt">
+        <div class="cnt-left" id="leftNav">
+           <%- include('../layouts/leftnav_ntd', {}); %>
+        </div>
+        <div class="cnt-right" id="rightContent">
+            <%- include('../layouts/header_ntd', {}); %>
+            <div class="cnt-det">
+                <div class="cnt-top d-flex justify-b">
+                    <div class="cnt-info bg-white d-flex align-c">
+                        <div class="cnt-avar rounded-circle">
+                            <img class="rounded-circle" src="/images/img/cskh_image.jpg" width="114" height="114" alt="Logo CSKH">
+                        </div>
+                        <div class="cnt-gen fw-500">
+                            <div class="cnt-gen-name mb-20px">
+                                Chuyên viên hỗ trợ: <span class="color-main">Mrs. Nguyễn Hồng</span>
+                            </div>
+                            <div class="cnt-gen-phone mb-20px">
+                                SĐT - Zalo: <span class="color-main">0972319116</span>
+                            </div>
+                            <div class="cnt-gen-mail">
+                                Email: <span class="color-alert">nguyenhongg2609@gmail.com</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cnt-ban d-flex align-c">
+                        <div class="cnt-ban-tit fw-700 color-white text-c">
+                            Tuyển dụng nhanh, tuyển dụng hiệu quả, đăng tin miễn phí
+                        </div>
+                        <div class="cnt-ban-logo">
+                            <img src="/images/logo/biglogo.svg" width="250" height="107" alt="Logo Image">
+                        </div>
+                    </div>
+                </div>
+                <div class="cnt-statt d-flex justify-b">
+                    <div class="cnt-statt-lef d-flex flex-dr-c gap-3 text-c fw-500">
+                        <div class="cnt-statt-lef-it bg-white">
+                            Việc làm còn hạn: <span id="tinconhan">0</span>
+                        </div>
+                        <div class="cnt-statt-lef-it bg-white">
+                            Việc làm sắp hết hạn: <span id="tinsaphethan">0</span>
+                        </div>
+                        <div class="cnt-statt-lef-it bg-white">
+                            Việc làm hết hạn: <span id="tinhethan">0</span>
+                        </div>
+                        <div class="cnt-statt-lef-it bg-white">
+                            Số tin đăng trong ngày: <span id="tindangtrongngay">0</span>
+                        </div>
+                        <div class="cnt-statt-lef-it bg-white">
+                            Số lần làm mới tin trong ngày: <span id="tinlammoi">0</span>
+                        </div>
+                    </div>
+                    <div class="cnt-statt-rig">
+                        <div class="cnt-statt-rig-top d-flex gap-4">
+                            <div class="cnt-statt-cvap bg-white">
+                                <div class="cnt-statt-cvap-gen d-flex justify-b">
+                                    <div class="left">
+                                        <div class="mb-12px fs-5 fw-600 tit">
+                                            Hồ sơ ứng tuyển
+                                        </div>
+                                        <img width="56" height="58.56" src="/images/icon/cv-fil.svg" alt="CV ứng tuyển Icon">
+                                    </div>
+                                    <div class="right fw-600" id="hoSoUt">
+                                        0
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cnt-statt-cvpo bg-white">
+                                <div class="cnt-statt-cvpo-gen d-flex  justify-b">
+                                    <div class="left">
+                                        <div class="mb-12px fs-5 fw-600 tit">
+                                            Hồ sơ lọc điểm
+                                        </div>
+                                        <img width="60" height="60" src="/images/icon/cv-ap.svg" alt="CV Lọc điểm Icon">
+                                    </div>
+                                    <div class="right fw-600" id="hoSoDiemLoc">
+                                        0
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cnt-statt-can bg-white">
+                                <div class="cnt-statt-can-gen d-flex  justify-b">
+                                    <div class="left">
+                                        <div class="mb-12px fs-5 fw-600 tit">
+                                            Chuyên viên gửi ứng viên
+                                        </div>
+                                        <img width="58" height="73.68" src="/images/icon/can.svg" alt="Gửi ứng viên Icon">
+                                    </div>
+                                    <div class="right fw-600" id="chuyenVienGuiUv">
+                                        0
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cnt-statt-rig-bot d-flex justify-c">
+                            <div class="cnt-update-btn d-flex color-white fs-4 align-c">
+                                <img width="48" height="48" src="/images/icon/boosticon.svg" alt="Boost Icon">
+                                TĂNG TỐC TUYỂN DỤNG
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="cnt-rate bg-white d-flex align-c flex-dr-c">
+                    <textarea placeholder="Nhằm nâng cao chất lượng dịch vụ cũng như giúp doanh nghiệp tuyển dụng nhanh chóng - thành công, mong quý công ty đưa ra đánh giá của mình về chuyên viên hỗ trợ và đóng góp về website. Mọi đóng góp của doanh nghiệp sẽ là nền tảng để chúng tôi phát triển và tối ưu!"></textarea>
+                    <button class="cnt-rate-btn bg-main color-white">
+                        Đánh giá
+                    </button>
+                </div>
+                <div class="cnt-job">
+                    <div class="cnt-job-tit fw-600 fs-5 color-main mb-20px">
+                        Danh sách tuyển dụng mới nhất
+                    </div>
+                    <div class="cnt-job-table">
+                        <table>
+                            <tr>
+                                <th>
+                                    STT
+                                </th>
+                                <th>
+                                    Vị trí tuyển dụng
+                                </th>
+                                <th>
+                                    Gói dịch vụ
+                                </th>
+                                <th>
+                                    Lượt xem
+                                </th>
+                                <th>
+                                    Ứng tuyển
+                                </th>
+                                <th>
+                                    Chuyên viên gửi UV
+                                </th>
+                                <!-- <th>
+                                    Quản lý
+                                </th> -->
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="cnt-cv">
+                    <div class="cnt-cv-tit fw-600 fs-5 color-main mb-20px">
+                        Hồ sơ ứng tuyển mới nhất
+                    </div>
+                    <div class="cnt-cv-table">
+                        <table>
+                            <tr>
+                                <th>
+                                    STT
+                                </th>
+                                <th>
+                                    Ứng viên
+                                </th>
+                                <th>
+                                    Vị trí tuyển dụng
+                                </th>
+                                <!-- <th>
+                                    Quản lý
+                                </th> -->
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('../layouts/footer', {}); %>
+    <script>
+        $(document).ready(function() {
+            $(window).scroll(function() {
+                var $leftNav = $('.lnav');
+                var $rightContent = $('#rightContent');
+                var rightContentHeight = $rightContent.outerHeight(true);
+                var rightContentOffsetTop = $rightContent.offset().top;
+                var rightContentBottom = rightContentOffsetTop + rightContentHeight;
+                var scrollTop = $(window).scrollTop();
+                var windowHeight = $(window).height();
+                var leftNavHeight = $leftNav.outerHeight(true);
+                
+                if (scrollTop + leftNavHeight > rightContentBottom) {
+                    $leftNav.css({
+                        position: 'absolute',
+                        top: (rightContentHeight - leftNavHeight) + 'px',
+                        // overflow: 'auto'
+                    });
+                } else {
+                    $leftNav.css({
+                        position: 'fixed',
+                        top: '0'
+                    });
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.nhead-rig-togm').click(function() {
+                $('#mobileMenu').slideDown(300);
+            });
+            $('.menu-mb-close').click(function() {
+                $('#mobileMenu').slideUp(300);
+            });
+        });
+        $(document).ready(function() {
+            $(".tog-mb").click(function() {
+                $(this).next(".menu-mb-clist").slideToggle();
+            });
+        });
+    </script>
+    <script>
+    
+    </script>
+    <script>
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+        function convertToAlias(str) {
+            return str
+                .toLowerCase()
+                .normalize('NFD') 
+                .replace(/[\u0300-\u036f]/g, '') 
+                .replace(/[^a-z0-9\s]/g, '') 
+                .trim() 
+                .replace(/\s+/g, '-'); 
+        }
+        $(document).ready(function() {
+            $.ajax({
+            url: "http://localhost:3051/api/topcv1s/ntd/ManageAll",
+            type: "POST",
+            contentType: "application/json",
+            headers: {
+                "Authorization": "Bearer " + getCookie('accessToken')
+            },
+            success: function(response) {
+                if (response.data.result === true) {
+                    // Lấy dữ liệu từ response
+                    let hoSoUt = response.data.data.hoSoUt;
+                    let hoSoDiemLoc = response.data.data.hoSoDiemLoc;
+                    let chuyenVienGuiUv = response.data.data.chuyenVienGuiUv;
+                    let tinGanDay = response.data.data.tinGanDay;
+                    let tinconhan = response.data.data.tinconhan;
+                    let tindangtrongngay = response.data.data.tindangtrongngay;
+                    let tinhethan = response.data.data.tinhethan;
+                    let tinlammoi = response.data.data.tinlammoi;
+                    let tinsaphethan = response.data.data.tinsaphethan;
+                    let hoSoMoi = response.data.data.hoSoMoi;
+    
+                    // Cập nhật các phần tử trong DOM
+                    $("#tinconhan").text(tinconhan);
+                    $("#tinsaphethan").text(tinsaphethan);
+                    $("#tinhethan").text(tinhethan);
+                    $("#tindangtrongngay").text(tindangtrongngay);
+                    $("#tinlammoi").text(tinlammoi);
+                    $("#hoSoUt").text(hoSoUt);
+                    $("#hoSoDiemLoc").text(hoSoDiemLoc);
+                    $("#chuyenVienGuiUv").text(chuyenVienGuiUv);
+    
+                    $(".cnt-job-table table tr:not(:first)").remove();
+                    $.each(tinGanDay, function(index, job) {
+                        let row = `<tr>
+                            <td>${index + 1}</td>
+                            <td><a href="/${job.new_alias}-${job.new_id}">${job.new_title}</a></td>
+                            <td>Miễn phí</td>
+                            <td>${job.new_view_count}</td>
+                            <td>${job.uVungTuyen}</td>  
+                            <td>${job.chuyenVienGuiUv}</td>
+                        </tr>`;
+                        $(".cnt-job-table table").append(row);
+                    });
+    
+                    $(".cnt-cv-table table tr:not(:first)").remove();
+                    $.each(hoSoMoi, function(index, job) {
+                        let user_alias = convertToAlias(job.use_name);
+                        let row = `<tr>
+                            <td>${index + 1}</td>
+                            <td><a href="/${user_alias}-uv-${job.use_id}">${job.use_name}</a></td>
+                            <td><a href="/${job.new_alias}-${job.new_id}">${job.new_title}</a></td>
+                        </tr>`;
+                        $(".cnt-cv-table table").append(row);
+                    });
+                }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error:", error);
+                },
+            });
+        });
+    </script>
+    
+    
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+.box_pagination {
+  margin: 28px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.box_pagination ul {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+}
+
+ul li {
+  list-style: none;
+}
+
+.box_pagination .arrow,
+.box_pagination .pagi {
+  border-radius: 16px;
+  width: 36px !important;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 16px;
+  background-color: rgba(55, 122, 187, 0.10);
+  color: rgba(0, 0, 0, 0.88);
+}
+
+.disabled {
+  cursor: not-allowed !important;
+}
+
+.disabled svg path {
+  stroke: rgba(0, 0, 0, 0.25);
+}
+
+.pagi.active {
+  background-color: #3582cd;
+  border-color: #1677ff;
+  color: #fff;
+}

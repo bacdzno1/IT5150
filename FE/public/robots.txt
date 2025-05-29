@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin/*
+Disallow: /data/*
+Disallow: /cron/*
+Disallow: /ajax/*
+Disallow: /cache_file/*
+Disallow: /app_cv/*
+Disallow: /app_notify/*
+Disallow: /get_site/*
+Disallow: /classes/*
+Disallow: /tool/*
+Disallow: /EmailTemplate/*
+Disallow: /xuat_excel/*
+Disallow: /kd/*
+Disallow: /livechat/*

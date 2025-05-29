@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, follow" />
+    <meta name="google-site-verification" content="lwyGMjMCHXSuJXWOc3iy1MG_Hd6yRBARF5H8NuMxUPg" />
+    <meta name="description" content="Tìm kiếm các bài viết theo chủ đề về việc làm, tuyển dụng để đọc những nội dung chia sẻ hay nhất từ chuyên gia, qua đó tích lũy kinh nghiệm quý giá để phát triển bản thân, thành công trong sự nghiệp. TopCv1s - địa chỉ số 1 chuyên cung cấp những blog tin tức hữu ích cho người dùng. Cập nhật ngay!">
+    <meta name="twitter:card" content="Tìm Kiếm Các Bài Viết Hay Nhất">
+    <meta name="twitter:site" content="TopCv1s">
+    <meta name="twitter:title" content="Tìm Kiếm Các Bài Viết Hay Nhất">
+    <meta name="twitter:description" content="Tìm kiếm các bài viết theo chủ đề về việc làm, tuyển dụng để đọc những nội dung chia sẻ hay nhất từ chuyên gia, qua đó tích lũy kinh nghiệm quý giá để phát triển bản thân, thành công trong sự nghiệp. TopCv1s - địa chỉ số 1 chuyên cung cấp những blog tin tức hữu ích cho người dùng. Cập nhật ngay!">
+    <meta property="og:site_name" content="TopCv1s">
+    <meta property="og:image" content="http://localhost:9020/images/img/icon_head.png">
+    <meta property="og:url" content="http://localhost:9020/tin-tuc">
+    <meta property="og:type" content="website">
+    <title>Tìm Kiếm Các Bài Viết Hay Nhất</title>
+    <link rel="canonical" href="http://localhost:9020<%= url %>">
+    <link rel="icon" href="/images/img/icon_head.png">
+    <link rel="stylesheet" href="/css/page_css/searchnews.css" />
+    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/header.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+
+    <script src="/js/jquery.min.js"></script>
+    <script
+        type="application/ld+json">{"@context": "https://schema.org","@type": "ItemPage","url": "","mainEntityOfPage": "Trang Tin Tức Việc Làm Số 1 - Tìm Việc, Tuyển Dụng Hiệu Quả, Miễn Phí"}</script>
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"EmploymentAgency","name":"topcv1s.com","alternateName":"Tìm Việc Nhanh, Tuyển Dụng Hiệu Quả | TopCv1s.com","logo":"http://localhost:9020/images/img/icon_head.png","image":"http://localhost:9020/images/img/icon_head.png","url":"http://localhost:9020"}</script>
+    <script
+        type="application/ld+json">{"@context":"http://schema.org","@type":"WebSite","url":"http://localhost:9020<%= url %>,"mainEntityOfPage":"Tìm Kiếm Các Bài Viết Hay Nhất"}</script>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "DesPage",
+            "url": "http://localhost:9020<%= url %>",
+            "title": "Tìm Kiếm Các Bài Viết Hay Nhất",
+            "description": "Tìm kiếm các bài viết theo chủ đề về việc làm, tuyển dụng để đọc những nội dung chia sẻ hay nhất từ chuyên gia, qua đó tích lũy kinh nghiệm quý giá để phát triển bản thân, thành công trong sự nghiệp. TopCv1s - địa chỉ số 1 chuyên cung cấp những blog tin tức hữu ích cho người dùng. Cập nhật ngay!",
+            "thumbnail": "http://localhost:9020/images/img/default_logo.jpg"
+        } 
+    </script>
+</head>
+
+<body id="body">
+    <%- include('layouts/header', {}); %>
+        <div id="content" style="padding-top: 80px">
+            <div class="news">
+                <div class="container news_cnt d-flex bg-white">
+                    <div class="news_lef">
+                        <div class="news_home" style="display: none;">
+                            <div class="news_new">
+                                <div class="news-head">
+                                    <div class="news-tit">
+                                        BÀI VIẾT MỚI NHẤT
+                                    </div>
+                                </div>
+                                <div class="news_new-cnt d-flex">
+                                    <div class="news_new_thumb">
+    
+                                    </div>
+                                    <div class="news_new_list d-flex flex-dr-c gap-3">
+    
+                                    </div>
+                                </div>
+    
+                            </div>
+                            <div class="news_hb">
+                                <div class="news-head">
+                                    <div class="news-tit">
+                                        Cẩm nang nghề nghiệp
+                                    </div>
+                                </div>
+                                <div class="news_grid">
+                                </div>
+                            </div>
+                            <div class="news_cv">
+                                <div class="news-head">
+                                    <div class="news-tit">
+                                        Hồ sơ xin việc
+                                    </div>
+                                </div>
+                                <div class="news_cv_cnt">
+                                    <div class="news_cv_top d-flex">
+    
+                                    </div>
+                                    <div class="news_grid">
+    
+                                    </div>
+                                </div>
+                                <ul id="data-list"></ul>
+                            </div>
+                        </div>
+                        <div class="news_sbox">
+                            <h1 class="news-head d-flex flex-wr align-c gap-2">
+                                <div class="news-tit">
+                                    KẾT QUẢ TÌM KIẾM:
+                                </div>
+                                <span class="keywords fs-4 color-main fw-600"></span>
+                            </h1>
+                            <div class="news_slist">
+
+                            </div>
+                        </div>
+
+                        <div class="news_paginate">
+                            <button id="prevPage"><img src="/images/icon/next-double-line2.svg" width="11" height="11" alt="Prev Paginate"></button>
+                            <span id="pageNumbers"></span>
+                            <button id="nextPage"><img src="/images/icon/next-double-line.svg" width="11" height="11" alt="Next Paginate"></button>
+                        </div>
+                    </div>
+                    <div class="news_rig">
+                        <div class="news_search d-flex w-100">
+                            <input placeholder="Nhập từ khóa cần tìm" type="text" id="search_news">
+                            <button class="news_search_btn">
+                                <img src="/images/icon/search_white.svg" width="30" height="30" alt="Search Icon">
+                            </button>
+                        </div>
+                        <div class="news_job">
+                            <div class="news-head">
+                                <h2 class="news-tit mb-0">
+                                    VIỆC LÀM ĐỀ XUẤT CHO BẠN
+                                </h2>
+                            </div>
+                            <div class="list_job">
+                                <% if (job_recommend.data.data.data && job_recommend.data.data.data.length > 0) { %>
+                                    <% job_recommend.data.data.data.slice(0, 5).forEach(function(item) { %>
+                                        <div class="job_item">
+                                            <div class="job_head">
+                                                <div class="job_info">
+                                                    <div class="job_logo">
+                                                        <img src="<%= item.companyDetails.usc_alias %>" onerror="this.onerror=null;this.src='/images/img/default_logo.jpg';" alt="" width="70" height="70">
+                                                    </div>
+                                                    <div class="job_tit">
+                                                        <div class="job_name mb-2">
+                                                            <a href="<%= item.new_alias %>-<%= item.new_id %>">
+                                                                <%= item.new_title %>
+                                                            </a>
+                                                        </div>
+                                                        <div class="job_comp">
+                                                            <a href="<%= item.companyDetails.usc_alias %>">
+                                                                <%= item.companyDetails.usc_company %>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="job_save">
+                                                    <img src="/images/icon/Bookmark.svg" width="24" height="24" alt="Save Job Icon">
+                                                </div>
+                                            </div>
+                                            <div class="job_label">
+                                                <label><%= findCity(parseInt(item.new_city)) %></label>
+                                                <label><%= getMucLuong2(item.new_money_type,item.new_money_from,item.new_money_to,item.new_money) %></label>
+                                            </div>
+                                        </div>
+                                    <% }); %>
+                                <% }  %>
+                            </div>
+                        </div>
+                        <div class="news_recent">
+                            <div class="news-head">
+                                <div class="news-tit">
+                                    BÀI ĐĂNG GẦN ĐÂY
+                                </div>
+                            </div>
+                            <ul class="new_list">
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <%- include('layouts/footer', {}); %>
+            <script>
+                $(document).ready(function() {
+                    $(".nav-item").hover(
+                        function() {
+                            $(this).children(".nav-dropdown").stop(true, true).fadeIn(300);
+                        },
+                        function() {
+                            $(this).children(".nav-dropdown").stop(true, true).fadeOut(300);
+                        }
+                    );
+                });
+            </script>
+            <script>
+                function convert_news(timestamp) {
+                    let date = new Date(timestamp * 1000);
+                    let day = date.getUTCDate().toString().padStart(2, '0');
+                    let month = (date.getUTCMonth() + 1).toString().padStart(2, '0');
+                    let year = date.getUTCFullYear();
+                    let hours = date.getUTCHours().toString().padStart(2, '0');
+                    let minutes = date.getUTCMinutes().toString().padStart(2, '0');
+
+                    return `${day}/${month}/${year} ${hours}:${minutes}`;
+                }
+            </script>
+            <script>
+                $(document).ready(function(){
+                    var itemsCache = {};
+                    var currentPage = 1;
+                    var pageSize = 50;
+                    var totalItems = 0;
+                    var lastKeywords = '';
+
+                    function fetchData(page, keywords = null) {
+                        var url = 'http://localhost:3053/api/topcv1s/new/SearchBlog';
+                        if (keywords === null) {
+                            keywords = getParameterByName('keywords', window.location.href) || '';
+                        }
+                        $('.keywords').text(keywords);
+                        console.log(keywords);
+
+                        var cacheKey = keywords + '_' + Math.floor((page - 1) / (pageSize / 10)) + 1; 
+
+                        if (itemsCache[cacheKey] && keywords === lastKeywords) {
+                            itemsArray = itemsCache[cacheKey];
+                            showItems(page);
+                            updatePagination();
+                            updateURL(page, keywords);
+                        } else {
+                            $.ajax({
+                                url: url,
+                                type: 'POST',
+                                contentType: 'application/json',
+                                data: JSON.stringify({
+                                    keywords: keywords,
+                                    page: Math.floor((page - 1) / (pageSize / 10)) + 1,
+                                    pageSize: pageSize
+                                }),
+                                success: function (response) {
+                                    var blogNew = response.data.hotNew;
+                                    console.log(blogNew);
+                                    if (response.data.data.length > 0) {
+                                        itemsArray = response.data.data;
+                                        totalItems = response.data.total;
+                                        itemsCache[cacheKey] = itemsArray;
+                                        lastKeywords = keywords;
+                                        showItems(page);
+                                        updatePagination();
+                                        $('.news_paginate').show();
+                                    } else {
+                                        $('.news_paginate').hide();
+                                        itemsArray = [];
+                                        totalItems = 0;
+                                        showItems(page);
+                                        updatePagination();
+                                        $('.news_slist').append('<h3 class="color-alert">Không tìm thấy kết quả</h3>')
+                                    }
+                                    updateURL(page, keywords);
+                                    if(blogNew && blogNew.length > 0) {
+                                        blogNew.slice(1,10).forEach(function(item) {
+                                            var list_item_html = `                                
+                                            <li>
+                                                <a href="${item.new_title_rewrite}">
+                                                    ${item.new_title}
+                                                </a>
+                                            </li>`; 
+                                            $('.new_list').append(list_item_html);
+                                        })   
+                                    }
+                        
+                                },
+                                error: function (error) {
+                                    console.log('Error fetching data:', error);
+                                }
+                            });
+                        }
+                    }
+
+                    function showItems(page) {
+                        $('.news_slist').empty();
+                        var startIndex = ((page - 1) % 5) * 10;
+                        var endIndex = startIndex + 10;
+                        for (var i = startIndex; i < endIndex && i < itemsArray.length; i++) {
+                            var item = itemsArray[i];
+                            var slug = convertToSlug(item.new_title);
+                            item_convert_time = convert_news(item.new_date);
+                            var html= `
+                            <div class="news_sitem">
+                                    <div class="news_cv_top-thumb ratio  ratio-md-3x2 ratio-16x9">
+                                        <div class="ratio-content">   
+                                            <img onerror="this.onerror=null;this.src='/images/img/default_logo.jpg';" src="${item.new_picture}" class="w-100" alt="${item.new_title}">
+                                        </div>
+                                    </div>
+                                    <div class="news_cv_top-info">
+                                        <div class="news_new_thumb--tit fs-5 fw-700">
+                                            <a href="${item.new_title_rewrite}">
+                                                ${item.new_title}
+                                            </a>
+                                        </div>
+                                        <div class="news_new_thumb--inf d-flex align-c">
+                                            <div class="news_new_thumb--time d-flex align-c gap-1">
+                                                <img src="/images/icon/new_time-line.svg" width="16" height="16" alt="Time Ling">${item_convert_time}
+                                            </div>
+                                            <div class="news_new_thumb--aut d-flex align-c gap-1">
+                                                <div class="news_new_thumb--avar rounded-circle" width="16" height="16">
+                                                    <img class="rounded-circle" onerror="this.onerror=null;this.src='/images/icon/noun-author.svg';" src="${item.adm_picture}" width="10" height="10" alt="Author news">
+                                                </div>
+                                                <a class="news_new_thumb--name" href="#">
+                                                    ${item.adm_name}
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="news_new_thumb--des">
+                                            ${item.new_des}
+                                        </div>
+                                    </div>
+                                </div>
+                                `;
+                            $('.news_slist').append(html);
+                        }
+                    }
+
+                    function convertToSlug(text) {
+                        return text.toLowerCase()
+                            .normalize('NFD')
+                            .replace(/[\u0300-\u036f]/g, '')
+                            .replace(/[^a-z0-9 ]+/g, '')
+                            .replace(/\s+/g, '-')
+                            .replace(/-+/g, '-');
+                    }
+
+                    function getParameterByName(name, url) {
+                        if (!url) url = window.location.href;
+                        name = name.replace(/[\[\]]/g, "\\$&");
+                        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                            results = regex.exec(url);
+                        if (!results) return null;
+                        if (!results[2]) return '';
+                        return decodeURIComponent(results[2].replace(/\+/g, " "));
+                    }
+
+                    function updatePagination() {
+                        var totalPages = Math.ceil(totalItems / 10);
+                        $('#pageNumbers').empty();
+
+                        var startPage, endPage;
+                        if (totalPages <= 4) {
+                            startPage = 1;
+                            endPage = totalPages;
+                        } else if (currentPage <= 2) {
+                            startPage = 1;
+                            endPage = Math.min(totalPages, 4);
+                        } else if (currentPage >= totalPages - 1) {
+                            startPage = Math.max(1, totalPages - 3);
+                            endPage = totalPages;
+                        } else {
+                            startPage = currentPage - 2;
+                            endPage = currentPage + 2;
+                        }
+
+                        if (startPage > 1) {
+                            addPageButton(1);
+                            if (startPage > 2) {
+                                $('#pageNumbers').append($('<span></span>').text('...'));
+                            }
+                        }
+
+                        for (var i = startPage; i <= endPage; i++) {
+                            addPageButton(i);
+                        }
+
+                        if (endPage < totalPages) {
+                            if (endPage < totalPages - 1) {
+                                $('#pageNumbers').append($('<span></span>').text('...'));
+                            }
+                            addPageButton(totalPages);
+                        }
+
+                        $('#prevPage').prop('disabled', currentPage <= 1);
+                        $('#nextPage').prop('disabled', currentPage >= totalPages);
+                    }
+
+                    function addPageButton(page) {
+                        var pageBtn = $('<button class="paginate-item"></button>').text(page);
+                        if (page === currentPage) {
+                            pageBtn.addClass('active');
+                        }
+
+                        pageBtn.click((function(page) {
+                            return function() {
+                                if (page !== currentPage) {
+                                    currentPage = page;
+                                    fetchData(currentPage);
+                                }
+                            };
+                        })(page));
+                        $('#pageNumbers').append(pageBtn);
+                    }
+
+                    function updateURL(page, keywords = null) {
+                        var newUrl = updateQueryStringParameter(window.location.href, 'page', page);
+                        if (keywords !== null) {
+                            newUrl = updateQueryStringParameter(newUrl, 'keywords', keywords);
+                        }
+                        history.pushState({page: page}, '', newUrl);
+                    }
+
+                    function updateQueryStringParameter(uri, key, value) {
+                        var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+                        var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+                        if (uri.match(re)) {
+                            return uri.replace(re, '$1' + key + "=" + value + '$2');
+                        } else {
+                            return uri + separator + key + "=" + value;
+                        }
+                    }
+
+                    $('#prevPage').click(function() {
+                        if (currentPage > 1) {
+                            currentPage--;
+                            fetchData(currentPage);
+                        }
+                    });
+
+                    $('#nextPage').click(function() {
+                        var totalPages = Math.ceil(totalItems / 10);
+                        if (currentPage < totalPages) {
+                            currentPage++;
+                            fetchData(currentPage);
+                        }
+                    });
+
+                    $('.news_search_btn').click(function() {
+                        var keywords = $('#search_news').val();
+                        itemsCache = {};
+                        currentPage = 1;
+                        lastKeywords = keywords;
+                        fetchData(currentPage, keywords);
+                    });
+                    $('#search_news').keypress(function(e) {
+                        if (e.which === 13) {
+                            var keywords = $('#search_news').val();
+                            itemsCache = {}; 
+                            currentPage = 1;
+                            lastKeywords = keywords;
+                            fetchData(currentPage, keywords);
+                            return false;
+                        }
+                    });
+
+                    fetchData(currentPage);
+
+                });
+            </script>
+            
+            
+</body>
+
+</html>

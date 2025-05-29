@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, follow" />
+    <meta name="google-site-verification" content="lwyGMjMCHXSuJXWOc3iy1MG_Hd6yRBARF5H8NuMxUPg" />
+
+    <title>Document</title>
+    <link rel="canonical" href="http://localhost:9020<%= url %>">
+    <link rel="preload" href="/css/ntd/post_job_ntd.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/ntd/post_job_ntd.css">
+    </noscript>
+
+    <link rel="preload" href="/css/common.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/common.css">
+    </noscript>
+
+    <link rel="preload" href="/css/leftnav_ntd.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/leftnav_ntd.css">
+    </noscript>
+    <link rel="preload" href="/css/header_ntd.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/header_ntd.css">
+    </noscript>
+
+    <link rel="preload" href="/css/footer.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/footer.css">
+    </noscript>
+    <link rel="preload" href="/css/custom_select2.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/custom_select2.css">
+    </noscript>
+    <script src="/js/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="cnt">
+        <div class="cnt-left" id="leftNav">
+            <%- include('../layouts/leftnav_ntd', {}); %>
+        </div>
+        <div class="cnt-right" id="rightContent">
+            <%- include('../layouts/header_ntd', {}); %>
+            <div class="cnt-det">
+                <div class="cnt-top d-flex justify-b">
+                    <div class="cnt-info bg-white d-flex align-c">
+                        <div class="cnt-avar rounded-circle">
+                            <img class="rounded-circle" src="/images/img/cskh_image.jpg" width="114" height="114" alt="Logo CSKH">
+                        </div>
+                        <div class="cnt-gen fw-600">
+                            <div class="cnt-gen-name mb-20px">
+                                Chuyên viên hỗ trợ: <span class="color-main">Mrs. Nguyễn Hồng</span>
+                            </div>
+                            <div class="cnt-gen-phone mb-20px">
+                                SĐT - Zalo: <span class="color-main">0972319116</span>
+                            </div>
+                            <div class="cnt-gen-mail">
+                                Email: <span class="color-alert">nguyenhongg2609@gmail.com</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cnt-ban d-flex align-c">
+                        <div class="cnt-ban-tit fw-700 color-white text-c">
+                            Tuyển dụng nhanh, tuyển dụng hiệu quả, đăng tin miễn phí
+                        </div>
+                        <div class="cnt-ban-logo">
+                            <img src="/images/logo/biglogo.svg" width="250" height="107" alt="Logo Image">
+                        </div>
+                    </div>
+                </div>
+                <div class="cnt-form bg-white">
+                    <div class="cnt-form-head">
+                        <div class="cnt-form-tit fw-700 mb-12px">
+                            Cập nhật tin tuyển dụng
+                        </div>
+                        <div class="cnt-form-des" style="display: none;">
+                            <span class="color-alert fw-600">Lưu ý:</span> Tính năng Đăng tin miễn phí chỉ dành cho khách hàng chưa từng có tài khoản trên TopCv1s. Nếu bạn đã có tài khoản, vui lòng đăng nhập và đăng tin trên trang Dịch vụ của TopCv1s tại <a href="" class="color-main">ĐÂY</a>
+                        </div>
+                    </div>
+                    <div class="cnt-form-body d-flex flex-dr-c">
+                        <div class="cnt-item">
+                            <div class="cnt-tit fw-700 color-main">
+                                Thông tin việc làm
+                            </div>
+                            <div class="cnt-cont">
+                                <div class="cnt-linp mb-20px">
+                                    <label for="pos_job">
+                                        Vị trí đăng tuyển <span class="color-alert">*</span>
+                                    </label>
+                                    <div class="cnt_input">
+                                        <input type="text" id="post_job" placeholder="Ví dụ: Nhân viên kinh doanh, Nhân viên hành chính nhân sự" value="<%=post.new_title%>">
+                                    </div>
+                                </div>
+                                <div class="cnt-linp mb-20px">
+                                    <label for="lev_job">
+                                        Cấp bậc <span class="color-alert">*</span>
+                                    </label>
+
+                                    <select id="level_id">
+                                        <option></option>
+                                        <% if (levelList && levelList.length > 0) { %>
+                                            <% levelList.forEach(function(item, index) { %>
+                                                <% for (const key in item) { %>
+                                                    <option value="<%= key %>" <%= post.new_cap_bac == key ? 'selected': '' %>><%= item[key] %></option>
+                                                <% } %>
+                                            <% }); %>
+                                        <% } %>
+                                    </select>
+                                </div>
+                                <div class="cnt-linp mb-20px">
+                                    <label for="caarer_job">
+                                        Ngành nghề <span class="color-alert">*</span>
+                                    </label>
+                                    <select id="cat_id">
+                                        <option></option>
+                                        <% if (cateList && cateList.length > 0) { %>
+                                            <% cateList.forEach(function(item) { %>
+                                                <option value="<%= item.cat_id %>" <%= post.new_cat_id == item.cat_id ? 'selected': '' %>><%= item.cat_name %></option>
+                                            <% }); %>
+                                        <% }  %>
+                                    </select>
+                                </div>
+                                <div class="cnt-linp mb-20px">
+                                    <label for="tag_job">
+                                        Tag Ngành nghề <span class="color-alert">*</span>
+                                    </label>
+                                    <select id="tag_cate" name="tag_cate" multiple="multiple">
+                                        <option></option>
+                                    </select>
+                                </div>
+                                <div class="cnt-linp mb-20px">
+                                    <label for="city_job">
+                                        Tỉnh thành làm việc <span class="color-alert">*</span>
+                                    </label>
+                                    <select id="city_job">
+                                        <option></option>
+                                        <% if (listCities && listCities.length > 0) { %>
+                                            <% listCities.forEach(function(item) { %>
+                                                <option value="<%= item.cit_id %>" <%= post.new_city_id == item.cit_id ? 'selected': '' %>><%= item.cit_name %></option>
+                                            <% }); %>
+                                        <% }  %>
+                                    </select>
+                                </div>
+                                <div class="cnt-linp mb-20px">
+                                    <label for="distric_job">
+                                        Quận huyện làm việc <span class="color-alert">*</span>
+                                    </label>
+                                    <select id="distric_job">
+                                        <option></option>
+                                    </select>
+                                </div>
+                                <div class="cnt-linp mb-20px">
+                                    <label for="loc_job">
+                                        Địa chỉ chi tiết làm việc <span class="color-alert">*</span>
+                                    </label>
+                                    <div class="cnt_input">
+                                        <input type="text" id="loc_job" placeholder="Bạn vui lòng nhập địa chỉ làm việc chi tiết" value="<%=post.new_addr%>">
+                                    </div>
+                                </div>
+                                <div class="cnt-linp mb-20px">
+                                    <label for="loc_job">
+                                        Hình thức làm việc <span class="color-alert">*</span>
+                                    </label>
+                                    <select id="typew_id">
+                                        <option></option>
+                                        <% if (listTypeWork && listTypeWork.length > 0) { %>
+                                            <% listTypeWork.forEach(function(item, index) { %>
+                                                <% for (const key in item) { %>
+                                                    <option value="<%= key %>" <%= post.new_city_id == key ? 'selected': '' %>><%= item[key] %></option>
+                                                <% } %>
+                                            <% }); %>
+                                        <% } %>
+                                    </select>
+                                </div>
+                                <div class="cnt-linp mb-20px">
+                                    <label for="wage_job">
+                                        Mức lương <span class="color-alert">*</span>
+                                    </label>
+                                    <select id="monyr_id">
+                                        <option></option>
+                                        <% if (listRangeMoney && listRangeMoney.length > 0) { %>
+                                            <% listRangeMoney.forEach(function(item, index) { %>
+                                                <% for (const key in item) { %>
+                                                    <option value="<%= key %>" <%= post.new_money == key ? 'selected': '' %>><%= item[key] %></option>
+                                                <% } %>
+                                            <% }); %>
+                                        <% } %>
+                                    </select>
+                                </div>
+                                <div class="cnt-linp mb-20px">
+                                    <label for="nbpos_job">
+                                        Số lượng cần tuyển <span class="color-alert">*</span>
+                                    </label>
+                                    <div class="cnt_input">
+                                        <input type="number" min="1" id="nbpos_job" placeholder="Nhập số lượng" value="<%=post.new_so_luong%>">
+                                    </div>
+                                </div>
+                                <div class="cnt-linp mb-20px">
+                                    <label for="trial_job">
+                                        Thời gian thử việc (nếu có)
+                                    </label>
+                                    <div class="cnt_input">
+                                        <input type="text" id="trial_job" placeholder="VD: 3 tuẩn, 5 tuần, ..." value="<%=post.new_thuviec%>">
+                                    </div>
+                                </div>
+                                <div class="cnt-linp">
+                                    <label for="comis_job">
+                                        Hoa hồng (Nếu có)
+                                    </label>
+                                    <div class="cnt_input">
+                                        <input type="text" id="comis_job" placeholder="VD: 25%, 35%, ..." value="<%=post.new_hoahong%>">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cnt-item">
+                            <div class="cnt-tit fw-700 color-main">
+                                Mô tả công việc
+                            </div>
+                            <div class="cnt-cont">
+                                <div class="cnt-linp">
+                                    <label for="des_job">
+                                        Mô tả công việc <span class="color-alert">*</span>
+                                    </label>
+                                    <textarea id="des_job" placeholder="- Tiêu đề cho vị trí công việc cần tuyển dụng là gì?
+                                    - Mục tiêu của vị trí công việc: “Vị trí này tồn tại để làm gì cho công ty?”
+                                    - Các nhiệm vụ chính của vị trí công việc là gì?
+                                    - Địa chỉ nơi làm việc
+                                    - nội dụng công việc cần thực hiện: ..."><%=post.new_mota %></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cnt-item">
+                            <div class="cnt-tit fw-700 color-main">
+                                Yêu cầu công việc
+                            </div>
+                            <div class="cnt-cont">
+                                <div class="cnt-linp mb-20px">
+                                    <label for="exp_job">
+                                        Kinh nghiệm <span class="color-alert">*</span>
+                                    </label>
+                                    <select id="exp_id">
+                                        <option></option>
+                                        <% if (listSizeExp && listSizeExp.length > 0) { %>
+                                            <% listSizeExp.forEach(function(item, index) { %>
+                                                <% for (const key in item) { %>
+                                                    <option value="<%= key %>" <%= post.new_exp == key ? 'selected': '' %>><%= item[key] %></option>
+                                                <% } %>
+                                            <% }); %>
+                                        <% } %>
+                                    </select>
+                                </div>
+                                <div class="cnt-linp-row d-flex mb-20px">
+                                    <div class="cnt-linp">
+                                        <label for="edu_req">
+                                            Yêu cầu bằng cấp <span class="color-alert">*</span>
+                                        </label>
+                                        <select id="edu_id">
+                                            <option></option>
+                                            
+                                            <% if (listEdu && listEdu.length > 0) { %>
+                                                <% listEdu.forEach(function(item, index) { %>
+                                                    <% for (const key in item) { %>
+                                                        <option value="<%= key %>" <%= post.new_bang_cap == key ? 'selected': '' %>><%= item[key] %></option>
+                                                    <% } %>
+                                                <% }); %>
+                                            <% } %>
+                                        </select>
+                                    </div>
+                                    <div class="cnt-linp">
+                                        <label for="gender_req">
+                                            Giới tính <span class="color-alert">*</span>
+                                        </label>
+                                        <select id="gen_id">
+                                            <option></option>
+                                            <% if (genderList && genderList.length > 0) { %>
+                                                <% genderList.forEach(function(item, index) { %>
+                                                    <% for (const key in item) { %>
+                                                        <option value="<%= key %>" <%= post.new_gioi_tinh == key ? 'selected': '' %>><%= item[key] %></option>
+                                                    <% } %>
+                                                <% }); %>
+                                            <% } %>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="cnt-linp">
+                                    <label for="job_req">
+                                        Yêu cầu công việc <span class="color-alert">*</span>
+                                    </label>
+                                    <textarea id="job_req" placeholder="- Trách nhiệm của nhân viên cần làm là gì?
+                                    - Nhiệm vụ công việc cần thực hiện hàng ngày là gì?
+                                    - Những kỹ năng nào cần có để thực hiện công việc tốt nhất?
+                                    + Những kỹ năng bắt buộc (Những kỹ năng cần có là gì?)
+                                    + Những kỹ năng mang tính khuyến khích (Ngoài ra ưng viên có thể đáp ứng những kỹ năng nào để phát triển công việc tốt nhất?)
+                                    - Bằng cấp, chứng chỉ phù hợp với công việc
+                                    - Yêu cầu về kinh nghiệm, thái độ, phầm chất
+                                    - Ngoài ra tùy vào đặc thù công việc tuyển dụng để nêu ra các yêu cầu khác như giới tính, ngoại hình,..."><%=post.new_yeucau %></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cnt-item">
+                            <div class="cnt-tit fw-700 color-main">
+                                Quyền lợi được hưởng
+                            </div>
+                            <div class="cnt-cont">
+                                <div class="cnt-linp">
+                                    <label for="bene_job">
+                                        Quyền lợi được hưởng <span class="color-alert">*</span>
+                                    </label>
+                                    <textarea id="bene_job" placeholder="- Chế độ về mức lương, thưởng, chế độ đãi ngộ
+                                    - Các chế độ đóng bảo hiểm xã hội và phúc lợi khác của nhân viên cụ thể là gì?
+                                    - Môi trường làm việc của công ty hấp dẫn như thế nào? Có thể mang đến những cơ hội học tập, huấn luyện cho ứng viên ra sao?
+                                    - Cơ hội thăng tiến của nhân viên là như thế nào?"><%=post.new_quyenloi %></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cnt-item">
+                            <div class="cnt-tit fw-700 color-main">
+                                Yêu cầu hồ sơ
+                            </div>
+                            <div class="cnt-cont">
+                                <div class="cnt-linp mb-20px">
+                                    <label for="required_cv">
+                                        Hồ sơ bao gồm <span class="color-alert">*</span>
+                                    </label>
+                                    <textarea id="required_cv" placeholder="- Đơn xin việc.
+                                    - Sơ yếu lý lịch.
+                                    - Hộ khẩu, chứng minh nhân dân và giấy khám sức khoẻ.
+                                    - Các bằng cấp có liên quan."><%=post.new_ho_so%></textarea>
+                                </div>
+
+                                <div class="cnt-linp">
+                                    <label for="deadline_cv">
+                                        Hạn nộp <span class="color-alert">*</span>
+                                    </label>
+                                    <div class="cnt_input">
+                                        <input id="deadline_cv" type="date" placeholder="dd/mm/yyyy" 
+                                        value="<%= new Date(post.new_han_nop * 1000).toISOString().slice(0, 10) %>" 
+                                        min="<%= new Date().toISOString().slice(0, 10) %>">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="cnt-item">
+                            <div class="cnt-tit fw-700 color-main">
+                                Thông tin liên hệ
+                            </div>
+                            <div class="cnt-cont">
+                                <div class="cnt-linp-row d-flex mb-20px">
+                                    <div class="cnt-linp">
+                                        <label for="contact_per">
+                                            Tên người liên hệ <span class="color-alert">*</span>
+                                        </label>
+                                        <div class="cnt_input">
+                                            <input type="text" id="contact_per" placeholder="" value="<%=post.new_usercontact%>">
+                                        </div>
+                                    </div>
+                                    <div class="cnt-linp">
+                                        <label for="contact_loc">
+                                            Địa chỉ liên hệ <span class="color-alert">*</span>
+                                        </label>
+                                        <div class="cnt_input">
+                                            <input type="text" id="contact_loc" placeholder="" value="<%=post.new_addcontact%>">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cnt-linp-row d-flex">
+                                    <div class="cnt-linp">
+                                        <label for="contact_phone">
+                                            Số điện thoại liên hệ <span class="color-alert">*</span>
+                                        </label>
+                                        <div class="cnt_input">
+                                            <input type="text" id="contact_phone" placeholder="" value="<%=post.new_phonecontact%>">
+                                        </div>
+                                    </div>
+                                    <div class="cnt-linp">
+                                        <label for="contact_email">
+                                            Email liên hệ <span class="color-alert">*</span>
+                                        </label>
+                                        <div class="cnt_input">
+                                            <input type="email" id="contact_email" placeholder="" value="<%=post.new_emailcontact%>">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cnt-act-btn d-flex justify-c gap-4">
+                            <button class="cnt-cancel bg-white color-main fw-600" onclick="cancelUpdate()">
+                                Hủy
+                            </button>
+                            <button class="cnt-post bg-main color-white fw-600" value="<%=id%>">
+                                Cập nhật
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <%- include('../layouts/footer', {}); %>
+    <script src="/js/custom_select.js"></script>
+<script>
+    $(document).ready(function() {
+        $(window).scroll(function() {
+            var $leftNav = $('.lnav');
+            var $rightContent = $('#rightContent');
+            var rightContentHeight = $rightContent.outerHeight(true);
+            var rightContentOffsetTop = $rightContent.offset().top;
+            var rightContentBottom = rightContentOffsetTop + rightContentHeight;
+            var scrollTop = $(window).scrollTop();
+            var windowHeight = $(window).height();
+            var leftNavHeight = $leftNav.outerHeight(true);
+
+            if (scrollTop + leftNavHeight > rightContentBottom) {
+                $leftNav.css({
+                    position: 'absolute',
+                    top: (rightContentHeight - leftNavHeight) + 'px'
+                });
+            } else {
+                $leftNav.css({
+                    position: 'fixed',
+                    top: '0'
+                });
+            }
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('.nhead-rig-togm').click(function() {
+            $('#mobileMenu').slideDown(300);
+        });
+        $('.menu-mb-close').click(function() {
+            $('#mobileMenu').slideUp(300);
+        });
+    });
+    $(document).ready(function() {
+        $(".tog-mb").click(function() {
+            $(this).next(".menu-mb-clist").slideToggle();
+        });
+    });
+    $(document).ready(function() {
+        $('#level_id').CustomSelect({
+            placeholder: 'Cấp bậc mong muốn',
+            searchPlaceholder: 'Tìm kiếm...'
+        });
+        $('#level_id').trigger('change')
+        $('#edu_req').CustomSelect({
+            placeholder: 'Select an option',
+            searchPlaceholder: 'Tìm kiếm...'
+        });
+        $('#edu_req').trigger('change')
+        $('#cat_id').CustomSelect({
+            placeholder: 'Chọn ngành nghề',
+            searchPlaceholder: 'Tìm kiếm...'
+        });
+        $('#cat_id').trigger('change')
+        $('#tag_cate').CustomSelect({
+            placeholder: 'Chọn tag ngành nghề',
+            searchPlaceholder: 'Tìm kiếm...'
+        });
+        $('#tag_cate').trigger('change')
+        $('#typew_id').CustomSelect({
+            placeholder: 'Chọn hình thức làm việc',
+            searchPlaceholder: 'Tìm kiếm...'
+        });
+        $('#typew_id').trigger('change')
+        $('#monyr_id').CustomSelect({
+            placeholder: 'Chọn mức lương',
+            searchPlaceholder: 'Tìm kiếm...'
+        });
+        $('#monyr_id').trigger('change')
+        $('#exp_id').CustomSelect({
+            placeholder: 'Chọn kinh nghiệm',
+            searchPlaceholder: 'Tìm kiếm...'
+        });
+        $('#exp_id').trigger('change')
+        $('#edu_id').CustomSelect({
+            placeholder: 'Chọn bằng cấp',
+            searchPlaceholder: 'Tìm kiếm...'
+        });
+        $('#edu_id').trigger('change')
+        $('#gen_id').CustomSelect({
+            placeholder: 'Chọn giới tính',
+            searchPlaceholder: 'Tìm kiếm...'
+        });
+        $('#gen_id').trigger('change')
+        $('#city_job').CustomSelect({
+            placeholder: 'Chọn tỉnh thành',
+            searchPlaceholder: 'Tìm kiếm...'
+        });
+        $('#city_job').trigger('change')
+        $('#distric_job').CustomSelect({
+            placeholder: 'Chọn quận / huyện',
+            searchPlaceholder: 'Tìm kiếm...'
+        });
+
+        var post = JSON.parse('<%- JSON.stringify(post) %>');
+        
+        function loadDistricts(cityId, selectedDistrictId) {
+            $.ajax({
+                url: '/api/getDistrict',
+                method: 'POST',
+                data: { id: cityId },
+                success: function(response) {
+                    if (response.district.length > 0) {
+                        $('#distric_job').empty();
+                        response.district.forEach(function(city) {
+                            $('#distric_job').append('<option value="' + city.cit_id + '">' + city.cit_name + '</option>');
+                        });
+                        if (selectedDistrictId) {
+                            $('#distric_job').val(selectedDistrictId);
+                        }
+                        $('#distric_job').trigger('update');
+                    }
+                },
+                error: function(err) {
+                    console.error('Error:', err);
+                }
+            });
+        }
+
+        function loadTagsCate(cateId, selectedTagId) {
+            $.ajax({
+                url: '/api/getTagCate',
+                method: 'POST',
+                data: { id: cateId },
+                success: function(response) {
+                    if (response.tag.length > 0) {
+                        $('#tag_cate').empty();
+                        response.tag.forEach(function(tag) {
+                            $('#tag_cate').append('<option value="' + tag.tag_id + '">' + tag.tag_name + '</option>');
+                        });
+                        if (selectedTagId) {
+                            $('#tag_cate').val(selectedTagId)
+                        }
+
+                        $('#tag_cate').trigger('update'); 
+                    }
+                },
+                error: function(err) {
+                    console.error('Error:', err);
+                }
+            });
+        }
+
+        if (post.new_city_id) {
+            $('#city_job').val(post.new_city_id);
+            loadDistricts(post.new_city_id, post.new_qh_id);
+        }
+
+        $('#city_job').change(function() {
+            var cityId = parseInt($(this).val());
+            loadDistricts(cityId, null);
+        });
+
+        if (post.new_cat_id) {
+            $('#cat_id').val(post.new_cat_id);
+            loadTagsCate(post.new_cat_id, post.new_tag)
+        }
+
+        $('#cat_id').change(function() {
+            var catId = parseInt($(this).val());
+            loadTagsCate(catId, null)
+        })
+        
+        function getCookie(name) {
+            var value = "; " + document.cookie;
+            var parts = value.split("; " + name + "=");
+            if (parts.length === 2) return parts.pop().split(";").shift();
+        }
+
+        $('.cnt-post').click(function() {
+            var post_job = $('#post_job').val();
+            var level_id = $('#level_id').val();
+            var cat_id = $('#cat_id').val();
+            var tag_cate = $('#tag_cate').val();
+            var city_job = $('#city_job').val();
+            var distric_job = $('#distric_job').val();
+            var loc_job = $('#loc_job').val();
+            var typew_id = $('#typew_id').val();
+            var monyr_id = $('#monyr_id').val();
+            var nbpos_job = $('#nbpos_job').val();
+            var trial_job = $('#trial_job').val();
+            var comis_job = $('#comis_job').val();
+            var des_job = $('#des_job').val();
+            var exp_id = $('#exp_id').val();
+            var edu_id = $('#edu_id').val();
+            var gen_id = $('#gen_id').val();
+            var job_req = $('#job_req').val();
+            var bene_job = $('#bene_job').val();
+            var required_cv = $('#required_cv').val();
+            var deadline_cv = $('#deadline_cv').val();
+            var contact_per = $('#contact_per').val();
+            var contact_loc = $('#contact_loc').val();
+            var contact_phone = $('#contact_phone').val();
+            var contact_email = $('#contact_email').val();
+            var idNew = $('.cnt-post').val();
+            if(!post_job) {
+                alert("Chưa nhập vị trí đăng tuyển"); return;
+            } else if(!level_id) {
+                alert("Chưa chọn cấp bậc"); return;
+            } else if(!cat_id) {
+                alert("Chưa chọn ngành nghề"); return;
+            } else if(!tag_cate) {
+                alert("Chưa chọn tag ngành nghề"); return;
+            } else if(!city_job) {
+                alert("Chưa chọn tỉnh thành làm việc"); return;
+            } else if(!distric_job) {
+                alert("Chưa chọn quận huyện làm việc"); return;
+            } else if(!loc_job) {
+                alert("Chưa nhập địa chỉ chi tiết làm việc"); return;
+            } else if(!typew_id) {
+                alert("Chưa chọn hình thức làm việc"); return;
+            } else if(!monyr_id) {
+                alert("Chưa chọn mức lương"); return;
+            } else if(!nbpos_job || !Number.isInteger(parseInt(nbpos_job)) || parseInt(nbpos_job) <= 0) {
+                alert("Chưa chọn số lượng cần tuyển hoặc số lượng không hợp lệ"); return;
+            } else if(!des_job) {
+                alert("Chưa nhập mô tả công việc"); return;
+            } else if(!exp_id) {
+                alert("Chưa chọn kinh nghiệm"); return;
+            } else if(!edu_id) {
+                alert("Chưa chọn yêu cầu bằng cấp"); return;
+            } else if(!gen_id) {
+                alert("Chưa chọn giới tính"); return;
+            } else if(!job_req) {
+                alert("Chưa nhập yêu cầu công việc"); return;
+            } else if(!bene_job) {
+                alert("Chưa nhập quyền lợi được hưởng"); return;
+            } else if(!required_cv) {
+                alert("Chưa nhập hồ sơ bao gồm"); return;
+            } else if(!contact_per) {
+                alert("Chưa nhập tên người liên hệ"); return;
+            } else if(!contact_loc) {
+                alert("Chưa nhập địa chỉ liên hệ"); return;
+            } else if(!contact_phone) {
+                alert("Chưa nhập số điện thoại liên hệ"); return;
+            } else if(!contact_email) {
+                alert("Chưa nhập email liên hệ"); return;
+            }  
+            $.ajax({
+                url: 'http://localhost:3053/api/topcv1s/new/UpdateNew',
+                headers: {
+                    Authorization: 'Bearer ' + getCookie('accessToken')
+                },
+                method: 'POST',
+                data: {
+                    title: post_job,
+                    capBac: parseInt(level_id),
+                    catId: parseInt(cat_id),
+                    tag: parseInt(tag_cate),
+                    city: parseInt(city_job),
+                    district: parseInt(distric_job),
+                    address: loc_job,
+                    hinhThuc: parseInt(typew_id),
+                    money: parseInt(monyr_id),
+                    soLuong: parseInt(nbpos_job),
+                    thuViec: trial_job,
+                    hoaHong: comis_job,
+                    moTa: des_job,
+                    exp: parseInt(exp_id),
+                    bangCap: parseInt(edu_id),
+                    gioiTinh: parseInt(gen_id),
+                    yeuCau: job_req,
+                    quyenLoi: bene_job,
+                    hoSo: required_cv,
+                    hanNop: deadline_cv,
+                    userContact: contact_per,
+                    addressContact: contact_loc,
+                    phoneContact: contact_phone,
+                    emailContact: contact_email,
+                    idNew: idNew,
+                },
+                success: function(response) {
+                    alert('Cập nhật tin thành công');
+                    window.location.href="/ntd/quan-ly-tin-dang";
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('AJAX Error:', textStatus, errorThrown);
+                    $(".post-conf").css("display", "none");
+                    var response = jqXHR.responseJSON;
+                    if (response && response.error) {
+                        alert('Cập nhật tin thất bại: '+ response.error.message);
+                    } else {
+                        alert('Có lỗi xảy ra');
+                    }
+                },
+                complete: function() {
+                    $btn.prop('disabled', false);
+                }
+            });
+        });
+    });
+
+    function cancelUpdate() {
+        window.history.back();
+    }
+</script>
+
+
+</body>
+
+</html>

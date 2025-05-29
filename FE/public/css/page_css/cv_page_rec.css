@@ -1,0 +1,153 @@
+#content {
+    font-family: Roboto;
+    background-color: #f3f5f7;
+    padding-top: 80px;
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Roboto';
+    src: url('/fonts/Roboto-Black.ttf') format('woff2');
+    font-weight: 900;
+    font-style: normal;
+}
+
+.search {
+    font-family: Roboto;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(/images/img/room-desk.png);
+    position: relative;
+}
+
+.search::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #00b14f99;
+}
+
+.search-box {
+    position: relative;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    z-index: 1;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search-til-top {
+    font-weight: 900;
+    font-size: 40px;
+    padding-bottom: 22px;
+
+}
+
+.search-til-bot {
+    font-size: 20px;
+    font-weight: 500;
+    padding-bottom: 22px;
+}
+
+.search-form {
+    background-color: white;
+    padding: 6px 12px 6px 12px;
+    max-width: 55%;
+    width: 100%;
+}
+
+.search-form input {
+    border: none;
+    flex: 1;
+    outline: none;
+
+}
+
+.breadcrumb {
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+
+.breadcrumb__item {
+    color: #00b14f;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.breadcrumb__item.active {
+    color: #000000;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.cv-list {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+.cv-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border: 1px solid #B0B0B0;
+    padding: 20px;
+    border-radius: 10px;
+
+}
+
+.cv-unit img {
+    margin-bottom: 10px;
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+    width: 100%;
+
+}
+
+.cv-unit span {
+    margin-bottom: 16px;
+    font-size: 20px;
+    color: black;
+    font-weight: 500;
+}
+
+.cv-unit div {
+    font-size: 16px;
+}
+
+.container {
+    padding-bottom: 60px;
+}
+
+.search-form input::placeholder {
+    font-size: 13px;
+    color: #000000;
+}
+
+@media only screen and (max-width:992px) {
+    .cv-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .search-form {
+        max-width: unset;
+    }
+}
+
+@media only screen and (max-width:768px) {}
+
+@media only screen and (max-width: 576px) {
+    .cv-list {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .cv-unit {
+        align-items: flex-start;
+    }
+}

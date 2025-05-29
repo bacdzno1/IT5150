@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, follow" />
+    <meta name="google-site-verification" content="lwyGMjMCHXSuJXWOc3iy1MG_Hd6yRBARF5H8NuMxUPg" />
+
+    <title>Document</title>
+    <link rel="canonical" href="http://localhost:9020<%= url %>">
+    <link rel="preload" href="/css/uv/register_uv_ulcv.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/uv/register_uv_ulcv.css">
+    </noscript>
+
+    <link rel="preload" href="/css/common.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/common.css">
+    </noscript>
+
+    <link rel="preload" href="/css/header.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/header.css">
+    </noscript>
+
+    <link rel="preload" href="/css/footer.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/footer.css">
+    </noscript>
+    <script src="/js/jquery.min.js"></script>
+</head>
+
+<body>
+    <%- include('../layouts/header', {}); %>
+    <div id="content" style="padding-top:80px">
+        <div class="regis_form container">
+            <div class="regis_content bg-white">
+                <div class="regis_title text-c fs-4 fw-600">
+                    TẠO HỒ SƠ XIN VIỆC ĐƠN GIẢN, NHANH CHÓNG HƠN!
+                </div>
+                <div class="regis_cen d-flex justify-b">
+                    <div class="regis_left">
+                        <div class="regis_atten fw-600 fs-6 fst-italic">
+                            Vui lòng tải files *
+                        </div>
+                        <div class="regis_upload d-flex flex-dr-c align-c">
+                            <img class="" src="/images/icon/upload-outline.svg" alt="Upload Icon" width="81" height="81">
+                            <div class="regis_tyned text-c">
+                                Tải lên DOC, DOCX, PDF, PNG, JPG, JPEG, MP4, MOV. Tối đa: 100MB
+                            </div>
+                        </div>
+                        <input type="file" class="upload_file" id="user_cv" accept=".doc, .docx, .pdf, .png, .jpg, .jpeg">
+                    </div>
+                    <div class="regis_right">
+                        <div class="regis_detail d-flex flex-wr justify-b">
+                            <div class="regis_box-1 regis_pass">
+                                <label for="user_birthday" class="fw-600">Ngày sinh <span>*</span></label>
+                                <input class="regis_inp" type="date" id="user_birthday">
+                            </div>
+                            <div class="regis_box-1 regis_repass">
+                                <label for="user_exp" class="fw-600">Kinh nghiệm làm việc <span>*</span></label>
+                                <select class="regis_inp"id="user_exp">
+                                    <% listSizeExp.forEach(item => { %>
+                                        <% let key = Object.keys(item)[0]; %>
+                                        <% let value = Object.values(item)[0]; %>
+                                        <option value="<%= key %>"><%= value %></option>
+                                    <% }); %>
+                                </select>
+                            </div>
+                            <div class="regis_box regis_pos">
+                                <label for="user_certificate" class="fw-600">Bằng cấp <span>*</span></label>
+                                <input class="regis_inp" type="text" id="user_certificate" placeholder="Nhập bằng cấp">
+                            </div>
+                        </div>
+                        <div class="regis-btn d-flex justify-c">
+                            <button class="fw-700 fs-6 color-main" id="registerUploadCV">
+                                Đăng ký
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <%- include('../layouts/footer', {}); %>
+    <script>
+        $(document).ready(function() {
+            $(".regis_upload").click(function() {
+                $(".upload_file").click();
+            });
+        });
+    </script>
+    <script>
+         $('#user_cv').change(function() {
+            let fileName = $(this)[0].files[0].name;
+            $('.regis_tyned').text(fileName);
+        });
+       $(document).ready(function() { 
+        //Đăng ký ứng viên bước 2
+            $('#registerUploadCV').click( function () {
+                let user_birthday = $('#user_birthday').val();
+                let user_exp = $('#user_exp').val();
+                let user_certificate = $('#user_certificate').val();
+                let user_cv = $('#user_cv')[0].files[0];
+                let type = 1;
+
+                if (!user_birthday) {
+                    alert('Vui lòng chọn ngày sinh');
+                    return; 
+                } else if(!user_certificate){
+                    alert('Vui lòng nhập bằng cấp');
+                    return; 
+                } else if(user_birthday) {
+                    let birthdayDate = new Date(user_birthday);
+                    let currentYear = new Date().getFullYear();
+                    let selectedYear = birthdayDate.getFullYear();
+                    if (selectedYear >= currentYear) {
+                        alert('Năm sinh phải nhỏ hơn năm hiện tại.');
+                        return false;
+                    }
+                }
+                if (!user_cv){
+                    alert('Hãy đăng tệp CV của');
+                    return;
+                } else {
+                    let extension = user_cv.name.split('.').pop().toLowerCase();
+                    if (['doc', 'docx', 'pdf', 'png', 'jpg', 'jpeg'].includes(extension)) {
+                        type = 1; 
+                    } else if (['mp4', 'mov'].includes(extension)) {
+                        type = 2; 
+                    }
+                }
+
+                let isLogin = getCookie('isLogin');
+                if (isLogin) {
+                    var iduv = getCookie('use_id');
+                    var Token = getCookie('accessToken');
+                }
+                let formData = new FormData();
+                formData.append('CV', user_cv); 
+                formData.append('birthday', user_birthday);
+                formData.append('exp', user_exp);
+                formData.append('bangcap', user_certificate);
+                formData.append('iduv', iduv);
+                formData.append('type', type);
+                console.log(formData);
+                // Gọi API upload CV
+                $.ajax({
+                    url: "http://localhost:3050/api/topcv1s/user/CandidateRegisterByUploadCV2",
+                    type: "POST",
+                    headers: {
+                        "Authorization": "Bearer " + Token
+                    },
+                    data: formData,
+                    contentType: false, 
+                    processData: false,
+                    success: function(response) {
+                        console.log(response);
+                        alert('Tải file lên thành công, vui lòng xác thực tài khoản');
+                        window.location.href = '/otp';
+                    },
+                    error: function(xhr, status, error) {
+                        let errorMessage;
+                        let response = JSON.parse(xhr.responseText);
+                        if (response.error) {
+                            errorMessage = response.error.message;
+                        }
+                        alert(errorMessage);
+                        console.log('Error:', errorMessage);
+                    }
+                });
+            });
+        });
+        //Lấy cookie
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+    </script>
+    
+    
+</body>
+
+</html>

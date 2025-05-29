@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow" />
+    <meta name="google-site-verification" content="lwyGMjMCHXSuJXWOc3iy1MG_Hd6yRBARF5H8NuMxUPg" />
+
+    <meta name="description" content="Đăng nhập cực kỳ dễ dàng, đón hàng ngàn cơ hội việc làm mơ ước tại TopCv1s. Truy cập website ngay và làm mới hồ sơ ứng viên của mình, TopCv1s sẽ giúp hồ sơ của bạn trở nên thu hút các nhà tuyển dụng tiềm năng. Tìm việc thả ga, ứng tuyển công việc online thỏa sức. Đăng nhập tại đây ngay!">
+    <meta name="twitter:card" content="Đăng Nhập TopCv1s, Khám Phá Ngay Hàng Ngàn Cơ Hội Nghề Nghiệp">
+    <meta name="twitter:site" content="TopCv1s">
+    <meta name="twitter:title" content="Đăng Nhập TopCv1s, Khám Phá Ngay Hàng Ngàn Cơ Hội Nghề Nghiệp">
+    <meta name="twitter:description" content="Đăng nhập cực kỳ dễ dàng, đón hàng ngàn cơ hội việc làm mơ ước tại TopCv1s. Truy cập website ngay và làm mới hồ sơ ứng viên của mình, TopCv1s sẽ giúp hồ sơ của bạn trở nên thu hút các nhà tuyển dụng tiềm năng. Tìm việc thả ga, ứng tuyển công việc online thỏa sức. Đăng nhập tại đây ngay!">
+    <meta property="og:site_name" content="TopCv1s">
+    <meta property="og:image" content="http://localhost:9020/images/img/icon_head.png">
+    <meta property="og:url" content="http://localhost:9020<%= url %>">
+    <meta property="og:type" content="website">
+    <title>Đăng Nhập TopCv1s, Khám Phá Ngay Hàng Ngàn Cơ Hội Nghề Nghiệp</title>
+    <link rel="icon" href="/images/img/icon_head.png">
+    <link rel="canonical" href="http://localhost:9020<%= url %>">
+    <link rel="preload" href="/css/uv/login_uv.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/uv/login_uv.css">
+    </noscript>
+
+    <link rel="preload" href="/css/common.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/common.css">
+    </noscript>
+
+    <link rel="preload" href="/css/header.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/header.css">
+    </noscript>
+
+    <link rel="preload" href="/css/footer.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/footer.css">
+    </noscript>
+    <script src="/js/jquery.min.js"></script>
+    <script
+    type="application/ld+json">{"@context": "https://schema.org","@type": "ItemPage","url": "http://localhost:9020<%= url %>","mainEntityOfPage": "Trang Tin Tức Việc Làm Số 1 - Tìm Việc, Tuyển Dụng Hiệu Quả, Miễn Phí"}</script>
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"EmploymentAgency","name":"topcv1s.com","alternateName":"Tìm Việc Nhanh, Tuyển Dụng Hiệu Quả | TopCv1s.com","logo":"http://localhost:9020/images/img/icon_head.png","image":"http://localhost:9020/images/img/icon_head.png","url":"http://localhost:9020"}</script>
+    <script
+        type="application/ld+json">{"@context":"http://schema.org","@type":"WebSite","url":"http://localhost:9020/"}</script>
+</head>
+
+<body>
+    <%- include('../layouts/header', {}); %>
+        <div id="content" class="d-flex justify-c" style="padding-top:80px">
+            <div class="login-content d-flex justify-b">
+                <div class="left-content flex-dr-c d-flex align-c">
+                    <img src="/images/img/loginuvimg.svg" width="337" height="323" alt="Banner">
+                    <h2 class="fs-4 fw-600 color-main">Đăng nhập tài khoản ứng viên để ứng tuyển công việc mong muốn
+                    </h2>
+                </div>
+                <div class="right-content bg-white">
+                    <h1 class="right-top fs-4 fw-600 text-c">
+                        ỨNG VIÊN ĐĂNG NHẬP
+                    </h1>
+                    <div class="right-form">
+                        <div class="form-item">
+                            <div class="phone-input d-flex align-c gap-4">
+                                <label for="user_phone">
+                                    <img src="/images/icon/userlogin.svg" alt="Số điện thoại" width="32" height="32">
+                                </label>
+                                <input type="text" class="fs-4" id="user_phone" name="user_phone"
+                                    placeholder="Nhập địa chỉ email">
+                            </div>
+                        </div>
+                        <div class="form-item">
+                            <div class="pass-input d-flex align-c gap-4">
+                                <label for="user_pass">
+                                    <img src="/images/icon/passlogin.svg" alt="Mật khẩu" width="32" height="32">
+                                </label>
+                                <input type="password" class="fs-4" id="user_pass" name="user_pass"
+                                    placeholder="Nhập mật khẩu">
+                                    <div class="show_pass">
+                                        <img width="20" height="20" alt="Show Pass Icon" src="/images/icon/eye_close.png">
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-act justify-c">
+                        <button class="btn_login bg-main fw-500 fs-4 color-white" onclick="loginCandidate()">
+                            <span class="login-text">Đăng nhập</span>
+                            <img class="loading-icon" src="/images/icon/loading2icon.gif" height="26.4" alt="Loading Login">
+                        </button>
+                        <img width="30" class="login_lr" height="30" alt="Left Button" src="/images/icon/Polygon-8.svg">
+                        <img width="30" class="login_lr" height="30" alt="Right Button" src="/images/icon/Polygon-9.svg">
+                    </div>
+                    <div class="right-ques text-c">
+                        <a href="/quen-mat-khau" class="ques-forgot fs-6 color-main">Quên mật khẩu?</a>
+                        <h3 class="ques-exist fs-6 fw-400">Bạn chưa có tài khoản? <a href="/dang-ky-ung-vien">Đăng ký ngay</a>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%- include('../layouts/footer', {}); %>
+            <script>
+                $('#user_phone').on('input', function(e) {
+                    var currentValue = $(this).val();
+                    if (currentValue.includes(' ')) {
+                        $(this).val(currentValue.replace(/\s/g, ''));  // Loại bỏ tất cả khoảng trắng
+                    }
+                });
+
+                // Ngăn nhập khoảng trắng vào trường nhập mật khẩu
+                $('#user_pass').on('input', function(e) {
+                    var currentValue = $(this).val();
+                    if (currentValue.includes(' ')) {
+                        $(this).val(currentValue.replace(/\s/g, ''));  // Loại bỏ tất cả khoảng trắng
+                    }
+                });
+                $('#user_phone, #user_pass').on('keydown', function(event) {
+                    if (event.which === 13) {
+                        loginCandidate();
+                    }
+                });
+                function setCookie(name, value, days) {
+                    const date = new Date();
+                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                    const expires = "expires=" + date.toUTCString();
+                    document.cookie = name + "=" + encodeURIComponent(value) + ";" + expires + ";path=/";
+                }
+
+                function loginCandidate() {
+                    const username = $("#user_phone").val();
+                    const password = $("#user_pass").val();
+
+                    // Định nghĩa đối tượng data
+                    const data = {
+                        username: username,
+                        password: password,
+                    };
+
+                    $.ajax({
+                        url: "http://localhost:3050/api/topcv1s/user/LoginCandidate",
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify(data),
+                        success: function (response) {
+                            if (response.data.result === true) {
+                                if(response.data.data.data.auth == 0){
+                                    document.cookie = `phoneForOtp=${response.data.data.data.use_phone_tk}; max-age=${60 * 24 * 60 * 60}`;
+                                }
+                                
+                                document.cookie = `use_mail=${response.data.data.data.use_mail}; max-age=${60 * 24 * 60 * 60}`;
+                                document.cookie = `accessToken=${response.data.data.Token}; max-age=${60 * 24 * 60 * 60}`;
+                                document.cookie = `refreshToken=${response.data.data.RefreshToken}; max-age=${60 * 24 * 60 * 60}`;
+                                document.cookie = `use_id=${response.data.data.data.use_id}; max-age=${60 * 24 * 60 * 60}`;
+                                document.cookie = `auth=${response.data.data.data.auth}; max-age=${60 * 24 * 60 * 60}`;
+                                document.cookie = `type=${response.data.data.data.type}; max-age=${60 * 24 * 60 * 60}`;
+                                setCookie("userName",response.data.data.data.userName,60);
+                                // document.cookie = `userName=${response.data.data.data.userName}; max-age=${60 * 24 * 60 * 60}`;
+                                document.cookie = `use_phone_tk=${response.data.data.data.use_phone_tk}; max-age=${60 * 24 * 60 * 60}`;
+                                document.cookie = `percentHoSo=${response.data.data.data.percentHoSo}; max-age=${60 * 24 * 60 * 60}`;
+                                document.cookie = `use_logo=${response.data.data.data.use_logo}; max-age=${60 * 24 * 60 * 60}`;
+                                document.cookie = `usc_search=${response.data.data.data.usc_search}; max-age=${60 * 24 * 60 * 60}`;
+                                document.cookie = `isLogin=true; max-age=${60 * 24 * 60 * 60}`;
+
+                                // livechat
+                                const infor = {
+                                    use_first_name: response.data.data.data.userName || "",
+                                    use_id: response.data.data.data.use_id || 0
+                                }
+                                document.cookie = `infor=${JSON.stringify(infor)}; max-age=${60 * 24 * 60 * 60}`
+
+                                window.location.href = "/";
+                            } else {
+                                alert("Tài khoản hoặc mật khẩu không chính xác");
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Error:", error);
+                            if (xhr.status === 400) {
+                                alert("Tài khoản hoặc mật khẩu không chính xác");
+                            } else {
+                                console.error("Error:", error);
+                                alert(`Đã xảy ra lỗi khi đăng nhập`);
+                            }
+                        },
+                    });
+                }
+            </script>
+            
+            
+</body>
+
+</html>

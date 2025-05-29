@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/images/logo/logo.ico" type="image/x-icon">
+    <title></title>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="/js/jquery.min.js"></script>
+    </link>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet"
+        type="text/css">
+    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/page_css/add_cv.css" />
+    <link rel="stylesheet" href="/css/page_css/cvh.css">
+    <link id="cv-css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/page_css/style_cv2.css">
+    <link rel="stylesheet" href="/css/page_css/style_header_chung.css">
+    <link id="color-stylesheet" rel="stylesheet" href="">
+    <link rel="stylesheet" href="/css/page_css/cv_detail.css">
+    <meta name="robots" content="noindex, nofollow" />
+</head>
+
+<body>
+    <div class="cv-content">
+        <div class="cv-body-content">
+            <input type="hidden" id="cvid" name="cvid" value />
+            <p id="checktext" style='display: none;'>
+                bà nguyễn vũ anh linh
+                <br />
+                giám đốc kinh doanh tại công ty tnhh mốt quốc tế cv365
+                <br />
+                0987 541 258
+            </p>
+            <div class="box_content_taocv">
+                <div class="page_cv"></div>
+                <div id="loadingDone"></div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="/js/cv/function.js"></script>
+    <script>
+        let isLogin = getCookie('isLogin');
+        let isCreated = true;
+        $(document).ready(function () {
+            var lang
+            var url = window.location.href;
+            var pattern = /u(\d+)-c(\d+)/;
+            var match = url.match(pattern);
+            var id = Number(match[1]);
+            var idcv = Number(match[2]);
+            $('title').text(`http://localhost:9020/xem-cv2-u${id}-c${idcv}`)
+
+            $.ajax({
+                url: "http://localhost:3052/api/topcv1s/candidate/detailCV",
+                type: "POST",
+                data: { idcv: idcv, id: id },
+                success: function (result) {
+                    const alias = result?.data?.data?.alias
+                    const in4CVSsr = result?.data?.data?.result
+                    const color = JSON.parse(in4CVSsr.html)?.css.color
+                    const font = JSON.parse(in4CVSsr.html)?.css.font
+                    const fontSize = JSON.parse(in4CVSsr?.html).css.font_size;
+                    const fontSpacing = JSON.parse(in4CVSsr?.html).css.font_spacing;
+                    const filter = JSON.parse(in4CVSsr?.html).css.filter
+
+                    console.log(">>> filter: ", filter);
+                    
+                    if (JSON.parse(in4CVSsr.html)?.lang === "1") {
+                        lang = 'vi'
+                    } else if (JSON.parse(in4CVSsr.html)?.lang === "2") {
+                        lang = "en"
+                    } else if (JSON.parse(in4CVSsr.html)?.lang === "3") {
+                        lang = "cn"
+                    } else if (JSON.parse(in4CVSsr.html)?.lang === "4") {
+                        lang = "jp"
+                    } else {
+                        lang = "kr"
+                    }
+                    // console.log(">>> Check result: ", result);
+                    console.log(">>> Check in4CVSsr: ", in4CVSsr);
+                    $.ajax({
+                        url: `http://localhost:3056/api/topcv1s/cv/cv365/upload/cv/${alias}/index.html`,
+                        method: 'GET',
+                        success: function (data) {
+                            $('#cvid').attr('value', idcv)
+                            $('.page_cv').html(data);
+                            $("#cvo-profile-avatar").addClass('show_modal_avar')
+                            appendScript()
+                            // CSS
+                            $('#cv-css').attr('href', `http://localhost:3056/api/topcv1s/cv/cv365/upload/cv/${alias}/css/cv.css`);
+
+                            // Màu
+                            $('#color-stylesheet').attr("href", `http://localhost:3056/api/topcv1s/cv/cv365/upload/cv/${alias}/css/colors/${color}.css`);
+
+
+                            const handleChangeLang = (lang) => {
+                                // console.log(">>> Check: ", JSON.parse(in4CVSsr?.html));
+                                if (in4CVSsr && in4CVSsr?.html) {
+                                    return JSON.parse(in4CVSsr?.html)
+                                }
+                            };
+
+                            handleSetData(handleChangeLang(lang))
+
+                            $('#cvo-profile-avatar').css('filter', filter)
+
+                            // Font
+                            $('[contenteditable="true"]').css('font-family', font)
+                            $('#form-cv [contenteditable="true"]').css('line-height', fontSpacing);
+                            $('#form-cv, #cv-content h3').css('font-size', parseFloat(fontSize) + "px");
+                            $('#cv-top h1').css('font-size', ((parseFloat(fontSize) - 1) * 2).toFixed(2) + "px");
+                            $('#cv-top h2, .box-title, .block-title').css('font-size', (parseFloat(fontSize) + 2).toFixed(2) + "px");
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.error('Error fetching HTML:', textStatus, errorThrown);
+                        }
+                    });
+                },
+
+                error: function (xhr, status, error) {
+                    console.error('Error:', error); // In lỗi ra console nếu có lỗi
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,102 @@
+.cnt{
+    background-color: #F3F5F7;
+    position: relative;
+    height: 100vh;
+    display: flex;
+}
+
+.cnt-right{
+    height: 100%;
+    overflow: auto;
+    flex-grow: 1;
+}
+
+.regis-new-ntd-container{
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    max-width: 100%;
+}
+
+.ntd-search-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.ntd-search-bar > .input-info {
+    flex: 1 1 calc(20% - 10px);
+    max-width: calc(20% - 10px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.btn-search-ntd {
+    flex: 1 1 100%;
+    display: flex;
+    justify-content: left;
+}
+
+.btn-search {
+    width: 150px;
+    padding: 10px;
+    background-color: #00bbcc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.ntd-count {
+    margin-bottom: 20px;
+}
+
+.ntd-table {
+    overflow-x: auto;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.ntd-table >table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+thead {
+    background: #00bbcc;
+    color: white;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+tbody tr:nth-child(even) {
+    background: #f8f9fa;
+}
+
+.cnt-mag-paginate{
+    gap: 12px;
+}
+.cnt-mag-paginate > div{
+    padding: 10px;
+    background-color: #0075801A;
+    border-radius: 16px;
+}
+.pagi_page.active{
+    background-color: #007580;
+    color: white;
+}
+.loading-img{
+    display: flex;
+    justify-content: center;
+}
+@media (max-width: 768px) {
+    .cnt-right{
+        margin-left: 0;
+    }
+}

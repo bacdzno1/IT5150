@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" href="/images/img/icon_head.png">
+    <title>Danh sách ứng viên</title>
+    <link rel="preload" href="/css/admin/regis_new_candi.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/admin/regis_new_candi.css">
+    </noscript>
+    <link rel="preload" href="/css/common.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/common.css">
+    </noscript>
+    <link rel="preload" href="/css/admin/leftnav_admin.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/admin/leftnav_admin.css">
+    </noscript>
+</head>
+<body>
+    <div class="cnt">
+        <div class="cnt-left" id="leftNav">
+            <%- include('../layouts/leftnav_admin', {}); %>
+        </div>
+        <div class="cnt-right" id="rightContent">
+            <div class="regis-new-candi-container">
+                <div class="regis-candi-title fs-4 pt-4 pb-3"><b>Ứng viên đăng ký mới</b></div>
+                <div class="candi-search-bar pt-2">
+                    <input class="input-info" id="use_id" type="text" placeholder="Nhập ID">
+                    <input class="input-info" id="use_name" type="text" placeholder="Nhập tên ứng viên">
+                    <input class="input-info" id="use_email_contact" type="email" placeholder="Nhập email">
+                    <input class="input-info" id="use_phone" type="text" placeholder="Nhập SĐT">
+                    <input class="input-info" id="address" type="text" placeholder="Nhập địa chỉ">
+                    <select class="input-info" id="use_nganh_nghe">
+                        <option value="" selected>Chọn ngành nghề</option>
+                        <% for (let i=0; i < cateList.length; i++) { %>
+                            <option value="<%= cateList[i].cat_id %>">
+                                <%= cateList[i].cat_name %>
+                            </option>
+                            <% } %>
+                    </select>
+                    <select class="input-info" id="use_city">
+                        <option value="" selected>Chọn tỉnh thành</option>
+                        <% for (let i=0; i < listCities.length; i++) { %>
+                            <option value="<%= listCities[i].cit_id %>">
+                                <%= listCities[i].cit_name %>
+                            </option>
+                            <% } %>
+                    </select>
+                    <input class="input-info" id="from" type="date" placeholder="Từ">
+                    <input class="input-info" id="to" type="date" placeholder="Đến">
+                    <div class="btn-search-candi">
+                        <button class="btn-search">Tìm kiếm</button>
+                    </div>
+                </div>
+                <div class="candidate-count pt-2">
+                </div>
+                <div class="candi-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Id</th>
+                                <th>Tên ứng viên</th>
+                                <th>Email</th>
+                                <th>SĐT</th>
+                                <th>Công việc</th>
+                                <th>Ngày đăng ký</th>
+                                <th>Xác thực</th>
+                                <th>Cho phép NTD tìm kiếm</th>
+                                <th>Sửa</th>
+                                <th>Xóa</th>
+                            </tr>
+                        </thead>
+                        <tbody id="newRegisteredCandi">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="loading-box" style="display: none;">
+                    <div class="loading-img">
+                        <img src="/images/icon/Rolling.svg">            
+                    </div>
+                </div>
+                <div class="cnt-mag-paginate d-flex justify-c flex-wr pt-2">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="/js/jquery.min.js"></script>
+<script>
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    function formatDate(dateString) {
+        var date = new Date(dateString * 1000);
+        var day = String(date.getDate()).padStart(2, '0');
+        var month = String(date.getMonth() + 1).padStart(2, '0');
+        var year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    }
+    function formatDateTime(date, startOfDay = true) {
+        const pad = (num, size = 2) => String(num).padStart(size, '0');
+
+        // Trừ đi 7 tiếng từ thời gian hiện tại do lệch múi giờ với database
+        if (startOfDay) {
+            date.setHours(0, 0, 0, 0);  // Đặt thời gian đầu ngày
+            date.setHours(date.getHours() - 7);  // Trừ đi 7 tiếng
+        } else {
+            date.setHours(23, 59, 59, 999);  // Đặt thời gian cuối ngày
+            date.setHours(date.getHours() - 7);  // Trừ đi 7 tiếng
+        }
+
+        const day = pad(date.getDate());
+        const month = pad(date.getMonth() + 1);
+        const year = date.getFullYear();
+        const hour = pad(date.getHours());
+        const minute = pad(date.getMinutes());
+        const second = pad(date.getSeconds());
+        const millisecond = pad(date.getMilliseconds(), 3);
+        
+        return `${year}-${month}-${day}T${hour}:${minute}:${second}.${millisecond}`;
+    }
+    function deleteCookie(name) {
+        document.cookie = name + '=; Max-Age=0; path=/;';
+    }
+    function logout() {
+        deleteCookie('adminToken');
+        deleteCookie('adminRefToken');
+        deleteCookie('adm_id');
+        deleteCookie('adm_name');
+        deleteCookie('adm_email');
+        deleteCookie('adm_phone');
+        deleteCookie('adm_bophan');
+        deleteCookie('id_bophankd');
+        deleteCookie('adm_picture');
+        deleteCookie('typeadmin');
+        deleteCookie('isLogin');
+        deleteCookie('confirmBoxSeen')
+        window.location.href = '/admin';
+    }
+    $(document).ready(function () {
+        var totalCandis;
+        var totalPage;
+        var pageSize = 10;
+        $(".btn-search").click(function () {
+            renderTable(1);
+        });
+        if(getCookie('adminToken')){
+            $.ajax({
+            url: "http://localhost:3057/api/topcv1s/admin/list",
+            type: "POST",
+            headers: {
+                "Authorization": "Bearer " + getCookie('adminToken')
+            },
+            data: { page: 1, pageSize: pageSize, module: 2},
+            success: function (response) {
+                if (response.data.result == true) {
+                    totalCandis = response.data.total;
+                    totalPage = Math.ceil(totalCandis / pageSize);
+                    Paginate(totalPage, 1);
+                    renderTable(1);
+                }
+            },
+            error: function (xhr, status, error) {
+                try {
+                    if (xhr.status === 402) {
+                        logout();
+                    }
+                    let response = JSON.parse(xhr.responseText);
+                    let errorMessage = response.message || "Unknown error"; 
+
+                    alert(errorMessage);
+                    console.log(getCookie('adminToken'));
+                    console.log('Error message:', errorMessage);
+                } catch (e) {
+                    alert("An error occurred while processing the error message.");
+                    console.log('Parsing error:', e);
+                    console.log(getCookie('adminToken'));
+                }
+            },
+        });
+        }
+        else{
+            alert('Vui lòng đăng nhập lại');
+            window.location.href="/admin"
+        }
+        function renderTable(page) {
+            let conditions = {};
+            let use_id = $('#use_id').val();
+            if (use_id) {
+                conditions.use_id = +use_id;
+            }
+            let use_name = $('#use_name').val();
+            if (use_name) {
+                conditions.use_name = use_name;
+            }
+            let use_email_contact = $('#use_email_contact').val();
+            if (use_email_contact) {
+                conditions.use_email_contact = use_email_contact;
+            }
+            let use_phone = $('#use_phone').val();
+            if (use_phone) {
+                conditions.use_phone = use_phone;
+            }
+            let address = $('#address').val();
+            if (address) {
+                conditions.address = address;
+            }
+            let use_nganh_nghe = $('#use_nganh_nghe').val();
+            if (use_nganh_nghe) {
+                conditions.use_nganh_nghe = use_nganh_nghe;
+            }
+            let use_city = $('#use_city').val();
+            if (use_city) {
+                conditions.use_city = use_city;
+            }
+            let fromDate = $('#from').val();
+            let toDate = $('#to').val();
+            let from, to;
+            if (fromDate) {
+                from = formatDateTime(new Date(fromDate), true);
+            }
+            if (toDate) {
+                to = formatDateTime(new Date(toDate), false);
+            }
+
+
+            $.ajax({
+                url: "http://localhost:3057/api/topcv1s/admin/list",
+                type: "POST",
+                headers: {
+                    "Authorization": "Bearer " + getCookie('adminToken')
+                },
+                contentType: "application/json",
+                data: JSON.stringify({
+                    page: page,
+                    pageSize: pageSize,
+                    module: 2,
+                    conditions: conditions,
+                    from: from, 
+                    to: to
+                }),
+                beforeSend: function() {
+                    console.log(from);
+                    console.log(to);
+                    $('.loading-box').show();
+                },
+                success: function (response) {
+                    if (response.data.result == true) {
+                        let newRegisteredCandis = response.data.data;
+                        let start = (page - 1) * pageSize;
+                        totalCandis = response.data.total;
+                        totalPage = Math.ceil(totalCandis / pageSize);
+                        $(".candidate-count").empty();
+                        $(".candidate-count").append('<div class="fs-4"><b>Số ứng viên: ' + totalCandis + '</b></div>');
+                        let tableBody = $('#newRegisteredCandi');
+                        tableBody.empty();
+                        newRegisteredCandis.forEach((candidate, index) => {
+                            let dateRegis = formatDate(candidate.use_time);
+                            var slug = convertToSlug(candidate.use_name);
+                            let rowIndex = start + index + 1;
+                            let row = `<tr>
+                                        <td>${rowIndex}</td>
+                                        <td>${candidate.use_id}</td>
+                                        <td><b><a href="${slug}-uv-${candidate.use_id}" target="_blank"> ${candidate.use_name}</a></b></td>
+                                        <td>${candidate.use_email_contact}</td>
+                                        <td style="display:none">${candidate.use_phone_tk}</td>
+                                        <td style="">${candidate.use_phone ? candidate.use_phone : candidate.use_phone_tk ? candidate.use_phone_tk : "Chưa cập nhật"}</td>
+                                        <td>${candidate.use_job_name}</td>
+                                        <td>${dateRegis}</td>
+                                        <td>${candidate.use_authentic == 0 ? '<img src="/images/icon/checkx.svg" width="15" height="15" alt="X Icon">' : '<img src="/images/icon/check.svg" width="15" height="15" alt="Save Job Icon">'}</td>
+                                        <td>${candidate.use_show == 0 ? '<img src="/images/icon/checkx.svg" width="15" height="15" alt="X Icon">' : '<img src="/images/icon/check.svg" width="15" height="15" alt="Save Job Icon">'}</td>
+                                        <td><img src="/images/icon/editicon.svg" width="15" height="15" alt="Save Job Icon"></td>
+                                        <td><img src="/images/icon/delete.svg" width="15" height="15" alt="Save Job Icon"></td>
+                                    </tr>`;
+                            tableBody.append(row);
+                        });
+                        Paginate(totalPage, page);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    try {
+                        if (xhr.status === 402) {
+                            logout();
+                        }
+                        let response = JSON.parse(xhr.responseText);
+                        let errorMessage = response.message || "Unknown error"; 
+
+                        alert(errorMessage);
+                        console.log('Error message:', errorMessage);
+                    } catch (e) {
+                        alert("An error occurred while processing the error message.");
+                        console.log('Parsing error:', e);
+                    }
+                },
+                complete: function() {
+                    $('.loading-box').hide();
+                }
+            });
+        }
+
+        function Paginate(totalPage, currentPage) {
+            $('.cnt-mag-paginate').empty();
+            $('.cnt-mag-paginate').append('<div class="pagi_pre_all"><<</div>');
+            $('.cnt-mag-paginate').append('<div class="pagi_pre"><</div>');
+            var startPage, endPage;
+            if (totalPage <= 4) {
+                startPage = 1;
+                endPage = totalPage;
+            } else if (currentPage <= 2) {
+                startPage = 1;
+                endPage = Math.min(totalPage, 4);
+            } else if (currentPage >= totalPage - 1) {
+                startPage = Math.max(1, totalPage - 3);
+                endPage = totalPage;
+            } else {
+                startPage = currentPage - 2;
+                endPage = currentPage + 2;
+            }
+            if (startPage > 1) {
+                $('.cnt-mag-paginate').append('<div class="pagi_page">1</div>');
+                if (startPage > 2) {
+                    $('.cnt-mag-paginate').append('<div class="pagi_page">...</div>');
+                }
+            }
+            for (let i = startPage; i <= endPage; i++) {
+                if (i === currentPage) {
+                    $('.cnt-mag-paginate').append('<div class="pagi_page active">' + i + '</div>');
+                } else {
+                    $('.cnt-mag-paginate').append('<div class="pagi_page">' + i + '</div>');
+                }
+            }
+            if (endPage < totalPage) {
+                if (endPage < totalPage - 1) {
+                    $('.cnt-mag-paginate').append('<div class="pagi_page">...</div>');
+                }
+                $('.cnt-mag-paginate').append('<div class="pagi_page">' + totalPage + '</div>');
+            }
+            $('.cnt-mag-paginate').append('<div class="pagi_next">></div>');
+            $('.cnt-mag-paginate').append('<div class="pagi_next_all">>></div>');
+            $('.pagi_page').click(function () {
+                if (!$(this).hasClass('active') && !$(this).text().includes('...')) {
+                    let selectedPage = parseInt($(this).text());
+                    $('.pagi_page').removeClass('active');
+                    $(this).addClass('active');
+                    renderTable(selectedPage);
+                    Paginate(totalPage, selectedPage);
+                }
+            });
+            $('.pagi_pre').click(function () {
+                if (currentPage > 1) {
+                    let prevPage = currentPage - 1;
+                    renderTable(prevPage);
+                    Paginate(totalPage, prevPage);
+                }
+            });
+            $('.pagi_next').click(function () {
+                if (currentPage < totalPage) {
+                    let nextPage = currentPage + 1;
+                    renderTable(nextPage);
+                    Paginate(totalPage, nextPage);
+                }
+            });
+            $('.pagi_pre_all').click(function () {
+                renderTable(1);
+                Paginate(totalPage, 1);
+            });
+            $('.pagi_next_all').click(function () {
+                renderTable(totalPage);
+                Paginate(totalPage, totalPage);
+            });
+        }
+        // Khởi tạo trang đầu tiên và tổng số trang
+
+        function convertToSlug(text) {
+            return text.toLowerCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/[^a-z0-9 ]+/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-');
+        }
+    })
+</script>
+</html>

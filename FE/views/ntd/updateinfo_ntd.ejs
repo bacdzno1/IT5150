@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, follow" />
+    <meta name="google-site-verification" content="lwyGMjMCHXSuJXWOc3iy1MG_Hd6yRBARF5H8NuMxUPg" />
+
+    <title>Document</title>
+    <link rel="preload" href="/css/ntd/updateinfo_ntd.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="canonical" href="http://localhost:9020<%= url %>">
+    <noscript>
+        <link rel="stylesheet" href="/css/ntd/updateinfo_ntd.css">
+    </noscript>
+
+    <link rel="preload" href="/css/common.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/common.css">
+    </noscript>
+
+    <link rel="preload" href="/css/leftnav_ntd.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/leftnav_ntd.css">
+    </noscript>
+    <link rel="preload" href="/css/header_ntd.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/header_ntd.css">
+    </noscript>
+
+    <link rel="preload" href="/css/footer.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/footer.css">
+    </noscript>
+    <link rel="preload" href="/css/custom_select2.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/custom_select2.css">
+    </noscript>
+    <script src="/js/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="cnt">
+        <div class="cnt-left" id="leftNav">
+           <%- include('../layouts/leftnav_ntd', {}); %>
+        </div>
+        <div class="cnt-right" id="rightContent">
+            <%- include('../layouts/header_ntd', {}); %>
+            <div class="cnt-det">
+                <div class="cnt-top d-flex justify-b">
+                    <div class="cnt-info bg-white d-flex align-c">
+                        <div class="cnt-avar rounded-circle">
+                            <img class="rounded-circle " src="/images/img/cskh_image.jpg" width="114" height="114" alt="Logo CSKH">
+                        </div>
+                        <div class="cnt-gen fw-600">
+                            <div class="cnt-gen-name mb-20px">
+                                Chuyên viên hỗ trợ: <span class="color-main">Mrs. Nguyễn Hồng</span>
+                            </div>
+                            <div class="cnt-gen-phone mb-20px">
+                                SĐT - Zalo: <span class="color-main">0972319116</span>
+                            </div>
+                            <div class="cnt-gen-mail">
+                                Email: <span class="color-alert">nguyenhongg2609@gmail.com</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cnt-ban d-flex align-c">
+                        <div class="cnt-ban-tit fw-700 color-white text-c">
+                            Tuyển dụng nhanh, tuyển dụng hiệu quả, đăng tin miễn phí
+                        </div>
+                        <div class="cnt-ban-logo">
+                            <img src="/images/logo/biglogo.svg" width="250" height="107" alt="Logo Image">
+                        </div>
+                    </div>
+                </div>
+                <div class="cnt-mag">
+                    <form id="update_infor">
+                    <div class="cnt-uif bg-white d-flex flex-dr-c">
+                        <div class="cnt-uif-acc">
+                            <div class="cnt-uif-tit fs-4 fw-600 color-main">
+                                Thông tin tài khoản
+                            </div>
+                            <div class="cnt-uif-acc-top d-flex justify-b">
+                                <div class="cnt-uif-acc-lef">
+                                    <div class="cnt-uform">
+                                        <label for="phone_nb">
+                                            Số điện thoại đăng nhập
+                                        </label>
+                                        <div class="form-ctr">
+                                            <input type="text" id="phone_nb" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="cnt-uform">
+                                        <label>
+                                            Mật khẩu
+                                        </label>
+                                        <div class="form-ctr">
+                                            <input type="password" disabled value="********">
+                                            <!-- <img class="show_pass" src="/images/icon/show_pass.svg" alt="Show Pass Icon" width="20" height="20"> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cnt-uif-acc-rig d-flex">
+                                    <div class="form_update_logo">
+                                        <img class="rounded-circle cmp_logo" src="/images/img/default_logo.jpg" width="170" height="170" alt="Image Candidate">
+                                        <div class="update_logo">
+                                            <img src="/images/icon/img_uploadlogo.svg" class="upload_usc_logo" width="41" height="41" alt="Update Logo">
+                                        </div>
+                                        <input id="usc-logo" type="file" accept=".png, .jpg, .jpeg, .gif, .webp"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cnt-uif-emp">
+                            <div class="cnt-uif-tit fs-4 fw-600 color-main">
+                                Thông tin nhà tuyển dụng
+                            </div>
+                            <div class="cnt-uif-det d-flex flex-dr-c">
+                                <div class="cnt-uform">
+                                    <label for="cmp_name">
+                                        Tên công ty <span class="color-alert">*</span>
+                                    </label>
+                                    <div class="form-ctr">
+                                        <input type="text" id="cmp_name" name="cmp_name" placeholder="Nhập tên công ty">
+                                    </div>
+                                </div>
+                                <div class="cnt-uif-row">
+                                    <div class="cnt-uform">
+                                        <label for="ceo_name">
+                                            Tổng giám đốc <span class="color-alert">*</span>
+                                        </label>
+                                        <div class="form-ctr">
+                                            <input type="text" id="ceo_name" name="ceo_name" placeholder="Nhập tên Tổng giám đốc">
+                                        </div>
+                                    </div>
+                                    <div class="cnt-uform">
+                                        <label for="cmp_size">
+                                            Quy mô công ty <span class="color-alert">*</span>
+                                        </label>
+                                        <div class="form-ctr">
+                                            <select id="cmp_size" name="cmp_size">
+                                                <% listSizeCompany.forEach(item => { %>
+                                                    <% let key = Object.keys(item)[0]; %>
+                                                    <% let value = Object.values(item)[0]; %>
+                                                    <option value="<%= key %>"><%= value %></option>
+                                                <% }); %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cnt-uif-row">
+                                    <div class="cnt-uform">
+                                        <label for="land_phone">
+                                            Số điện thoại cố định <span class="color-alert">*</span>
+                                        </label>
+                                        <div class="form-ctr">
+                                            <input type="text" id="land_phone" name="land_phone" placeholder="Nhập số điện thoại">
+                                        </div>
+                                    </div>
+                                    <div class="cnt-uform">
+                                        <label for="tax_nb">
+                                            Mã số thuế
+                                        </label>
+                                        <div class="form-ctr">
+                                            <input type="text" id="tax_nb" name="tax_nb" placeholder="Nhập mã số thuế">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cnt-uif-row">
+                                    <div class="cnt-uform">
+                                        <label for="field_op">
+                                            Lĩnh vực hoạt động
+                                        </label>
+                                        <div class="form-ctr">
+                                            <select id="field_op" name="field_op">
+                                                <% for (let i = 0; i < cateList.length; i++) { %>
+                                                    <option value="<%= cateList[i].cat_id %>"><%= cateList[i].cat_name %></option>
+                                                <% } %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="cnt-uform">
+                                        <label for="found_date">
+                                            Ngày thành lập công ty <span class="color-alert">*</span>
+                                        </label>
+                                        <div class="form-ctr">
+                                            <input type="date" id="found_date" name="found_date">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cnt-uif-row">
+                                    <div class="cnt-uform">
+                                        <label for="skype_link">
+                                            Skype
+                                        </label>
+                                        <div class="form-ctr">
+                                            <input type="text" id="skype_link" name="skype_link" placeholder="Nhập link tài khoản Skype">
+                                        </div>
+                                    </div>
+                                    <div class="cnt-uform">
+                                        <label for="web_link">
+                                            Website
+                                        </label>
+                                        <div class="form-ctr">
+                                            <input type="text" id="web_link" name="web_link" placeholder="Nhập link Website">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cnt-uif-row">
+                                    <div class="cnt-uform">
+                                        <label for="city_loc">
+                                            Tỉnh/Thành phố <span class="color-alert"></span>
+                                        </label>
+                                        <div class="form-ctr">
+                                            <select id="city_loc" name="city_loc">
+                                                <option value=""></option>
+                                                <% for (let i = 0; i < listCities.length; i++) { %>
+                                                    <option value="<%= listCities[i].cit_id %>"><%= listCities[i].cit_name %></option>
+                                                <% } %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="cnt-uform">
+                                        <label for="disc_loc">
+                                            Quận/Huyện <span class="color-alert"></span>
+                                        </label>
+                                        <div class="form-ctr">
+                                            <select id="disc_loc" name="disc_loc" data-city-array="<%= JSON.stringify(city_array) %>">                                              
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cnt-uform">
+                                    <label for="cmp_loc">
+                                        Địa chỉ công ty <span class="color-alert">*</span>
+                                    </label>
+                                    <div class="form-ctr">
+                                        <input type="text" id="cmp_loc" name="cmp_loc" placeholder="Nhập địa chỉ công ty">
+                                    </div>
+                                </div>
+                                <div class="cnt-uform">
+                                    <label for="cmp_intro">
+                                        Giới thiệu về công ty <span class="color-alert">*</span>
+                                    </label>
+                                    <div class="form-ctr">
+                                        <textarea id="cmp_intro" name="cmp_intro" placeholder="Giới thiệu về công ty"></textarea>
+                                    </div>
+                                </div>
+                                <div class="cnt-uform">
+                                    <label for="cmp_img">
+                                        Thêm hình ảnh công ty:
+                                    </label>
+                                    <div id="imageList" class="image-list">
+                                        <!-- Đây là nơi hiển thị danh sách các ảnh đã có từ API -->
+                                    </div>
+                                    <div class="w-100">
+                                        <img class="upload_img_cmp" width="139" height="139" alt="Upload Image Company" src="/images/icon/upload_imgcmp.svg">
+                                    </div>
+                                    <input id="cmp_img" type="file" accept=".png, .jpg, .jpeg, .gif, .webp" multiple/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cnt-uif-ctact">
+                            <div class="cnt-uif-tit fs-4 fw-600 color-main">
+                                Thông tin liên hệ
+                            </div>
+                            <div class="cnt-uif-det d-flex flex-dr-c">
+                                <div class="cnt-uif-row">
+                                    <div class="cnt-uform">
+                                        <label for="ctact_per">
+                                            Người liên hệ <span class="color-alert">*</span>
+                                        </label>
+                                        <div class="form-ctr">
+                                            <input type="text" id="ctact_per" name="ctact_per" placeholder="Nhập tên người liên hệ">
+                                        </div>
+                                    </div>
+                                    <div class="cnt-uform">
+                                        <label for="ctact_add">
+                                            Địa chỉ liên hệ <span class="color-alert">*</span>
+                                        </label>
+                                        <div class="form-ctr">
+                                            <input type="text" id="ctact_add" name="ctact_add" placeholder="Nhập địa chỉ liên hệ">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cnt-uif-row">
+                                    <div class="cnt-uform">
+                                        <label for="ctact_phone">
+                                            Số điện thoại liên hệ <span class="color-alert">*</span>
+                                        </label>
+                                        <div class="form-ctr">
+                                            <input type="text" id="ctact_phone" name="ctact_phone" placeholder="Nhập số điện thoại liên hệ">
+                                        </div>
+                                    </div>
+                                    <div class="cnt-uform">
+                                        <label for="ctact_email">
+                                            Email liên hệ <span class="color-alert">*</span>
+                                        </label>
+                                        <div class="form-ctr">
+                                            <input type="email" id="ctact_email" name="ctact_email" placeholder="Nhập email liên hệ">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-c">
+                            <button class="update_info_comp" type="submit">CẬP NHẬT</button>
+                        </div>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+        <%- include('../layouts/footer', {}); %>
+        <script src="/js/custom_select.js"></script>
+        <script src="/js/jquery.validate.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $(window).scroll(function() {
+            var $leftNav = $('.lnav');
+            var $rightContent = $('#rightContent');
+            var rightContentHeight = $rightContent.outerHeight(true);
+            var rightContentOffsetTop = $rightContent.offset().top;
+            var rightContentBottom = rightContentOffsetTop + rightContentHeight;
+            var scrollTop = $(window).scrollTop();
+            var windowHeight = $(window).height();
+            var leftNavHeight = $leftNav.outerHeight(true);
+
+            if (scrollTop + leftNavHeight > rightContentBottom) {
+                $leftNav.css({
+                    position: 'absolute',
+                    top: (rightContentHeight - leftNavHeight) + 'px'
+                });
+            } else {
+                $leftNav.css({
+                    position: 'fixed',
+                    top: '0'
+                });
+            }
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('.nhead-rig-togm').click(function() {
+            $('#mobileMenu').slideDown(300);
+        });
+        $('.menu-mb-close').click(function() {
+            $('#mobileMenu').slideUp(300);
+        });
+    });
+    $(document).ready(function() {
+        $(".tog-mb").click(function() {
+            $(this).next(".menu-mb-clist").slideToggle();
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('.show_pass').on('click', function() {
+            var passwordInput = $(this).siblings('input');
+            var inputType = passwordInput.attr('type');
+            if (inputType === 'password') {
+                passwordInput.attr('type', 'text');
+            } else {
+                passwordInput.attr('type', 'password');
+            }
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $(".upload_img_cmp").click(function() {
+            $("#cmp_img").click();
+        });
+    });   
+    $(document).ready(function() {
+        $(".upload_usc_logo").click(function() {
+            $("#usc-logo").click();
+        });
+        $("#update_infor").validate({
+            rules:{
+                cmp_name: {
+                    required: true
+                },
+                cmp_size: {
+                    required: true
+                },
+                land_phone: {
+                    required: true
+                },
+                cmp_loc: {
+                    required: true
+                },
+                ctact_per: {
+                    required: true
+                },
+                ctact_add: {
+                    required: true
+                },
+                ctact_phone: {
+                    required: true
+                },
+                ctact_email: {
+                    required: true
+                },
+            },
+            messages:{
+                cmp_name: {
+                    required: "Vui lòng nhập tên công ty"
+                },
+                cmp_size: {
+                    required: "Vui lòng chọn quy mô công ty"
+                },
+                land_phone: {
+                    required: "Vui lòng nhập số điện thoại cố định"
+                },
+                cmp_loc: {
+                    required: "Vui lòng nhập địa chỉ công ty"
+                },
+                ctact_per: {
+                    required: "Vui lòng nhập tên người liên hệ"
+                },
+                ctact_add: {
+                    required: "Vui lòng nhập địa chỉ liên hệ"
+                },
+                ctact_phone: {
+                    required: "Vui lòng nhập số điện thoại liên hệ"
+                },
+                ctact_email: {
+                    required: "Vui lòng nhập email liên hệ"
+                },        
+            },
+            errorPlacement: function (error, element) {
+                error.insertAfter(element.closest('.form-ctr'));
+            },
+            submitHandler: function () {
+                updateInfoNTD()
+            }
+        })
+    });
+    $("#usc-logo").change(function() {
+        var file = this.files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $(".cmp_logo").attr("src", e.target.result);
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
+<script>
+    var listImage = []; 
+    var newImages = [];
+
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    function convertToDateString(timestamp) {
+        const date = new Date(timestamp);
+        const year = date.getFullYear();
+        let month = ("0" + (date.getMonth() + 1)).slice(-2);
+        let day = ("0" + date.getDate()).slice(-2);
+        const dateString = `${year}-${month}-${day}`;
+        return dateString;
+    }
+    // Cập nhật thông tin nhà tuyển dụng
+    function updateInfoNTD() {
+        if(!$("#cmp_name").val()){
+            alert("Bạn chưa nhập tên công ty"); return; 
+        } else if(!$("#cmp_size").val()){
+            alert("Bạn chưa chọn quy mô công ty"); return; 
+        } else if(!$("#land_phone").val()){
+            alert("Bạn chưa nhập số điện thoại cố định"); return; 
+        } else if(!$("#cmp_loc").val()){
+            alert("Bạn chưa nhập địa chỉ công ty"); return; 
+        } else if(!$("#ctact_per").val()){
+            alert("Bạn chưa nhập người liên hệ"); return; 
+        } else if(!$("#ctact_add").val()){
+            alert("Bạn chưa nhập địa chỉ liên hệ"); return; 
+        } else if(!$("#ctact_phone").val()){
+            alert("Bạn chưa nhập số điện thoại liên hệ"); return; 
+        } else if(!$("#ctact_email").val()){
+            alert("Bạn chưa nhập email liên hệ"); return; 
+        }
+        var formData = new FormData();
+        formData.append('nameCompany', $("#cmp_name").val());
+        formData.append('usc_boss', $("#ceo_name").val());
+        formData.append('quyMo', $("#cmp_size").val());
+        formData.append('phone', $("#land_phone").val());
+        formData.append('mst', $("#tax_nb").val());
+        formData.append('financial_sector[]', $("#field_op").val());
+        formData.append('DateOfIncorporation', $("#found_date").val());
+        formData.append('skype', $("#skype_link").val());
+        formData.append('website', $("#web_link").val());
+        formData.append('city', $("#city_loc").val());
+        formData.append('district', $("#disc_loc").val());
+        formData.append('address', $("#cmp_loc").val());
+        formData.append('inforCompany', $("#cmp_intro").val());
+        formData.append('nameContact', $("#ctact_per").val());
+        formData.append('addressContact', $("#ctact_add").val());
+        formData.append('phoneContact', $("#ctact_phone").val());
+        formData.append('emailContact', $("#ctact_email").val());
+        formData.append('Logo', $("#usc-logo")[0].files[0]);
+
+        newImages?.forEach(function(imageFile) {
+            formData.append('Image[]', imageFile);
+        });
+
+        listImage?.forEach(function(imageUrl) {
+            formData.append('existImage[]', imageUrl);
+            console.log(imageUrl);
+        });
+
+        
+        $.ajax({
+            url: "http://localhost:3050/api/topcv1s/user/UpdateInfoEmployers",
+            type: "POST",
+            headers: {
+                "Authorization": "Bearer " + getCookie('accessToken')
+            },
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                if(response.data.result==true){
+                    alert("Cập nhật thông tin thành công")
+                    $.ajax({
+                        type: "POST",
+                        url: "http://localhost:3050/api/topcv1s/user/getAccountDetail",
+                        async: true,
+                        beforeSend: function (request) {
+                            request.setRequestHeader("Authorization", "Bearer " + getCookie('accessToken'));
+                        },
+                        dataType: "json",
+                        success(response) {
+                            var usc_company = response?.data?.data?.name;
+                            var alias = convertToAlias(usc_company)
+                            var logo = response?.data?.data?.avatar;  
+                            document.cookie = `usc_company=${usc_company}; max-age=${60 * 24 * 60 * 60}; path=/`;
+                            document.cookie = `logo=${logo}; max-age=${60 * 24 * 60 * 60}; path=/`;
+                            window.location.href = `/${alias}`;
+                        },
+                        error(err) {
+                            console.log(err);
+                        }
+                    });
+                }                
+            },
+            error: function(xhr, status, error) {
+                let errorMessage;
+                let response = JSON.parse(xhr.responseText);
+                if (response.error) {
+                    errorMessage = response.error.message;
+                }
+                alert(errorMessage);
+                console.log('Error:', errorMessage);
+            }
+        }); 
+           
+    }
+  
+    $(document).ready(function() {
+        var infoNTD;
+        //Hàm hiển thị ảnh cũ + mới + xóa ảnh
+        function renderImageList() {
+            var imageListContainer = $('#imageList');
+            imageListContainer.empty();
+            listImage?.forEach(function(imageUrl) {
+                var imageItem = $('<div class="image-item"></div>');
+                var img = $('<div class="box-img-item"><img class="existing-image" src="' + imageUrl + '" /></div>');
+                img.click(function() {
+                    var index = listImage.indexOf(imageUrl);
+                    if (index !== -1) {
+                        listImage.splice(index, 1); 
+                        imageItem.remove(); 
+                    }
+                });
+                imageItem.append(img);
+                imageListContainer.append(imageItem);
+            });
+            newImages?.forEach(function(imageFile, index) {
+                var imageItem = $('<div class="image-item"></div>');
+                var img = $('<div class="box-img-item" width="139" height="139" ><img class="new-image" src="' + URL.createObjectURL(imageFile) + '" /></div>');
+                img.click(function() {
+                    newImages.splice(index, 1); 
+                    imageItem.remove();
+                });
+                imageItem.append(img);
+                imageListContainer.append(imageItem);
+            });
+        }
+
+        $.ajax({
+        url: "http://localhost:3050/api/topcv1s/user/infoNTD",
+        type: "POST",
+        headers: {
+            "Authorization": "Bearer " + getCookie('accessToken')
+        },
+        contentType: "application/json",
+        success: function(response) {
+            if (response.data.result === true) {
+                infoNTD = response.data.data;
+                $("#phone_nb").val(infoNTD.usc_phone_tk).prop('readonly', true)
+                $("#cmp_name").val(infoNTD.usc_company)
+                $("#ceo_name").val(infoNTD.usc_boss)
+                $("#cmp_size").val(infoNTD.usc_size)
+                $("#land_phone").val(infoNTD.usc_phone)
+                $("#tax_nb").val(infoNTD.usc_mst)
+                $("#field_op").val(infoNTD.financial_sector ? infoNTD.financial_sector[0].id : "")
+                if(infoNTD.DateOfIncorporation != '1970-01-01T00:00:00.000Z')
+                {
+                    $("#found_date").val(convertToDateString(infoNTD.DateOfIncorporation))
+                }
+                $("#skype_link").val(infoNTD.usc_skype)
+                $("#web_link").val(infoNTD.usc_website)
+                $("#city_loc").val(infoNTD.usc_city)
+                $("#cmp_loc").val(infoNTD.usc_address)
+                $("#cmp_intro").val(infoNTD.usc_company_info)
+                $("#ctact_per").val(infoNTD.usc_name)
+                $("#ctact_add").val(infoNTD.usc_name_add)
+                $("#ctact_phone").val(infoNTD.usc_name_phone)
+                $("#ctact_email").val(infoNTD.usc_name_email) 
+                //Hiển thị ảnh công ty
+                listImage = infoNTD.image_com;
+                renderImageList();
+                //Hiển thị logo nếu có logo hợp lệ
+                let usc_logo = infoNTD.usc_logo;
+                if (usc_logo) {
+                    var img = new Image();
+                    img.onload = function() {
+                        $(".cmp_logo").attr("src", usc_logo);
+                    };
+                    img.src = usc_logo; 
+                }
+                $("#city_loc").trigger('change');
+                $("#field_op").trigger('change');
+            }
+            },
+            error: function(xhr, status, error) {
+                console.error("Error:", error);
+            },
+        });
+        //Thêm ảnh mới + render ảnh
+        $('#cmp_img').change(function(event) {
+            var files = event.target.files;
+            for (var i = 0; i < files.length; i++) {
+                newImages.push(files[i]);
+            }
+            renderImageList();
+        });
+        //Thay đổi địa chỉ quận huyện theo tỉnh thành
+
+        //Lấy danh sách quận huyện theo tỉnh
+        function findDistrict(cityArray, parentId) {
+            return cityArray.filter(city => city.cit_parent === parseInt(parentId));
+        }
+        $('#city_loc').CustomSelect({
+            placeholder: 'Chọn tỉnh thành',
+            searchPlaceholder: 'Tìm kiếm...',
+            multiple: false
+        });
+        $('#field_op').CustomSelect({
+            placeholder: 'Chọn lĩnh vực hoạt động',
+            searchPlaceholder: 'Tìm kiếm...',
+            multiple: false
+        });
+        $('#disc_loc').CustomSelect({
+            placeholder: 'Chọn tỉnh thành',
+            searchPlaceholder: 'Tìm kiếm...',
+            multiple: false
+        });
+        $('#city_loc').change(function() {
+            var id = parseInt($(this).val());
+            $.ajax({
+                url: '/api/getDistrict',
+                method: 'POST',
+                data: { id: id },
+                success: function(response) {
+                    if (response.district.length > 0) {
+                        $('#disc_loc').empty();
+                        response.district.forEach(function(city) {
+                            $('#disc_loc').append('<option value="' + city.cit_id + '">' + city.cit_name + '</option>');
+                        });
+
+                        $('#disc_loc').trigger('update');
+                        
+                    }
+                },
+                error: function(err) {
+                    console.error('Error:', err);
+                }
+            });
+        });
+
+    });
+</script>
+
+
+</body>
+
+</html>

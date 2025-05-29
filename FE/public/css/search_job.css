@@ -1,0 +1,233 @@
+.search {
+    font-family: Roboto;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* background-image: url(/images/img/backgroundlogin.webp); */
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Roboto';
+    src: url('/fonts/Roboto-Black.ttf') format('woff2');
+    font-weight: 900;
+    font-style: normal;
+}
+
+.search::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 110px 0;
+    height: 100%;
+    background-color: #00b14f99;
+}
+
+.search-box {
+    position: relative;
+    padding-top: 110px;
+    padding-bottom: 110px;
+    z-index: 2;
+}
+
+.search-til {
+    margin-bottom: 40px;
+}
+
+.search-form {
+    margin-bottom: 22px;
+}
+
+.search-til .search-til-top {
+    font-size: 40px;
+    margin: 0 0 20px 0;
+}
+
+.search-til .search-til-top span:first-child {
+    color: #00e9ff;
+    font-weight: 900;
+}
+
+.search-til .search-til-bot {
+    font-size: 40px;
+    margin: 0;
+}
+
+.search-name {
+    padding: 13px 15px;
+    border-radius: 10px 0px 0px 10px;
+    position: relative;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border: none;
+}
+
+.search-name input::placeholder {
+    color: #999999;
+}
+.search-name input {
+    border: none;
+    color: #000000;
+}
+.search-loc {
+    padding: 13px 16px;
+    border-left: 1px solid #b7b7b7;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.search-loc select {
+    border: none;
+    padding-right: 30px;
+}
+
+.search-btn {
+    background-color: #ee1c51;
+    padding: 15.5px 26px;
+    border-radius: 0px 10px 10px 0px;
+    border: 0;
+    cursor: pointer;
+}
+
+.search-kw {
+    gap: 32px;
+}
+
+.kw-item {
+    padding: 10px 13.5px;
+    border: 2px solid #ffffff;
+    border-radius: 42px;
+}
+
+.select2.select2-container.select2-container--default {
+    width: 100% !important;
+}
+
+.select2-selection.select2-selection--single {
+    border: none !important;
+}
+.search-remind{
+    position: absolute;
+    display: none;
+    left: 0;
+    width: 250%;
+    height: 250px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    top: 55px;
+    z-index: 2;
+    overflow: hidden;
+}
+.search-remind.active{
+    display: block;
+}
+.remind-cnt{
+    padding: 15px;
+    display: flex;
+    height: 100%;
+}
+.remind-his{
+    width: 30%;
+    border-right: 1px solid #888;
+    padding: 8px;
+    height: 100%;
+    overflow: hidden;
+}
+.remind-lis{
+    width: 70%;
+    padding: 8px;
+    overflow: hidden;
+}
+.remind-his-tit,.remind-lis-tit{
+    height: 20px;
+    font-size: 13px;
+    margin-bottom: 12px;
+    color: #888;
+}
+.remind-his-box,.remind-lis-box{
+    overflow: auto;
+    max-height: 100%;
+    height: 170px;
+}
+.remind-lis-box{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+.kw-list{
+    flex-wrap: wrap;
+}
+.remind-lis-box li,.remind-his-box li{
+    font-size: 14px;
+    cursor: pointer;
+    color: #000000;
+}
+.remind-his-box li:not(:last-child){
+    margin-bottom: 8px;
+}
+.remind-lis-box li:hover, .remind-his-box li:hover{
+    color: #00b14f;
+}
+
+@media only screen and (max-width:768px) {
+    .search-form {
+        gap: 18px;
+    }
+    .search-form input,
+    .search-form select {
+        flex: 1;
+    }
+    .search-form .search-name,
+    .search-form .search-loc,
+    .search-form .search-btn {
+        width: 100%;
+        border-radius: 10px;
+    }
+    .search-kw {
+        display: none !important;
+    }
+    .search-til .search-til-top {
+        font-size: 30px;
+    }
+    .search-til .search-til-bot {
+        font-size: 20px;
+    }
+    .search-remind{
+        width: 100%;
+        height: unset;
+    }
+    .remind-cnt{
+        flex-direction: column;
+    }
+    .remind-his,.remind-lis{
+        width: 100%;
+    }
+    .remind-his{
+        overflow: auto;
+        border-right: none;
+        border-bottom: 1px solid #888;
+    }
+    .remind-his-box{
+        height: unset;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .search-box {
+        padding-top: 66px;
+        padding-bottom: 66px;
+    }
+}

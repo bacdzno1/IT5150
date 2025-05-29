@@ -1,0 +1,174 @@
+<img src="/images/img/backgroundlogin-min.webp" loading="eager" style="display:none;" id="preloadImage">
+<div class="search" style="background-image: url('/images/img/backgroundlogin-min.webp');">
+    <div class="search-box container">
+        <div class="search-form d-flex gap-2">
+            <div class="search-item">
+                <div class="search-name d-flex align-c gap-2 bg-white">
+                    <span>
+                        <img width="24" height="24" alt="Search Icon" src="/images/icon/searchicon.svg">
+                    </span>
+                    <input class="fw-6" id="s_key" type="text" placeholder="Tên việc làm / Tên công ty" autocomplete="off">
+                    <div class="search-remind">
+                        <div class="remind-cnt">
+                            <div class="remind-his">
+                                <div class="remind-his-tit">
+                                    Tìm kiếm gần đây
+                                </div>
+                                <ul class="remind-his-box">
+    
+                                </ul>
+                            </div>
+                            <div class="remind-lis">
+                                <div class="remind-lis-tit">
+                                    Từ khóa phổ biến 
+                                </div>
+                                <ul class="remind-lis-box">
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="search-loc d-flex align-c gap-2 bg-white">
+                    <span>
+                        <img width="24" height="24" alt="Search Location" src="/images/icon/search_location.svg">
+                    </span>
+                    <select id="cit_id">
+                        <option value="0">Tất cả địa điểm</option>
+                    </select>
+                </div>
+            </div>
+            <div class="search-item">
+                <div class="search-exp d-flex align-c gap-2 bg-white">
+                    <span>
+                        <img width="21" height="20.25" alt="Experience Icon" src="/images/icon/cil_exp.svg">
+                    </span>
+                    <select id="exp_id">
+                        <option value="8">Tất cả kinh nghiệm</option>
+                        <option value="0">Chưa có kinh nghiệm</option>
+                        <option value="1">0 - 1 năm kinh nghiệm</option>
+                        <option value="2">Hơn 1 năm kinh nghiệm</option>
+                        <option value="3">Hơn 2 năm kinh nghiệm</option>
+                        <option value="4">Hơn 3 năm kinh nghiệm</option>
+                        <option value="5">Hơn 4 năm kinh nghiệm</option>
+                        <option value="6">Hơn 5 năm kinh nghiệm</option>
+                        <option value="7">Hơn 10 năm kinh nghiệm</option>
+                    </select>
+                </div>
+            </div>
+            <div class="search-item">
+                <div class="search-sal d-flex align-c gap-2 bg-white">
+                    <span>
+                        <img width="24" height="24" alt="Salary Icon" src="/images/icon/cil_dollar.svg">
+                    </span>
+                    <select id="sal_id">
+                        <option value="0">Tất cả mức lương</option>
+                        <option value="1">Thỏa thuận</option>
+                        <option value="2">1 triệu - 3 triệu</option>
+                        <option value="3">3 triệu - 5 triệu</option>
+                        <option value="4">5 triệu - 7 triệu</option>
+                        <option value="5">7 triệu - 10 triệu</option>
+                        <option value="6">10 triệu - 15 triệu</option>
+                        <option value="7">15 triệu - 20 triệu</option>
+                        <option value="8">20 triệu - 30 triệu</option>
+                        <option value="9">Trên 30 triệu</option>
+                        <option value="10">Trên 50 triệu</option>
+                        <option value="11">Trên 100 triệu</option>
+                    </select>
+                </div>
+            </div>
+            <button class="search-btn">
+                <img src="/images/icon/glass-bold.svg" width="30" height="30" alt="Search Icon">
+                <span>Tìm kiếm</span>
+            </button>
+        </div>
+        <div class="search-res d-flex justify-b">
+            <div class="search-res-text">
+                Tổng <span class="search-res-count"></span> kết quả
+            </div>
+            <button class="search-res-tool">
+                <img width="24" height="24" alt="Filter Icon" src="/images/icon/Filter.svg"> Lọc nâng cao
+            </button>
+        </div>
+        <div class="search_res2 d-flex justify-b">
+            <div class="search_res_2">
+                <div class="adv_fil">
+                    <span>
+                        <img src="/images/icon/header-loc.svg" alt="dictrict_icon">
+                    </span>
+                    <select id="district">
+                        <option value="">Select district</option>
+                    </select>
+                </div>
+                <div class="adv_fil">
+                    <span>
+                        <img src="/images/icon/edu_icon.svg" alt="edu_icon">
+                    </span>
+                    <select id="edu">
+                        <option value="">Chọn trình độ học vấn</option>
+                        <option value="0">Tất cả</option>
+                        <option value="1">PTCS</option>
+                        <option value="2">Trung học</option>
+                        <option value="3">Chứng chỉ</option>
+                        <option value="4">Trung cấp</option>
+                        <option value="5">Cao đẳng</option>
+                        <option value="6">Cử nhân</option>
+                        <option value="7">Đại học</option>
+                        <option value="8">Thạc sĩ</option>
+                        <option value="9">Thạc sĩ nghệ thuật</option>
+                        <option value="10">Thạc sĩ Thương mại</option>
+                        <option value="11">Thạc sĩ Khoa học</option>
+                        <option value="12">Thạc sĩ Kiến trúc</option>
+                        <option value="13">Thạc sĩ QTKD</option>
+                        <option value="14">Thạc sĩ Kỹ thuật ứng dụng</option>
+                        <option value="15">Thạc sĩ Luật</option>
+                        <option value="16">Thạc sĩ Y Học</option>
+                        <option value="17">Thạc sĩ Dược phẩm</option>
+                        <option value="18">Tiến sĩ</option>
+                        <option value="19">Khác</option>
+                    </select>
+                </div>
+            </div>
+            <div class="search_res_2">
+                <div class="adv_fil">
+                    <span>
+                        <img class="img_sp" src="/images/icon/type_work_icon.svg" alt="type_work_icon">
+                    </span>
+                    <select id="fomati">
+                        <option value="">Select type of work</option>
+                        <option value="0">Tất cả hình thức</option>
+                        <option value="1">Toàn thời gian cố định</option>
+                        <option value="2">Toàn thời gian tạm thời</option>
+                        <option value="3">Bán thời gian</option>
+                        <option value="4">Bán thời gian tạm thời</option>
+                        <option value="5">Hợp đồng</option>
+                        <option value="6">Khác</option>
+                    </select>
+                </div>
+                <div class="adv_fil">
+                    <span>
+                        <img class="img_sp" src="/images/icon/skill_icon.svg" alt="lever_icon">
+                    </span>
+                    <select id="lever">
+                        <option value="">Select lever</option>
+                        <option value="0">Tất cả cấp độ</option>
+                        <option value="6">Thực tập sinh</option>
+                        <option value="1">Mới tốt nghiệp</option>
+                        <option value="2">Nhân viên</option>
+                        <option value="3">Trưởng Nhóm</option>
+                        <option value="9">Phó tổ trưởng</option>
+                        <option value="10">Tổ trưởng</option>
+                        <option value="14">Phó Trưởng phòng</option>
+                        <option value="4">Trưởng Phòng</option>
+                        <option value="7">Quản lý cấp trung</option>
+                        <option value="8">Quản lý cấp cao</option>
+                        <option value="11">Phó giám đốc</option>
+                        <option value="5">Giám Đốc</option>
+                        <option value="12">Phó tổng giám đốc</option>
+                        <option value="13">Tổng giám đốc</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" href="/images/img/icon_head.png">
+    <title>Document</title>
+    <link rel="preload" href="/css/admin/login_admin.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/admin/login_admin.css">
+    </noscript>
+
+    <link rel="preload" href="/css/common.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/common.css">
+    </noscript>
+    <script src="/js/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="login-container">
+        <form class="login-form">
+            <h2>Đăng nhập</h2>
+            <div class="input-group">
+                <label for="username">Tên tài khoản</label>
+                <input type="text" id="username" name="username">
+            </div>
+            <div class="input-group">
+                <label for="password">Mật khẩu</label>
+                <input type="password" id="password" name="password">
+            </div>
+            <button onclick="loginAdmin()">Đăng nhập</button>
+        </form>
+    </div>
+    <script src="/js/jquery.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Kiểm tra cookie isLogin
+            var isLogin = getCookie("isLogin");
+            var adminToken = getCookie("adminToken");
+            if (adminToken) {
+                window.location.href = '/ung-vien-dang-ky-moi';
+                console.log(login);
+            }
+        });
+        console.log()
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+        function loginAdmin() {
+            event.preventDefault();
+            const data = {
+                username: $("#username").val(),
+                password: $("#password").val()
+            };
+            $.ajax({
+                url: "http://localhost:3057/api/topcv1s/admin/login",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                success: function (response) {
+                    if (response.data.result === true) {
+                        document.cookie = `adminToken=${response.data.data.Token}; max-age=${60 * 24 * 60 * 60}`;
+                        document.cookie = `adminRefToken=${response.data.data.RefreshToken}; max-age=${365 * 24 * 60 * 60}`;
+                        document.cookie = `adm_id=${response.data.data.data.adm_id}; max-age=${60 * 24 * 60 * 60}`;
+                        document.cookie = `adm_name=${response.data.data.data.adm_name}; max-age=${60 * 24 * 60 * 60}`;
+                        document.cookie = `adm_email=${response.data.data.data.adm_email}; max-age=${60 * 24 * 60 * 60}`;
+                        document.cookie = `adm_phone=${response.data.data.data.adm_phone}; max-age=${60 * 24 * 60 * 60}`;
+                        document.cookie = `adm_bophan=${response.data.data.data.adm_bophan}; max-age=${60 * 24 * 60 * 60}`;
+                        document.cookie = `id_bophankd=${response.data.data.data.id_bophankd}; max-age=${60 * 24 * 60 * 60}`;
+                        document.cookie = `adm_picture=${response.data.data.data.adm_picture}; max-age=${60 * 24 * 60 * 60}`;
+                        document.cookie = `typeadmin=${response.data.data.data.type}; max-age=${60 * 24 * 60 * 60}`;
+                        document.cookie = `isLogin=true; max-age=${60 * 24 * 60 * 60}`;
+                        alert("Đăng nhập thành công");
+                        window.location.href = "/ung-vien-dang-ky-moi";
+                    } else {
+                        alert("Tài khoản hoặc mật khẩu không chính xác");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error:", error);
+                    if (xhr.status === 400) {
+                        alert("Tài khoản hoặc mật khẩu không chính xác");
+                    } else {
+                        console.error("Error:", error);
+                        alert(`Đã xảy ra lỗi khi đăng nhập`);
+                    }
+                },
+            });
+        }
+    </script>
+</head>
+</body>
+
+</html>

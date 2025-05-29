@@ -1,0 +1,222 @@
+.otp_cnt {
+    background-image: url(/images/img/backgroundlogin.webp);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    height: 100vh;
+    margin: 0;
+    position: relative;
+}
+
+.otp_cnt::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #00b14f99;
+}
+
+#otp_box {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+}
+
+#otp_input {
+    width: 300px !important;
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Roboto';
+    src: url('/fonts/Roboto-Regular.ttf') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Roboto';
+    src: url('/fonts/Roboto-Medium.ttf') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Roboto';
+    src: url('/fonts/Roboto-Bold.ttf') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+* {
+    font-family: Roboto;
+}
+
+body {
+    margin: 0;
+}
+
+.container {
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 15px;
+    padding-left: 15px;
+    max-width: 100%;
+}
+
+.otp-box {
+    z-index: 1;
+    background-color: white;
+    width: 80%;
+    border-radius: 20px;
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    display: flex;
+    overflow: hidden;
+}
+
+.otp-back {
+    position: absolute;
+    z-index: 1;
+    top: 10px;
+    left: 10px;
+}
+
+.otp-left {
+    background-color: #f1f1f1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.otp-form {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+    gap: 24px;
+}
+
+.otp-left img {
+    width: 100%;
+}
+
+.otp-left img:first-child {
+    margin-bottom: 16px;
+}
+
+.otp-left img:last-child {
+    width: 80%;
+}
+
+.otp-form-title {
+    font-weight: 700;
+    color: #00b14f;
+    font-size: 24px;
+    text-align: center;
+}
+
+.send_otp {
+    background-color: #00b14f;
+    cursor: pointer;
+    color: #ffffff;
+    padding: 12px 20px;
+    font-weight: 500;
+    border-radius: 20px;
+    border: none;
+}
+
+.grecaptcha-badge {
+    position: static !important;
+}
+
+#verify_otp,
+#resend_otp {
+    background: #00b14f;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    padding: 5px 12px;
+    width: 50%;
+    cursor: pointer;
+}
+
+@media (min-width: 576px) {
+    .container {
+        max-width: 540px;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 720px;
+    }
+
+}
+
+@media (min-width: 992px) {
+    .container {
+        max-width: 960px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px;
+    }
+}
+
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1320px;
+    }
+}
+
+@media (max-width: 1366px) {
+    .otp-box {
+        flex-direction: column;
+        width: 60%;
+    }
+
+    .otp-left img:last-child {
+        width: 70%;
+    }
+}
+
+@media (max-width: 768px) {
+    .otp-form-title {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 596px) {
+    .otp-form-title {
+        font-size: 16px;
+    }
+
+    .otp-left img:first-child {
+        width: 128px;
+        height: 56px;
+    }
+
+    .otp-box {
+        width: 90%;
+    }
+
+    .otp-form {
+        gap: 16px;
+    }
+}

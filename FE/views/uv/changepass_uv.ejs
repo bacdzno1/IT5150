@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="google-site-verification" content="lwyGMjMCHXSuJXWOc3iy1MG_Hd6yRBARF5H8NuMxUPg" />
+    <meta property="og:image" content="http://localhost:9020/images/img/icon_head.png">
+    <title>Đổi mật khẩu</title>
+    <link rel="canonical" href="http://localhost:9020<%= url %>">
+    <link rel="preload" href="/css/ntd/changepass_ntd.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/ntd/changepass_ntd.css">
+    </noscript>
+
+    <link rel="preload" href="/css/common.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/common.css">
+    </noscript>
+
+    <link rel="preload" href="/css/leftnav_uv.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/leftnav_uv.css">
+    </noscript>
+    <link rel="preload" href="/css/header_uv.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/header_uv.css">
+    </noscript>
+
+    <link rel="preload" href="/css/footer.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/footer.css">
+    </noscript>
+    <link rel="preload" href="/css/custom_select2.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="/css/select2.min.css">
+    <noscript>
+        <link rel="stylesheet" href="/css/custom_select2.css">
+    </noscript>
+    <script src="/js/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="cnt">
+        <div class="cnt-left" id="leftNav">
+            <%- include('../layouts/leftnav_uv', {}); %>
+        </div>
+        <div class="cnt-right ctn_right_uv" id="rightContent">
+            <%- include('../layouts/header_uv', {}); %>
+                <div class="cnt-det">
+                    <div class="cnt-top d-flex justify-b">
+                        <div class="cnt-info bg-white d-flex align-c">
+                            <div class="cnt-avar rounded-circle">
+                                <img class="rounded-circle" src="/images/img/cskh_image.jpg" width="114" height="114"
+                                    alt="Logo CSKH">
+                            </div>
+                            <div class="cnt-gen fw-600">
+                                <div class="cnt-gen-name mb-20px">
+                                    Chuyên viên hỗ trợ: <span class="color-main">Mrs. Nguyen Hong</span>
+                                </div>
+                                <div class="cnt-gen-phone mb-20px">
+                                    Phone - Zalo: <span class="color-main">0972319116</span>
+                                </div>
+                                <div class="cnt-gen-mail">
+                                    Email: <span class="color-alert">nguyenhongg2609@gmail.com</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cnt-ban d-flex align-c">
+                            <div class="cnt-ban-tit fw-700 color-white text-c">
+                                Tuyển dụng nhanh, tuyển dụng hiệu quả, đăng tin miễn phí
+                            </div>
+                            <div class="cnt-ban-logo">
+                                <img src="/images/logo/biglogo.svg" width="250" height="107" alt="Logo Image">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cnt-mag">
+                        <div class="cnt-mag-title fs-4 fw-700 color-main mb-3">
+                            ĐỔI MẬT KHẨU
+                        </div>
+                        <form id="change_pass">
+                            <div class="d-flex justify-c">
+                                <div class="cnt-chp bg-white d-flex flex-dr-c">
+                                    <div class="cnt-chp-item">
+                                        <label class="fw-600" for="cur_pass">
+                                            Mật khẩu hiện tại <span class="color-alert">*</span>
+                                        </label>
+                                        <div class="cnt-chp-inp d-flex align-c">
+                                            <input class="fs-7" type="password" id="cur_pass" name="cur_pass"
+                                                placeholder="Nhập mật khẩu hiện tại">
+                                            <div class="show_pass">
+                                                <img width="20" height="20" alt="Show Pass Icon"
+                                                    src="/images/icon/eye_close.png">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="cnt-chp-item">
+                                        <label class="fw-600" for="new_pass">
+                                            Mật khẩu mới <span class="color-alert">*</span>
+                                        </label>
+                                        <div class="cnt-chp-inp d-flex align-c">
+                                            <input class="fs-7" type="password" id="new_pass" name="new_pass"
+                                                placeholder="Nhập mật khẩu mới">
+                                            <div class="show_pass">
+                                                <img width="20" height="20" alt="Show Pass Icon"
+                                                    src="/images/icon/eye_close.png">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="cnt-chp-item">
+                                        <label class="fw-600" for="renew_pass">
+                                            Nhập lại mật khẩu mới <span class="color-alert">*</span>
+                                        </label>
+                                        <div class="cnt-chp-inp d-flex align-c">
+                                            <input class="fs-7" type="password" id="renew_pass" name="renew_pass"
+                                                placeholder="Nhập lại mật khẩu mới">
+                                            <div class="show_pass">
+                                                <img width="20" height="20" alt="Show Pass Icon"
+                                                    src="/images/icon/eye_close.png">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="cnt-chp-act d-flex gap-4 justify-c">
+                                        <button type="submit" class="cnt-chp-acp">
+                                            Đổi mật khẩu
+                                        </button>
+                                        <a class="cnt-chp-cacl" href="/uv/candidate-management">
+                                            Hủy
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+        </div>
+        <script src="/js/jquery.validate.min.js"></script>
+        <%- include('../layouts/footer', {}); %>
+            <script>
+                $(document).ready(function () {
+                    const $leftNav = $('.lnav');
+                    const $rightContent = $('#rightContent');
+                    const $mobileMenu = $('#mobileMenu');
+                    updateLayout();
+                    function updateLayout() {
+                        const rightContentHeight = $rightContent.outerHeight(true);
+                        const leftNavHeight = $leftNav.outerHeight(true);
+                        const leftNavWidth = $leftNav.outerWidth(true);
+                        console.log(rightContentHeight);
+                        console.log(leftNavHeight);
+                        if (leftNavHeight > rightContentHeight) {
+                            $leftNav.css({ position: '' });
+                            $rightContent.css({ 'margin-left': leftNavWidth });
+                            $('html, body').animate({ scrollTop: 0 });
+                            $(window).off('scroll');
+                        } else {
+                            $(window).on('scroll', function () {
+                                const rightContentHeight = $rightContent.outerHeight(true);
+                                const rightContentOffsetTop = $rightContent.offset().top;
+                                const rightContentBottom = rightContentOffsetTop + rightContentHeight;
+                                const scrollTop = $(window).scrollTop();
+                                const windowHeight = $(window).height();
+
+                                if (scrollTop + leftNavHeight > rightContentBottom) {
+                                    $leftNav.css({ position: 'absolute', top: (rightContentHeight - leftNavHeight) + 'px' });
+                                } else {
+                                    $leftNav.css({ position: 'fixed', top: '0' });
+                                }
+                                $rightContent.css({ 'margin-left': '' });
+                            });
+                        }
+                    }
+
+                    $('.uhead-rig-togm, .menu-mb-close').click(function () {
+                        $mobileMenu.slideToggle(300);
+                        updateLayout();
+                    });
+
+                    function getCookie(name) {
+                        const value = `; ${document.cookie}`;
+                        const parts = value.split(`; ${name}=`);
+                        if (parts.length === 2) return parts.pop().split(';').shift();
+                    }
+
+                });
+                $(document).ready(function () {
+                    $(window).scroll(function () {
+                        var $leftNav = $('.lnav');
+                        var $rightContent = $('#rightContent');
+                        var rightContentHeight = $rightContent.outerHeight(true);
+                        var rightContentOffsetTop = $rightContent.offset().top;
+                        var rightContentBottom = rightContentOffsetTop + rightContentHeight;
+                        var scrollTop = $(window).scrollTop();
+                        var windowHeight = $(window).height();
+                        var leftNavHeight = $leftNav.outerHeight(true);
+
+                        if (scrollTop + leftNavHeight > rightContentBottom) {
+                            $leftNav.css({
+                                position: 'absolute',
+                                top: (rightContentHeight - leftNavHeight) + 'px'
+                            });
+                        } else {
+                            $leftNav.css({
+                                position: 'fixed',
+                                top: '0'
+                            });
+                        }
+                    });
+                });
+            </script>
+            <script>
+                $(document).ready(function () {
+                    $('.nhead-rig-togm').click(function () {
+                        $('#mobileMenu').slideDown(300);
+                    });
+                    $('.menu-mb-close').click(function () {
+                        $('#mobileMenu').slideUp(300);
+                    });
+                });
+                $(document).ready(function () {
+                    $(".tog-mb").click(function () {
+                        $(this).next(".menu-mb-clist").slideToggle();
+                    });
+                });
+            </script>
+            <script>
+                $(document).ready(function () {
+                    $.validator.addMethod("pwcheck", function (value) {
+                        return /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/.test(value);
+                    });
+                    $("#change_pass").validate({
+                        rules: {
+                            cur_pass: {
+                                required: true
+                            },
+                            new_pass: {
+                                required: true,
+                                minlength: 6,
+                                pwcheck: true
+                            },
+                            renew_pass: {
+                                required: true,
+                                equalTo: "#new_pass"
+                            },
+                        },
+                        messages: {
+                            cur_pass: {
+                                required: "Vui lòng nhập mật khẩu hiện tại",
+                            },
+                            new_pass: {
+                                required: "Vui lòng nhập mật khẩu mới.",
+                                minlength: "Mật khẩu của bạn phải chứa ít nhất 6 kí tự.",
+                                pwcheck: "Mật khẩu phải chứa ít nhất 1 chữ cái và 1 số."
+                            },
+                            renew_pass: {
+                                required: "Vui lòng nhập lại mật khẩu mới.",
+                                equalTo: "Mật khẩu mới không trùng khớp."
+                            },
+                        },
+                        errorPlacement: function (error, element) {
+                            var err_plc = element.closest('.cnt-chp-inp')
+                            error.insertAfter(err_plc);
+                        },
+                        submitHandler: function (form) {
+                            event.preventDefault();
+                            let data = {
+                                passowrdOld: $("#cur_pass").val(),
+                                password: $("#new_pass").val(),
+                                rePassword: $("#renew_pass").val(),
+                                type: 2,
+                            }
+
+                            $.ajax({
+                                url: URL_API_USER + '/changePassUv',
+                                type: 'POST',
+                                headers: {
+                                    "Authorization": "Bearer " + getCookie('accessToken')
+                                },
+                                data: data,
+                                success: function (response) {
+                                    alert('Đổi mật khẩu thành công');
+                                    window.location.href = "/uv/quan-ly-ung-vien";
+                                },
+                                error: function (error) {
+                                    if (error.responseJSON.error.message) {
+                                        alert(error.responseJSON.error.message);
+                                    }
+                                    else {
+                                        alert('Đổi mật khẩu thất bại, vui lòng thử lại.');
+                                    }
+                                }
+                            });
+
+                        }
+                    })
+
+                });
+            </script>
+            <script>
+                function getCookie(name) {
+                    const value = `; ${document.cookie}`;
+                    const parts = value.split(`; ${name}=`);
+                    if (parts.length === 2) return parts.pop().split(';').shift();
+                }
+            </script>
+            
+            
+</body>
+
+</html>

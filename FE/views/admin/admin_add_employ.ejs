@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" href="/images/img/icon_head.png">
+    <title>Danh sách ứng viên</title>
+    <link rel="preload" href="/css/admin/admin_add_employ.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/admin/admin_add_employ.css">
+    </noscript>
+    <link rel="preload" href="/css/common.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/common.css">
+    </noscript>
+    <link rel="preload" href="/css/admin/leftnav_admin.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/admin/leftnav_admin.css">
+    </noscript>
+    <link rel="preload" href="/css/custom_select2.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/custom_select2.css">
+    </noscript>
+</head>
+<body>
+    <div class="cnt">
+        <div class="cnt-left" id="leftNav">
+            <%- include('../layouts/leftnav_admin', {}); %>
+        </div>
+        <div class="cnt-right" id="rightContent">
+            <div class="regis-new-candi-container">
+                <div class="regis-candi-title fs-4 pt-4 mb-3"><b>Tạo mới nhà tuyển dụng</b></div>
+                <div class="notify-line mb-3">
+                    Những ô dấu sao <span class="color-alert">(*)</span> là bắt buộc phải nhập.
+                </div>
+                <div class="form-add">
+                    <div class="add-item">
+                        <div class="label-item fw-600">
+                            <label for="email_contact">
+                                <span class="color-alert">*</span> Email công ty :
+                            </label>
+                        </div>
+                        <input id="email_contact" placeholder="Nhập email công ty" type="email">
+                    </div>
+                    <div class="add-item">
+                        <div class="label-item fw-600">
+                            <label for="emp_name">
+                                <span class="color-alert">*</span> Tên công ty :
+                            </label>
+                        </div>
+                        <input id="emp_name" placeholder="Nhập tên công ty" type="text">
+                    </div>
+                    <div class="add-item">
+                        <div class="label-item fw-600">
+                            <label for="phone_contact">
+                                <span class="color-alert">*</span> Số điện thoại :
+                            </label>
+                        </div>
+                        <input id="phone_contact" placeholder="Nhập số điện thoại công ty" type="text">
+                    </div>
+                    <div class="add-item">
+                        <div class="label-item fw-600">
+                            <label for="website_contact">
+                                <span class="color-alert">*</span> Website :
+                            </label>
+                        </div>
+                        <input id="website_contact" placeholder="Website công ty" type="text">
+                    </div>
+                    <div class="add-item">
+                        <div class="label-item fw-600">
+                            <label for="more_contact">
+                                <span class="color-alert">*</span> Skype or Zalo  :
+                            </label>
+                        </div>
+                        <input id="more_contact" placeholder="Skype hoặc Zalo  công ty" type="text">   
+                    </div>
+                    <div class="add-item">
+                        <div class="label-item fw-600">
+                            <label for="address_contact">
+                                <span class="color-alert">*</span> Địa chỉ công ty  :
+                            </label>
+                        </div>
+                        <input id="address_contact" placeholder="Địa chỉ công ty" type="text">   
+                    </div>
+                    <div class="add-item">
+                        <div class="label-item fw-600">
+                            <label for="city_job">
+                                <span class="color-alert">*</span> Thành phố  :
+                            </label>
+                        </div>
+                        <select id="city_job">
+                            <option></option>
+                            <% if (listCities && listCities.length > 0) { %>
+                                <% listCities.forEach(function(item) { %>
+                                    <option value="<%= item.cit_id %>"><%= item.cit_name %></option>
+                                <% }); %>
+                            <% }  %>
+                        </select>
+                    </div>
+                    <div class="add-item">
+                        <div class="label-item fw-600">
+                            <label for="distric_job">
+                                <span class="color-alert">*</span> Quận / Huyện  :
+                            </label>
+                        </div>
+                        <select id="distric_job">
+                            <option></option>
+                        </select>
+                    </div>
+                    <div class="add-item">
+                        <div class="label-item fw-600">
+                            <label for="logo_eml">
+                                <span class="color-alert">*</span> Logo công ty  :
+                            </label>
+                        </div>
+                        <input id="logo_eml" placeholder="Logo công ty" type="file">   
+                    </div>
+                    <div class="add-item">
+                        <div class="label-item fw-600">
+                            <label for="size_eml">
+                                <span class="color-alert">*</span> Quy mô công ty  :
+                            </label>
+                        </div>
+                        <select id="size_eml" placeholder="Quy mô công ty">
+                            <% listSizeCompany.forEach(item => { %>
+                                <% let key = Object.keys(item)[0]; %>
+                                <% let value = Object.values(item)[0]; %>
+                                <option value="<%= key %>"><%= value %></option>
+                            <% }); %>
+                        </select>
+                    </div>
+                    <div class="add-item">
+                        <div class="label-item fw-600">
+                            <label for="des_eml">
+                                <span class="color-alert">*</span> Mô tả công ty  :
+                            </label>
+                        </div>
+                        <textarea id="des_eml" placeholder="Mô tả công ty"></textarea>
+                    </div>
+                </div>
+                <div class="form-act">
+                    <button id="create_emp">
+                        Tạo mới
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="/js/jquery.min.js"></script>
+<script>
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    function formatDate(dateString) {
+        var date = new Date(dateString * 1000);
+        var day = String(date.getDate()).padStart(2, '0');
+        var month = String(date.getMonth() + 1).padStart(2, '0');
+        var year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    }
+    function formatDateTime(date, startOfDay = true) {
+        const pad = (num) => String(num).padStart(2, '0');
+        const day = pad(date.getDate());
+        const month = pad(date.getMonth() + 1);
+        const year = date.getFullYear();
+        const hour = startOfDay ? '00' : '23';
+        const minute = startOfDay ? '00' : '59';
+        const second = startOfDay ? '00' : '59';
+        const millisecond = startOfDay ? '000' : '999';
+        return `${year}-${month}-${day}T${hour}:${minute}:${second}.${millisecond}`;
+    }
+    function deleteCookie(name) {
+        document.cookie = name + '=; Max-Age=0; path=/;';
+    }
+    function logout() {
+        deleteCookie('adminToken');
+        deleteCookie('adminRefToken');
+        deleteCookie('adm_id');
+        deleteCookie('adm_name');
+        deleteCookie('adm_email');
+        deleteCookie('adm_phone');
+        deleteCookie('adm_bophan');
+        deleteCookie('id_bophankd');
+        deleteCookie('adm_picture');
+        deleteCookie('typeadmin');
+        deleteCookie('isLogin');
+        deleteCookie('confirmBoxSeen')
+        window.location.href = '/admin';
+    }
+</script>
+<script src="/js/custom_select2.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#size_eml').CustomSelect({
+            placeholder: 'Quy mô công ty',
+            searchPlaceholder: 'Tìm kiếm...'
+        });
+        $('#city_job').CustomSelect({
+            placeholder: 'Chọn tỉnh thành',
+            searchPlaceholder: 'Tìm kiếm...'
+        });
+        $('#distric_job').CustomSelect({
+            placeholder: 'Chọn quận / huyện',
+            searchPlaceholder: 'Tìm kiếm...'
+        });
+        $('#city_job').change(function() {
+            var id = parseInt($(this).val());
+            $.ajax({
+                url: '/api/getDistrict',
+                method: 'POST',
+                data: { id: id },
+                success: function(response) {
+                    if (response.district.length > 0) {
+                        $('#distric_job').empty();
+                        response.district.forEach(function(city) {
+                            $('#distric_job').append('<option value="' + city.cit_id + '">' + city.cit_name + '</option>');
+                        });
+
+                        $('#distric_job').trigger('update');
+                        
+                    }
+                },
+                error: function(err) {
+                    console.error('Error:', err);
+                }
+            });
+        });
+
+    })
+    
+    $(document).ready(function() {
+        var id_bp;
+        $('#create_emp').click(function() {
+            var confirmed = confirm('Xác nhận tạo tài khoản');
+            if (confirmed) {
+                // Gather form data
+                var email_contact = $('#email_contact').val();
+                var emp_name = $('#emp_name').val();
+                var phone_contact = $('#phone_contact').val();
+                var website_contact = $('#website_contact').val();
+                var more_contact = $('#more_contact').val();
+                var address_contact = $('#address_contact').val();
+                var city_job = $('#city_job').val();
+                var distric_job = $('#distric_job').val();
+                var size_eml = $('#size_eml').val();
+                var id_bophankd = id_bp ? id_bp : 0;
+                var des_eml = $('#des_eml').val();
+                var logo_eml = document.getElementById('logo_eml').files[0];
+
+                // Create FormData object
+                var formData = new FormData();
+                formData.append('usc_name_email', email_contact);
+                formData.append('usc_company', emp_name);
+                formData.append('usc_phone_tk', phone_contact);
+                formData.append('usc_website', website_contact);
+                formData.append('usc_skype', more_contact);
+                formData.append('usc_address', address_contact);
+                formData.append('usc_city', city_job);
+                formData.append('usc_district', distric_job);
+                formData.append('usc_size', size_eml);
+                formData.append('usc_company_info', des_eml);
+                formData.append('id_bophankd', id_bophankd);
+                if (logo_eml) {
+                    formData.append('usc_logo', logo_eml);
+                }
+
+                // Send AJAX request
+                $.ajax({
+                    url: 'http://localhost:3057/api/topcv1s/admin/createEmployer',
+                    method: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    headers: {
+                        "Authorization": "Bearer " + getCookie('adminToken')
+                    },
+                    success: function(response) {
+                        if (response && response.data && response.data.message) {
+                            alert(response.data.message);
+                        } else {
+                            alert('Tạo thành công');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        var errMsg = 'Đã xảy ra lỗi.';
+                        try {
+                            var response = JSON.parse(xhr.responseText);
+                            if (response && response.error) {
+                                errMsg = response.error.message || 'Lỗi không xác định.';
+                            }
+                        } catch (e) {
+                            errMsg = "Đã xảy ra lỗi"
+                        }
+                        alert(errMsg)
+                    }
+                });
+            }
+        });
+    });
+
+</script>
+</html>

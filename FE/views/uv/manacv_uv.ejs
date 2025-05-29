@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, follow" />
+    <meta name="google-site-verification" content="lwyGMjMCHXSuJXWOc3iy1MG_Hd6yRBARF5H8NuMxUPg" />
+
+    <meta name="description" content="Xem ngay những mẫu> mắt nhất. Khám phá những mẫu cv được ưa chuộng nhất. 
+    Tìm kiếm những cv về mọi ngành nghề, mọi lĩnh vực. Tạo mẫu> mắt và chuyên nghiệp với các thiết kế sáng tạo. 
+    Thu hút nhà tuyển dụng và nâng cao cơ hội việc làm của bạn ngay hôm nay!">
+    <title>Ứng viên tìm việc</title>
+    <link rel="icon" href="/images/img/icon_head.png">
+    <link rel="preload" href="/css/uv/manacv_uv.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/uv/manacv_uv.css">
+    </noscript>
+    <link rel="canonical" href="http://localhost:9020/quan-ly-cv">
+
+    <link rel="preload" href="/css/common.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/common.css">
+    </noscript>
+
+    <link rel="preload" href="/css/leftnav_uv.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/leftnav_uv.css">
+    </noscript>
+    <link rel="preload" href="/css/header_uv.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/header_uv.css">
+    </noscript>
+
+    <link rel="preload" href="/css/footer.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/footer.css">
+    </noscript>
+    <script src="/js/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="cnt xem_truoc_full_none">
+        <div class="cnt-left" id="leftNav">
+            <%- include('../layouts/leftnav_uv', {}); %>
+        </div>
+        <div class="cnt-right" id="rightContent">
+            <%- include('../layouts/header_uv') %>
+                <div class="cnt-body">
+                    <div class="styles_my_cv_box">
+                        <h1 class="styles_title">CV XIN VIỆC CỦA TÔI</h1>
+                        <div class="styles_content">
+                            <!-- <pre><%# JSON.stringify(dataFromAPI.cvDaLuu.name_cv) %></pre> -->
+                            <a class="styles_create_cv" href="/cv-xin-viec" target="_blank">
+                                <img alt="Icon tạo mới" loading="lazy" width="79" height="79" decoding="async"
+                                    data-nimg="1" src="/images/img/add-file.png" style="color: transparent;">
+                                <h3>Tạo thêm hồ sơ từ các cv xin việc online</h3>
+                            </a>
+                        </div>
+                    </div>
+                    <p class="styles_title">CV XIN VIỆC ĐÃ LƯU</p>
+                    <div class="save_cv">
+
+                    </div>
+                </div>
+        </div>
+    </div>
+
+    <link rel="stylesheet" href="/css/page_css/xem_truoc_full.css">
+    <div class="overlay zoom_cv" id="zoom_cv" style="display: none;">
+        <div class="wapper">
+            <div class="auth_form po_r">
+                <div class="p_left">
+                    <div class="frame_img">
+                        <img class="img_cv" src="" alt="CV" style="width: 1000px; height: auto">
+                        <img class="close_zoom_cv" src="/images/cv/close_zoom_cv.png" alt="close">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('../layouts/footer', {}) %>
+        <script src="/js/jquery.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                var $leftNav = $('.lnav');
+                var $rightContent = $('#rightContent');
+                var rightContentHeight = $rightContent.outerHeight(true);
+                var leftNavHeight = $leftNav.outerHeight(true);
+
+                if (leftNavHeight > rightContentHeight) {
+                    $leftNav.css({
+                        position: 'static'
+                    });
+                    $rightContent.css({
+                        'margin-left': '0'
+                    });
+                } else {
+                    $(window).scroll(function () {
+                        var rightContentOffsetTop = $rightContent.offset().top;
+                        var rightContentBottom = rightContentOffsetTop + rightContentHeight;
+                        var scrollTop = $(window).scrollTop();
+                        var windowHeight = $(window).height();
+
+                        if (scrollTop + leftNavHeight > rightContentBottom) {
+                            $leftNav.css({
+                                position: 'absolute',
+                                top: (rightContentHeight - leftNavHeight) + 'px'
+                            });
+                        } else {
+                            $leftNav.css({
+                                position: 'fixed',
+                                top: '0'
+                            });
+                        }
+                        $rightContent.css({
+                            'margin-left': ''
+                        });
+                    });
+                }
+            });
+            $(document).ready(function () {
+                $('.uhead-rig-togm').click(function () {
+                    $('#mobileMenu').slideDown(300);
+                });
+                $('.menu-mb-close').click(function () {
+                    $('#mobileMenu').slideUp(300);
+                });
+            });
+        </script>
+        <script>
+            function getCookie(name) {
+                const value = `; ${document.cookie}`;
+                const parts = value.split(`; ${name}=`);
+                if (parts.length === 2) return parts.pop().split(';').shift();
+            }
+            function getCookieNew(name) {
+                const nameEQ = name + "=";
+                const ca = document.cookie.split(';');
+                for(let i = 0; i < ca.length; i++) {
+                    let c = ca[i];
+                    while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                    if (c.indexOf(nameEQ) == 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
+                }
+                return null;
+            }
+
+            const token = getCookie('accessToken');
+            const id = getCookie("use_id");
+            const name = getCookieNew('userName');
+
+            const handleDownloadCv = (iduv, id) => {
+                $.ajax({
+                    url: `http://localhost:3055/download/cv_pdf/user_${iduv}/cvid_${id}/${id}-topcv1s`,
+                    type: 'get',
+                    success: function (res) {
+                        console.log(">>> Res: ", res);
+                        const downloadLink = document.createElement('a')
+                        downloadLink.href = `data:application/octet-stream;base64,${res.data?.base64StringPDF}`
+                        // alert(downloadLink.href)
+                        downloadLink.download = `${name}.pdf`
+                        downloadLink.click()
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error('Error fetching HTML:', textStatus, errorThrown);
+                    }
+                })
+            }
+
+            const handleDeleteCv = (idcv) => {
+                const res = confirm('Bạn có chắc chắn muốn xóa CV không?')
+                if (res) {
+                    $.ajax({
+                        url: `http://localhost:3052/api/topcv1s/candidate/CandiDeleteCV`,
+                        type: 'post',
+                        data: { idcv: idcv },
+                        beforeSend: function (request) {
+                            request.setRequestHeader("Authorization", "Bearer " + token);
+                        },
+                        success: function (response) {
+                            alert("Đã xóa CV thành công");
+                            location.reload();
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.error('Error fetching HTML:', textStatus, errorThrown);
+                        }
+                    })
+                } else {
+                    return;
+                }
+            }
+
+            $(document).ready(function () {
+                $.ajax({
+                    url: 'http://localhost:3052/api/topcv1s/candidate/ManageCvCandiDidCreated',
+                    type: 'post',
+                    data: { iduv: id },
+                    beforeSend: function (request) {
+                        request.setRequestHeader("Authorization", "Bearer " + token);
+                    },
+                    success: function (data) {
+                        const dataCV = data?.data;
+                        console.log(">>> Check res: ", dataCV); 
+
+                        const createCVHTML = (data) => {
+                            return `
+                                <div class="grid-item">
+                                    <div class="img_cv">
+                                        <img class="img_cv_show" src=${data.cv_pdf} alt="" />
+                                        <div class="styles_hover_img">
+                                        <button class="btn_preview" type="button" data-src=${data.name_cv}>
+                                            <img src="/images/icon/mdi_eye.svg" alt="mắt" />
+                                            <span>Xem trước cv</span>
+                                        </button>
+                                        <button class="btn_repair" type="button" onclick='window.open("http://localhost:9020/tao-cv/${data.alias}-${data.idcv}", "_blank")'>
+                                            <img src="/images/icon/pen-new-square-svgrepo-com.svg" alt="sửa cv" />
+                                            <span>Sửa CV</span>
+                                        </button>
+                                        <button class="btn_download" type="button" onclick='handleDownloadCv(${data.iduser}, ${data.idcv})'>
+                                            <span>Tải xuống</span>
+                                        </button>
+                                        <button class="btn_delete" type="button" onclick='handleDeleteCv(${data.idcv})'>
+                                            <span>Xóa CV</span>
+                                        </button>
+                                    </div>
+                                    </div>
+                                    <p>${data.name}</p>
+                                </div>
+                            `;
+                        };
+
+                        const SaveCVHTML = (data) => {
+                            return `
+                                <div class="grid-item">
+                                    <div class="img_cv">
+                                        <img class="img_cv_show" src=${data.image} alt="" />
+                                        <div class="styles_hover_img">
+                                        <button class="btn_repair" type="button" onclick='window.open("${domain}/create-cv/${data.alias}-${data.idcv}", "_blank")'>
+                                            <img src="/images/icon/pen-new-square-svgrepo-com.svg" alt="edit cv" />
+                                            <span>Edit CV</span>
+                                        </button>
+                                        <button class="btn_delete_save" type="button" onclick='handleDeleteCv(${data.idcv})'>
+                                            <span>Delete CV</span>
+                                        </button>
+                                    </div>
+                                    </div>
+                                    <p>${data.name}</p>
+                                </div>
+                            `;
+                        };
+
+
+                        dataCV.cvXinViecCuaToi.forEach(function (cv) {
+                            const cvHTML = createCVHTML(cv);
+                            $('.styles_create_cv').after(cvHTML);
+                        });
+
+                        dataCV.cvDaLuu.forEach(function (cv) {
+                            const cvHTML = SaveCVHTML(cv);
+                            $('.save_cv').append(cvHTML);
+                        });
+
+                        $('.btn_preview').click(function () {
+                            $(".overlay.zoom_cv .img_cv").attr("src", $(this).attr('data-src'))
+                            $('.xem_truoc_full_none').hide();
+                            $('.overlay.zoom_cv').show()
+                        })
+
+                        $('.close_zoom_cv').click(function () {
+                            $('.xem_truoc_full_none').show();
+                            $('.overlay.zoom_cv').hide()
+                        })
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error('Error fetching HTML:', textStatus, errorThrown);
+                    }
+                })
+            })
+        </script>
+        
+        
+</body>
+
+</html>

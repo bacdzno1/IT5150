@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" href="/images/img/icon_head.png">
+    <title>Danh sách tài khoản</title>
+    <link rel="preload" href="/css/admin/admin_manag_account.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/admin/admin_manag_account.css">
+    </noscript>
+    <link rel="preload" href="/css/common.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/common.css">
+    </noscript>
+    <link rel="preload" href="/css/admin/leftnav_admin.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/admin/leftnav_admin.css">
+    </noscript>
+</head>
+<body>
+    <div class="cnt">
+        <div class="cnt-left" id="leftNav">
+            <%- include('../layouts/leftnav_admin', {}); %>
+        </div>
+        <div class="cnt-right" id="rightContent">
+            <div class="regis-new-ntd-container">
+                <div class="regis-ntd-title fs-4 pt-4 pb-3"><b>Danh sách tài khoản admin</b></div>
+                <div class="ntd-search-bar pt-2">
+                    <div class="btn-search-ntd">
+                        <button class="btn-search">Tìm kiếm</button>
+                    </div>
+                </div>
+                <div class="ntd-count pt-2 mb-3 fs-5">
+                    <span class="ntd-count-text">Số tài khoản: </span>
+                    <span class="ntd-count-number color-main fw-700"></span>
+                </div>
+                <div class="ntd-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>ID</th>
+                                <th>Tài khoản</th>
+                                <th>Họ tên</th>
+                                <th>Quyền</th>
+                                <th>Trạng thái</th>
+                                <th>Sửa</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ListAdminId">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="loading-box" style="display: none;">
+                    <div class="loading-img">
+                        <img src="/images/icon/Rolling.svg">            
+                    </div>
+                </div>
+                <div class="cnt-mag-paginate d-flex justify-c flex-wr pt-2">
+                </div>
+            </div>
+        </div>
+        <div class="edit-info">
+            <div id="editForm">
+                <div class="ntd-item">
+                    <div class="ntd-label">
+                        Tên đăng nhập
+                    </div>
+                    <div class="ntd-form">
+                        <input type="text" id="admin_account">
+                    </div>
+                </div>
+                <div class="ntd-item">
+                    <div class="ntd-label">
+                        Họ và tên
+                    </div>
+                    <div class="ntd-form">
+                        <input type="text" id="admin_name">
+                    </div>
+                </div>
+                <div class="ntd-item">
+                    <div class="ntd-label">
+                        Số điện thoại
+                    </div>
+                    <div class="ntd-form">
+                        <input type="text" id="admin_phone">
+                    </div>
+                </div>
+                <div class="ntd-item">
+                    <div class="ntd-label">
+                        Email
+                    </div>
+                    <div class="ntd-form">
+                        <input type="email" id="admin_email">
+                    </div>
+                </div>
+                <div class="ntd-item">
+                    <div class="ntd-label">
+                        Phòng ban
+                    </div>
+                    <div class="ntd-form">
+                        <select id="depart_id">
+                            <option value="0">
+                                Chọn phòng ban
+                            </option>
+                            <option value="1">
+                                Biên tập
+                            </option>
+                            <option value="2">
+                                Kinh doanh
+                            </option>
+                            <option value="3">
+                                SEO
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="ntd-item">
+                    <div class="ntd-label">
+                        Phân quyền
+                    </div>
+                    <div class="ntd-add-all mb-2">
+                        <input type="checkbox" id="add_all">
+                        <label for="add_all" class="fw-700 color-main">Chọn tất cả</label>
+                    </div>
+                    <div class="ntd-form">
+                        <% if(modules && modules.data.data.data.length > 0){ %>
+                            <table id="modules_list">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Chọn
+                                        </th>
+                                        <th>
+                                            Danh sách
+                                        </th>
+                                        <th>
+                                            Thêm
+                                        </th>
+                                        <th>
+                                            Sửa
+                                        </th>
+                                        <th>
+                                            Xóa
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% modules.data.data.data.forEach(function(item) { %>
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" class="select-row" value=" <%= item.mod_id %>">
+                                            </td>
+                                            <td class="color-main mod-name fw-500">
+                                                <%= item.mod_name %>
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" class="row-action add-action" disabled>
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" class="row-action edit-action" disabled>
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" class="row-action delete-action" disabled>
+                                            </td>
+                                        </tr>
+                                    <% }); %>
+                                </tbody>
+                            </table>
+
+                        <% } %>
+                    </div>
+                </div>
+                <div class="ntd-act">
+                    <button class="ntd-cancel-btn" type="button" id="closeForm">Hủy</button>
+                    <button class="ntd-update-btn" type="submit" id="updateForm" data-update="">Cập nhật</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="/js/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#closeForm').click(function() {
+            $('.edit-info').hide();
+        });
+
+        $('#updateForm').submit(function(event) {
+            event.preventDefault(); 
+            $('.edit-info').hide();
+        });
+    })
+    $(document).mouseup(function(e) {
+        var editContainer = $(".edit-info div");
+        if (!editContainer.is(e.target) && editContainer.has(e.target).length === 0) {
+            $('.edit-info').fadeOut();
+        }
+    });
+    $(document).on('click', '.edit_admin', function() {
+        var adminId = $(this).attr('data-admin');
+        $.ajax({
+            url: 'http://localhost:3057/api/topcv1s/admin/adminDetail',
+            method: 'POST',
+            headers: {
+                "Authorization": "Bearer " + getCookie('adminToken')
+            },
+            
+            data: {
+                id: adminId
+            },
+            success: function(response) {
+                if(response.data.data){
+                    var data = response.data.data;
+                    $('#admin_account').val(data.adm_loginname);
+                    $('#admin_name').val(data.adm_name);
+                    $('#admin_phone').val(data.adm_phone);
+                    $("#admin_email").val(data.adm_email);
+                    $('#depart_id').val(data.adm_bophan)
+                    console.log(data)
+                    data.permision.forEach(function(item) {
+                        var row = $('input.select-row[value=" ' + item.adu_admin_module_id + '"]').closest('tr');
+                        row.find('.select-row').prop('checked', true);
+                        row.find('.add-action').prop('checked', item.adu_add === 1);
+                        row.find('.edit-action').prop('checked', item.adu_edit === 1);
+                        row.find('.delete-action').prop('checked', item.adu_delete === 1);
+                        row.find('.select-row').trigger('change');
+                    });
+                    $('#updateForm').attr('data-update', adminId);
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log('error')
+            }
+        });
+        $('.edit-info').fadeIn();
+    });
+
+    $('#add_all').change(function() {
+        var isChecked = $(this).is(':checked');
+        $('#modules_list input[type="checkbox"]').prop('checked', isChecked);
+        $('#modules_list .row-action').prop('disabled', !isChecked);
+    });
+    $('#modules_list').on('change', '.select-row', function() {
+        var isChecked = $(this).is(':checked');
+        var rowActions = $(this).closest('tr').find('.row-action');
+        rowActions.prop('disabled', !isChecked);
+        if (!isChecked) {
+            rowActions.prop('checked', false);
+        }
+    });
+    function hideUpdateBox() {
+        // $('#updateForm').attr('data-update', '');
+
+        // $('.edit-info').find('input').val('');
+
+        // $('.edit-info').find('input[type="checkbox"]').each(function() {
+        //     $(this).prop('checked', false); // Bỏ chọn tất cả checkbox
+        //     if (!$(this).hasClass('select-row')) {
+        //         $(this).prop('disabled', true); // Vô hiệu hóa checkbox nếu không có class 'select-row'
+        //     } else {
+        //         $(this).prop('disabled', false); // Kích hoạt checkbox có class 'select-row'
+        //     }
+        // });
+
+        $('.edit-info').fadeOut();
+    }
+    $('.ntd-update-btn').click(function(){
+        var admin_id = $(this).attr('data-update');
+        var admin_account = $('#admin_account').val();
+        var admin_name = $('#admin_name').val();
+        var admin_phone = $('#admin_phone').val();
+        var admin_email = $('#admin_email').val() ? $('#admin_email').val() : "";
+        var depart_id = $('#depart_id').val() ? $('#depart_id').val() :0;
+        if (!admin_account) {
+            alert("Vui lòng nhập tài khoản");
+            $('#admin_account').trigger('forcus')
+            return;
+        }
+        if (!admin_name) {
+            alert("Vui lòng nhập tên tài khoản");
+            $('#admin_name').trigger('forcus')
+            return;
+        }
+        if(confirm("Xác nhận cập nhật tài khoản")){
+            let permissions = [];
+            let language = [];
+            let category = [];
+            $('#modules_list tbody tr').each(function() {
+                let row = $(this);
+                let isChecked = row.find('.select-row').is(':checked');
+                if (isChecked) {
+                    let add = row.find('.add-action').is(':checked') ? 1 : 0;
+                    let edit = row.find('.edit-action').is(':checked') ? 1 : 0;
+                    let deleteAction = row.find('.delete-action').is(':checked') ? 1 : 0;
+                    let adu_admin_module_id = Number(row.find('.select-row').val());
+                    permissions.push({
+                        adu_admin_module_id: adu_admin_module_id,
+                        adu_add: add,
+                        adu_edit: edit,
+                        adu_delete: deleteAction
+                    });
+                }
+            });
+            let requestData = {
+                adm_id:admin_id,
+                adm_loginname: admin_account,
+                adm_name: admin_name,
+                adm_phone: admin_phone,
+                adm_email: admin_email,
+                adm_bophan: depart_id,
+                permision: JSON.stringify(permissions),
+                category: JSON.stringify([]),
+                language: JSON.stringify([]),
+                adm_all_category: 1
+            };
+
+            $.ajax({
+                url: 'http://localhost:3057/api/topcv1s/admin/editAdminUser',
+                method: 'POST',
+                headers: {
+                    "Authorization": "Bearer " + getCookie('adminToken')
+                },
+                contentType: 'application/json',
+                data: JSON.stringify(requestData),
+                success: function(response) {
+                    alert('Cập nhật tài khoản thành công!');
+                    hideUpdateBox();
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert('Có lỗi xảy ra: ' + errorThrown);
+                }
+            });
+        } 
+    });
+
+    
+    
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    function formatDate(dateString) {
+        var date = new Date(dateString * 1000);
+        var day = String(date.getDate()).padStart(2, '0');
+        var month = String(date.getMonth() + 1).padStart(2, '0');
+        var year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    }
+
+    function formatDateTime(date, startOfDay = true) {
+        const pad = (num) => String(num).padStart(2, '0');
+        const day = pad(date.getDate());
+        const month = pad(date.getMonth() + 1);
+        const year = date.getFullYear();
+        const hour = startOfDay ? '00' : '23';
+        const minute = startOfDay ? '00' : '59';
+        const second = startOfDay ? '00' : '59';
+        const millisecond = startOfDay ? '000' : '999';
+        return `${year}-${month}-${day}T${hour}:${minute}:${second}.${millisecond}`;
+    }
+    function deleteCookie(name) {
+        document.cookie = name + '=; Max-Age=0; path=/;';
+    }
+    function logout() {
+        deleteCookie('adminToken');
+        deleteCookie('adminRefToken');
+        deleteCookie('adm_id');
+        deleteCookie('adm_name');
+        deleteCookie('adm_email');
+        deleteCookie('adm_phone');
+        deleteCookie('adm_bophan');
+        deleteCookie('id_bophankd');
+        deleteCookie('adm_picture');
+        deleteCookie('typeadmin');
+        deleteCookie('isLogin');
+        deleteCookie('confirmBoxSeen')
+        window.location.href = '/admin';
+    }
+    $(document).ready(function () {
+        var totalEmps;
+        var totalPage;
+        var pageSize = 10;
+        $(".btn-search").click(function () {
+            renderTable(1);
+        });
+        //
+        function convertEpochToDate(epochSeconds) {
+            const milliseconds = epochSeconds * 1000;
+            const date = new Date(milliseconds);
+            const day = date.getUTCDate();
+            const month = date.getUTCMonth() + 1; // Tháng trong JavaScript bắt đầu từ 0
+            const year = date.getUTCFullYear();
+            const formattedDate = `${day}/${month}/${year}`;
+            
+            return formattedDate;
+        }
+        function renderTable(page) {
+            let conditions = {};
+
+            $.ajax({
+                url: "http://localhost:3057/api/topcv1s/admin/list",
+                type: "POST",
+                headers: {
+                    "Authorization": "Bearer " + getCookie('adminToken')
+                },
+                contentType: "application/json",
+                data: JSON.stringify({
+                    page: page,
+                    pageSize: pageSize,
+                    module: 1,
+                    conditions: conditions,
+                }),
+                beforeSend: function() {
+                    $('.loading-box').show();
+                },
+                success: function (response) {
+                    if (response.data.result == true) {
+                        let pointData = response.data.data;
+                        let start = (page - 1) * pageSize;
+                        totalPage = Math.ceil(totalEmps / pageSize);
+                        let tableBody = $('#ListAdminId');
+                        tableBody.empty();
+                        if(pointData.length > 0){
+                            pointData.forEach((emp, index) => {
+                            var time_expired = emp.day_end ? convertEpochToDate(emp.day_end) : "-";
+                            let rowIndex = start + index + 1;
+                            let row = `<tr>
+                                        <td>${rowIndex}</td>
+                                        <td>${emp.adm_id}</td>
+                                        <td>${emp.adm_loginname}</td>
+                                        <td>${emp.adm_name}</td>
+                                        <td>${emp.permision ? emp.permision : "-"}</td>
+                                        <td><input type="checkbox" ${emp.adm_active && emp.adm_active == 1? 'checked' : ''}></td>
+                                        <td><img class="edit_admin" src="/images/icon/editicon.svg" width="15" height="15" alt="Save Job Icon" data-admin="${emp.adm_id}"></td>
+                                    </tr>`;
+                            tableBody.append(row);
+                            });
+                        }
+                        else{
+                            tableBody.append(`<tr><td class="text-c fw-700 color-alert" colspan="5">Chưa có bản ghi</td></tr>`);
+                        }
+
+                    }
+                },
+                error: function (xhr, status, error) {
+                    try {
+                        if (xhr.status === 402) {
+                            logout();
+                        }
+                        let response = JSON.parse(xhr.responseText);
+                        let errorMessage = response.message || "Unknown error"; 
+
+                        alert(errorMessage);
+                        console.log('Error message:', errorMessage);
+                    } catch (e) {
+                        alert("An error occurred while processing the error message.");
+                        console.log('Parsing error:', e);
+                    }
+                },
+                complete: function() {
+                    $('.loading-box').hide();
+                }
+            });
+        }
+        //Phân trang
+        function Paginate(totalPage, currentPage) {
+            $('.cnt-mag-paginate').empty();
+            $('.cnt-mag-paginate').append('<div class="pagi_pre_all"><<</div>');
+            $('.cnt-mag-paginate').append('<div class="pagi_pre"><</div>');
+            var startPage, endPage;
+            if (totalPage <= 4) {
+                startPage = 1;
+                endPage = totalPage;
+            } else if (currentPage <= 2) {
+                startPage = 1;
+                endPage = Math.min(totalPage, 4);
+            } else if (currentPage >= totalPage - 1) {
+                startPage = Math.max(1, totalPage - 3);
+                endPage = totalPage;
+            } else {
+                startPage = currentPage - 2;
+                endPage = currentPage + 2;
+            }
+            if (startPage > 1) {
+                $('.cnt-mag-paginate').append('<div class="pagi_page">1</div>');
+                if (startPage > 2) {
+                    $('.cnt-mag-paginate').append('<div class="pagi_page">...</div>');
+                }
+            }
+            for (let i = startPage; i <= endPage; i++) {
+                if (i === currentPage) {
+                    $('.cnt-mag-paginate').append('<div class="pagi_page active">' + i + '</div>');
+                } else {
+                    $('.cnt-mag-paginate').append('<div class="pagi_page">' + i + '</div>');
+                }
+            }
+            if (endPage < totalPage) {
+                if (endPage < totalPage - 1) {
+                    $('.cnt-mag-paginate').append('<div class="pagi_page">...</div>');
+                }
+                $('.cnt-mag-paginate').append('<div class="pagi_page">' + totalPage + '</div>');
+            }
+            $('.cnt-mag-paginate').append('<div class="pagi_next">></div>');
+            $('.cnt-mag-paginate').append('<div class="pagi_next_all">>></div>');
+            $('.pagi_page').click(function () {
+                if (!$(this).hasClass('active') && !$(this).text().includes('...')) {
+                    let selectedPage = parseInt($(this).text());
+                    $('.pagi_page').removeClass('active');
+                    $(this).addClass('active');
+                    renderTable(selectedPage);
+                    Paginate(totalPage, selectedPage);
+                }
+            });
+            $('.pagi_pre').click(function () {
+                if (currentPage > 1) {
+                    let prevPage = currentPage - 1;
+                    renderTable(prevPage);
+                    Paginate(totalPage, prevPage);
+                }
+            });
+            $('.pagi_next').click(function () {
+                if (currentPage < totalPage) {
+                    let nextPage = currentPage + 1;
+                    renderTable(nextPage);
+                    Paginate(totalPage, nextPage);
+                }
+            });
+            $('.pagi_pre_all').click(function () {
+                renderTable(1);
+                Paginate(totalPage, 1);
+            });
+            $('.pagi_next_all').click(function () {
+                renderTable(totalPage);
+                Paginate(totalPage, totalPage);
+            });
+        }
+        // Khởi tạo trang đầu tiên và tổng số trang
+        $.ajax({
+            url: "http://localhost:3057/api/topcv1s/admin/list",
+            type: "POST",
+            headers: {
+                "Authorization": "Bearer " + getCookie('adminToken')
+            },
+            contentType: "application/json",
+            data: JSON.stringify({
+                page: 1, pageSize: pageSize, module: 1
+            }),
+            success: function (response) {
+                if (response.data.result == true) {
+                    totalEmps = response.data.total;
+                    $('.ntd-count-number').html(totalEmps);
+                    totalPage = Math.ceil(totalEmps / pageSize);
+                    Paginate(totalPage, 1);
+                    renderTable(1);
+                }
+            },
+            error: function (xhr, status, error) {
+                try {
+                    if (xhr.status === 402) {
+                        logout();
+                    }
+                    let response = JSON.parse(xhr.responseText);
+                    let errorMessage = response.message || "Unknown error"; 
+
+                    alert(errorMessage);
+                    console.log('Error message:', errorMessage);
+                } catch (e) {
+                    alert("An error occurred while processing the error message.");
+                    console.log('Parsing error:', e);
+                }
+            },
+        });
+        function convertToSlug(text) {
+            return text.toLowerCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/[^a-z0-9 ]+/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-');
+        }
+    })
+</script>
+</html>

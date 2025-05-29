@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="<%= dataToRender.data.usc_index == 1 ? 'index,follow' : 'noindex,nofollow' %>" />
+    <meta name="description" content="<%= dataToRender.data.usc_company %> tuyển dụng nhiều vị trí việc làm với chế độ đãi ngộ hấp dẫn. Theo dõi <%= dataToRender.data.usc_company %> trên TopCv1s để ứng tuyển việc làm mới nhất."/>
+    <meta name="twitter:card" content="Công ty <%= dataToRender.data.usc_company %> và thông tin tuyển dụng hấp dẫn">
+    <meta name="twitter:site" content="TopCv1s">
+    <meta name="twitter:title" content="Công ty <%= dataToRender.data.usc_company %> và thông tin tuyển dụng hấp dẫn">
+    <meta name="twitter:description" content="Công ty <%= dataToRender.data.usc_company %> tuyển dụng nhiều vị trí việc làm với chế độ đãi ngộ hấp dẫn. Theo dõi công ty <%= dataToRender.data.usc_company %> trên TopCv1s để ứng tuyển việc làm mới nhất."/>
+    <meta property="og:site_name" content="TopCv1s">
+    <meta property="og:image" content="http://localhost:9020/images/img/icon_head.png">
+    <meta property="og:url" content="http://localhost:9020<%= url %>">
+    <meta property="og:type" content="website">
+    <title><%= dataToRender.data.usc_company %> và thông tin tuyển dụng hấp dẫn</title>
+    <link rel="icon" href="/images/img/icon_head.png">
+    <link rel="canonical" href="http://localhost:9020<%= url %>">
+    <link rel="preload" href="/images/img/room-desk-min_11zon.webp" as="image">
+    <!-- <meta name="robots" content="noindex, follow" /> -->
+    <link rel="preload" href="/css/common.css" as="style">
+    <link rel="stylesheet" href="/css/common.css" as="style">
+    <link rel="preload" href="/css/header.css" as="style">
+    <link rel="stylesheet" href="/css/header.css" as="style">
+    <link rel="preload" href="/css/page_css/comp_detail.css" as="style">
+    <link rel="stylesheet" href="/css/page_css/comp_detail.css" as="style">
+    <link rel="stylesheet" href="/css/custom_select2.css">
+    <!-- <script src="/js/jquery.min.js"></script> -->
+    <script
+    type="application/ld+json">{"@context": "https://schema.org","@type": "ItemPage","url": ""http://localhost:9020<%= url %>","mainEntityOfPage": "Trang Tin Tức Việc Làm Số 1 - Tìm Việc, Tuyển Dụng Hiệu Quả, Miễn Phí"}</script>
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"EmploymentAgency","name":"topcv1s.com","alternateName":"Tìm Việc Nhanh, Tuyển Dụng Hiệu Quả | TopCv1s.com","logo":"http://localhost:9020/images/img/icon_head.png","image":"http://localhost:9020/images/img/icon_head.png","url":"http://localhost:9020"}</script>
+    <script
+        type="application/ld+json">{"@context":"http://schema.org","@type":"WebSite","url":"http://localhost:9020/"}</script>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "DesPage",
+            "url": "http://localhost:9020<%= url %>",
+            "title": "Công ty <%= dataToRender.data.usc_company %> và thông tin tuyển dụng hấp dẫn",
+            "description": "Công ty <%= dataToRender.data.usc_company %> tuyển dụng nhiều vị trí việc làm với chế độ đãi ngộ hấp dẫn. Theo dõi công ty <%= dataToRender.data.usc_company %> trên TopCv1s để ứng tuyển việc làm mới nhất.",
+            "thumbnail": "<%= dataToRender.data.usc_logo ? dataToRender.data.usc_logo : "http://localhost:9020/images/img/default_logo.jpg" %>"
+        } 
+    </script> 
+    <meta name="google-site-verification" content="lwyGMjMCHXSuJXWOc3iy1MG_Hd6yRBARF5H8NuMxUPg" />
+</head>
+
+<body>
+    <%- include('layouts/header', {}); %>
+
+    <div id="content">
+        <div class="container">
+            <div class="navigation container">
+                <a href="/" class="color-main">Trang chủ</a>
+                <img src="/images/icon/arrow-right.svg" alt="Next Icon" width="15px" height="19px">
+                <span><%= dataToRender.data.usc_company %></span>
+            </div>
+            <div id="comp-1" class=" comp-container">
+                <div class="comp-header">
+                    <div class="cover">
+                        <img onerror="this.onerror=null;this.src='/images/img/default_logo-min_11zon.webp';" src="<%= dataToRender.data.usc_logo %>" alt="<%= dataToRender.data.usc_company %>" loading="eager" class="profile-picture">
+                    </div>
+                    <div class="profile-details">
+                        <h1 class="profile-name fw-700">Công ty <%= dataToRender.data.usc_company %> và thông tin tuyển dụng <%= dataToRender.data.usc_company %> - VIEC3S</h1>
+                        <span class="profile-contact">
+                            <div class="links">
+                                <div class="d-flex gap-1 pt-1">
+                                    <img src="/images/icon/streamline_web.svg" loading="eager" alt="website icon" width="20px" height="51px">
+                                    <p class="color-white ">
+                                        <a href="<%= dataToRender.data.usc_website ? `/${dataToRender.data.usc_website}` : '#' %>">
+                                            <% if (!dataToRender.data.usc_website) { %>
+                                                <span class="fw-700">Website: </span>Chưa cập nhật
+                                            <% } else { %>
+                                                <%= dataToRender.data.usc_website %>
+                                            <% } %>
+                                        </a>                                
+                                    </div>
+                                <div class="d-flex gap-1 pt-3">
+                                    <img src="/images/icon/clarity_building-line.svg" loading="eager" width="20px" height="20px" alt="building icon">
+                                    <div class="color-white">
+                                        <% const compSize = findCompSize(dataToRender.data.usc_size); %>
+                                        <% if (compSize === "Chưa cập nhật") { %>
+                                            <span class="fw-700">Quy mô: </span>
+                                        <% } %>
+                                        <%= compSize %>
+                                    </div>                                </div>
+                            </div>
+                            <!-- <div class="btn">
+                                <img src="/images/icon/plus.png" width="15px" height="15px" alt="Plus Icon">
+                                <div class="color-main">Theo dõi công ty</div>
+                            </div> -->
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div id="comp-2">
+                <div class="comp-detail">
+                    <div class="content-left">
+                        <div class="intro">
+                            <h2 class="bg-main comp-title mb-0">
+                                Giới thiệu công ty
+                            </h2>
+                            <div class="intro-body">
+                                <div class="intro-body-content">
+                                    <div class="intro-item">
+                                        <div class="intro-tit fw-700"><%= dataToRender.data.usc_company ? dataToRender.data.usc_company : ''  %></div>
+                                        <div class="intro-content ws">
+                                            <%- dataToRender.data.usc_company_info != '' && dataToRender.data.usc_company_info ? dataToRender.data.usc_company_info : 'Đang cập nhật...'  %>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="intro-toggle d-flex align-c gap-2">
+                                    <span class="color-main">Xem thêm</span>
+                                    <img class="arrow-icon" src="/images/icon/arrow-down.svg" width="12" height="12" alt="Show More Icon">
+                                </div>
+                                
+                                <div>
+                                    <p class="fw-700">Hình ảnh về công ty</p>
+                                    <div class="list_img_cpn">
+                                    <% if (dataToRender.data.image_com && dataToRender.data.image_com.length > 0) { 
+                                        dataToRender.data.image_com.forEach(function(image) { %>
+                                        <img class="img_cpn" src="<%= image %>" alt="Image_cpn" />
+                                        <% }); 
+                                    } else { %>
+                                        <p>Chưa có hình ảnh nào</p>
+                                    <% } %>
+                                    </div>
+                                </div>
+                               
+                            </div>
+
+                        </div>
+                        <div class="comp-recuit  bg-white">
+                            <h2 class="bg-main comp-title mb-0">
+                                Tuyển dụng
+                            </h2>
+                            <div class="recuit-body " style="display: none;">
+                                <div class="search-row ">
+                                    <div class="search-container">
+                                        <div class="search-icon d-flex">
+                                            <img src="/images/icon/glass.svg" alt="Search Icon">
+                                        </div>
+                                        <input type="text" placeholder="Tên công ty các vị trí ứng tuyển">
+                                    </div>
+                                    <div class="search-container">
+                                        <div class="search-icon d-flex">
+                                            <img src="/images/icon/glass.svg" alt="Search Icon">
+                                        </div>
+                                        <select id="job_comp_city">
+                                            <option value="">
+                                                Tất cả tỉnh/thành phố
+                                            </option>
+                                            <% if (city_array && city_array.length > 0) { %>
+                                                <% city_array.forEach(function(item) { %>
+                                                    <option value="<%= item.cit_id %>"><%= item.cit_name %></option>
+                                                <% }); %>
+                                            <% }  %>
+                                        </select>
+                                    </div>
+                                    <button class="d-flex align-c search-job">
+                                        <img src="/images/icon/white-glass.svg" alt="Search Icon" width="19px" height="20px">
+                                        <span class="color-white">Tìm kiếm</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="recuit-list">
+                                <% if (dataToRender.data.news && dataToRender.data.news.length > 0) { %>
+                                    <% dataToRender.data.news.forEach(function(item) { %>
+                                        <div class="recuit-unit">
+                                            <img class="rounded-circle outline_main logo_comp_job" onerror="this.onerror=null;this.src='/images/img/default_logo-min_11zon.webp';" src="<%= item.usc_logo %>" alt="<%= item.usc_company %>" loading="lazy" width="117px" height="117px">
+                                            <div class="recuit-unit-info">
+                                                <div class="d-flex justify-b recuit-unit-top">
+                                                    <div class="recuit-unit-tit">
+                                                        <h3 class="mb-3 color-main">
+                                                            <a href="/<%= item.new_alias %>-<%= item.new_id %>" class="color-main fw-700"><%= item.new_title %></a>
+                                                        </h3>
+                                                        <a class="fs-6" href="/<%= item.usc_alias %>"><%= item.usc_company %></a>
+                                                    </div>
+                                                    <div class="recuit-unit-salary color-main fw-700"><%= getMucLuong2(item.new_money_type,item.new_money_from,item.new_money_to,item.new_money) %></div>
+                                                </div>
+                                                <div class="d-flex justify-b gap-5 recuit-unit-bottom">
+                                                    <div class="d-flex gap-2 recuit-gener fs-7">
+                                                        <div class="recuit-gener-loc"><%= findCity(parseInt(item.new_city, 10)) %></div>
+                                                        <div class="recuit-gener-dl">
+                                                            <% const deadline = checkDeadline(parseInt(item.new_han_nop, 10)); %>
+                                                            <% if (deadline.value > 0) { %>
+                                                                Còn <span class="fw-700"><%= deadline.value %> <%= deadline.type %> ứng tuyển</span>
+                                                            <% } else { %>
+                                                                Đã hết hạn
+                                                            <% } %>                                                        
+                                                        </div>
+                                                        <div class="recuit-gener-udt">
+                                                            <% const elapsedTime = checkElapsedTime (parseInt(item.new_create_time, 10)); %>
+                                                            Đãng <%= elapsedTime.value %> <%= elapsedTime.type %> trước</span>   
+                                                        </div>
+                                                    </div>
+                                                    <div class="recuit-act">
+                                                        <button class="recuit-appl <%= item.checkUngTuyen == true?"":"apply_action"%> " data-id="<%= item.new_id%>"><%= item.checkUngTuyen == true?"Đã ứng tuyển":"Ứng tuyển"%></button>
+                                                        <!-- <button class="recuit-save">
+                                                            <img src="/images/icon/saveJobIcon.svg" loading="lazy" alt="Save Job Icon" width="19.12" height="25.24">
+                                                        </button> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <% }); %>
+                                <% } else { %>
+                                    <p>Đang cập nhật...</p>
+                                <% } %>
+                            </div>
+                        </div>
+                        <div class="other">
+                            <p class="other-title fw-700"> Top công ty cùng lĩnh vực</p>
+                            <div class="other-list">
+                                <% if (dataToRender.data.sameCom && dataToRender.data.sameCom.length > 0) { %>
+                                    <% dataToRender.data.sameCom.forEach(function(item) { %>
+                                        <div class="other-unit">
+                                            <div class="other-unit-img">
+                                                <img class="rounded-circle outline_main" onerror="this.onerror=null;this.src='/images/img/default_logo-min_11zon.webp';" alt="<%= item.usc_company %>" src="<%= item.usc_logo %>" loading="lazy" width="132px" height="132px">
+                                            </div>
+                                            <div class="other-unit-info">
+                                                <a class="fs-5 fw-700" href="/<%= item.usc_alias %>"><%= item.usc_company %></a>
+                                                <div class="jobs">97 việc làm</div>
+                                            </div>
+                                            <!-- <div class="btn">
+                                                <img src="/images/icon/plus.png" loading="lazy" width="15px" height="15px" alt="Plus Icon">
+                                                <p class="color-main">Theo dõi </p>
+                                            </div> -->
+                                        </div>
+                                <% }); %>
+                                <% } else { %>
+                                    <p>No news available.</p>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-right bg-white ">
+                        <div class="contact">
+                            <h2 class="comp-title-right bg-main mb-0">
+                                Thông tin liên hệ
+                            </h2>
+                            <div class="contact-body ">
+                                <div class="top-icon ">
+                                    <img src="/images/icon/map-pin.svg" loading="lazy" alt="Location Icon" width="20px" height="51px">
+                                    <p class="color-main fw-500">Địa chỉ công ty</p>
+                                </div>
+                                <p><%- dataToRender.data.usc_address ? dataToRender.data.usc_address : '<span style="opacity: 0.5;">Chưa cập nhật</span>'  %></p>
+                                <div class="top-icon ">
+                                    <img class="icon_contact" src="/images/icon/user.png" alt="Location Icon">
+                                    <p class="color-main fw-500">Người liên hệ</p>
+                                </div>
+                                <p><%- dataToRender.data.usc_name ? dataToRender.data.usc_name : '<span style="opacity: 0.5;">Chưa cập nhật</span>'  %></p>
+                                <div class="top-icon ">
+                                    <img class="icon_contact" src="/images/icon/phone-call.png" alt="Location Icon">
+                                    <p class="color-main fw-500">Số điện thoại liên hệ</p>
+                                </div>
+                                <p><%- dataToRender.data.usc_name_phone ? dataToRender.data.usc_name_phone : '<span style="opacity: 0.5;">Chưa cập nhật</span>'  %></p>
+                                <div class="top-icon ">
+                                    <img class="icon_contact" src="/images/icon/email.png" alt="Location Icon">
+                                    <p class="color-main fw-500">Email liên hệ</p>
+                                </div>
+                                <p class="gach_duoi"><%- dataToRender.data.usc_name_email ? dataToRender.data.usc_name_email : '<span style="opacity: 0.5;">Chưa cập nhật</span>'  %></p>
+                                <!-- <img src="/images/icon/Line.svg" loading="lazy" alt="Address Icon" width="314px" height="2px"> -->
+                                <!-- <div class="bottom-icon">
+                                    <img src="/images/icon/Vector.svg" loading="lazy" alt="More Icon" width="20px" height="51px">
+                                    <p class="color-main fw-500">Xem bản đồ</p>
+                                </div> -->
+                                <% if (dataToRender.data.usc_address) { %>
+                                    <!-- <img id="myImage" src="/images/img/Map-min_11zon.webp" alt="Map Icon" width="300px" height="280px"> -->
+                                <% } else { %>
+            
+                                <% } %>
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <link rel="stylesheet" href="/css/footer.css" as="style">
+    <%- include('layouts/footer', {}); %>
+
+    <script>
+        $(document).ready(function() {
+            $('.nav-item').hover(function() {
+                $(this).children('.nav-dropdown').stop(true, true).fadeIn(300);
+            }, function() {
+                $(this).children('.nav-dropdown').stop(true, true).fadeOut(300);
+            });
+        });
+    </script>
+    <script>
+        function setLoadingAttribute() {
+          const img = document.getElementById('myImage');
+          if (window.innerWidth <= 768) {
+            img.setAttribute('loading', 'lazy');
+          } else {
+            img.setAttribute('loading', 'eager');
+          }
+        }
+      
+        // Gọi hàm khi trang được tải
+        window.onload = setLoadingAttribute;
+      </script>
+    <script>
+        $(document).ready(function() {
+            $('.intro-toggle').on('click', function() {
+                var content = $('.intro-body-content ');
+                var toggleText = $('.intro-toggle span');
+                var toggleIcon = $('.intro-toggle img');
+
+                content.toggleClass('expanded');
+                toggleIcon.toggleClass('rotated');
+
+                if (content.hasClass('expanded')) {
+                    toggleText.text('Rút gọn');
+                } else {
+                    toggleText.text('Xem thêm');
+                }
+            });
+
+            $('.recuit-appl').click(function(){
+                        accessToken = getCookie('accessToken');
+                        auth = getCookie('auth')
+                        type = getCookie('type');
+                        if(!accessToken || accessToken == '' ||type==1){
+                            alert('Vui lòng đăng nhập tài khoản ứng viên.');
+                            $('#login_uv_modal').show();
+                            return;
+                        }
+                        if (!$(this).hasClass('apply_action')) {
+                            return;
+                        }
+                        if(auth == 0){
+                            var confirmAction = confirm("Bạn cần xác thực tài khoản.");
+                            if (confirmAction) {
+                                window.location.href = "/otp"; 
+                                return
+                            } else {
+                                return;
+                            }
+                        }
+                        var button = $(this);
+                        var letter = '';
+                        var news_id = button.attr('data-id');
+                        $.ajax({
+                            url: URL_API_CANDI+ '/ApplyJob',
+                            type: 'POST',
+                            contentType: 'application/json',
+                            headers: {
+                                "Authorization": "Bearer " + getCookie('accessToken')
+                            },
+                            data: JSON.stringify({
+                                id: news_id,
+                                lt: letter
+                            }),
+                            success: function(response) {
+                                console.log(response);
+                                alert('Ứng tuyển thành công');
+                                button.removeClass('apply_action');
+                                button.text('Đã ứng tuyển')
+                            },
+                            error: function(error) {
+                                if(error.responseJSON.message){
+                                    alert(error.responseJSON.message);
+                                }
+                                else if (error.responseJSON.error.message){
+                                    alert(error.responseJSON.error.message);
+                                }
+                                else {
+                                    alert('An error occurred, please try again.');
+                                }
+                                $("#modal_appl").css("display", "none");
+                            }
+                        });
+                    })
+        });
+    </script>
+    <script src="/js/custom_select.js"></script>
+    <script>
+        $('#job_comp_city').CustomSelect({
+            placeholder: 'Chọn tỉnh thành',
+            searchPlaceholder: 'Tìm kiếm...'
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            const $introBodyContent = $('.intro-body-content');
+            const $introToggle = $('.intro-toggle');
+            if ($introBodyContent[0].scrollHeight <= 200) {
+                $introToggle.addClass('hidden');
+            }
+        });
+    </script>
+    
+    
+</body>
+
+</html>

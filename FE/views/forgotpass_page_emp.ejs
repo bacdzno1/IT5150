@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="lwyGMjMCHXSuJXWOc3iy1MG_Hd6yRBARF5H8NuMxUPg" />
+    <link rel="icon" href="/images/img/icon_head.png">
+    <title>Quên mật khẩu</title>
+    <link rel="preload" href="/css/forgotpass_page_emp.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/css/forgotpass_page_emp.css">
+    </noscript>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="canonical" href="http://localhost:9020<%= url %>">
+    <script src="/js/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="otp_cnt">
+        <div class="container">
+            <div class="otp-back">
+                <a href="/">
+                    <svg width="31" height="18" viewBox="0 0 31 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M10.7194 2.84785C11.0127 2.52683 11.1724 2.10225 11.1648 1.66354C11.1572 1.22483 10.9829 0.806251 10.6787 0.495988C10.3744 0.185726 9.96389 0.00800433 9.53366 0.000263828C9.10342 -0.00747668 8.68703 0.155368 8.37221 0.454493L1.17357 7.79261L0 8.98928L1.17357 10.186L8.37 17.5241C8.68307 17.8327 9.10249 18.0036 9.53793 17.9999C9.97337 17.9963 10.39 17.8184 10.698 17.5046C11.0061 17.1908 11.1809 16.7661 11.1849 16.3221C11.1889 15.8781 11.0217 15.4502 10.7194 15.1307L6.35721 10.6827H29.3393C29.7797 10.6827 30.2021 10.5043 30.5136 10.1867C30.825 9.86913 31 9.43841 31 8.98928C31 8.54016 30.825 8.10944 30.5136 7.79186C30.2021 7.47429 29.7797 7.29587 29.3393 7.29587H6.35721L10.7194 2.84785Z"
+                            fill="#F8F8F8"></path>
+                    </svg>
+                </a>
+            </div>
+            <div class="otp-box">
+                <div class="otp-left">
+                    <img src="/images/logo/logo.svg" alt="Logo Site" width="160" height="70">
+                    <img src="/images/img/loginuvimg.svg" alt="Banner Otp">
+                </div>
+                <div class="otp-form">
+                    <div class="otp-form-title">
+                        VIEC3S.COM HỖ TRỢ LẤY LẠI MẬT KHẨU NHÀ TUYỂN DỤNG RẤT ĐƠN GIẢN VÀ NHANH CHÓNG
+                    </div>
+                    <div class="form-account">
+                        <input type="text" placeholder="Nhập địa chỉ email" id="account_forgot">
+                        <label for="account_forgot">
+                            <svg class="forget_pass_icon_input__y4qZs" xmlns="http://www.w3.org/2000/svg" width="19"
+                                height="20" viewBox="0 0 19 20" fill="none">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M13.977 19.4973C12.6067 19.4469 8.72315 18.9103 4.65598 14.8449C0.589752 10.7785 0.0539962 6.89678 0.00260931 5.52579C-0.0735194 3.43648 1.52709 1.40712 3.37606 0.614592C3.59872 0.518468 3.84254 0.48187 4.08361 0.508391C4.32468 0.534912 4.55471 0.623639 4.75114 0.765867C6.27371 1.87522 7.32429 3.55351 8.22641 4.87312C8.4249 5.16304 8.50977 5.51584 8.46484 5.8643C8.41992 6.21275 8.24834 6.53251 7.9828 6.76263L6.12621 8.14122C6.03651 8.20598 5.97338 8.30109 5.94852 8.40888C5.92367 8.51667 5.93879 8.62981 5.99108 8.7273C6.41169 9.49128 7.15966 10.6292 8.01611 11.4854C8.8735 12.3417 10.0649 13.139 10.8824 13.6071C10.9848 13.6646 11.1055 13.6807 11.2195 13.652C11.3334 13.6234 11.4321 13.5521 11.4952 13.453L12.7037 11.6139C12.9259 11.3188 13.2537 11.1211 13.6184 11.0622C13.9831 11.0034 14.3564 11.0878 14.6602 11.298C15.9992 12.2247 17.5617 13.257 18.7055 14.7212C18.8593 14.919 18.9572 15.1545 18.9888 15.403C19.0204 15.6516 18.9847 15.904 18.8854 16.1341C18.0889 17.9922 16.0734 19.5744 13.977 19.4973Z"
+                                    fill="#00b14f"></path>
+                            </svg>
+                        </label>
+                    </div>
+                    <div class="title_attend">
+                        Mời bạn nhập <strong>Email</strong> đã đăng ký tài khoản trên <span class="color-main fw-700"><a
+                                target="_blank" href="http://localhost:9020">topcv1s.com</a></span>
+                    </div>
+                    <p class="notice" style="display: none;">(Mã OTP được TopCv1s gửi về <%= "email của bạn" %>: <span
+                                class="blue" style="color: #00b14f;"></span>)</p>
+                    <div class="otp_">
+
+                    </div>
+                    <div id="otp_box" class="box_confirm" style="display: none;">
+                        <input id="otp_input" type="text" maxlength="6"
+                            style="background: repeating-linear-gradient(90deg, #4C5BD4 0, #4C5BD4 1ch, transparent 0, transparent 1.8ch) 0 100%/10ch 2px no-repeat; font: 6ch 'Droid Sans Mono', Consolas, monospace; padding: 0; border: none; width: 280px; margin: 0 auto 24px auto; letter-spacing: 0.8ch; outline: 0;" />
+                        <span id="otp_error" class="text_error"></span>
+                        <button id="verify_otp" class="btn_confirm" type="button">Xác nhận</button>
+                        <div id="otp_countdown" style="text-align: center;"></div>
+                        <button id="resend_otp" class="refesh_otp" type="button" disabled
+                            style="cursor: not-allowed;">Gửi lại</button>
+                    </div>
+                    <div class="forgot-act" id="send_otp_box">
+                        <div class="forgot-btn" id="send_otp">
+                            LẤY LẠI MẬT KHẨU
+                        </div>
+                    </div>
+                    <div id="captcha"></div>
+                    <div class="form-newpass" style="display: none;"></div>
+                    <div class="regis_attend">
+                        Bạn chưa có tài khoản? <span class="color-main fw-700"><a target="_blank"
+                                href="http://localhost:9020/dang-ky-nha-tuyen-dung">Đăng ký ngay</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://cdn.rawgit.com/hilios/jQuery.countdown/2.2.0/dist/jquery.countdown.min.js"></script>
+
+    <script>
+        // let fbKey;
+        let isWaiting = false;
+        $(document).ready(function () {
+            if (getCookie('auth') == "1") {
+                window.location.href = "/";
+                return;
+            }
+
+            // const firebaseConfig = {
+            //     apiKey: "AIzaSyDZpBM6r-RHptBOd_LVRBhdoAkfpW6w4iQ",
+            //     authDomain: "timviechay13.firebaseapp.com",
+            //     projectId: "timviechay13",
+            //     storageBucket: "timviechay13.appspot.com",
+            //     messagingSenderId: "340228496359",
+            //     appId: "1:340228496359:web:5deef67e2991a941783b42",
+            //     measurementId: "G-SH3571BYFV"
+            // };
+
+            // let otpConfirm;
+            // let mainAuth;
+            // let isWaiting = false;
+
+            const handleWait = () => {
+                const countdown = new Date().getTime() + 0.5 * 60 * 1000;
+                isWaiting = true;
+                $('#otp_countdown').countdown(countdown, function (event) {
+                    $(this).html(event.strftime('Chưa nhận được OTP? Hãy gửi lại sau: %M:%S'));
+                    $('#resend_otp').prop('disabled', true).css("cursor", "not-allowed");
+                }).on('finish.countdown', function () {
+                    isWaiting = false;
+                    $('#resend_otp').prop('disabled', false);
+                });
+            };
+
+            // const deleteFirebaseApps = async () => {
+            //     if (firebase.apps.length > 0) {
+            //         for (const app of firebase.apps) {
+            //             await app.delete();
+            //         }
+            //     }
+            // };
+
+            // const handleSend = async () => {
+            //     // await deleteFirebaseApps();
+            //     $('#send_otp, #resend_otp').prop('disabled', true);
+            //     // const phone = getPhoneNumberFromCookies();
+            //     const email = getEmailFromCookies();
+            //     console.log(">>> email:", email)
+            //     if (!email) {
+            //         alert('Thiếu email');
+            //     } else {
+            //         $.ajax({
+            //             type: "POST",
+            //             url: "/SendOTPToAccount",
+            //             data: {
+            //                 phone: phone,
+            //                 type: 1,
+            //             },
+            //             dataType: "JSON",
+            //             async: false,
+            //             success: function (data) {
+            //                 console.log(">>> data: ", data);
+            //                 if (data && data.result) {
+            //                     alert(data.message);
+            //                     $("#send_otp").hide();
+            //                     $('#otp_box').show();
+            //                     $('#send_otp_box').hide();
+            //                 } else {
+            //                     alert(data.message);
+            //                 }
+            //             }
+            //         });
+            //     }
+
+            //     $('#send_otp, #resend_otp').prop('disabled', false);
+            // };
+
+            const handleVerify = async () => {
+                // const phone = getPhoneNumberFromCookies();
+                // const email = getEmailFromCookies();
+                const otp = $('#otp_input').val();
+                if (otp) {
+                    const forgotid = getCookie('forgotId')
+                    console.log(">>> Forgot id: ", forgotid)
+
+                    $.ajax({
+                        url: 'http://localhost:3050/api/topcv1s/user/ConfirmOTP',
+                        type: 'POST',
+                        data: {
+                            otp: otp,
+                            id: forgotid,
+                            type: 2
+                        },
+                        // dataType: "JSON",
+                        success: function (data) {
+                            if (data.data.result) {
+                                alert(data.data.message);
+                                document.cookie = `forgotToken=${data.data.token}; path=/`;
+                                $('#otp_box').remove();
+                                $('#captcha').remove();
+                                var html = `
+                                        <div class="item-newpass">
+                                            <div class="label-newpass">
+                                                <label for="newpass_id">Mật khẩu mới</label>
+                                            </div>
+                                            <div class="input-newpass">
+                                                <input type="password" id="newpass_id">
+                                                <div class="showpass">
+                                                    <img src="/images/icon/showpass.svg">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item-newpass">
+                                            <div class="label-newpass">
+                                                <label for="newpass_id">Nhập lại khẩu mới</label>
+                                            </div>
+                                            <div class="input-newpass">
+                                                <input type="password" id="renewpass_id">
+                                                <div class="showpass">
+                                                    <img src="/images/icon/showpass.svg">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="act-newpass">
+                                            <button class="confirm-newpass">
+                                                ĐẶT LẠI MẬT KHẨU
+                                            </button>
+                                        </div>
+                                        `;
+                                $('.form-newpass').append(html);
+                                $('.form-newpass').show();
+                                $('.confirm-newpass').on('click', function () {
+                                    const newPassword = $('#newpass_id').val();
+                                    const reNewPassword = $('#renewpass_id').val();
+                                    if (newPassword === reNewPassword && newPassword.length > 0) {
+                                        $.ajax({
+                                            method: "POST",
+                                            url: "http://localhost:3050/api/topcv1s/user/UpdatePasswordEmployers",
+                                            data: {
+                                                password: newPassword,
+                                                rePassword: reNewPassword,
+                                                type: 1
+                                            },
+                                            headers: {
+                                                'Authorization': `Bearer ${getCookie('forgotToken')}`
+                                            },
+                                            success: function (response) {
+                                                if (response && response.data && response.data.result) {
+                                                    alert(response.data.message);
+                                                    window.location.href = "/dang-nhap-nha-tuyen-dung";
+                                                } else {
+                                                    alert('Có lỗi xảy ra khi đổi mật khẩu');
+                                                }
+                                            },
+                                            error: function (xhr, status, error) {
+                                                alert('Có lỗi xảy ra khi đổi mật khẩu');
+                                                console.error(xhr, status, error);
+                                            }
+                                        });
+                                    } else {
+                                        alert('Mật khẩu không trùng nhau hoặc rỗng');
+                                    }
+                                });
+                                $('.showpass').on('click', function () {
+                                    const inputField = $(this).siblings('input');
+                                    const inputType = inputField.attr('type');
+                                    if (inputType === 'password') {
+                                        inputField.attr('type', 'text');
+                                    } else {
+                                        inputField.attr('type', 'password');
+                                    }
+                                });
+
+                            } else {
+                                alert("Lỗi vui lòng thử lại");
+                                window.location.reload();
+                            }
+                        }
+                    });
+
+                    // $.ajax({
+                    //     url: '/ConfirmOTPByAccount',
+                    //     type: 'POST',
+                    //     data: {
+                    //         phone: phone,
+                    //         type: 1,
+                    //         otp: otp,
+                    //     },
+                    //     dataType: "JSON",
+                    //     success: function (data) {
+                    //         console.log(">>> data 2: ", data);
+                    //         if (data.result) {
+                    //             var isForgetPass = getCookie("cookieForgetPass");
+                    //             const type = getCookie('typeForgot');
+                    //             const id = getCookie('forgotId');
+                    //             alert(data.message);
+                    //             // Cookies.set(cookieToken, result.token);
+                    //             // document.cookie = `accessToken=${result.data.token}; max-age=${60 * 24 * 60 * 60}`;
+                    //             // document.cookie = `auth=1; max-age=${60 * 24 * 60 * 60}`;
+                    //             document.cookie = `forgotToken=${data.data}; path=/`;
+                    //             if (isForgetPass == 1) {
+                    //                 // Cookies.set(cookieOTP, '1');
+                    //                 $('#otp_box').remove();
+                    //                 $('#captcha').remove();
+                    //                 var html = `
+                    //                     <div class="item-newpass">
+                    //                         <div class="label-newpass">
+                    //                             <label for="newpass_id">Mật khẩu mới</label>
+                    //                         </div>
+                    //                         <div class="input-newpass">
+                    //                             <input type="password" id="newpass_id">
+                    //                             <div class="showpass">
+                    //                                 <img src="/images/icon/showpass.svg">
+                    //                             </div>
+                    //                         </div>
+                    //                     </div>
+                    //                     <div class="item-newpass">
+                    //                         <div class="label-newpass">
+                    //                             <label for="newpass_id">Nhập lại khẩu mới</label>
+                    //                         </div>
+                    //                         <div class="input-newpass">
+                    //                             <input type="password" id="renewpass_id">
+                    //                             <div class="showpass">
+                    //                                 <img src="/images/icon/showpass.svg">
+                    //                             </div>
+                    //                         </div>
+                    //                     </div>
+                    //                     <div class="act-newpass">
+                    //                         <button class="confirm-newpass">
+                    //                             ĐẶT LẠI MẬT KHẨU
+                    //                         </button>
+                    //                     </div>
+                    //                     `;
+                    //                 $('.form-newpass').append(html);
+                    //                 $('.form-newpass').show();
+                    //                 $('.confirm-newpass').on('click', function () {
+                    //                     const newPassword = $('#newpass_id').val();
+                    //                     const reNewPassword = $('#renewpass_id').val();
+                    //                     if (newPassword === reNewPassword && newPassword.length > 0) {
+                    //                         $.ajax({
+                    //                             method: "POST",
+                    //                             url: "http://localhost:3050/api/topcv1s/user/UpdatePasswordEmployers",
+                    //                             data: {
+                    //                                 password: newPassword,
+                    //                                 rePassword: reNewPassword,
+                    //                                 type: 1
+                    //                             },
+                    //                             headers: {
+                    //                                 'Authorization': `Bearer ${getCookie('forgotToken')}`
+                    //                             },
+                    //                             success: function (response) {
+                    //                                 if (response && response.data && response.data.result) {
+                    //                                     alert(response.data.message);
+                    //                                     window.location.href = "/dang-nhap-nha-tuyen-dung";
+                    //                                 } else {
+                    //                                     alert('Có lỗi xảy ra khi đổi mật khẩu');
+                    //                                 }
+                    //                             },
+                    //                             error: function (xhr, status, error) {
+                    //                                 alert('Có lỗi xảy ra khi đổi mật khẩu');
+                    //                                 console.error(xhr, status, error);
+                    //                             }
+                    //                         });
+                    //                     } else {
+                    //                         alert('Mật khẩu không trùng nhau hoặc rỗng');
+                    //                     }
+                    //                 });
+                    //                 $('.showpass').on('click', function () {
+                    //                     const inputField = $(this).siblings('input');
+                    //                     const inputType = inputField.attr('type');
+                    //                     if (inputType === 'password') {
+                    //                         inputField.attr('type', 'text');
+                    //                     } else {
+                    //                         inputField.attr('type', 'password');
+                    //                     }
+                    //                 });
+                    //             }
+                    //         } else {
+                    //             alert("Lỗi vui lòng thử lại");
+                    //             window.location.reload();
+                    //         }
+                    //     }
+                    // });
+                    // // await otpConfirm.confirm(otp).then(async (result) => {
+                    //     const token = await mainAuth.currentUser?.getIdToken();
+                    //     if (token) {
+                    //         handleVerifySuccess(token);
+                    //     } else {
+                    //         alert('Xác thực thất bại. Vui lòng thử lại.');
+                    //     }
+                    // }).catch((error) => {
+                    //     console.log(error);
+                    //     alert('Mã OTP không hợp lệ. Vui lòng thử lại.');
+                    // });
+                } else {
+                    alert("Vui lòng nhập mã OTP")
+                    return;
+                }
+            };
+            $('#send_otp, #resend_otp').click(function () {
+                var account = $('#account_forgot').val();
+                $('.blue').text(account)
+                if (account) {
+                    $.ajax({
+                        method: "POST",
+                        url: "http://localhost:3050/api/topcv1s/user/EmployersForgotPass",
+                        data: {
+                            phoneTK: account
+                        },
+                        success: function (response) {
+                            if (response.data && response.data.result) {
+                                console.log(">>> response data: ", response);
+                                alert("Yêu cầu đặt lại mật khẩu đã được gửi thành công!");
+                                // document.cookie = `phoneForgot=${account}; path=/`;
+                                document.cookie = `emailForgot=${account}; path=/`;
+                                document.cookie = `cookieForgetPass=1; path=/`;
+                                document.cookie = `typeForgot=1; path=/`;
+                                document.cookie = `forgotId=${response.data.id}; path=/`;
+                                $('.form-account').hide();
+                                $('.title_attend').hide();
+                                // handleSend();
+                                $('#send_otp_box').hide();
+                                $('#otp_box').show();
+                                $('.notice').show();
+                                handleWait();
+                            } else {
+                                alert("Có lỗi xảy ra: " + ("Vui lòng thử lại sau."));
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            var response = JSON.parse(xhr.responseText);
+                            alert(response.error.message || "Có lỗi xảy ra, vui lòng thử lại sau.");
+                        }
+                    });
+                }
+                else {
+                    alert("Vui lòng nhập số điện thoại đã đăng ký");
+                }
+            })
+
+            // $('#resend_otp').on('click', handleSend);
+            $('#verify_otp').on('click', handleVerify);
+
+            function getPhoneNumberFromCookies() {
+                if (getCookie('phoneForgot')) {
+                    var cookie = getCookie('phoneForgot');
+                    return cookie;
+                }
+                return null;
+            }
+
+            function getEmailFromCookies() {
+                if (getCookie('emailForgot')) {
+                    var cookie = getCookie('emailForgot');
+                    return cookie;
+                }
+                return null;
+            }
+
+            function getCookie(name) {
+                const value = `; ${document.cookie}`;
+                const parts = value.split(`; ${name}=`);
+                if (parts.length === 2) return parts.pop().split(';').shift();
+            }
+
+            // function GetFbConfig(phone) {
+            //     return new Promise((resolve, reject) => {
+            //         let headers = { "Content-Type": "application/x-www-form-urlencoded" };
+            //         let formData = new URLSearchParams();
+            //         formData.append('number', phone);
+            //         formData.append('for', 'topcv1s');
+
+            //         $.ajax({
+            //             method: "POST",
+            //             url: "https://api.timviec365.vn:9015/api/users/TakeDataFireBaseOTP",
+            //             data: formData.toString(),
+            //             headers: headers,
+            //             success: function (response) {
+            //                 resolve(response.data);
+            //             },
+            //             error: function (jqXHR, textStatus, errorThrown) {
+            //                 console.error("🚀 ~ GetFbConfig ~ error:", textStatus, errorThrown);
+            //                 let errorResponse = jqXHR.responseJSON;
+            //                 if (errorResponse && errorResponse.error && errorResponse.error.message) {
+            //                     resolve({
+            //                         result: false,
+            //                         status: 405,
+            //                         message: errorResponse.error.message,
+            //                     });
+            //                 } else {
+            //                     reject(null);
+            //                 }
+            //             }
+            //         });
+            //     });
+            // }
+
+            // function parsePhoneNumber(phoneNumber) {
+            //     const cleaned = phoneNumber.replace(/\D/g, '');
+
+            //     if (cleaned.length !== 10 && cleaned.length !== 11) {
+            //         return null;
+            //     }
+
+            //     // Nếu độ dài là 11 và bắt đầu bằng "0", thêm mã quốc gia +84
+            //     let internationalFormat = cleaned;
+            //     if (cleaned.length === 11 && cleaned.startsWith('0')) {
+            //         internationalFormat = '+84' + cleaned.substring(1);
+            //     }
+
+            //     // Nếu độ dài là 10, thêm mã quốc gia +84
+            //     if (cleaned.length === 10) {
+            //         internationalFormat = '+84' + cleaned;
+            //     }
+
+            //     return internationalFormat;
+            // }
+
+            // const handleVerifySuccess = async (token) => {
+            //     var isForgetPass = getCookie("cookieForgetPass");
+            //     const type = getCookie('typeForgot');
+            //     const id = getCookie('forgotId');
+
+            //     if (id && type) {
+            //         const formData = {
+            //             id: id,
+            //             otp: $('#otp_input').val(),
+            //             type: type == 1 ? '2' : '1',
+            //             key: fbKey,
+            //         };
+
+            //         $.ajax({
+            //             url: 'http://localhost:3050/api/topcv1s/user/ConfirmOtpFb',
+            //             type: 'POST',
+            //             dataType: 'json',
+            //             data: formData,
+            //             headers: {
+            //                 'Authorization': `Bearer ${token}`
+            //             },
+            //             success: function (result) {
+            //                 if (result && result.data.result) {
+            //                     alert(result.data.message);
+            //                     console.log(result);
+            //                     // Cookies.set(cookieToken, result.token);
+            //                     // document.cookie = `accessToken=${result.data.token}; max-age=${60 * 24 * 60 * 60}`;
+            //                     // document.cookie = `auth=1; max-age=${60 * 24 * 60 * 60}`;
+            //                     document.cookie = `forgotToken=${result.data.token}; path=/`;
+            //                     if (isForgetPass == 1) {
+            //                         // Cookies.set(cookieOTP, '1');
+            //                         $('#otp_box').remove();
+            //                         $('#captcha').remove();
+            //                         var html = `
+            //                             <div class="item-newpass">
+            //                                 <div class="label-newpass">
+            //                                     <label for="newpass_id">Mật khẩu mới</label>
+            //                                 </div>
+            //                                 <div class="input-newpass">
+            //                                     <input type="password" id="newpass_id">
+            //                                     <div class="showpass">
+            //                                         <img src="/images/icon/showpass.svg">
+            //                                     </div>
+            //                                 </div>
+            //                             </div>
+            //                             <div class="item-newpass">
+            //                                 <div class="label-newpass">
+            //                                     <label for="newpass_id">Nhập lại khẩu mới</label>
+            //                                 </div>
+            //                                 <div class="input-newpass">
+            //                                     <input type="password" id="renewpass_id">
+            //                                     <div class="showpass">
+            //                                         <img src="/images/icon/showpass.svg">
+            //                                     </div>
+            //                                 </div>
+            //                             </div>
+            //                             <div class="act-newpass">
+            //                                 <button class="confirm-newpass">
+            //                                     ĐẶT LẠI MẬT KHẨU
+            //                                 </button>
+            //                             </div>
+            //                             `;
+            //                         $('.form-newpass').append(html);
+            //                         $('.form-newpass').show();
+            //                         $('.confirm-newpass').on('click', function () {
+            //                             const newPassword = $('#newpass_id').val();
+            //                             const reNewPassword = $('#renewpass_id').val();
+            //                             if (newPassword === reNewPassword && newPassword.length > 0) {
+            //                                 $.ajax({
+            //                                     method: "POST",
+            //                                     url: "http://localhost:3050/api/topcv1s/user/UpdatePasswordEmployers",
+            //                                     data: {
+            //                                         password: newPassword,
+            //                                         rePassword: reNewPassword,
+            //                                         type: 1
+            //                                     },
+            //                                     headers: {
+            //                                         'Authorization': `Bearer ${getCookie('forgotToken')}`
+            //                                     },
+            //                                     success: function (response) {
+            //                                         if (response && response.data && response.data.result) {
+            //                                             alert(response.data.message);
+            //                                             window.location.href = "/dang-nhap-nha-tuyen-dung";
+            //                                         } else {
+            //                                             alert('Có lỗi xảy ra khi đổi mật khẩu');
+            //                                         }
+            //                                     },
+            //                                     error: function (xhr, status, error) {
+            //                                         alert('Có lỗi xảy ra khi đổi mật khẩu');
+            //                                         console.error(xhr, status, error);
+            //                                     }
+            //                                 });
+            //                             } else {
+            //                                 alert('Mật khẩu không trùng nhau hoặc rỗng');
+            //                             }
+            //                         });
+            //                         $('.showpass').on('click', function () {
+            //                             const inputField = $(this).siblings('input');
+            //                             const inputType = inputField.attr('type');
+            //                             if (inputType === 'password') {
+            //                                 inputField.attr('type', 'text');
+            //                             } else {
+            //                                 inputField.attr('type', 'password');
+            //                             }
+            //                         });
+            //                     }
+            //                 } else {
+            //                     alert(result.data.message);
+            //                 }
+            //             },
+            //             error: function (xhr, status, error) {
+            //                 alert('Có lỗi xảy ra khi xác thực OTP');
+            //                 console.error(xhr, status, error);
+            //             }
+            //         });
+            //     }
+            // };
+
+        });
+    </script>
+    
+    
+</body>
+
+</html>

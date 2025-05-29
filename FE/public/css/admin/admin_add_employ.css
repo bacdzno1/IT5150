@@ -1,0 +1,162 @@
+.cnt{
+    background-color: #F3F5F7;
+    position: relative;
+    height: 100vh;
+    display: flex;
+}
+
+.cnt-right{
+    height: 100vh;
+    overflow: auto;
+    flex-grow: 1;
+}
+
+.regis-new-candi-container{
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    max-width: 100%;
+}
+.candi-search-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.candi-search-bar > .input-info {
+    flex: 1 1 calc(20% - 10px);
+    max-width: calc(20% - 10px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.btn-search-candi {
+    flex: 1 1 100%;
+    display: flex;
+    justify-content: left;
+}
+
+.btn-search {
+    width: 150px;
+    padding: 10px;
+    background-color: #00bbcc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.candidate-count {
+    margin-bottom: 20px;
+}
+
+.candi-table {
+    overflow-x: auto;
+}
+
+.candi-table >table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+thead {
+    background: #00bbcc;
+    color: white;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+tbody tr:nth-child(even) {
+    background: #f8f9fa;
+}
+
+.cnt-mag-paginate{
+    gap: 12px;
+}
+.cnt-mag-paginate > div{
+    padding: 10px;
+    background-color: #0075801A;
+    border-radius: 16px;
+}
+.pagi_page.active{
+    background-color: #007580;
+    color: #ffffff;
+}
+
+.loading-img{
+    display: flex;
+    justify-content: center;
+}
+.label-item{
+    display: inline-block;
+    margin-bottom: 8px;
+}
+.add-item{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+.add-item input, .add-item textarea{
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #A6A6A6;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+}
+.add-item textarea {
+    resize: none;
+    height: 300px;
+  }
+  .form-act{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 80px;
+  }
+  #create_emp{
+    background-color: #007580;
+    color: #ffffff;
+    padding: 10px 24px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+  }
+@media (max-width: 1200px) {
+    .candi-search-bar > .input-info {
+        flex: 1 1 calc(33.33% - 10px); 
+        max-width: calc(33.33% - 10px);
+    }
+}
+
+@media (max-width: 768px) {
+    .candi-search-bar > .input-info {
+        flex: 1 1 calc(50% - 10px);
+        max-width: calc(50% - 10px);
+    }
+    .candi-search-bar {
+        flex-direction: row;
+    }
+    .candi-search-bar > .input-info, .btn-search-candi {
+        width: 100%;
+    }
+    .cnt-right{
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .candi-search-bar {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .candi-search-bar > .input-info {
+        flex: 1 1 100%;
+        max-width: calc(100%);
+    }
+}
