@@ -1499,19 +1499,19 @@ export const getTokenUser = async (req) => {
 };
 
 
-// export const getTokenJustUser = async (req) => {
-// 	try {
-// 		if (req.headers && req.headers.authorization) {
-// 			const token = req.headers.authorization.split(' ')[1];
-// 			const result = jwt.decode(token).data;
-// 			return result.use_id ? result.use_id : null;
-// 		} else {
-// 			return null;
-// 		}
-// 	} catch (error) {
-// 		return null;
-// 	}
-// };
+export const getTokenJustUser = async (req) => {
+	try {
+		if (req.headers && req.headers.authorization) {
+			const token = req.headers.authorization.split(' ')[1];
+			const result = jwt.decode(token).data;
+			return result.use_id ? result.use_id : null;
+		} else {
+			return null;
+		}
+	} catch (error) {
+		return null;
+	}
+};
 
 // hàm render pdf 
 export const renderLetterPdfFromUrl = async (link, filePath) => {
