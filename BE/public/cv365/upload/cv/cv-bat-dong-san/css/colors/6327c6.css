@@ -1,0 +1,20 @@
+#cvo-profile-avatar-wraper {
+  width: 34%;
+  float: left;
+  padding-top: 36px;
+  padding-left: 36px;
+  position: relative;
+  display: inline-block;
+  background: linear-gradient(to bottom, transparent 50%, #6327c6 50%);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position-y: -43px;
+}
+
+#cv-content .exp-date {
+  float: none;
+  transform: rotate(-90deg);
+  background-color: #6327c6;
+  color: #fff;
+}
+//6327c6

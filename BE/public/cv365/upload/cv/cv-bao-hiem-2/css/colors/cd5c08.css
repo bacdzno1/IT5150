@@ -1,0 +1,36 @@
+.cv_page {
+  background-image: url(bgrmain3.png);
+}
+
+#cv-top {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 30px;
+  background: url(bgrtop3.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+#cv-top h1 {
+  color: #cd5c08;
+}
+
+#cvo-experience-blocktitle {
+  color: #cd5c08;
+}
+
+#cv-right .ir #sortable .block {
+  border-bottom: solid 4px #ab4d07;
+}
+
+#cv-content .ir .cvo-block {
+  border-bottom: solid 4px #e6af86;
+}
+
+.cv_page.page_more.height_page {
+  background: url(bgrmain3.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}

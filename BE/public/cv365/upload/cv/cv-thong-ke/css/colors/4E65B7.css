@@ -1,0 +1,118 @@
+.ski {
+  padding: 0;
+  margin: 0 auto;
+  width: 100%;
+  float: left;
+  color: #4E65B7;
+  border-top: 1.5px dashed #848484;
+  border-bottom: 1.5px dashed #848484;
+  padding: 3px 2px;
+}
+
+.cum {
+  padding: 0;
+  margin: 0 auto;
+  width: 100%;
+  float: left;
+  color: #4E65B7;
+  border-top: 1.5px dashed #848484;
+  border-bottom: 1.5px dashed #848484;
+  padding: 3px 2px;
+}
+
+.chu::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 6%;
+  height: 25%;
+  width: 23%;
+  border-left: 5px solid #4E65B7;
+  border-top: 1.5px dashed #848484;
+}
+
+h2::before {
+  content: '';
+  position: absolute;
+  left: 157px;
+  top: 21%;
+  height: 25%;
+  width: 23%;
+  border-right: 5px solid #4E65B7;
+  border-bottom: 1.5px dashed #848484;
+}
+
+#cvo-experience-blocktitle {
+  color: #4E65B7;
+  text-align: left;
+  float: left;
+  text-transform: uppercase;
+  font-weight: bold;
+  width: 100%;
+  font-size: 22px;
+}
+
+#form-cv .icf1 {
+  float: left;
+  margin-bottom: 0;
+  width: 20px;
+  height: 20px;
+  text-align: left;
+  background: url(iconsex.svg) no-repeat;
+  background-position: center;
+  /* background-size: 100% 100%; */
+  background-color: #4E65B7;
+  border-radius: 50%;
+}
+
+#form-cv .icf2 {
+  float: left;
+  margin-bottom: 0;
+  width: 20px;
+  height: 20px;
+  text-align: left;
+  background: url(iconbirthday.svg) no-repeat;
+  background-position: center;
+  /* background-size: 100% 100%; */
+  background-color: #4E65B7;
+  border-radius: 50%;
+}
+
+#form-cv .icf3 {
+  float: left;
+  margin-bottom: 0;
+  width: 20px;
+  height: 20px;
+  text-align: left;
+  background: url(icontelephone.svg) no-repeat;
+  background-position: center;
+  /* background-size: 100% 100%; */
+  background-color: #4E65B7;
+  border-radius: 50%;
+}
+
+#form-cv .icf4 {
+  float: left;
+  margin-bottom: 0;
+  width: 20px;
+  height: 20px;
+  text-align: left;
+  background: url(icongmail.svg) no-repeat;
+  background-position: center;
+  /* background-size: 100% 100%; */
+  background-color: #4E65B7;
+  border-radius: 50%;
+}
+
+#form-cv .icf5 {
+  float: left;
+  margin-bottom: 0;
+  width: 20px;
+  height: 20px;
+  text-align: left;
+  background: url(iconaddress.svg) no-repeat;
+  background-position: center;
+  /* background-size: 100% 100%; */
+  background-color: #4E65B7;
+  border-radius: 50%;
+}

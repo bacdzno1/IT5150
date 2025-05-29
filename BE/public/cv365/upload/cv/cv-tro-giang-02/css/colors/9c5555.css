@@ -1,0 +1,83 @@
+
+#cv-top {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: url(cvtop2.png) no-repeat;
+  background-size: 100% 100%;
+}
+.all {
+  padding-top: 20px;
+  float: left;
+  clear: both;
+  width: 100%;
+  background: url(main2.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+#form-cv .icf1 {
+  float: left;
+  margin-bottom: 0;
+  width: 20px;
+  height: 20px;
+  text-align: left;
+  background: url(iconsex2.svg) no-repeat;
+  background-position: left;
+  background-size: 100% 100%;
+}
+
+#form-cv .icf2 {
+  float: left;
+  margin-bottom: 0;
+  width: 20px;
+  height: 20px;
+  text-align: left;
+  background: url(iconbirthday2.svg) no-repeat;
+  background-position: left;
+  background-size: 100% 100%;
+}
+
+#form-cv .icf3 {
+  float: left;
+  margin-bottom: 0;
+  width: 20px;
+  height: 20px;
+  text-align: left;
+  background: url(icontelephone2.svg) no-repeat;
+  background-position: left;
+  background-size: 100% 100%;
+}
+
+#form-cv .icf4 {
+  float: left;
+  margin-bottom: 0;
+  width: 20px;
+  height: 20px;
+  text-align: left;
+  background: url(icongmail2.svg) no-repeat;
+  background-position: left;
+  background-size: 100% 100%;
+}
+
+#form-cv .icf5 {
+  float: left;
+  margin-bottom: 0;
+  width: 20px;
+  height: 20px;
+  text-align: left;
+  background: url(iconaddress2.svg) no-repeat;
+  background-position: left;
+  background-size: 100% 100%;
+}
+
+#cvo-experience-blocktitle {
+  color: #9c5555;
+  text-align: left;
+  float: left;
+  text-transform: uppercase;
+  font-weight: bold;
+  width: 100%;
+  font-size: 22px;
+}

@@ -1,0 +1,36 @@
+#cvo-info #box02::before {
+    background-image: url(left_top3.svg);
+}
+
+#cvo-info #box02::after {
+    background-image: url(right_bottom3.svg);
+}
+
+#form-cv .icf1 {
+    background-image: url(sex3.svg);
+}
+
+#form-cv .icf2 {
+    background-image: url(birthday3.svg);
+}
+
+#form-cv .icf3 {
+    background-image: url(phone3.svg);
+}
+
+#form-cv .icf4 {
+    background-image: url(email3.svg);
+}
+
+#form-cv .icf5 {
+    background-image: url(address3.svg);
+}
+
+.cumicc3,
+.cumicc4,
+.cumicc5,
+.cumicc6,
+.cumicc7,
+.icright {
+    background-image: url(square3.svg);
+}

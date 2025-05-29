@@ -1,0 +1,84 @@
+.cv_page {
+  background-image: url(bgr2.png);
+}
+
+#cvo-profile-avatar-wraper .wimg {
+  background-color: #2d1070;
+}
+
+#cv-top h1 {
+  color: #2d1070;
+  border-bottom: solid 2px #2d1070;
+}
+
+#cv-top h2 {
+  color: #2d1070;
+}
+
+#box02 .box-content.err_cv_content {
+  color: #2d1070;
+}
+
+.ic .icoweb {
+  color: #2d1070;
+}
+
+div#prof {
+  float: left;
+  width: 100%;
+  height: 100%;
+  padding-left: 4px;
+  padding-top: 3px;
+  background: linear-gradient(to right, #2d1070 9%, transparent 9%);
+  border-top-left-radius: 9px;
+  border-bottom-left-radius: 10px;
+}
+
+.ski {
+  color: #2d1070;
+  background-color: #a1bef8;
+}
+
+.cum {
+  color: #2d1070;
+  background-color: #a1bef8;
+}
+
+#cvo-experience-blocktitle {
+  color: #2d1070;
+}
+
+#cv-content {
+  background-color: #a1bef8;
+}
+
+#cv-content h3 {
+  color: #2d1070;
+}
+
+#cv-content #block01 h3 {
+  color: #2d1070;
+}
+
+#cv-content #block02 h3 {
+  color: #2d1070;
+  text-transform: uppercase;
+}
+
+#cv-content #block04 h3 {
+  color: #2d1070;
+  text-transform: uppercase;
+}
+
+#cv-content #block05 h3 {
+  color: #2d1070;
+  text-transform: uppercase;
+}
+
+#cv-content #block03 h3 {
+  color: #2d1070;
+}
+
+#cv-content span {
+  color: #2d1070;
+}

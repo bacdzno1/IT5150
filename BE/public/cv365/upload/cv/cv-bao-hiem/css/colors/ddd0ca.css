@@ -1,0 +1,24 @@
+.cv_page {
+  padding: 0;
+  background-image: url(bgr3.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+#cvo-experience-blocktitle::after {
+  content: "";
+  background: url(linecontent3.svg) no-repeat;
+  background-size: 100% 100%;
+  width: 100%;
+  height: 5px;
+  position: relative;
+  left: -104px;
+}
+
+.cv_page.page_more {
+  /* height: 100%; */
+  /* background-image: none; */
+  background: url(bgrmore3.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}

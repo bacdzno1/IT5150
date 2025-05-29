@@ -1,0 +1,162 @@
+.cv_page {
+  padding: 0;
+  background: url(main3.png) no-repeat;
+  background-size: 100% 100%;
+}
+
+#cv-top {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: url(cvtop3.png) no-repeat;
+  background-size: 100% 100%;
+}
+
+#cv-top h2 {
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+  width: 100%;
+  font-weight: unset;
+  font-size: 22px;
+  color: #4B1B00;
+  text-align: left;
+  float: left;
+}
+
+#form-cv .icf1 {
+  float: left;
+  margin-bottom: 0;
+  width: 20px;
+  height: 20px;
+  text-align: left;
+  background: url(iconsex.svg) no-repeat;
+  background-position: center;
+  /* background-size: 100% 100%; */
+  background-color: #4B1B00;
+  border-radius: 50%;
+}
+
+#form-cv .icf2 {
+  float: left;
+  margin-bottom: 0;
+  width: 20px;
+  height: 20px;
+  text-align: left;
+  background: url(iconbirthday.svg) no-repeat;
+  background-position: center;
+  /* background-size: 100% 100%; */
+  background-color: #4B1B00;
+  border-radius: 50%;
+}
+
+#form-cv .icf3 {
+  float: left;
+  margin-bottom: 0;
+  width: 20px;
+  height: 20px;
+  text-align: left;
+  background: url(icontelephone.svg) no-repeat;
+  background-position: center;
+  /* background-size: 100% 100%; */
+  background-color: #4B1B00;
+  border-radius: 50%;
+}
+
+#form-cv .icf4 {
+  float: left;
+  margin-bottom: 0;
+  width: 20px;
+  height: 20px;
+  text-align: left;
+  background: url(icongmail.svg) no-repeat;
+  background-position: center;
+  background-position-y: 3px;
+  /* background-size: 100% 100%; */
+  background-color: #4B1B00;
+  border-radius: 50%;
+}
+
+#form-cv .icf5 {
+  float: left;
+  margin-bottom: 0;
+  width: 20px;
+  height: 20px;
+  text-align: left;
+  background: url(iconaddress.svg) no-repeat;
+  background-position: center;
+  /* background-size: 100% 100%; */
+  background-color: #4B1B00;
+  border-radius: 50%;
+}
+
+div#box02 {
+  background: #DED1C2;
+  margin-bottom: 18px !important;
+  width: 126% !important;
+  left: -53px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+#box02 .box-content {
+  padding-left: 54px;
+  padding-right: 20px;
+  color: #4B1B00 !important;
+}
+
+.ski {
+  padding: 0;
+  margin: 0 auto;
+  width: 100%;
+  float: left;
+  color: #4B1B00;
+  background-color: #DED1C2;
+  border-radius: 20px;
+  box-shadow: 3px 4px 0px 2px #4B1B00;
+}
+
+.cum {
+  padding: 0;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  width: 100%;
+  float: left;
+  color: #4B1B00;
+  background-color: #DED1C2;
+  border-radius: 20px;
+  box-shadow: 3px 4px 0px 2px #4B1B00;
+}
+
+#cv-content .head {
+  padding: 0;
+  margin: 0 auto;
+  float: left;
+  width: 100%;
+  padding-right: 20px;
+  background-color: #DED1C2;
+  border-radius: 20px;
+  box-shadow: 3px 4px 0px 2px #4B1B00;
+}
+
+#cv-content {
+  /* width: 48%;
+  float: right;
+  position: relative;
+  padding: 0;
+  margin-right: 30px; */
+  border-left: 2px solid #4B1B00;
+  /* padding-left: 30px; */
+}
+
+#cvo-experience-blocktitle {
+  color: #4B1B00;
+  text-align: left;
+  float: left;
+  text-transform: uppercase;
+  font-weight: bold;
+  width: 100%;
+  font-size: 22px;
+  padding: 3px 15px;
+}

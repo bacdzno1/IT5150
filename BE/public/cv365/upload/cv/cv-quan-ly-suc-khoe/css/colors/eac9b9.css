@@ -1,0 +1,84 @@
+.cv_page {
+  background-image: url(bgr3.png);
+}
+
+#cvo-profile-avatar-wraper .wimg {
+  background-color: #4e0c62;
+}
+
+#cv-top h1 {
+  color: #4e0c62;
+  border-bottom: solid 2px #4e0c62;
+}
+
+#cv-top h2 {
+  color: #4e0c62;
+}
+
+#box02 .box-content.err_cv_content {
+  color: #4e0c62;
+}
+
+.ic .icoweb {
+  color: #4e0c62;
+}
+
+div#prof {
+  float: left;
+  width: 100%;
+  height: 100%;
+  padding-left: 4px;
+  padding-top: 3px;
+  background: linear-gradient(to right, #4e0c62 9%, transparent 9%);
+  border-top-left-radius: 9px;
+  border-bottom-left-radius: 10px;
+}
+
+.ski {
+  color: #4e0c62;
+  background-color: #eac9b9;
+}
+
+.cum {
+  color: #4e0c62;
+  background-color: #eac9b9;
+}
+
+#cvo-experience-blocktitle {
+  color: #4e0c62;
+}
+
+#cv-content {
+  background-color: #eac9b9;
+}
+
+#cv-content h3 {
+  color: #4e0c62;
+}
+
+#cv-content #block01 h3 {
+  color: #4e0c62;
+}
+
+#cv-content #block02 h3 {
+  color: #4e0c62;
+  text-transform: uppercase;
+}
+
+#cv-content #block04 h3 {
+  color: #4e0c62;
+  text-transform: uppercase;
+}
+
+#cv-content #block05 h3 {
+  color: #4e0c62;
+  text-transform: uppercase;
+}
+
+#cv-content #block03 h3 {
+  color: #4e0c62;
+}
+
+#cv-content span {
+  color: #4e0c62;
+}

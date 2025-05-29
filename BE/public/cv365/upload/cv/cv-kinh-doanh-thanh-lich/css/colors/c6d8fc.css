@@ -1,0 +1,29 @@
+.cv_page {
+  padding: 0;
+  background-image: url(bgr2.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+#cvo-profile-avatar-wraper {
+  border: 3px solid #c6d8fc;
+  border-radius: 20px;
+}
+
+#cvo-profile-avatar-wraper::before {
+  content: "";
+  background: url(iconcv2.svg) no-repeat;
+  display: block;
+  width: 45px;
+  height: 65px;
+  position: absolute;
+  right: 44vh;
+  top: 11vh;
+}
+
+#box02 {
+  margin-top: 15px;
+  border-bottom: 3px solid #c6d8fc;
+  padding-bottom: 20px;
+}
+//c6d8fc

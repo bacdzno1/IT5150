@@ -1,0 +1,243 @@
+#cv-top h2::before {
+  content: "";
+  background: url(iconposition3.svg) no-repeat;
+  display: block;
+  width: 34px;
+  height: 21px;
+  margin-right: 10px;
+}
+
+#cv-top h1::after {
+  content: "";
+  background: url(iconname3.svg) no-repeat;
+  display: block;
+  width: 61%;
+  height: 39px;
+  position: absolute;
+  right: -228px;
+}
+
+#form-cv .icf1 {
+  float: left;
+  margin-bottom: 0;
+  width: 30px;
+  height: 30px;
+  text-align: left;
+  background: url(iconsex3.png) no-repeat;
+  background-position: center;
+  border: 2px solid #e861c7;
+  background-size: 70% 70%;
+  border-radius: 50%;
+}
+
+#form-cv .icf1::after {
+  content: "";
+  background: url(iconafter3.svg) no-repeat;
+  background-size: 75% 75%;
+  display: block;
+  height: 16px;
+  width: 104px;
+  position: relative;
+  left: 24px;
+}
+
+#form-cv .icf2 {
+  float: left;
+  margin-bottom: 0;
+  width: 30px;
+  height: 30px;
+  text-align: left;
+  background: url(iconbirthday3.png) no-repeat;
+  background-position: center;
+  border: 2px solid #e861c7;
+  background-size: 70% 70%;
+  border-radius: 50%;
+}
+
+#form-cv .icf2::after {
+  content: "";
+  background: url(iconafter3.svg) no-repeat;
+  background-size: 85% 83%;
+  display: block;
+  height: 16px;
+  width: 124px;
+  position: relative;
+  left: 24px;
+}
+
+#form-cv .icf3 {
+  float: left;
+  margin-bottom: 0;
+  width: 30px;
+  height: 30px;
+  text-align: left;
+  background: url(icontelephone3.png) no-repeat;
+  background-position: center;
+  border: 2px solid #e861c7;
+  background-size: 70% 70%;
+  border-radius: 50%;
+}
+
+#form-cv .icf3::after {
+  top: -3px;
+  content: "";
+  background: url(iconafter3.svg) no-repeat;
+  background-size: 100% 100%;
+  display: block;
+  height: 16px;
+  width: 110px;
+  position: relative;
+  left: 26px;
+}
+
+#form-cv .icf4 {
+  float: left;
+  margin-bottom: 0;
+  width: 20px;
+  height: 20px;
+  text-align: left;
+  background: url(icongmail3.png) no-repeat;
+  background-position: left;
+  background-size: 100% 100%;
+}
+
+#form-cv .icf5 {
+  float: left;
+  margin-bottom: 0;
+  width: 20px;
+  height: 20px;
+  text-align: left;
+  background: url(iconaddress3.png) no-repeat;
+  background-position: left;
+  background-size: 100% 100%;
+}
+
+#box02 {
+  background: url(bgrmtnn3.png) no-repeat;
+  background-size: 100% 100%;
+  border: none !important;
+  margin-bottom: 20px !important;
+}
+
+#cv-right .ir #sortable .block {
+  margin: 0;
+  float: left;
+  width: 100%;
+  border-left: 1.5px solid #e861c7;
+  border-right: 1.5px solid #e861c7;
+  border-bottom: 1.5px solid #e861c7;
+  border-top: 1.5px solid #e861c7;
+}
+
+.ski {
+  padding: 0;
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+  float: left;
+  color: #e861c7;
+  margin-bottom: 15px;
+  border: 1.5px solid #e861c7;
+}
+
+.cum {
+  padding: 0;
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+  float: left;
+  color: #e861c7;
+  margin-bottom: 15px;
+  border: 1.5px solid #e861c7;
+}
+
+#cv-content {
+  background: url(bgrcvcontent3.png) no-repeat;
+  background-size: 100% 100%;
+}
+
+#cv-content .head {
+  padding: 0;
+  margin: 0 auto;
+  float: left;
+  width: 100%;
+  padding-right: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-top: 1.5px solid #e861c7;
+  border-bottom: 1.5px solid #e861c7;
+  padding-bottom: 3px;
+  padding-top: 3px;
+}
+
+.ic:first-child {
+  border: 1.5px solid #e861c7;
+  padding: 5px;
+}
+
+.ic:nth-child(2) {
+  border: 1.5px solid #e861c7;
+  padding: 5px;
+}
+
+#cv-content #block01 .head::before {
+  content: "";
+  background: url(icontrinhdohocvan3.png) no-repeat;
+  background-size: 100% 100%;
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+#cv-content #block02 .head::before {
+  content: "";
+  background: url(iconkinhnghiemlamviec3.png) no-repeat;
+  background-size: 100% 100%;
+  display: block;
+  width: 30px;
+  height: 25px;
+  margin-right: 10px;
+}
+
+#cv-content #block03 .head::before {
+  content: "";
+  background: url(iconhoatdong3.png) no-repeat;
+  background-size: 100% 100%;
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+#cv-content #block04 .head::before {
+  content: "";
+  background: url(iconduanthamgia3.png) no-repeat;
+  background-size: 100% 100%;
+  display: block;
+  width: 30px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+#cv-content #block05 .head::before {
+  content: "";
+  background: url(iconthongtinthem3.png) no-repeat;
+  background-size: 100% 100%;
+  display: block;
+  width: 30px;
+  height: 25px;
+  margin-right: 10px;
+}
+
+#cvo-experience-blocktitle {
+  color: #e861c7;
+  text-align: left;
+  float: left;
+  text-transform: uppercase;
+  font-weight: bold;
+  width: 100%;
+  font-size: 22px;
+}

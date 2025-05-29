@@ -1,0 +1,22 @@
+#box02 .box-content {
+  color: #fff;
+  text-align: center;
+  padding: 10px 20px;
+  background-color: #8f6fea;
+}
+
+div#prof {
+  float: left;
+  width: 100%;
+  padding: 15px 30px 0 30px;
+  background-color: #251248;
+}
+.time {
+  background-color: #8f6fea;
+  width: 20%;
+  height: 30%;
+  text-align: center;
+  margin-right: 15px;
+}
+//8f6fea
+//251248

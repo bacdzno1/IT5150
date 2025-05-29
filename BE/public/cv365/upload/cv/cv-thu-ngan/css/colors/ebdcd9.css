@@ -1,0 +1,73 @@
+#cv-top {
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(to bottom, #ebdcd9 50px, transparent 20px);
+  }
+  .watermark_js {
+    background-color: #ebdcd9;
+    margin-right: -10px;
+  }
+  
+  #form-cv .icf1 {
+    float: left;
+    margin-bottom: 0;
+    width: 20px;
+    height: 20px;
+    text-align: left;
+    background: url(iconsex3.svg) no-repeat;
+    background-position: left;
+    background-size: 100% 100%;
+  }
+  
+  #form-cv .icf2 {
+    float: left;
+    margin-bottom: 0;
+    width: 20px;
+    height: 20px;
+    text-align: left;
+    background: url(iconbirthday3.svg) no-repeat;
+    background-position: left;
+    background-size: 100% 100%;
+  }
+  
+  #form-cv .icf3 {
+    float: left;
+    margin-bottom: 0;
+    width: 20px;
+    height: 20px;
+    text-align: left;
+    background: url(icontelephone.svg) no-repeat;
+    background-position: center;
+    background-size: 100% 70%;
+    background-color: #ebdcd9;
+    border-radius: 50%;
+  }
+  
+  #form-cv .icf4 {
+    float: left;
+    margin-bottom: 0;
+    width: 20px;
+    height: 20px;
+    text-align: left;
+    background: url(icongmail.svg) no-repeat;
+    background-position: center;
+    background-size: 70% 70%;
+    background-color: #ebdcd9;
+    border-radius: 50%;
+  }
+  
+  #form-cv .icf5 {
+    float: left;
+    margin-bottom: 0;
+    width: 20px;
+    height: 20px;
+    text-align: left;
+    background: url(iconaddress.svg) no-repeat;
+    background-position: center;
+    background-size: 100% 70%;
+    background-color: #ebdcd9;
+    border-radius: 50%;
+  }
+//ebdcd9

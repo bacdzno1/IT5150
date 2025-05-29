@@ -1,0 +1,28 @@
+#cv-content .ir .cvo-block {
+  border-left: solid 3px #bb0d45;
+}
+
+.cv_page {
+  padding: 0;
+  /* background: url(bgr2.png) no-repeat;
+  background-size: 100% 100%; */
+}
+
+#cv-top {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: url(cvtop2.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+#cv-content .head::before {
+  content: "";
+  width: 4%;
+  height: 18px;
+  background: url(iconhinhtron2.svg) no-repeat;
+  position: relative;
+  left: -15px;
+}

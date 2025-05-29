@@ -1,0 +1,132 @@
+/* #cvo-profile-avatar-wraper {
+  border: 10px solid #ffc3a5;
+  //470013
+} */
+#cv-top h1 {
+  font-weight: bold;
+  text-transform: uppercase;
+  line-height: 42px;
+  text-align: center;
+  padding: 2% 1%;
+  color: #470013;
+  /* width: 55%; */
+}
+#cv-top h2 {
+  font-weight: 600;
+  text-align: center;
+  font-style: italic;
+  top: 80%;
+  right: 46%;
+  padding: 5px 10px;
+  border-radius: 30px;
+  color: #470013;
+}
+#cv-content .head {
+  border-bottom: 5px solid #470013;
+  padding-left: 13px;
+  margin: 0;
+  height: 40px;
+  text-align: left;
+  line-height: 40px;
+  width: 100%;
+}
+#box03 .ski {
+  border-bottom: 5px solid #470013;
+  display: flex;
+  align-items: center;
+  /* gap: 10px; */
+  /* padding: 20px; */
+  /* padding-bottom: 31px; */
+  /* padding-left: 9px; */
+  background-position-y: -4px;
+  height: 40px;
+  //470013
+}
+.cum {
+  padding: 0;
+  margin: 0 auto;
+  height: 40px;
+  line-height: 40px;
+  /* background-position-y: -5px; */
+  border-bottom: 5px solid #470013;
+  /* padding: 23px; */
+  /* padding-bottom: 39px; */
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+#box03 .ski .cumicc3 {
+  background: url(kn3.svg) no-repeat;
+  background-size: 100% 100%;
+  margin-right: 10px;
+}
+
+.cumicc4 {
+  background: url(gt3.svg) no-repeat;
+  background-size: 100% 100%;
+}
+
+.cumicc5 {
+  background: url(cc3.svg) no-repeat;
+  background-size: 100% 100%;
+}
+
+.cumicc6 {
+  background: url(st3.svg) no-repeat;
+  background-size: 100% 100%;
+}
+
+.cumicc7 {
+  background: url(ntc3.svg) no-repeat;
+  background-size: 100% 100%;
+}
+#cvo-profile-avatar-wraper .wimg {
+  /* height: 190px;
+  width: 190px; */
+  overflow: hidden;
+  background-color: #ffc3a5;
+  /* clip-path: polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%); */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+div#box01 {
+  border-left: 10px solid #ffc3a5;
+}
+
+#cv-top h1::after {
+  background-color: #ffc3a5;
+}
+
+#box05,
+#box03,
+#box04,
+#box06,
+#box07 {
+  background: #ffc3a5;
+}
+
+#box02 {
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-top: 22px;
+  width: 50%;
+  float: left;
+  border-right: 10px solid #ffc3a5;
+  border-left: 10px solid #ffc3a5;
+}
+
+.cv_page{
+  background-image: url(main3.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+#cv-top {
+  float: left;
+  width: 100%;
+  position: relative;
+  padding-top: 0px;
+  background: url(cvtop3.png) no-repeat;
+  background-size: 100% 100%;
+}

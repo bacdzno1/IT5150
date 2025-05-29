@@ -1,0 +1,16 @@
+#cvo-profile-avatar-wraper {
+    background: url(bgrimg3.png) no-repeat;
+  } 
+  
+  .watermark_js {
+    background: url(footer3.png) no-repeat;
+    margin-right: -10px;
+  }
+  
+  div#box01 {
+    float: left;
+    width: 100%;
+    margin-top: 50px;
+    background-color: #b5e9d7;
+  }
+//b5e9d7

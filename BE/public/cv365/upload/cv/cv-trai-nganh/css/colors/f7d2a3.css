@@ -1,0 +1,12 @@
+.cv_page {
+  padding: 0;
+  background-image: url(bgr2.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+#cvo-info #box02 {
+  float: right;
+  width: 50%;
+  border-left: solid 15px #f7d2a3;
+}
+//f7d2a3

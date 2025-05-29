@@ -1,0 +1,13 @@
+#cv-top h2 {
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+  font-weight: unset;
+  font-size: 22px;
+  color: #fff;
+  text-align: left;
+  float: left;
+  margin-bottom: 20px;
+  background-color: #40667b;
+}
+//407949

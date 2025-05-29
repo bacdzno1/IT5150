@@ -1,0 +1,155 @@
+.cv_page {
+  padding: 0;
+  background: url(bgr2.png) no-repeat;
+  background-size: 100% 100%;
+}
+
+#cv-top h1 {
+  padding: 0;
+  margin: 0;
+  font-size: 32px;
+  font-family: "Roboto";
+  text-transform: uppercase;
+  margin-bottom: 0;
+  color: #6FAB9D;
+  font-weight: bold;
+  text-align: left;
+  width: 100%;
+  float: left;
+  padding-bottom: 5px;
+}
+
+#cv-top h2 {
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+  width: 100%;
+  font-weight: unset;
+  font-size: 22px;
+  color: #74A4D1;
+  text-align: left;
+  float: left;
+}
+
+
+#form-cv .icf1 {
+  float: left;
+  margin-bottom: 0;
+  width: 20px;
+  height: 20px;
+  text-align: left;
+  background: url(iconsex.svg) no-repeat;
+  background-position: center;
+  background-size: 80% 100%;
+  background-color: #6FAB9D;
+  border-radius: 50%;
+}
+
+#form-cv .icf2 {
+  float: left;
+  margin-bottom: 0;
+  width: 20px;
+  height: 20px;
+  text-align: left;
+  background: url(iconbirthday.svg) no-repeat;
+  background-position: center;
+  background-size: 80% 100%;
+  background-color: #6FAB9D;
+  border-radius: 50%;
+}
+
+#form-cv .icf3 {
+  float: left;
+  margin-bottom: 0;
+  width: 20px;
+  height: 20px;
+  text-align: left;
+  background: url(icontelephone.svg) no-repeat;
+  background-position: center;
+  background-size: 80% 100%;
+  background-color: #6FAB9D;
+  border-radius: 50%;
+}
+
+#form-cv .icf4 {
+  float: left;
+  margin-bottom: 0;
+  width: 20px;
+  height: 20px;
+  text-align: left;
+  background: url(icongmail.svg) no-repeat;
+  background-position: center;
+  background-size: 80% 100%;
+  background-color: #6FAB9D;
+  border-radius: 50%;
+}
+
+#form-cv .icf5 {
+  float: left;
+  margin-bottom: 0;
+  width: 20px;
+  height: 20px;
+  text-align: left;
+  background: url(iconaddress.svg) no-repeat;
+  background-position: center;
+  background-size: 80% 100%;
+  background-color: #6FAB9D;
+  border-radius: 50%;
+}
+
+div#box01 {
+  float: left;
+  width: 100%;
+  margin-top: 20px;
+  border: 2px solid #6FAB9D;
+  border-radius: 15px;
+  background-color: #DAF9EE;
+}
+
+#cv-right .ir #sortable .block {
+  padding: 0;
+  margin: 0;
+  float: left;
+  width: 100%;
+  border: 2px solid #74A4D1;
+  border-radius: 20px;
+  margin-bottom: 20px; 
+}
+.ski {
+  margin: 0 auto;
+  width: fit-content;
+  float: left;
+  padding: 2px 10px;
+  background-color: #fff;
+  position: relative;
+  top: -16px;
+  left: 14px;
+  color: #6FAB9D;
+}
+
+.cum {
+  margin: 0 auto;
+  width: fit-content;
+  float: left;
+  padding: 2px 10px;
+  background-color: #fff;
+  position: relative;
+  top: -16px;
+  left: 14px;
+  color: #6FAB9D;
+}
+#cvo-experience-blocktitle {
+  color: #6FAB9D;
+  text-align: left;
+  float: left;
+  text-transform: uppercase;
+  font-weight: bold;
+  width: 100%;
+  font-size: 22px;
+}
+#cv-content .ir .cvo-block {
+  padding: 0;
+  border: 2px solid #74A4D1;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}

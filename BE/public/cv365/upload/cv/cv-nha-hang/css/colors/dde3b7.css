@@ -1,0 +1,8 @@
+div#box01 {
+  background-color: #dde3b7;
+}
+
+div#box02::after,
+div#box02::before {
+  background-image: url(ngoac_kep2.svg);
+}

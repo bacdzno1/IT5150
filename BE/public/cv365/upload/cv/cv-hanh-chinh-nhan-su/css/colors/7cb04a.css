@@ -1,0 +1,33 @@
+#cvo-profile-avatar-wraper {
+  width: 33%;
+  float: right;
+  display: table;
+  padding-top: 25px;
+  background: linear-gradient(to left, #7cb04a 10%, transparent 10%);
+  margin-right: 30px;
+}
+
+#box02 .box-content {
+  border-bottom: 2px solid #c4ed9c;
+  padding-bottom: 50px;
+}
+
+#cvo-experience-blocktitle {
+  color: #231f20;
+  text-align: left;
+  float: left;
+  text-transform: uppercase;
+  font-weight: bold;
+  width: fit-content;
+  font-size: 22px;
+  padding: 4px 10px 4px 30px;
+  background-color: #c4ed9c;
+}
+#cv-content {
+  width: 51%;
+  float: left;
+  position: relative;
+  padding: 0;
+  margin-left: 35px;
+  border-left: 2px solid #c4ed9c;
+}
