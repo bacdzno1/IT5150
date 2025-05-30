@@ -1,14 +1,17 @@
 .cv_page {
   background-image: url(cvmain2.png);
 }
+
 #cv-top {
   background: url(cvtop2.png);
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
+
 span#cv-profile-job {
   background-color: #4b977f;
 }
+
 #form-cv .icf1 {
   background-color: #4b977f;
 }
@@ -16,6 +19,7 @@ span#cv-profile-job {
 #form-cv .icf2 {
   background-color: #4b977f;
 }
+
 #form-cv .icf3 {
   background-color: #4b977f;
 }
@@ -27,12 +31,15 @@ span#cv-profile-job {
 #form-cv .icf5 {
   background-color: #4b977f;
 }
+
 .cum {
   color: #4b977f;
 }
+
 .ski {
   color: #4b977f;
 }
+
 #cvo-experience-blocktitle {
   color: #4b977f;
 }

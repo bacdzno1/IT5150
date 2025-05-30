@@ -30,7 +30,6 @@
 #box02 .box-content::before {
   content: "";
   background: url(iconmtnn2.svg) no-repeat;
-  /* background-size: 100% 100%; */
   display: block;
   width: 27px;
   height: 18px;
@@ -42,7 +41,6 @@
 #box02 .box-content::after {
   content: "";
   background: url(iconmtnn2.svg) no-repeat;
-  /* background-size: 100% 100%; */
   display: block;
   width: 27px;
   height: 18px;
@@ -72,12 +70,8 @@
   background-color: #e3e3e3;
 }
 
-
 .watermark_js {
-  /* padding-right: 0; */
   margin-right: -10px;
   background-color: #616161;
   color: #fff;
 }
-//616161
-//e3e3e3

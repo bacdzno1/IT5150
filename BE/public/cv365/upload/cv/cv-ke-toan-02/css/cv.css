@@ -466,7 +466,6 @@ div#prof {
   text-align: left;
   background: url(iconsex.svg) no-repeat;
   background-position: center;
-  /* background-size: 100% 100%; */
   background-color: #004B47;
   border-radius: 50%;
 }
@@ -479,7 +478,6 @@ div#prof {
   text-align: left;
   background: url(iconbirthday.svg) no-repeat;
   background-position: center;
-  /* background-size: 100% 100%; */
   background-color: #004B47;
   border-radius: 50%;
 }
@@ -492,7 +490,6 @@ div#prof {
   text-align: left;
   background: url(icontelephone.svg) no-repeat;
   background-position: center;
-  /* background-size: 100% 100%; */
   background-color: #004B47;
   border-radius: 50%;
 }
@@ -506,7 +503,6 @@ div#prof {
   background: url(icongmail.svg) no-repeat;
   background-position: center;
   background-position-y: 3px;
-  /* background-size: 100% 100%; */
   background-color: #004B47;
   border-radius: 50%;
 }
@@ -519,7 +515,6 @@ div#prof {
   text-align: left;
   background: url(iconaddress.svg) no-repeat;
   background-position: center;
-  /* background-size: 100% 100%; */
   background-color: #004B47;
   border-radius: 50%;
 }

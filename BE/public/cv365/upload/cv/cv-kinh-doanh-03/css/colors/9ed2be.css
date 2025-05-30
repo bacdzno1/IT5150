@@ -1,29 +1,28 @@
 .cv_page {
-    padding: 0;
-    background-image: url(bgr3.png);
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-  }
-  
-  #cvo-profile-avatar-wraper {
-    border: 3px solid #9ed2be;
-    border-radius: 20px;
-  }
-  
-  #cvo-profile-avatar-wraper::before {
-    content: "";
-    background: url(iconcv3.svg) no-repeat;
-    display: block;
-    width: 45px;
-    height: 65px;
-    position: absolute;
-    right: 44vh;
-    top: 11vh;
-  }
-  
-  #box02 {
-    margin-top: 15px;
-    border-bottom: 3px solid #9ed2be;
-    padding-bottom: 20px;
-  }
-//9ed2be
+  padding: 0;
+  background-image: url(bgr3.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+#cvo-profile-avatar-wraper {
+  border: 3px solid #9ed2be;
+  border-radius: 20px;
+}
+
+#cvo-profile-avatar-wraper::before {
+  content: "";
+  background: url(iconcv3.svg) no-repeat;
+  display: block;
+  width: 45px;
+  height: 65px;
+  position: absolute;
+  right: 44vh;
+  top: 11vh;
+}
+
+#box02 {
+  margin-top: 15px;
+  border-bottom: 3px solid #9ed2be;
+  padding-bottom: 20px;
+}

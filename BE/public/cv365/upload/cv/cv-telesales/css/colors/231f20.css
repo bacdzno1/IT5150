@@ -1,13 +1,12 @@
 #cv-top h2 {
-    margin: 0;
-    padding: 0;
-    text-transform: uppercase;
-    font-weight: unset;
-    font-size: 22px;
-    color: #fff;
-    text-align: left;
-    float: left;
-    margin-bottom: 20px;
-    background-color: #231f20;
-  }
-//231f20
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+  font-weight: unset;
+  font-size: 22px;
+  color: #fff;
+  text-align: left;
+  float: left;
+  margin-bottom: 20px;
+  background-color: #231f20;
+}

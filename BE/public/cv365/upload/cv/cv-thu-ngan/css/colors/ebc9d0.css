@@ -5,6 +5,7 @@
   flex-direction: column;
   background: linear-gradient(to bottom, #ebc9d0 50px, transparent 20px);
 }
+
 .watermark_js {
   background-color: #ebc9d0;
   margin-right: -10px;
@@ -70,4 +71,3 @@
   background-color: #ebc9d0;
   border-radius: 50%;
 }
-//ebc9d0

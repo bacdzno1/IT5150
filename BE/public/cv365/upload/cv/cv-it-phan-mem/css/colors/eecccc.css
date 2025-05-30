@@ -1,14 +1,13 @@
 .cv_page {
-    padding: 0;
-    background-image: url(bgr3.png);
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-  }
-  
-  #cv-content .exp-date {
-    float: none;
-    background-color: #eecccc;
-    padding: 4px;
-    border-radius: 15px;
-  }
-//eecccc
+  padding: 0;
+  background-image: url(bgr3.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+#cv-content .exp-date {
+  float: none;
+  background-color: #eecccc;
+  padding: 4px;
+  border-radius: 15px;
+}

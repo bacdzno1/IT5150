@@ -26,69 +26,34 @@
 }
 
 #form-cv .icf1 {
-  float: left;
-  margin-bottom: 0;
-  width: 20px;
-  height: 20px;
-  text-align: left;
   background: url(iconsex.svg) no-repeat;
   background-position: center;
-  /* background-size: 100% 100%; */
   background-color: #4B1B00;
-  border-radius: 50%;
 }
 
 #form-cv .icf2 {
-  float: left;
-  margin-bottom: 0;
-  width: 20px;
-  height: 20px;
-  text-align: left;
   background: url(iconbirthday.svg) no-repeat;
   background-position: center;
-  /* background-size: 100% 100%; */
   background-color: #4B1B00;
-  border-radius: 50%;
 }
 
 #form-cv .icf3 {
-  float: left;
-  margin-bottom: 0;
-  width: 20px;
-  height: 20px;
-  text-align: left;
   background: url(icontelephone.svg) no-repeat;
   background-position: center;
-  /* background-size: 100% 100%; */
   background-color: #4B1B00;
-  border-radius: 50%;
 }
 
 #form-cv .icf4 {
-  float: left;
-  margin-bottom: 0;
-  width: 20px;
-  height: 20px;
-  text-align: left;
   background: url(icongmail.svg) no-repeat;
   background-position: center;
   background-position-y: 3px;
-  /* background-size: 100% 100%; */
   background-color: #4B1B00;
-  border-radius: 50%;
 }
 
 #form-cv .icf5 {
-  float: left;
-  margin-bottom: 0;
-  width: 20px;
-  height: 20px;
-  text-align: left;
   background: url(iconaddress.svg) no-repeat;
   background-position: center;
-  /* background-size: 100% 100%; */
   background-color: #4B1B00;
-  border-radius: 50%;
 }
 
 div#box02 {
@@ -141,13 +106,7 @@ div#box02 {
 }
 
 #cv-content {
-  /* width: 48%;
-  float: right;
-  position: relative;
-  padding: 0;
-  margin-right: 30px; */
   border-left: 2px solid #4B1B00;
-  /* padding-left: 30px; */
 }
 
 #cvo-experience-blocktitle {

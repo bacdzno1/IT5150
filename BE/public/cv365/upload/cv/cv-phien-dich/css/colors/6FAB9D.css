@@ -31,7 +31,6 @@
   float: left;
 }
 
-
 #form-cv .icf1 {
   float: left;
   margin-bottom: 0;
@@ -113,8 +112,9 @@ div#box01 {
   width: 100%;
   border: 2px solid #74A4D1;
   border-radius: 20px;
-  margin-bottom: 20px; 
+  margin-bottom: 20px;
 }
+
 .ski {
   margin: 0 auto;
   width: fit-content;
@@ -138,6 +138,7 @@ div#box01 {
   left: 14px;
   color: #6FAB9D;
 }
+
 #cvo-experience-blocktitle {
   color: #6FAB9D;
   text-align: left;
@@ -147,6 +148,7 @@ div#box01 {
   width: 100%;
   font-size: 22px;
 }
+
 #cv-content .ir .cvo-block {
   padding: 0;
   border: 2px solid #74A4D1;

@@ -1,23 +1,21 @@
 #box02 .box-content {
-    color: #fff;
-    text-align: center;
-    padding: 10px 20px;
-    background-color: #4168e9;
-  }
-  
-  div#prof {
-    float: left;
-    width: 100%;
-    padding: 15px 30px 0 30px;
-    background-color: #122048;
-  }
+  color: #fff;
+  text-align: center;
+  padding: 10px 20px;
+  background-color: #4168e9;
+}
 
-  .time {
-    background-color: #4168e9;
-    width: 20%;
-    height: 30%;
-    text-align: center;
-    margin-right: 15px;
-  }
-//4168e9
-//122048
+div#prof {
+  float: left;
+  width: 100%;
+  padding: 15px 30px 0 30px;
+  background-color: #122048;
+}
+
+.time {
+  background-color: #4168e9;
+  width: 20%;
+  height: 30%;
+  text-align: center;
+  margin-right: 15px;
+}

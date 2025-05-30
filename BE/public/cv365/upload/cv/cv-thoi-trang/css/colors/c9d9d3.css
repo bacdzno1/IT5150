@@ -1,25 +1,24 @@
 .chu {
-    float: right;
-    background-color: #c9d9d3;
-    padding: 30px 20px 10px 20px;
-    margin-bottom: 20px;
-  }
-  
-  .ski {
-    padding: 0;
-    margin: 0 auto;
-    width: 100%;
-    float: left;
-    color: #231f20;
-    background-color: #c9d9d3;
-  }
-  
-  .cum {
-    padding: 0;
-    margin: 0 auto;
-    width: 100%;
-    float: left;
-    color: #231f20;
-    background-color: #c9d9d3;
-  }
-//c9d9d3
+  float: right;
+  background-color: #c9d9d3;
+  padding: 30px 20px 10px 20px;
+  margin-bottom: 20px;
+}
+
+.ski {
+  padding: 0;
+  margin: 0 auto;
+  width: 100%;
+  float: left;
+  color: #231f20;
+  background-color: #c9d9d3;
+}
+
+.cum {
+  padding: 0;
+  margin: 0 auto;
+  width: 100%;
+  float: left;
+  color: #231f20;
+  background-color: #c9d9d3;
+}

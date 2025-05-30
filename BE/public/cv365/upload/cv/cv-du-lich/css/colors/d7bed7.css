@@ -1,80 +1,82 @@
 .cv_page {
-    padding: 0;
-    background-image: url(bgr3.png);
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-  }
-  #box01 #cv-boxtitle {
-    border-bottom: solid 1px #d7bed7;
-    width: 65%;
-  }
-  
-  #box02 #cv-boxtitle {
-    border-bottom: solid 1px #d7bed7;
-    width: 80%;
-  }
-  #form-cv .icf1 {
-    float: left;
-    margin-bottom: 0;
-    width: 20px;
-    height: 20px;
-    text-align: left;
-    background: url(iconsex3.svg) no-repeat;
-    background-position: left;
-    background-size: 100% 100%;
-  }
-  
-  #form-cv .icf2 {
-    float: left;
-    margin-bottom: 0;
-    width: 20px;
-    height: 20px;
-    text-align: left;
-    background: url(iconbirthday3.svg) no-repeat;
-    background-position: left;
-    background-size: 100% 100%;
-  }
-  
-  #form-cv .icf3 {
-    float: left;
-    margin-bottom: 0;
-    width: 20px;
-    height: 20px;
-    text-align: left;
-    background: url(icontelephone3.svg) no-repeat;
-    background-position: left;
-    background-size: 100% 100%;
-  }
-  
-  #form-cv .icf4 {
-    float: left;
-    margin-bottom: 0;
-    width: 20px;
-    height: 20px;
-    text-align: left;
-    background: url(icongmail3.svg) no-repeat;
-    background-position: left;
-    background-size: 100% 100%;
-  }
-  
-  #form-cv .icf5 {
-    float: left;
-    margin-bottom: 0;
-    width: 20px;
-    height: 20px;
-    text-align: left;
-    background: url(iconaddress3.svg) no-repeat;
-    background-position: left;
-    background-size: 100% 100%;
-  }
-  #cv-content .head::before{
-    content: "";
-    background: url(iconcontent3.svg) no-repeat;
-    width: 36px;
-    height: 16px;
-    display: block;
-    position: absolute;
-    top: 4px;
-    left: -2px;
-  }
-//d7bed7
+  padding: 0;
+  background-image: url(bgr3.png);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+#box01 #cv-boxtitle {
+  border-bottom: solid 1px #d7bed7;
+  width: 65%;
+}
+
+#box02 #cv-boxtitle {
+  border-bottom: solid 1px #d7bed7;
+  width: 80%;
+}
+
+#form-cv .icf1 {
+  float: left;
+  margin-bottom: 0;
+  width: 20px;
+  height: 20px;
+  text-align: left;
+  background: url(iconsex3.svg) no-repeat;
+  background-position: left;
+  background-size: 100% 100%;
+}
+
+#form-cv .icf2 {
+  float: left;
+  margin-bottom: 0;
+  width: 20px;
+  height: 20px;
+  text-align: left;
+  background: url(iconbirthday3.svg) no-repeat;
+  background-position: left;
+  background-size: 100% 100%;
+}
+
+#form-cv .icf3 {
+  float: left;
+  margin-bottom: 0;
+  width: 20px;
+  height: 20px;
+  text-align: left;
+  background: url(icontelephone3.svg) no-repeat;
+  background-position: left;
+  background-size: 100% 100%;
+}
+
+#form-cv .icf4 {
+  float: left;
+  margin-bottom: 0;
+  width: 20px;
+  height: 20px;
+  text-align: left;
+  background: url(icongmail3.svg) no-repeat;
+  background-position: left;
+  background-size: 100% 100%;
+}
+
+#form-cv .icf5 {
+  float: left;
+  margin-bottom: 0;
+  width: 20px;
+  height: 20px;
+  text-align: left;
+  background: url(iconaddress3.svg) no-repeat;
+  background-position: left;
+  background-size: 100% 100%;
+}
+
+#cv-content .head::before {
+  content: "";
+  background: url(iconcontent3.svg) no-repeat;
+  width: 36px;
+  height: 16px;
+  display: block;
+  position: absolute;
+  top: 4px;
+  left: -2px;
+}
