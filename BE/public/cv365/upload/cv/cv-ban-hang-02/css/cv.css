@@ -43,160 +43,19 @@
   float: right;
   position: relative;
   padding: 0;
-  padding-right: 40px;
+  margin: 0 0 24px;
+  padding-left: 2px;
+  padding-right: 20px;
 }
 
 #cv-main {
   text-align: justify;
-  margin: 0 0 24px 40px;
+  margin: 0 0 24px 47px;
   padding: 0;
   position: relative;
   float: left;
   width: 38%;
 }
-
-
-/* .margin-left-0 #cv-main {
-  margin-left: 27px;
-  width: calc(38% + 10px);
-}
-
-.margin-left-10 #cv-main {
-  margin-left: 28px;
-  width: calc(38% + 8px);
-}
-
-.margin-left-20 #cv-main {
-  margin-left: 29px;
-  width: calc(38% + 6px);
-}
-
-.margin-left-30 #cv-main {
-  margin-left: 30px;
-  width: calc(38% + 4px);
-}
-
-.margin-left-40 #cv-main {
-  margin-left: 31px;
-  width: calc(38% + 2px);
-}
-
-.margin-left-50 #cv-main {
-  margin-left: 32px;
-}
-
-.margin-left-60 #cv-main {
-  margin-left: 33px;
-  width: calc(38% - 2px);
-}
-
-.margin-left-70 #cv-main {
-  margin-left: 34px;
-  width: calc(38% - 4px);
-}
-
-.margin-left-80 #cv-main {
-  margin-left: 35px;
-  width: calc(38% - 6px);
-}
-
-.margin-left-90 #cv-main {
-  margin-left: 36px;
-  width: calc(38% - 8px);
-}
-
-.margin-left-100 #cv-main {
-  margin-left: 37px;
-  width: calc(38% - 10px);
-}
-
-.margin-left-0 #cv-content div.sort_block {
-  margin-left: -5px;
-}
-
-.margin-left-10 #cv-content div.sort_block {
-  margin-left: -4px;
-}
-
-.margin-left-20 #cv-content div.sort_block {
-  margin-left: -3px;
-}
-
-.margin-left-30 #cv-content div.sort_block {
-  margin-left: -2px;
-}
-
-.margin-left-40 #cv-content div.sort_block {
-  margin-left: -1px;
-}
-
-.margin-left-50 #cv-content div.sort_block {
-  margin-left: 0;
-}
-
-.margin-left-60 #cv-content div.sort_block {
-  margin-left: 1px;
-}
-
-.margin-left-70 #cv-content div.sort_block {
-  margin-left: 2px;
-}
-
-.margin-left-80 #cv-content div.sort_block {
-  margin-left: 3px;
-}
-
-.margin-left-90 #cv-content div.sort_block {
-  margin-left: 4px;
-}
-
-.margin-left-100 #cv-content div.sort_block {
-  margin-left: 5px;
-}
-
-.margin-left-0 #cvo-info {
-  margin: 0 27px;
-}
-
-.margin-left-10 #cvo-info {
-  margin: 0 28px;
-}
-
-.margin-left-20 #cvo-info {
-  margin: 0 29px;
-}
-
-.margin-left-30 #cvo-info {
-  margin: 0 30px;
-}
-
-.margin-left-40 #cvo-info {
-  margin: 0 31px;
-}
-
-.margin-left-50 #cvo-info {
-  margin: 0 32px;
-}
-
-.margin-left-60 #cvo-info {
-  margin: 0 33px;
-}
-
-.margin-left-70 #cvo-info {
-  margin: 0 34px;
-}
-
-.margin-left-80 #cvo-info {
-  margin: 0 35px;
-}
-
-.margin-left-90 #cvo-info {
-  margin: 0 36px;
-}
-
-.margin-left-100 #cvo-info {
-  margin: 0 37px;
-} */
 
 #cv-right .ir {
   padding: 0;
@@ -244,7 +103,14 @@ p.skill-name input {
   flex-direction: column;
 }
 
-.cv_page.height_page .all {
+.cv_page::before {
+  content: "";
+  height: 93%;
+  position: absolute;
+  border-left: 2px solid #848484;
+  top: 2%;
+  /* display: flex; */
+  left: 50%;
 }
 
 .cv_page.page_more .all {
@@ -272,23 +138,16 @@ p.skill-name input {
   width: 100%;
   float: left;
   padding-bottom: 5px;
-  padding-left: 20px;
 }
 
-#cv-top h1 span {
-  width: fit-content;
-  border-bottom: 2px solid;
-}
+#cv-top h1 span {}
 
 #box-hvt {
-  float: left;
-  width: 100%;
+  float: right;
+  width: 44%;
   padding: 0;
-  padding-top: 64px;
-  display: flex;
-  flex-direction: column;
-  padding-left: 40px;
-  padding-right: 40px;
+  margin-right: 20px;
+  padding-top: 88px;
 }
 
 #cv-right .cvo-block .head div {
@@ -313,8 +172,6 @@ p.skill-name input {
   color: #231f20;
   text-align: left;
   float: left;
-  margin-bottom: 35px;
-  padding-left: 20px;
 }
 
 .box-01 p {
@@ -410,13 +267,13 @@ p.skill-name input {
 }
 
 #cv-content .cvo-block {
-  padding: 0 !important;
   float: left;
   width: 100%;
 }
 
 #cv-content .ir .cvo-block {
   padding: 0;
+  padding-left: 30px;
 }
 
 #cv-content span {
@@ -428,6 +285,7 @@ p.skill-name input {
   margin-bottom: 15px;
   padding-left: 0;
   position: relative;
+  padding-right: 20px;
 }
 
 .ctbx:hover {
@@ -444,11 +302,10 @@ p.skill-name input {
 
 #cvo-profile-avatar-wraper {
   width: 27%;
-  float: right;
+  float: left;
   display: table;
   padding-top: 30px;
-  position: absolute;
-  left: 540px;
+  padding-left: 90px;
 }
 
 /* #cv-profile-sex::before {
@@ -479,12 +336,12 @@ p.skill-name input {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background-color: #fff;
+  background: #ccede6;
 }
 
 #cvo-profile-avatar-wraper img {
-  width: 190px;
-  height: 190px;
+  width: 180px;
+  height: 180px;
   float: left;
   border-radius: 50%;
 }
@@ -499,6 +356,7 @@ p.skill-name input {
   display: block;
   float: left;
   width: 100%;
+  height: 232px;
 }
 
 #cvo-info {
@@ -510,15 +368,6 @@ p.skill-name input {
   width: 51.5%;
   margin-top: 20px;
   display: none;
-}
-
-div#box02 {
-  padding: 35px 20px 20px 20px;
-  background-color: #d9f0ff;
-}
-
-#box02 .box-content {
-  margin-top: 10px;
 }
 
 #cvo-info #box01 {
@@ -580,6 +429,14 @@ div#box02 {
   padding-bottom: 10px;
 }
 
+.ic:first-child {
+  width: 40%;
+}
+
+.ic:nth-child(2) {
+  width: 50%;
+}
+
 #prof [contentEditable="true"] {
   width: 100%;
   float: left;
@@ -593,9 +450,7 @@ div#box02 {
 div#prof {
   float: left;
   width: 100%;
-  border-bottom: 2px solid;
-  padding-bottom: 10px;
-  margin-bottom: 15px;
+  padding: 10px 0 0 0;
 }
 
 #form-cv .icf1 {
@@ -607,7 +462,6 @@ div#prof {
   background: url(iconsex.svg) no-repeat;
   background-position: left;
   background-size: 100% 100%;
-  background-color: #000;
 }
 
 #form-cv .icf2 {
@@ -618,8 +472,7 @@ div#prof {
   text-align: left;
   background: url(iconbirthday.svg) no-repeat;
   background-position: left;
-  background-size: 100% 70%;
-  background-color: #000;
+  background-size: 100% 100%;
 }
 
 #form-cv .icf3 {
@@ -630,8 +483,7 @@ div#prof {
   text-align: left;
   background: url(icontelephone.svg) no-repeat;
   background-position: left;
-  background-size: 100% 75%;
-  background-color: #000;
+  background-size: 100% 100%;
 }
 
 #form-cv .icf4 {
@@ -642,8 +494,7 @@ div#prof {
   text-align: left;
   background: url(icongmail.svg) no-repeat;
   background-position: left;
-  background-size: 100% 62%;
-  background-color: #000;
+  background-size: 100% 100%;
 }
 
 #form-cv .icf5 {
@@ -654,8 +505,7 @@ div#prof {
   text-align: left;
   background: url(iconaddress.svg) no-repeat;
   background-position: left;
-  background-size: 100% 80%;
-  background-color: #000;
+  background-size: 100% 100%;
 }
 
 .icf .fa {
@@ -692,6 +542,16 @@ div#prof {
   float: left;
   width: 100%;
   padding-right: 20px;
+  /* display: flex;
+  flex-direction: column; */
+}
+
+#cv-content .head::after {
+  content: "";
+  background: url(underline.svg) no-repeat;
+  display: flex;
+  height: 3px;
+  width: 100%;
 }
 
 #experience-table .ctbx {}
@@ -715,13 +575,13 @@ div#prof {
 }
 
 #cvo-experience-blocktitle {
-  color: #231f20;
+  color: #4c9385;
   text-align: left;
   float: left;
   text-transform: uppercase;
   font-weight: bold;
   width: 100%;
-  font-size: 22px;
+  font-size: 19px;
 }
 
 #exp1 .exp-content {}
@@ -760,7 +620,15 @@ div#cv-boxtitle {
   margin: 0 auto;
   width: 100%;
   float: left;
-  color: #231f20;
+  color: #4c9385;
+}
+
+.ski::after {
+  content: "";
+  background: url(underline.svg) no-repeat;
+  display: flex;
+  height: 3px;
+  width: 100%;
 }
 
 .cum {
@@ -768,12 +636,22 @@ div#cv-boxtitle {
   margin: 0 auto;
   width: 100%;
   float: left;
-  color: #231f20;
+  color: #4c9385;
+}
+
+.cum::after {
+  content: "";
+  background: url(underline.svg) no-repeat;
+  display: flex;
+  height: 3px;
+  width: 100%;
 }
 
 div#box01 {
   float: left;
   width: 100%;
+  margin-bottom: 10px;
+  background-color: #ccede6;
 }
 
 div#sort_block {
@@ -785,4 +663,9 @@ div#sort_block {
 .cvo-block .blockControls {
   margin: 0px;
   padding: 0px 5px;
+} 
+
+.watermark_js {
+  background-color: #ccede6;
+  margin-right: -10px;
 }

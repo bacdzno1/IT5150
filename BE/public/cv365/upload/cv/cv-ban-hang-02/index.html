@@ -7,6 +7,11 @@
       <div id="cv-top">
         <div id="cvo-profile">
           <div class="box-01">
+            <div id="cvo-profile-avatar-wraper">
+              <div class="wimg">
+                <img id="cvo-profile-avatar" cvo-form-field="true" src="/images/cv/no_avatar.jpg" />
+              </div>
+            </div>
             <div id="box-hvt">
               <!--php UTVT  -->
               <!-- end UTVT -->
@@ -17,35 +22,32 @@
                 <span id="cv-profile-job" contenteditable="true"
                   cvo-placeholder="Vị trí công việc bạn muốn ứng tuyển">Pháp chế</span>
               </h2>
-              <div id="box02" class="block cvo-block ui-sortable-handle">
-                <div class="cum">
-                  <div class="cumicc2"></div>
-                  <div id="cv-boxtitle" cv-form-field="true" contenteditable="true" cvo-placeholder="Tiêu đề"
-                    class="box-title">
-                    Mục tiêu nghề nghiệp
-                  </div>
-                </div>
-                <div class="box-content err_cv_content" cvo-placeholder="Nội dung" contenteditable="true">
-                  Có thể ứng dụng các kỹ năng, kinh nghiệm trong lĩnh vực luật, pháp lý để trở thành luật sư chuyên nghiệp.
-                  Mong muốn làm việc lâu dài, trở thành chuyên gia trong lĩnh vực pháp lý đảm nhận
-                </div>
-              </div>
-            </div>
-            <div id="cvo-profile-avatar-wraper">
-              <div class="wimg">
-                <img id="cvo-profile-avatar" cvo-form-field="true" src="/images/cv/no_avatar.jpg" />
-              </div>
             </div>
             <div class="clr"></div>
           </div>
         </div>
+        <!-- <div id="cvo-info" class="connectedSortable sortable ui-sortable">
+          <div id="box02" class="block cvo-block ui-sortable-handle">
+            <div class="cum" style="display: none;">
+              <div class="cumicc2"></div>
+              <div id="cv-boxtitle" cv-form-field="true" contenteditable="true" cvo-placeholder="Tiêu đề"
+                class="box-title">
+                Mục tiêu nghề nghiệp
+              </div>
+            </div>
+            <div class="box-content err_cv_content" cvo-placeholder="Nội dung" contenteditable="true">
+              Có thể ứng dụng các kỹ năng, kinh nghiệm trong lĩnh vực luật, pháp lý để trở thành luật sư chuyên nghiệp.
+              Mong muốn làm việc lâu dài, trở thành chuyên gia trong lĩnh vực pháp lý đảm nhận
+            </div>
+          </div>
+        </div> -->
       </div>
       <div class="all" style="padding-top: 23.5px">
         <div id="cv-main">
           <div id="cv-right">
             <div class="ir">
               <div id="sortable" class="connectedSortable sortable ui-sortable">
-                <div id="box01" class="block cvo-block box-contact ui-sortable-handle">
+                <div style="display: none;" id="box01" class="block cvo-block box-contact ui-sortable-handle">
                   <div class="blockControls" style="display: none;">
                     <div title="Di chuyển khối" class="show-layout-editor">
                       <i class="fa fa-bars"></i>
@@ -55,53 +57,10 @@
                     <div title="Hide this" class="hide">
                       <i class="fa fa-minus"></i> Hide
                     </div>
-                  </div>
-                  <div class="tt-box1" style="display: none;">
-                    <div class="cumicc1"></div>
-                    <div id="cv-boxtitle" cv-form-field="true" contenteditable="true" cvo-placeholder="Tiêu đề"
-                      class="box-title">
-                      Thông tin liên hệ
-                    </div>
-                  </div>
-                  <div id="prof">
-                    <div class="ic">
-                      <div class="icf1"><i class="fa"></i></div>
-                      <div class="icoweb">
-                        <span id="cv-profile-sex" cvo-placeholder="Giới tính" contenteditable="true">Nam</span>
-                      </div>
-                    </div>
-                    <div class="ic">
-                      <div class="icf2"><i class="fa"></i></div>
-                      <div class="icoweb">
-                        <span id="cv-profile-birthday" cvo-placeholder="Ngày sinh" contenteditable="true">13/01/1995</span>
-                      </div>
-                    </div>
-      
-                    <div class="ic">
-                      <div class="icf3"><i class="fa"></i></div>
-                      <div class="icoweb">
-                        <span id="cv-profile-phone" cvo-placeholder="Điện thoại" contenteditable="true">0324 879 412</span>
-                      </div>
-                    </div>
-                    <div class="ic">
-                      <div class="icf4"><i class="fa"></i></div>
-                      <div class="icoweb">
-                        <span id="cv-profile-email" cvo-placeholder="Email" contenteditable="true">lananh95@gmail.com</span>
-                      </div>
-                    </div>
-                    <div class="ic">
-                      <div class="icf5"><i class="fa"></i></div>
-                      <div class="icoweb">
-                        <span id="cv-profile-address" cvo-placeholder="Địa chỉ" contenteditable="true">Vĩnh Yên, Vĩnh
-                          Phúc</span>
-                      </div>
-                    </div>
-      
-                    <div class="clr"></div>
                   </div>
                 </div>
-                <div style="display: none;" id="box02" class="block cvo-block ui-sortable-handle">
-                  <div class="blockControls" style="display: none;">
+                <div id="box02" class="block cvo-block ui-sortable-handle">
+                  <div class="blockControls">
                     <div title="Di chuyển khối" class="show-layout-editor">
                       <i class="fa fa-bars"></i>
                     </div>
@@ -110,6 +69,17 @@
                     <div title="Hide this" class="hide">
                       <i class="fa fa-minus"></i> Hide
                     </div>
+                  </div>
+                  <div class="cum">
+                    <div class="cumicc2"></div>
+                    <div id="cv-boxtitle" cv-form-field="true" contenteditable="true" cvo-placeholder="Tiêu đề"
+                      class="box-title">
+                      Mục tiêu nghề nghiệp
+                    </div>
+                  </div>
+                  <div class="box-content err_cv_content" cvo-placeholder="Nội dung" contenteditable="true">
+                    Có thể ứng dụng các kỹ năng, kinh nghiệm trong lĩnh vực luật, pháp lý để trở thành luật sư chuyên nghiệp.
+                    Mong muốn làm việc lâu dài, trở thành chuyên gia trong lĩnh vực pháp lý đảm nhận
                   </div>
                 </div>
                 <div id="box03" class="block cvo-block box-skills ui-sortable-handle" style="margin-top: 0.375px">
@@ -244,6 +214,61 @@
         </div>
         <div id="cv-content">
           <div class="ir connectedSortable sort_block ui-sortable" id="sort_block">
+            <div id="box01" class="block cvo-block box-contact ui-sortable-handle">
+              <div class="blockControls" style="display: none;">
+                <div title="Di chuyển khối" class="show-layout-editor">
+                  <i class="fa fa-bars"></i>
+                </div>
+                <div title="Chuyển mục này lên trên" class="up">▲</div>
+                <div title="Chuyển mục này xuống dưới" class="down">▼</div>
+                <div title="Hide this" class="hide">
+                  <i class="fa fa-minus"></i> Hide
+                </div>
+              </div>
+              <div class="tt-box1" style="display: none;">
+                <div class="cumicc1"></div>
+                <div id="cv-boxtitle" cv-form-field="true" contenteditable="true" cvo-placeholder="Tiêu đề"
+                  class="box-title">
+                  Thông tin liên hệ
+                </div>
+              </div>
+              <div id="prof">
+                <div class="ic">
+                  <div class="icf1"><i class="fa"></i></div>
+                  <div class="icoweb">
+                    <span id="cv-profile-sex" cvo-placeholder="Giới tính" contenteditable="true">Nam</span>
+                  </div>
+                </div>
+                <div class="ic">
+                  <div class="icf2"><i class="fa"></i></div>
+                  <div class="icoweb">
+                    <span id="cv-profile-birthday" cvo-placeholder="Ngày sinh" contenteditable="true">13/01/1995</span>
+                  </div>
+                </div>
+  
+                <div class="ic">
+                  <div class="icf3"><i class="fa"></i></div>
+                  <div class="icoweb">
+                    <span id="cv-profile-phone" cvo-placeholder="Điện thoại" contenteditable="true">0324 879 412</span>
+                  </div>
+                </div>
+                <div class="ic">
+                  <div class="icf4"><i class="fa"></i></div>
+                  <div class="icoweb">
+                    <span id="cv-profile-email" cvo-placeholder="Email" contenteditable="true">lananh95@gmail.com</span>
+                  </div>
+                </div>
+                <div class="ic">
+                  <div class="icf5"><i class="fa"></i></div>
+                  <div class="icoweb">
+                    <span id="cv-profile-address" cvo-placeholder="Địa chỉ" contenteditable="true">Vĩnh Yên, Vĩnh
+                      Phúc</span>
+                  </div>
+                </div>
+  
+                <div class="clr"></div>
+              </div>
+            </div>
             <div id="block01" class="cvo-block ui-sortable-handle" style="margin-top: 10.625px">
               <div class="blockControls">
                 <div title="Di chuyển khối" class="show-layout-editor">
@@ -370,7 +395,7 @@
         </div>
         <div class="clr"></div>
       </div>
-      <div class="watermark_js">TopCv1s.com</div>
+      <div class="watermark_js">© TopCv1s.com</div>
     </div>
     <div class="cv_page page_more height_page" data-page="2">
       <div class="all">
@@ -524,7 +549,7 @@
         <div class="clr"></div>
       </div>
       <div class="footer"></div>
-      <div class="watermark_js">TopCv1s.com</div>
+      <div class="watermark_js">© TopCv1s.com</div>
     </div>
   </div>
 </div>

@@ -281,7 +281,7 @@ const listCateCv = [{
   },
   {
     "id": 57,
-    "name": "Điện-Điện Tử",
+    "name": "Điện - Điện Tử",
     "alias": "dien-dien-tu"
   },
   {

@@ -7,14 +7,8 @@
   background-size: 100% 100%;
 }
 
-.all {
-  padding-top: 20px;
-  float: left;
-  clear: both;
-  width: 100%;
+.cv_page {
   background: url(main3.png);
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
 }
 
 #form-cv .icf1 {
