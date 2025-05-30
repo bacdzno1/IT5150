@@ -246,3 +246,7 @@ GET /pictures/sample_cv/1747926134_b0cad8.jpg 304 - - 1.281 ms
 GET /pictures/sample_cv/1747979735_ceded8.jpg 304 - - 2.188 ms
 GET /pictures/sample_cv/1747925411_e2c6c2.jpg 304 - - 1.050 ms
 GET /pictures/sample_cv/1746757273_e8f1e2.jpg 304 - - 0.870 ms
+OPTIONS /api/topcv1s/cv/getNganhCv 204 0 - 22.273 ms
+OPTIONS /api/topcv1s/cv/getLangCv 204 0 - 0.212 ms
+POST /api/topcv1s/cv/getLangCv 200 74 - 278.257 ms
+POST /api/topcv1s/cv/getNganhCv 200 - - 388.316 ms
