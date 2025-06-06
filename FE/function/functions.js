@@ -12795,4 +12795,8 @@ exports.SendmailHunghapay = async(partner, toAddress, subject, body, int_type) =
 	}
 }
 
+exports.setError = (res, message, code = 500) => {
+	return res.status(code).json({ result: false, data: null, code, error: { message } });
+};
+
 module.exports = {listQuanhuyen}

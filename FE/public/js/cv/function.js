@@ -1163,12 +1163,9 @@ const appendScript = () => {
   appendScript("/js/cv/check_login_dt.js", false);
   appendScript("/js/cv/1.js", false);
   appendScript("/js/cv/cv_new_all1.js", false);
-  // appendScript("/js/cv/cv_new_all1.min.js", false);
   appendScript("/js/cv/taocv_v2.js", false);
   appendScript("/js/cv/cvh_new_all1.js", false);
-  // appendScript("/js/cv/cvh_new_all1.min.js", false);
   appendScript("/js/cv/edit.js", false);
-  // appendScript("/js/cv/main.js", false);
   appendScript("/js/cv/main.min.js", false);
 }
 

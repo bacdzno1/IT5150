@@ -35,9 +35,9 @@
                     <input class="input-info" id="address" type="text" placeholder="Nhập địa chỉ">
                     <input class="input-info" id="from" type="date" placeholder="Từ">
                     <input class="input-info" id="to" type="date" placeholder="Đến">
-                    <select class="input-info" id="">
+                    <!-- <select class="input-info" id="">
                         <option>Chọn nguồn</option>
-                    </select>
+                    </select> -->
                     <div class="btn-search-candi">
                         <button class="btn-search">Tìm kiếm</button>
                     </div>
@@ -52,8 +52,8 @@
                                 <th>Tên ứng viên</th>
                                 <th>Tên công ty</th>
                                 <th>Việc làm</th>
-                                <th>Trạng thái</th>
-                                <th>Ghi chú</th>
+                                <!-- <th>Trạng thái</th>
+                                <th>Ghi chú</th> -->
                             </tr>
                         </thead>
                         <tbody id="newRegisteredCandi">
@@ -236,12 +236,12 @@
                                         <td>${candidate.use_name?  candidate.use_name: "-"}</td>
                                         <td>${candidate.usc_company ? candidate.usc_company: "-"}</td>
                                         <td>${candidate.new_title ? candidate.new_title: "-"}</td>
-                                        <td>${candidate.result ? candidate.result: "-"}</td>
-                                        <<td>${candidate.note ? candidate.note: "-"}</td>
                                     </tr>`;
                             tableBody.append(row);
                         });
                         Paginate(totalPage, page);
+                        // <td>${candidate.result ? candidate.result: "-"}</td>
+                        // <td>${candidate.note ? candidate.note: "-"}</td>
                     }
                 },
                 error: function (xhr, status, error) {

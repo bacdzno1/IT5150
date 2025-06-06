@@ -234,7 +234,7 @@ export const PostNew = async(req, res) => {
                                 'new_ho_so': hoSo,
                                 'baocao': 1,
                                 'selfpost': 1,
-                                'from': 'job247.vn'
+                                'from': 'TopCv1s.com'
                             };
                             await New.create(data);
 
@@ -1129,6 +1129,8 @@ export const Home = async(req, res) => {
             // element.new_picture = `${process.env.DOMAIN_API}/pictures/news/${element.new_picture}`;
             element.new_picture = `${process.env.DOMAIN_API}/pictures/${element.new_picture}`;
         }
+
+        console.log('so viec moi nhat:', ViecLamThuongHieu, TinThuongThuongHieu);
 
         data.Seo = seo;
         data.ViecLamHapDan = ViecLamHapDan.length < 30 ? [...ViecLamHapDan, ...TinThuongHapDan] : [...ViecLamHapDan];

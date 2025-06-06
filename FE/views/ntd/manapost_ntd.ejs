@@ -196,7 +196,11 @@
             return `${hours}:${minutes}:${seconds}`;
         }
     
-        function deleteNew(newId) {
+        function deleteNew(newId, soLuongNHS) {
+            if (soLuongNHS > 0) {
+                alert("Tin tuyển dụng này đã có ứng viên ứng tuyển. Bạn không thể xóa.");
+                return;
+            }
             var confirmed = confirm("Bạn có chắc chắn muốn xóa tin tuyển dụng này?");
             if (confirmed) {
                 $.ajax({
@@ -229,7 +233,12 @@
             }
         }
     
-        function editNew(new_alias, new_id) {
+        function editNew(new_alias, new_id, soLuongNHS) {
+            if (soLuongNHS > 0) {
+                alert("Tin tuyển dụng này đã có ứng viên ứng tuyển. Bạn không thể chỉnh sửa, vui lòng tạo tin mới.");
+                window.location.href = "/ntd/dang-tin-tuyen-dung";
+                return;
+            }
             const url = `/ntd/sua-tin-tuyen-dung/${new_alias}-${new_id}`;
             window.location.href = url;
         }
@@ -281,10 +290,10 @@
                                             <td>
                                                 <div class="d-flex cs-gap-10px justify-c">
                                                     <div>
-                                                        <img alt="Edit Icon" src="/images/icon/edit_icon.svg" width="20" height="20" onclick="editNew('${news.new_alias}', ${news.new_id})">
+                                                        <img alt="Edit Icon" src="/images/icon/edit_icon.svg" width="20" height="20" onclick="editNew('${news.new_alias}', ${news.new_id}, ${news.soLuongNHS})">
                                                     </div>
                                                     <div>
-                                                        <img alt="Remove Icon" src="/images/icon/remove_icon.svg" width="18" height="23" onclick="deleteNew(${news.new_id})">
+                                                        <img alt="Remove Icon" src="/images/icon/remove_icon.svg" width="18" height="23" onclick="deleteNew(${news.new_id}, ${news.soLuongNHS})">
                                                     </div>
                                                 </div>
                                             </td>

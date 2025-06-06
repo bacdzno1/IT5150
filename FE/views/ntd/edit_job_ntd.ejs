@@ -125,14 +125,14 @@
                                         <% }  %>
                                     </select>
                                 </div>
-                                <div class="cnt-linp mb-20px">
+                                <!-- <div class="cnt-linp mb-20px">
                                     <label for="tag_job">
                                         Tag Ngành nghề <span class="color-alert">*</span>
                                     </label>
                                     <select id="tag_cate" name="tag_cate" multiple="multiple">
                                         <option></option>
                                     </select>
-                                </div>
+                                </div> -->
                                 <div class="cnt-linp mb-20px">
                                     <label for="city_job">
                                         Tỉnh thành làm việc <span class="color-alert">*</span>
@@ -463,11 +463,11 @@
             searchPlaceholder: 'Tìm kiếm...'
         });
         $('#cat_id').trigger('change')
-        $('#tag_cate').CustomSelect({
-            placeholder: 'Chọn tag ngành nghề',
-            searchPlaceholder: 'Tìm kiếm...'
-        });
-        $('#tag_cate').trigger('change')
+        // $('#tag_cate').CustomSelect({
+        //     placeholder: 'Chọn tag ngành nghề',
+        //     searchPlaceholder: 'Tìm kiếm...'
+        // });
+        // $('#tag_cate').trigger('change')
         $('#typew_id').CustomSelect({
             placeholder: 'Chọn hình thức làm việc',
             searchPlaceholder: 'Tìm kiếm...'
@@ -528,29 +528,29 @@
             });
         }
 
-        function loadTagsCate(cateId, selectedTagId) {
-            $.ajax({
-                url: '/api/getTagCate',
-                method: 'POST',
-                data: { id: cateId },
-                success: function(response) {
-                    if (response.tag.length > 0) {
-                        $('#tag_cate').empty();
-                        response.tag.forEach(function(tag) {
-                            $('#tag_cate').append('<option value="' + tag.tag_id + '">' + tag.tag_name + '</option>');
-                        });
-                        if (selectedTagId) {
-                            $('#tag_cate').val(selectedTagId)
-                        }
+        // function loadTagsCate(cateId, selectedTagId) {
+        //     $.ajax({
+        //         url: '/api/getTagCate',
+        //         method: 'POST',
+        //         data: { id: cateId },
+        //         success: function(response) {
+        //             if (response.tag.length > 0) {
+        //                 $('#tag_cate').empty();
+        //                 response.tag.forEach(function(tag) {
+        //                     $('#tag_cate').append('<option value="' + tag.tag_id + '">' + tag.tag_name + '</option>');
+        //                 });
+        //                 if (selectedTagId) {
+        //                     $('#tag_cate').val(selectedTagId)
+        //                 }
 
-                        $('#tag_cate').trigger('update'); 
-                    }
-                },
-                error: function(err) {
-                    console.error('Error:', err);
-                }
-            });
-        }
+        //                 $('#tag_cate').trigger('update'); 
+        //             }
+        //         },
+        //         error: function(err) {
+        //             console.error('Error:', err);
+        //         }
+        //     });
+        // }
 
         if (post.new_city_id) {
             $('#city_job').val(post.new_city_id);
@@ -562,15 +562,15 @@
             loadDistricts(cityId, null);
         });
 
-        if (post.new_cat_id) {
-            $('#cat_id').val(post.new_cat_id);
-            loadTagsCate(post.new_cat_id, post.new_tag)
-        }
+        // if (post.new_cat_id) {
+        //     $('#cat_id').val(post.new_cat_id);
+        //     loadTagsCate(post.new_cat_id, post.new_tag)
+        // }
 
-        $('#cat_id').change(function() {
-            var catId = parseInt($(this).val());
-            loadTagsCate(catId, null)
-        })
+        // $('#cat_id').change(function() {
+        //     var catId = parseInt($(this).val());
+        //     loadTagsCate(catId, null)
+        // })
         
         function getCookie(name) {
             var value = "; " + document.cookie;
@@ -610,8 +610,8 @@
                 alert("Chưa chọn cấp bậc"); return;
             } else if(!cat_id) {
                 alert("Chưa chọn ngành nghề"); return;
-            } else if(!tag_cate) {
-                alert("Chưa chọn tag ngành nghề"); return;
+            // } else if(!tag_cate) {
+            //     alert("Chưa chọn tag ngành nghề"); return;
             } else if(!city_job) {
                 alert("Chưa chọn tỉnh thành làm việc"); return;
             } else if(!distric_job) {

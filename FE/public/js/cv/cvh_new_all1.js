@@ -4730,7 +4730,7 @@ $(document).ready(function () {
         data["menu"].push(sub);
       }
     });
-    if (window.location.pathname == "/cv365/tao-cv-thiet-ke-my-thuat/mau-10") {
+    if (window.location.pathname == "/tao-cv-thiet-ke-my-thuat/mau-10") {
       const checkBox01 = data?.menu?.some((item) => {
         return item?.id === "box01";
       });
@@ -5062,7 +5062,7 @@ $(document).ready(function () {
         data["menu"].push(sub);
       }
     });
-    if (window.location.pathname == "/cv365/tao-cv-thiet-ke-my-thuat/mau-10") {
+    if (window.location.pathname == "/tao-cv-thiet-ke-my-thuat/mau-10") {
       const checkBox01 = data?.menu?.some((item) => {
         return item?.id === "box01";
       });
@@ -5927,7 +5927,7 @@ function save_cv_login(uid) {
         //$('#cv-profile-phone').text(x);
         //$('#cv-profile-email').text(y);
         // $.exportData();
-        //window.location.href = 'https://timviec365.vn/cv365/dang-ky-thanh-cong';
+        //window.location.href = 'https://timviec365.vn/dang-ky-thanh-cong';
         //}
       });
       is_busy = false;
@@ -5984,7 +5984,7 @@ function update_cv(uid) {
         $(".bg-spinner").remove();
         is_busy = false;
         window.location.href =
-          "https://timviec365.vn/cv365/luu-cv/" + token + "-" + cvid;
+          "https://timviec365.vn/luu-cv/" + token + "-" + cvid;
       },
       error: function () {
         result = true;
@@ -6510,8 +6510,8 @@ function resg_new() {
     const listerr = [];
     const pathname = window.location.pathname;
     // const LIST = [
-    //   "/cv365/tao-cv-marketing/mau-26",
-    //   "/cv365/tao-cv-giao-thong-van-tai/mau-14",
+    //   "/tao-cv-marketing/mau-26",
+    //   "/tao-cv-giao-thong-van-tai/mau-14",
     // ];
     const block04Data = formatted?.experiences?.find((x) => x.id === "block04");
 

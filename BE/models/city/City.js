@@ -30,14 +30,6 @@ const City = new mongoose.Schema({
     postcode: {
         type: String,
     },
-    cit_tw: {
-        type: Number,
-        default: 0
-    },
-    index_tv: {
-        type: Number,
-        default: 0
-    },
 }, {
     collection: 'City',
     versionKey: false,

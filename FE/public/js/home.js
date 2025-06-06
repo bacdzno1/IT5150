@@ -19,6 +19,7 @@ function getHomeData() {
             ViecLamMoiNhat = response.data.data.ViecLamThuongHieu;
             CongTyHangDau = response.data.data.CongTyHangDau;
             nganhNgheNoiBat = response.data.data.nganhNgheNoiBat;
+            console.log(">>> Việc làm mới nhất: ", ViecLamMoiNhat)
             if(blogs.length == 0){
                 $('.handbook').hide();
             }

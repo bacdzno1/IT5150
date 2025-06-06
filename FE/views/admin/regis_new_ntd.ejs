@@ -35,11 +35,11 @@
                     <input class="input-info" id="usc_name_email" type="text" placeholder="Nhập email liên hệ">
                     <input class="input-info" id="usc_name_phone" type="text" placeholder="Nhập SĐT">
                     <input class="input-info" id="usc_mst" type="text" placeholder="MST">
-                    <select class="input-info" id="vip">
+                    <!-- <select class="input-info" id="vip">
                         <option value="" selected disabled>Chọn vip</option>
                         <option value="0">Chưa vip</option>
                         <option value="1">Vip</option>
-                    </select>
+                    </select> -->
                     <select class="input-info" id="usc_city">
                         <option value="" selected>Chọn tỉnh thành</option>
                         <% for (let i=0; i < listCities.length; i++) { %>
@@ -68,19 +68,19 @@
                                 <th>Tên công ty</th>
                                 <th>SĐT (TK đăng nhập)</th>
                                 <th>Email (TK đăng nhập)</th>
-                                <th>Email</th>
+                                <!-- <th>Email</th>
                                 <th>SĐT</th>
-                                <th>Skype</th>
+                                <th>Skype</th> -->
                                 <th>Địa chỉ</th>
                                 <th>Website</th>
                                 <th>MST</th>
-                                <th>Trạng thái vip</th>
+                                <!-- <th>Trạng thái vip</th> -->
                                 <th>Ngày đăng ký</th>
-                                <th>Active</th>
+                                <!-- <th>Active</th>
                                 <th>Index</th>
                                 <th>Sửa</th>
                                 <th>Id chuyên viên</th>
-                                <th>Id quản lý chung</th>
+                                <th>Id quản lý chung</th> -->
                             </tr>
                         </thead>
                         <tbody id="newRegisteredEmp">
@@ -240,19 +240,10 @@
                                         <td><b><a href="${slug}" target="_blank">${emp.usc_company}</a></b></td>
                                         <td>${emp.usc_phone_tk}</td>
                                         <td>${emp.usc_email}</td>
-                                        <td>${emp.usc_name_email ? emp.usc_name_email : "Chưa cập nhật"}</td>
-                                        <td>${emp.usc_name_phone ? emp.usc_name_phone : "Chưa cập nhật"}</td>
-                                        <td>${emp.usc_skype ? emp.usc_skype : "Chưa cập nhật"}</td>
                                         <td>${emp.usc_address ? emp.usc_address : "Chưa cập nhật"}</td>
                                         <td>${emp.usc_website ? emp.usc_website : "Chưa cập nhật"}</td>
                                         <td>${emp.usc_mst}</td>
-                                        <td><input type="checkbox" ${emp.vip === 1 ? 'checked' : ''} disabled></td>
                                         <td>${dateRegis}</td>
-                                        <td><input type="checkbox" ${emp.usc_active === 1 ? 'checked' : ''} disabled></td>
-                                        <td><input type="checkbox" ${emp.usc_index === 1 ? 'checked' : ''} disabled></td>
-                                        <td><img src="/images/icon/editicon.svg" width="15" height="15" alt="Edit Icon"></td>
-                                        <td>${emp.usc_kd}</td>
-                                        <td>${emp.adminDetails ? emp.adminDetails.emp_id : ''}</td>
                                     </tr>`;
                             tableBody.append(row);
                         });

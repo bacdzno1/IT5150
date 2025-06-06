@@ -22,7 +22,7 @@ const AddCvForImageAndPdf = async (iduser, currentTimeSecond, url) => {
         fs.mkdirSync(dirpdf, { recursive: true });
     }
 
-    // lưu ảnh, lưu pdf: https://timviec365.vn/cv365/site/xem_cv_nodejs_no_hide/2062/1111226663
+    // lưu ảnh, lưu pdf: https://timviec365.vn/site/xem_cv_nodejs_no_hide/2062/1111226663
     const browser = await puppeteer.launch({
         headless: 'chrome',
         args: ["--no-sandbox", "--disabled-setupid-sandbox", "--font-render-hinting=none", '--force-color-profile=srgb', '--disable-web-security'],

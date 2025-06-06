@@ -36,9 +36,6 @@ function configureApp(app) {
 
     app.set("view engine", "ejs");
 
-    const accessLogStream = fs.createWriteStream('./services/access.log', { flag: 'a' });
-    app.use(morgan('tiny', { stream: accessLogStream }))
-
     app.use(compression({ filter: shouldCompress }))
     app.use(express.json({ limit: '50mb' }));
     app.use(express.urlencoded({ extended: false, limit: '50mb' }));

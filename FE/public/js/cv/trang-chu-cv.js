@@ -149,7 +149,7 @@ $(document).ready(function () {
       }
 
       $.ajax({
-        url: isMobile ? `http://localhost:3056/api/topcv1s/cv/cv365/upload/cv/cv_mobile/index.html` : `http://localhost:3056/api/topcv1s/cv/cv365/upload/cv/${alias}/index.html`,
+        url: isMobile ? `http://localhost:3056/api/topcv1s/cv/upload/cv/cv_mobile/index.html` : `http://localhost:3056/api/topcv1s/cv/upload/cv/${alias}/index.html`,
         method: 'GET',
         success: function (data) {
           $('#cvid').attr('value', idcv)
@@ -388,7 +388,7 @@ $(document).ready(function () {
                     }
                   })
 
-                  $('#color-stylesheet').attr("href", `http://localhost:3056/api/topcv1s/cv/cv365/upload/cv/${alias}/css/colors/${color}.css`);
+                  $('#color-stylesheet').attr("href", `http://localhost:3056/api/topcv1s/cv/upload/cv/${alias}/css/colors/${color}.css`);
 
                   $('.sidenav__lague--item.sidenav--item').on('click', function () {
                     $('.sidenav__lague--item.sidenav--item').removeClass('active');
@@ -548,12 +548,12 @@ $(document).ready(function () {
           }
 
           // Load the CSS file
-          $('#cv-css').attr('href', isMobile ? "http://localhost:3056/api/topcv1s/cv/cv365/upload/cv/cv_mobile/css/cv.css" : `http://localhost:3056/api/topcv1s/cv/cv365/upload/cv/${alias}/css/cv.css`);
+          $('#cv-css').attr('href', isMobile ? "http://localhost:3056/api/topcv1s/cv/upload/cv/cv_mobile/css/cv.css" : `http://localhost:3056/api/topcv1s/cv/upload/cv/${alias}/css/cv.css`);
 
           // Đổi màu
           $('.cv-top--content__color').css('background-color', `#${colorMap[0]}`);
           $('.modal-act-color--circle').css('background-color', `#${colorMap[0]}`);
-          $('#color-stylesheet').attr("href", `http://localhost:3056/api/topcv1s/cv/cv365/upload/cv/${alias}/css/colors/${colorMap[0]}.css`);
+          $('#color-stylesheet').attr("href", `http://localhost:3056/api/topcv1s/cv/upload/cv/${alias}/css/colors/${colorMap[0]}.css`);
           const colorList = $('.sidenav__color--circle')
           for (let i = 0; i < colorList.length; i++) {
             $(colorList[i]).css("background-color", `#${colorMap[i]}`)
@@ -568,7 +568,7 @@ $(document).ready(function () {
             $('.cv-top--content__color').css('background-color', '#' + bgColor);
             $('.modal-act-color--circle').css('background-color', $('.cv-top--content__color').css('background-color'));
             if (cssFile) {
-              $('#color-stylesheet').attr('href', `http://localhost:3056/api/topcv1s/cv/cv365/upload/cv/${alias}/css/colors/${cssFile}.css`);
+              $('#color-stylesheet').attr('href', `http://localhost:3056/api/topcv1s/cv/upload/cv/${alias}/css/colors/${cssFile}.css`);
             }
           });
 

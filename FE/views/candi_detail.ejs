@@ -96,12 +96,12 @@
                                         <% if (dataFromAPI.data.use_nganh_nghe.length> 0) { %>
                                             <% dataFromAPI.data.use_nganh_nghe.forEach(function(item, index) { %>
                                                 <span class="fw-400"><%= findCate(parseInt(item.id)) %></span>
-                                                    <% if (index < dataFromAPI.data.use_nganh_nghe.length - 1) { %>, <%
-                                                            } %>
-                                                            <% }); %>
-                                                                <% } else { %>
-                                                                    <span class="fw-400">Chưa cập nhật</span>
-                                                                    <% } %>
+                                                <% if (index < dataFromAPI.data.use_nganh_nghe.length - 1) { %>, <%
+                                                } %>
+                                            <% }); %>
+                                        <% } else { %>
+                                            <span class="fw-400">Chưa cập nhật</span>
+                                        <% } %>
                                     </h3>
                                 </div>
                                 <div class="candi-detail-item d-flex gap-3 align-c">
@@ -110,34 +110,34 @@
                                         <% if (dataFromAPI.data.use_city_job.length> 0) { %>
                                             <% dataFromAPI.data.use_city_job.forEach(function(item, index) { %>
                                                 <span class="fw-400"><%= findCity(parseInt(item.id)) %></span>
-                                                    <% if (index < dataFromAPI.data.use_city_job.length - 1) { %>, <% }
-                                                            %>
-                                                            <% }); %>
-                                                                <% } else { %>
-                                                                    <span class="fw-400">Chưa cập nhật</span>
-                                                                    <% } %>
-                                                                </h3>
+                                                <% if (index < dataFromAPI.data.use_city_job.length - 1) { %>, <% }
+                                                %>
+                                            <% }); %>
+                                        <% } else { %>
+                                            <span class="fw-400">Chưa cập nhật</span>
+                                        <% } %>
+                                    </h3>
                                 </div>
-                                <div class="candi-detail-item-1 d-flex gap-3 align-c">
+                                <!-- <div class="candi-detail-item-1 d-flex gap-3 align-c">
                                     <img width="24" height="24" alt="Icon Mức lương" src="/images/icon/coin.svg">
                                     <h3 class="mb-0 fs-6"><span class="fw-700">Mức lương mong muốn: </span>
                                         <span class="fw-400"><%= dataFromAPI.data.salary !=0 ? findRangeMoney(parseInt(dataFromAPI.data.salary))
                                             : 'Chưa cập nhật' %></span>
                                     </h3>
-                                </div>
-                                <div class="candi-detail-item-1 d-flex gap-3 align-c">
+                                </div> -->
+                                <!-- <div class="candi-detail-item-1 d-flex gap-3 align-c">
                                     <img width="24" height="24" alt="Icon Kinh Nghiệm" src="/images/icon/folder.svg">
                                     <h3 class="mb-0 fs-6"><span class="fw-700">Kinh nghiệm làm việc: </span><span class="fw-400"><%=findExp(dataFromAPI.data.exp_years)%></span</h3>
                                 </div>
                                 <div class="candi-detail-item-1 d-flex gap-3 align-c">
                                     <img width="24" height="24" alt="Icon Hình Thức" src="/images/icon/Document.svg">
                                     <h3 class="mb-0 fs-6"><span class="fw-700">Hình thức làm việc: </span><span class="fw-400"><%=findTypeWork(dataFromAPI.data.work_option)%></span></h3>
-                                </div>
-                                <div class="candi-detail-item-1 d-flex gap-3 align-c">
+                                </div> -->
+                                <!-- <div class="candi-detail-item-1 d-flex gap-3 align-c">
                                     <img width="23" height="23" alt="Icon học vấn"
                                         src="/images/icon/vaadin_academy-cap.svg">
                                     <h3 class="mb-0 fs-6"><span class="fw-700">Học vấn: </span><span class="fw-400">Chưa cập nhật</span></h3>
-                                </div>
+                                </div> -->
                                 <div class="candi-detail-item d-flex gap-3 align-c">
                                     <img width="24" height="24" alt="Icon địa chỉ" src="/images/icon/bxs_map.svg">
                                     <h3 class="mb-0 fs-6"><span class="fw-700">Địa chỉ chi tiết: </span><span class="fw-400"><%=dataFromAPI.data.address%></span></h3>

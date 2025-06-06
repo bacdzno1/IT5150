@@ -22,8 +22,6 @@ function checkPermission(requiredModuleId) {
             const hasPermission = modules.includes(requiredModuleId);
 
             if (hasPermission || decoded.data.isFullModules === 1) {
-                // Nếu isFullModules là 1, lấy toàn bộ module từ data_get.data_left_admin
-                // Nếu không, chỉ lấy các module mà người dùng có quyền truy cập
                 const availableModules = decoded.data.isFullModules === 1
                     ? data_get.data_left_admin
                     : data_get.data_left_admin.filter(module =>

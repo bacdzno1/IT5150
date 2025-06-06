@@ -93,7 +93,7 @@ ul.lelf li a {
 }
 
 .bn-dmcv {
-  background: url(/cv365/images/banner-2.jpg) center;
+  background: url(/images/banner-2.jpg) center;
   height: 200px;
 }
 
@@ -399,7 +399,7 @@ ul.lelf li a {
 }
 
 .img {
-  background: url(/cv365/images/image-cv.png);
+  background: url(/images/image-cv.png);
 }
 
 .list-thu ul {
@@ -658,7 +658,7 @@ ul.lelf {
 
 ul.lelf li {
   border-top: 5px solid #02b5e1;
-  background: url(/cv365/images/bg-menu-left.png) top left;
+  background: url(/images/bg-menu-left.png) top left;
   margin-right: 2px;
 }
 
@@ -754,7 +754,7 @@ ul.right li:hover .dm_more {
 
 .mi_1 {
   display: inline-block;
-  background: url(/cv365/images/i-1.png) top left no-repeat;
+  background: url(/images/i-1.png) top left no-repeat;
   width: 19px;
 }
 
@@ -1107,7 +1107,7 @@ select.category_cv {
 }
 
 .tt_f::before {
-  content: url("/cv365/images/tt_f.png");
+  content: url("/images/tt_f.png");
   margin-right: 10px;
 }
 
@@ -1146,13 +1146,13 @@ blockquote {
 }
 
 .box_seo_dm ul li > ul > li {
-  background: url(/cv365/images/cc.png) 14px 9px no-repeat;
+  background: url(/images/cc.png) 14px 9px no-repeat;
   text-indent: 30px;
   text-align: justify;
 }
 
 .box_seo_dm ul > li {
-  background: url(/cv365/images/cc2.png) 14px 8px no-repeat;
+  background: url(/images/cc2.png) 14px 8px no-repeat;
   text-indent: 30px;
 }
 
@@ -1229,7 +1229,7 @@ iframe#yoube {
 .download:before,
 .download_timviec365:before {
   margin-right: 5px;
-  background: url(/cv365/images/download.png) left center no-repeat;
+  background: url(/images/download.png) left center no-repeat;
   width: 18px;
   height: 18px;
   display: inline-block;
@@ -1595,7 +1595,7 @@ h1 {
 }
 
 #h {
-  background: url(/cv365/images/bg-01.jpg) top center no-repeat;
+  background: url(/images/bg-01.jpg) top center no-repeat;
   color: #fff;
   height: 120px;
   padding-top: 25px;
@@ -1842,7 +1842,7 @@ h3 {
   width: 140px;
   height: 40px;
   line-height: 40px;
-  background: url(/cv365/images/icon_email.png) 12px 12px no-repeat #f60;
+  background: url(/images/icon_email.png) 12px 12px no-repeat #f60;
   border-radius: 5px;
   display: flex;
   color: #fff;
@@ -2313,13 +2313,13 @@ form input[type="submit"]:hover {
 }
 
 .modal-content .w {
-  background: url(/cv365/images/bg-cv-hover1.png) center bottom no-repeat;
+  background: url(/images/bg-cv-hover1.png) center bottom no-repeat;
   float: left;
   width: 301px;
 }
 
 .item .bg-cv {
-  background: url(/cv365/images/bg-cv.png) top center repeat-y;
+  background: url(/images/bg-cv.png) top center repeat-y;
   width: 395px;
   float: left;
   margin: auto;
@@ -2477,17 +2477,17 @@ form input[type="submit"]:hover {
 }
 
 .img.view {
-  background: url(/cv365/images/icons/view.png) no-repeat;
+  background: url(/images/icons/view.png) no-repeat;
   height: 12px;
 }
 
 .img.like {
-  background: url(/cv365/images/icons/like.png) no-repeat;
+  background: url(/images/icons/like.png) no-repeat;
   height: 13px;
 }
 
 .img.down {
-  background: url(/cv365/images/icons/download.png) no-repeat;
+  background: url(/images/icons/download.png) no-repeat;
   height: 16px;
 }
 
@@ -2541,7 +2541,7 @@ form input[type="submit"]:hover {
 }
 
 .box-two {
-  background: url(/cv365/images/line-bg.png) center top repeat-y;
+  background: url(/images/line-bg.png) center top repeat-y;
   background-size: 100% 100%;
   padding: 25px 0;
   color: #fff;
@@ -2562,7 +2562,7 @@ form input[type="submit"]:hover {
 }
 
 #j {
-  background: url(/cv365/images/bg-02.webp) top center no-repeat;
+  background: url(/images/bg-02.webp) top center no-repeat;
   margin: 50px auto auto;
 }
 
@@ -2804,7 +2804,7 @@ p.head {
 
 .box-white .box-w-right .edit h3 {
   display: inline-block;
-  background: url(/cv365/images/edit-hs.png) left center no-repeat;
+  background: url(/images/edit-hs.png) left center no-repeat;
   padding-left: 30px;
   margin: 20px 0;
   font-size: 24px;
@@ -2846,7 +2846,7 @@ p.head {
 }
 
 .banner_app_cv {
-  background: url(/cv365/images/bg_app_pc.png) no-repeat;
+  background: url(/images/bg_app_pc.png) no-repeat;
   background-color: #fff;
   height: 210px;
   width: 100%;
@@ -3020,7 +3020,7 @@ p.head {
 }
 
 .box-new-03 {
-  background: url(/cv365/images/line-bg.png) center top repeat-y;
+  background: url(/images/line-bg.png) center top repeat-y;
   background-size: 100% 100%;
   padding: 50px 0;
   position: relative;
@@ -3028,7 +3028,7 @@ p.head {
 }
 
 .box-new-03::before {
-  background: url(/cv365/images/bg-04.png) left bottom no-repeat;
+  background: url(/images/bg-04.png) left bottom no-repeat;
   position: absolute;
   width: 100%;
   opacity: 0.2;
@@ -3623,7 +3623,7 @@ i.back1 {
 }
 
 .job-more {
-  background: url(/cv365/images/job-more.png) left center no-repeat;
+  background: url(/images/job-more.png) left center no-repeat;
   padding-left: 20px;
   margin-top: 10px;
 }
@@ -3813,7 +3813,7 @@ i.save {
 
 .blog-cv .r .price span {
   font-size: 24px;
-  background: url(/cv365/images/ico-free.png) 10px center no-repeat #ff7d00;
+  background: url(/images/ico-free.png) 10px center no-repeat #ff7d00;
   padding: 5px 40px;
   color: #fff;
   font-weight: 500;
@@ -4139,7 +4139,7 @@ i.back {
 }
 
 .list-icon {
-  background: url(/cv365/images/list-icon.png);
+  background: url(/images/list-icon.png);
 }
 
 .ico21 {
@@ -4469,7 +4469,7 @@ ul.menu-user > li {
 }
 
 .menu-user li i:after {
-  background-image: url(/cv365/images/list-icon.png);
+  background-image: url(/images/list-icon.png);
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -4477,7 +4477,7 @@ ul.menu-user > li {
 }
 
 .menu-user li i.view::after {
-  background: url(/cv365/images/ico-view.png);
+  background: url(/images/ico-view.png);
   width: 32px;
   height: 18px;
 }
@@ -4552,7 +4552,7 @@ ul.menu-user > li {
 }
 
 .box-ld .plugin i::before {
-  background: url(/cv365/images/image-cv.png);
+  background: url(/images/image-cv.png);
   position: absolute;
   left: 50%;
   top: 6%;
@@ -4735,7 +4735,7 @@ ul.menu-user > li {
 }
 
 .bt-xoa {
-  background: url(/cv365/images/delete.png) top left;
+  background: url(/images/delete.png) top left;
   width: 14px;
   height: 18px;
   float: right;
@@ -5149,7 +5149,7 @@ ul.zoom li:last-child a {
 }
 
 .box-cn-02 .box-cn-a .dc {
-  background: url(/cv365/images/ico-dc.png) left top no-repeat;
+  background: url(/images/ico-dc.png) left top no-repeat;
   display: inline-block;
   padding-left: 20px;
   font-size: 12px;
@@ -5477,7 +5477,7 @@ ul.zoom li:last-child a {
 }
 
 .main-cn > .h3 {
-  background: url(/cv365/images/ico-tit-cn.png) left center no-repeat;
+  background: url(/images/ico-tit-cn.png) left center no-repeat;
   padding-left: 40px;
   font-size: 18px;
   color: #02b5e1;
@@ -5866,7 +5866,7 @@ strong.cp_name {
 }
 
 #boxRes .logo1 {
-  background: url(/cv365/images/icons/logo.png) center center no-repeat;
+  background: url(/images/icons/logo.png) center center no-repeat;
   height: 46px;
   float: left;
   width: 100%;
@@ -6117,7 +6117,7 @@ strong.cp_name {
 }
 
 .lightbox p.tb {
-  background: url(/cv365/images/ai.png) left 4px no-repeat;
+  background: url(/images/ai.png) left 4px no-repeat;
   padding-left: 22px;
   margin-bottom: 15px;
 }
@@ -6566,7 +6566,7 @@ select.category_cv {
   }
 
   .bn-dmcv {
-    background: url(/cv365/images/banner-2-mb.jpg) center;
+    background: url(/images/banner-2-mb.jpg) center;
   }
 
   .blog-hd .head a {
@@ -6838,7 +6838,7 @@ select.category_cv {
 }
 
 .ur_ico {
-  background: url(/cv365/images/icon-hs.jpg) left bottom no-repeat;
+  background: url(/images/icon-hs.jpg) left bottom no-repeat;
   width: 16px;
   height: 16px;
   margin-right: 15px;
@@ -7115,7 +7115,7 @@ select.category_cv {
 
 .tip::after {
   position: absolute;
-  background: url(/cv365/images/line-tooltip.png) top left no-repeat;
+  background: url(/images/line-tooltip.png) top left no-repeat;
   width: 14px;
   height: 30px;
   bottom: -14px;
@@ -7173,7 +7173,7 @@ select.category_cv {
 
 .pack strong > span:after {
   position: absolute;
-  background: url(/cv365/images/line-cheo.png) center center no-repeat;
+  background: url(/images/line-cheo.png) center center no-repeat;
   width: 40px;
   height: 40px;
   top: 3px;
@@ -7401,7 +7401,7 @@ select.category_cv {
 }
 
 .bg_modal1 {
-  background: url(/cv365/images/bg_cv/bg_cv1.jpg) no-repeat top center;
+  background: url(/images/bg_cv/bg_cv1.jpg) no-repeat top center;
   background-size: 100% 100%;
 }
 
@@ -7410,47 +7410,47 @@ select.category_cv {
 }
 
 .bg_modal2 {
-  background: url(/cv365/images/bg_cv/bg_cv2.jpg) no-repeat top center;
+  background: url(/images/bg_cv/bg_cv2.jpg) no-repeat top center;
   background-size: 100% 100%;
 }
 
 .bg_modal3 {
-  background: url(/cv365/images/bg_cv/bg_cv3.jpg) no-repeat top center;
+  background: url(/images/bg_cv/bg_cv3.jpg) no-repeat top center;
   background-size: 100% 100%;
 }
 
 .bg_modal4 {
-  background: url(/cv365/images/bg_cv/bg_cv4.jpg) no-repeat top center;
+  background: url(/images/bg_cv/bg_cv4.jpg) no-repeat top center;
   background-size: 100% 100%;
 }
 
 .bg_modal5 {
-  background: url(/cv365/images/bg_cv/bg_cv5.jpg) no-repeat top center;
+  background: url(/images/bg_cv/bg_cv5.jpg) no-repeat top center;
   background-size: 100% 100%;
 }
 
 .bg_modal6 {
-  background: url(/cv365/images/bg_cv/bg_cv6.jpg) no-repeat top center;
+  background: url(/images/bg_cv/bg_cv6.jpg) no-repeat top center;
   background-size: 100% 100%;
 }
 
 .bg_modal7 {
-  background: url(/cv365/images/bg_cv/bg_cv7.jpg) no-repeat top center;
+  background: url(/images/bg_cv/bg_cv7.jpg) no-repeat top center;
   background-size: 100% 100%;
 }
 
 .bg_modal8 {
-  background: url(/cv365/images/bg_cv/bg_cv8.jpg) no-repeat top center;
+  background: url(/images/bg_cv/bg_cv8.jpg) no-repeat top center;
   background-size: 100% 100%;
 }
 
 .bg_modal9 {
-  background: url(/cv365/images/bg_cv/bg_cv9.jpg) no-repeat top center;
+  background: url(/images/bg_cv/bg_cv9.jpg) no-repeat top center;
   background-size: 100% 100%;
 }
 
 .bg_modal10 {
-  background: url(/cv365/images/bg_cv/bg_cv10.jpg) no-repeat top center;
+  background: url(/images/bg_cv/bg_cv10.jpg) no-repeat top center;
   background-size: 100% 100%;
 }
 

@@ -704,7 +704,7 @@ function changeLayoutCv() {
 
     $('#sortable').addClass('connectedSortable').addClass('sortable')
     $('#sort_block').addClass('connectedSortable').addClass('sort_block')
-    if (pathname === '/cv365/tao-cv-it/mau-02') {
+    if (pathname === '/tao-cv-it/mau-02') {
       $('.cv_page > #cv-top').remove()
       $('#form-cv > .page_more').remove()
       // console.log($('#form-cv > .page_more').length)
@@ -714,15 +714,15 @@ function changeLayoutCv() {
   let page = $('.cv_page').length
   // console.log(">>> Check page: ", page);
   adjustPage(1)
-  // if (window.location.href.includes('/cv365/site/xem_cv_nodejs')) {
+  // if (window.location.href.includes('/site/xem_cv_nodejs')) {
   //     // let page = $('.cv_page').attr('data-page')
   // } else {
-  //     const LIST = ['/cv365/tao-cv-thu-vien/mau-09']
+  //     const LIST = ['/tao-cv-thu-vien/mau-09']
   //     console.log(window.location.pathname)
   //     if (LIST.includes(window.location.pathname)) {
   //         // console.log('adjust Page 1', page)
   //         adjustPage(page)
-  //     } else if (window.location.pathname === '/cv365/tao-cv-mau-thiet-ke-sang-tao/cv-xin-viec-td-ionet') {
+  //     } else if (window.location.pathname === '/tao-cv-mau-thiet-ke-sang-tao/cv-xin-viec-td-ionet') {
   //         // console.log('adjust Page 2', page)
   //         adjustPage(1)
   //     } else {
@@ -789,11 +789,11 @@ var height_page = 1122
 // function deleteBox(path) {
 //   // console.log('chayj nef', path)
 //   if (
-//     path == '/cv365/tao-cv-ky-thuat-ung-dung/mau-11' ||
-//     path == '/cv365/tao-cv-ke-toan/mau-14' ||
-//     path == '/cv365/tao-cv-my-pham-thoi-trang-trang-suc/mau-12' ||
-//     path == '/cv365/tao-cv-thiet-ke-my-thuat/mau-10' ||
-//     path == '/cv365/tao-cv-sinh-vien-moi-ra-truong/mau-12'
+//     path == '/tao-cv-ky-thuat-ung-dung/mau-11' ||
+//     path == '/tao-cv-ke-toan/mau-14' ||
+//     path == '/tao-cv-my-pham-thoi-trang-trang-suc/mau-12' ||
+//     path == '/tao-cv-thiet-ke-my-thuat/mau-10' ||
+//     path == '/tao-cv-sinh-vien-moi-ra-truong/mau-12'
 //   ) {
 //     //Xóa các box thừa
 //     if ($('div#box07').length > 1) {
@@ -878,7 +878,7 @@ function adjustPage(page = 1) {
     removeLineHeight()
 
     // console.log(page, 'page')
-    if (pathname !== '/cv365/tao-cv-quan-tri-kinh-doanh/mau-15') {
+    if (pathname !== '/tao-cv-quan-tri-kinh-doanh/mau-15') {
       // console.log('paginationCv', page)
       paginationCv(page)
     } else {
@@ -1298,7 +1298,7 @@ function adjustLineHeight() {
       //Thêm margin cho các box cha
       let contentLength = curentPage.find('.sortable .block .box-content').length
       const pathname = window.location.pathname
-      if (pathname == '/cv365/tao-cv-my-pham-thoi-trang-trang-suc/mau-12') {
+      if (pathname == '/tao-cv-my-pham-thoi-trang-trang-suc/mau-12') {
         curentPage.find('.sortable .block .box-content').css('margin-top', '10px')
       } else {
         // console.log(marginForContent, blockLength)
@@ -1705,7 +1705,7 @@ function changeBackgroundCv(url_image) {
     }
     const pathname = window.location.pathname
 
-    if (pathname === '/cv365/tao-cv-ky-thuat-ung-dung/mau-11') {
+    if (pathname === '/tao-cv-ky-thuat-ung-dung/mau-11') {
       $('#form-cv').css('background', `url(${url_full})`).css('background-size', 'cover').css('background-position', 'center')
     }
     // remove fake img after update background
@@ -1729,9 +1729,9 @@ function changeBackgroundCv(url_image) {
     //Sửa màu text cv sau khi thay đổi background
     $('.ctbx .skill-name').css('color', '#000')
     if (
-      pathname === '/cv365/tao-cv-khu-che-xuat-khu-cong-nghiep/mau-03' ||
-      pathname === '/cv365/tao-cv-tai-chinh/mau-11' ||
-      pathname === '/cv365/tao-cv-it/mau-03'
+      pathname === '/tao-cv-khu-che-xuat-khu-cong-nghiep/mau-03' ||
+      pathname === '/tao-cv-tai-chinh/mau-11' ||
+      pathname === '/tao-cv-it/mau-03'
     ) {
       $('.box-content, .skill-name , #cv-boxtitle, #blocktitle').css('color', '#000')
       $('.bar-exp').css('background')
@@ -1740,9 +1740,9 @@ function changeBackgroundCv(url_image) {
     }
 
     if (
-      pathname === '/cv365/tao-cv-bao-hiem/mau-13' ||
-      pathname === '/cv365/tao-cv-phat-trien-thi-truong/mau-10' ||
-      pathname === '/cv365/tao-cv-it/mau-03'
+      pathname === '/tao-cv-bao-hiem/mau-13' ||
+      pathname === '/tao-cv-phat-trien-thi-truong/mau-10' ||
+      pathname === '/tao-cv-it/mau-03'
     ) {
       $(
         '#cv-top,.footer,.all,.exp-fake,.cvo-block,#cv-profile-job,#cv-main,#cv-right,#cv-boxtitle,#cv-right h3,#cv-content h3,#block01 .exp-date,div#prof,.cvo-block, #cv-top h2,.head,.exp-fake'
@@ -1753,45 +1753,45 @@ function changeBackgroundCv(url_image) {
         '#cv-top,.footer,.all,.exp-fake,.cvo-block,#cv-profile-job,#cv-main,#cv-right,#cv-boxtitle,#cv-right h3,#cv-content h3,#block01 .exp-date,div#prof,.cvo-block, #cv-top h2,#cv-content .head,.anh-ftt,#cvo-experience-blocktitle,.box-01,#box-hvt,#experience-table .ctbx,.cum,.tt-box1,.ski,.ct_bo,#boxtitle,#blocktitle,div#experience-table,.head,.exp-fake,.bg_cv,#cv-content,.box-info,.exp-fake,.icright5,.icright4,.icright3,.icright2,.icright1,.cumicc7,.cumicc6,.cumicc5,.cumicc4,.cumicc3,.cumicc2,.cumicc1'
       ).css('background', 'none')
     }
-    if (pathname === '/cv365/tao-cv-developer/it-phan-cung-mang-10') {
+    if (pathname === '/tao-cv-developer/it-phan-cung-mang-10') {
       $('#cv-top h1,#cv-top h2').css('color', '#000')
     }
-    if (pathname === '/cv365/tao-cv-truyen-thong/mau-14') {
+    if (pathname === '/tao-cv-truyen-thong/mau-14') {
       $('.skill-name').css('color', '#000')
     }
-    if (pathname === '/cv365/tao-cv-my-pham-thoi-trang-trang-suc/mau-10' || pathname === '/cv365/tao-cv-my-pham-thoi-trang-trang-suc/mau-21') {
+    if (pathname === '/tao-cv-my-pham-thoi-trang-trang-suc/mau-10' || pathname === '/tao-cv-my-pham-thoi-trang-trang-suc/mau-21') {
       $('.exp-content,.h3,.cum,.ski').css('border', 'none')
     }
-    if (pathname === '/cv365/tao-cv-my-pham-thoi-trang-trang-suc/mau-12') {
+    if (pathname === '/tao-cv-my-pham-thoi-trang-trang-suc/mau-12') {
       $('#cv-content .head div').css('background', 'none')
     }
-    if (pathname === '/cv365/tao-cv-marketing/mau-21' || pathname === '/cv365/tao-cv-seo-website/mau-18') {
+    if (pathname === '/tao-cv-marketing/mau-21' || pathname === '/tao-cv-seo-website/mau-18') {
       $('.tt-box1,.cum,.ski').css('background', 'none')
     }
-    if (pathname === '/cv365/tao-cv-kinh-doanh/mau-22') {
+    if (pathname === '/tao-cv-kinh-doanh/mau-22') {
       $('.tt-box1,.cum,.ski').css('background', 'none')
       $('.ifo .chu h2').css('background', '')
     }
-    if (pathname === '/cv365/tao-cv-kinh-doanh/mau-23') {
+    if (pathname === '/tao-cv-kinh-doanh/mau-23') {
       $('#cv-content .cvo-block .head,.cum,.ski').css('background', 'none')
       $('.ifo .chu h2').css('background', '')
     }
 
-    if (pathname === '/cv365/tao-cv-phat-trien-thi-truong/mau-10' || pathname === '/cv365/tao-cv-it/mau-03') {
+    if (pathname === '/tao-cv-phat-trien-thi-truong/mau-10' || pathname === '/tao-cv-it/mau-03') {
       $(
         '#cv-profile-fullname, #cv-profile-job, #cv-boxtitle, #cv-profile-birthday, #cv-profile-sex, #cv-profile-phone, #cv-profile-email, #cv-profile-address, #cv-profile-face, .fa, .skill-name, #cvo-experience-blocktitle'
       ).css('color', '#000')
 
       $('.cvo-block > h3').css('background', '')
     }
-    if (pathname === '/cv365/tao-cv-dien-dien-tu/mau-01' || pathname === '/cv365/tao-cv-it/mau-03') {
+    if (pathname === '/tao-cv-dien-dien-tu/mau-01' || pathname === '/tao-cv-it/mau-03') {
       $('#cv-profile-fullname').css('color', '#000')
       $('#cv-profile-job').css('color', '#000')
     }
-    if (pathname === '/cv365/tao-cv-phat-trien-thi-truong/mau-10') {
+    if (pathname === '/tao-cv-phat-trien-thi-truong/mau-10') {
       $('#block02 h3').css('background-color', '#fff0')
     }
-    if (pathname === '/cv365/tao-cv-it/mau-18') {
+    if (pathname === '/tao-cv-it/mau-18') {
       $('.cum,.ski, .tt-box1,#cv-content .head').css('background', 'none')
     }
 
@@ -1814,9 +1814,9 @@ function unChangeBackgroundCv() {
 
   //Sửa màu text cv sau khi thay đổi background
   if (
-    pathname === '/cv365/tao-cv-khu-che-xuat-khu-cong-nghiep/mau-03' ||
-    pathname === '/cv365/tao-cv-tai-chinh/mau-11' ||
-    pathname === '/cv365/tao-cv-it/mau-03'
+    pathname === '/tao-cv-khu-che-xuat-khu-cong-nghiep/mau-03' ||
+    pathname === '/tao-cv-tai-chinh/mau-11' ||
+    pathname === '/tao-cv-it/mau-03'
   ) {
     $('.box-content, .skill-name , #cv-boxtitle').removeAttr('style')
     $('.bar-exp').removeAttr('style')
@@ -1825,42 +1825,42 @@ function unChangeBackgroundCv() {
   }
 
   if (
-    pathname === '/cv365/tao-cv-bao-hiem/mau-13' ||
-    pathname === '/cv365/tao-cv-phat-trien-thi-truong/mau-10' ||
-    pathname === '/cv365/tao-cv-it/mau-03'
+    pathname === '/tao-cv-bao-hiem/mau-13' ||
+    pathname === '/tao-cv-phat-trien-thi-truong/mau-10' ||
+    pathname === '/tao-cv-it/mau-03'
   ) {
     $('#cv-top,.footer,.all,.exp-fake,.cvo-block,#cv-profile-job,#cv-main,#cv-right,#cv-boxtitle,#cv-right h3,#block01 .exp-date,div#prof,.cvo-block, #cv-top h2').css('background', 'none')
     $('.block-title').removeAttr('style')
   } else {
     $('#cv-top,.footer,.all,.exp-fake,.cvo-block,#cv-profile-job,#cv-main,#cv-right,#cv-boxtitle,#cv-right h3,#block01 .exp-date,div#prof,.cvo-block, #cv-top h2,#cv-content .head').removeAttr('style')
   }
-  if (pathname === '/cv365/tao-cv-marketing/mau-21') {
+  if (pathname === '/tao-cv-marketing/mau-21') {
     $('.tt-box1,.cum,.ski').removeAttr('style')
   }
-  if (pathname === '/cv365/tao-cv-kinh-doanh/mau-22') {
+  if (pathname === '/tao-cv-kinh-doanh/mau-22') {
     $('.tt-box1,.cum,.ski').removeAttr('style')
     $('.ifo .chu h2').removeAttr('style')
   }
-  if (pathname === '/cv365/tao-cv-kinh-doanh/mau-23') {
+  if (pathname === '/tao-cv-kinh-doanh/mau-23') {
     $('#cv-content .cvo-block .head,.cum,.ski').removeAttr('style')
     $('.ifo .chu h2').removeAttr('style')
   }
 
-  if (pathname === '/cv365/tao-cv-phat-trien-thi-truong/mau-10' || pathname === '/cv365/tao-cv-it/mau-03') {
+  if (pathname === '/tao-cv-phat-trien-thi-truong/mau-10' || pathname === '/tao-cv-it/mau-03') {
     $(
       '#cv-profile-fullname, #cv-profile-job, #cv-boxtitle, #cv-profile-birthday, #cv-profile-sex, #cv-profile-phone, #cv-profile-email, #cv-profile-address, #cv-profile-face, .fa, .skill-name, #cvo-experience-blocktitle'
     ).removeAttr('style')
 
     $('.cvo-block > h3').removeAttr('style')
   }
-  if (pathname === '/cv365/tao-cv-dien-dien-tu/mau-01' || pathname === '/cv365/tao-cv-it/mau-03') {
+  if (pathname === '/tao-cv-dien-dien-tu/mau-01' || pathname === '/tao-cv-it/mau-03') {
     $('#cv-profile-fullname').removeAttr('style')
     $('#cv-profile-job').removeAttr('style')
   }
-  if (pathname === '/cv365/tao-cv-phat-trien-thi-truong/mau-10') {
+  if (pathname === '/tao-cv-phat-trien-thi-truong/mau-10') {
     $('#block02 h3').removeAttr('style')
   }
-  if (pathname === '/cv365/tao-cv-it/mau-18') {
+  if (pathname === '/tao-cv-it/mau-18') {
     $('.cum,.ski, .tt-box1,#cv-content .head').removeAttr('style')
   }
 

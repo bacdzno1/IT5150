@@ -170,19 +170,19 @@
 }
 
 #hoso-scroll .box_suggest .box_suggest_content .item_suggest .icon {
-  background: url("/cv365/images/info-circle.svg");
+  background: url("/images/info-circle.svg");
 }
 
 #hoso-scroll .box_suggest .box_suggest_content .item_suggest.active .open .icon {
-  background: url("/cv365/images/info-circle-active.svg");
+  background: url("/images/info-circle-active.svg");
 }
 
 #hoso-scroll .box_suggest .box_suggest_content .item_suggest .icon_last {
-  background: url("/cv365/images/arrow_bottom.svg");
+  background: url("/images/arrow_bottom.svg");
 }
 
 #hoso-scroll .box_suggest .box_suggest_content .item_suggest.active .open .icon_last {
-  background: url("/cv365/images/arrow_bottom_active.svg");
+  background: url("/images/arrow_bottom_active.svg");
   transform: rotate(180deg);
 }
 

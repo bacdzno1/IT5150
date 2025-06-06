@@ -18029,20 +18029,20 @@ const data_tags2 = [
   }]
    
 const data_left_admin = [
-    {
-        module_id: 34,
-        module_name : "Admin",
-        list_url: [
-            {
-                alias: "/admin/quan-ly-tai-khoan-admin",
-                name: "Danh sách"
-            },
-            {
-                alias: "/admin/them-tai-khoan-admin",
-                name: "Thêm mới"
-            }
-        ]
-    },
+    // {
+    //     module_id: 34,
+    //     module_name : "Admin",
+    //     list_url: [
+    //         {
+    //             alias: "/admin/quan-ly-tai-khoan-admin",
+    //             name: "Danh sách"
+    //         },
+    //         {
+    //             alias: "/admin/them-tai-khoan-admin",
+    //             name: "Thêm mới"
+    //         }
+    //     ]
+    // },
     {
         module_id: 47,
         module_name : "Ứng viên",
@@ -18051,46 +18051,46 @@ const data_left_admin = [
                 alias: "/ung-vien-dang-ky-moi",
                 name: "Ứng viên đăng ký mới"
             },
-            {
-                alias: "/admin/ung-vien-cap-nhat-ho-so",
-                name: "Ứng viên sửa, cập nhật hồ sơ"
-            },
-            {
-                alias: "/admin/ung-vien-tai-cv",
-                name: "Ứng viên tải CV từ máy tính cá nhân"
-            },
-            {
-                alias: "/admin/ung-vien-chua-hoan-thien-ho-so-tai-web",
-                name: "Ứng viên chưa hoàn thiện hồ sơ tại web"
-            },
-            {
-                alias: "/admin/ung-vien-chua-hoan-thien-ho-so-tai-app-tv",
-                name: "Ứng viên chưa hoàn thiện hồ sơ tại app tìm việc"
-            },
-            {
-                alias: "/admin/ung-vien-chua-hoan-thien-ho-so-tai-app-cv",
-                name: "Ứng viên chưa hoàn thiện hồ sơ tại app cv"
-            },
-            {
-                alias: "/admin/ung-vien-ung-tuyen-ntd",
-                name: "Ứng viên ứng tuyển nhà tuyển dụng"
-            },
-            {
-                alias: "/admin/tat-ca-ung-vien",
-                name: "Tất cả ứng viên"
-            },
-            {
-                alias: "/admin/ung-vien-add-loi",
-                name: "Ứng viên add lỗi"
-            },
-            {
-                alias: "/admin/ung-vien-dang-ky-loi",
-                name: "Ứng viên đăng ký lỗi"
-            },
-            {
-                alias: "/admin/ung-vien-bi-an",
-                name: "Ứng viên bị ẩn"
-            },
+            // {
+            //     alias: "/admin/ung-vien-cap-nhat-ho-so",
+            //     name: "Ứng viên sửa, cập nhật hồ sơ"
+            // },
+            // {
+            //     alias: "/admin/ung-vien-tai-cv",
+            //     name: "Ứng viên tải CV từ máy tính cá nhân"
+            // },
+            // {
+            //     alias: "/admin/ung-vien-chua-hoan-thien-ho-so-tai-web",
+            //     name: "Ứng viên chưa hoàn thiện hồ sơ tại web"
+            // },
+            // {
+            //     alias: "/admin/ung-vien-chua-hoan-thien-ho-so-tai-app-tv",
+            //     name: "Ứng viên chưa hoàn thiện hồ sơ tại app tìm việc"
+            // },
+            // {
+            //     alias: "/admin/ung-vien-chua-hoan-thien-ho-so-tai-app-cv",
+            //     name: "Ứng viên chưa hoàn thiện hồ sơ tại app cv"
+            // },
+            // {
+            //     alias: "/admin/ung-vien-ung-tuyen-ntd",
+            //     name: "Ứng viên ứng tuyển nhà tuyển dụng"
+            // },
+            // {
+            //     alias: "/admin/tat-ca-ung-vien",
+            //     name: "Tất cả ứng viên"
+            // },
+            // {
+            //     alias: "/admin/ung-vien-add-loi",
+            //     name: "Ứng viên add lỗi"
+            // },
+            // {
+            //     alias: "/admin/ung-vien-dang-ky-loi",
+            //     name: "Ứng viên đăng ký lỗi"
+            // },
+            // {
+            //     alias: "/admin/ung-vien-bi-an",
+            //     name: "Ứng viên bị ẩn"
+            // },
             {
                 alias: "/admin/trang-thai-ung-vien-nhs",
                 name: "Trạng thái ứng viên NHS"
@@ -18099,67 +18099,67 @@ const data_left_admin = [
     },
     {
         module_id: 47,
-        module_name : "Nhà tuyển dụng - KD",
+        module_name : "Nhà tuyển dụng",
         list_url: [
-            {
-                alias: "/admin/them-nha-tuyen-dung",
-                name: "Thêm NTD"
-            },
+            // {
+            //     alias: "/admin/them-nha-tuyen-dung",
+            //     name: "Thêm NTD"
+            // },
             {
                 alias: "/nha-tuyen-dung-dang-ky",
                 name: "NTD đăng ký"
             }
         ]
     },
-    {
-        module_id: 73,
-        module_name : "Tin tuyển dụng",
-        list_url: [
-            {
-                alias: "/nha-tuyen-dung-tu-dang",
-                name: "NTD tự đăng"
-            },
-            {
-                alias: "/admin/dang-tin-tuyen-dung",
-                name: "Thêm mới"
-            }
-        ]
-    },
-    {
-        module_id: 28,
-        module_name : "Blog",
-        list_url: [
-        ]
-    },    
-    {
-        module_id: 41,
-        module_name : "Trường điểm",
-        list_url: [
-            {
-                alias: "/admin/sua-diem-nha-tuyen-dung",
-                name: "Cập nhật điểm nhà tuyển dụng"
-            },
-            {
-                alias: "/danh-sach-diem",
-                name: "Danh sách điểm"
-            },
-            {
-                alias: "/lich-su-tieu-diem",
-                name: "Lịch sử tiêu điểm"
-            },
-            {
-                alias: "/lich-su-cong-diem",
-                name: "Lịch sử cộng điểm"
-            },
-            {
-                alias: "/admin/quan-ly-goi-diem",
-                name: "Danh sách gói điểm"
-            },
-            {
-                alias: "/admin/them-goi-diem",
-                name: "Thêm gói điểm"
-            }
-        ]
-    }
+    // {
+    //     module_id: 73,
+    //     module_name : "Tin tuyển dụng",
+    //     list_url: [
+    //         {
+    //             alias: "/nha-tuyen-dung-tu-dang",
+    //             name: "NTD tự đăng"
+    //         },
+    //         {
+    //             alias: "/admin/dang-tin-tuyen-dung",
+    //             name: "Thêm mới"
+    //         }
+    //     ]
+    // },
+    // {
+    //     module_id: 28,
+    //     module_name : "Blog",
+    //     list_url: [
+    //     ]
+    // },
+    // {
+    //     module_id: 41,
+    //     module_name : "Trường điểm",
+    //     list_url: [
+    //         {
+    //             alias: "/admin/sua-diem-nha-tuyen-dung",
+    //             name: "Cập nhật điểm nhà tuyển dụng"
+    //         },
+    //         {
+    //             alias: "/danh-sach-diem",
+    //             name: "Danh sách điểm"
+    //         },
+    //         {
+    //             alias: "/lich-su-tieu-diem",
+    //             name: "Lịch sử tiêu điểm"
+    //         },
+    //         {
+    //             alias: "/lich-su-cong-diem",
+    //             name: "Lịch sử cộng điểm"
+    //         },
+    //         {
+    //             alias: "/admin/quan-ly-goi-diem",
+    //             name: "Danh sách gói điểm"
+    //         },
+    //         {
+    //             alias: "/admin/them-goi-diem",
+    //             name: "Thêm gói điểm"
+    //         }
+    //     ]
+    // }
 ]
 module.exports = { listCateCv,listLangCv, data_tags, data_tags2, data_left_admin };
