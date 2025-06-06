@@ -61,6 +61,7 @@ var routerViec3s = require('./routers/topcv1s')
 AppViec3s.use('/', routerViec3s)
 errorApp(AppViec3s)
 
-AppViec3s.listen(9020, () => {
+const PORT = process.env.PORT || 9020;
+AppViec3s.listen(PORT, () => {
     console.log('Topcv1s app is running on port 9020: http://localhost:9020')
 })
