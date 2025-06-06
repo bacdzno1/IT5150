@@ -2,7 +2,6 @@ import express from 'express';
 import * as New from "../controllers/new_Controller.js";
 import formdata from 'express-form-data';
 import * as functions from "../services/functions.js";
-import * as BaoCao from '../controllers/baocao_Controller.js';
 import SampleCv from '../models/sample/SampleCv.js';
 import NewsNganhNghe from '../models/blog/NewsNganhNghe.js';
 import LanguageCv from '../models/language/LanguageCv.js';
