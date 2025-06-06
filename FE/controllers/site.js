@@ -736,29 +736,6 @@ exports.managcv = async (req, res) => {
         }
     }
 };
-exports.managcv2 = async (req, res) => {
-    const url = req.url;
-    try {
-        const accessToken = req.cookies.accessToken;
-        const response = await axios.post('http://43.239.223.188:3052/api/topcv1s/candidate/ManageCvCandiDidCreated', {
-        }, {
-            headers: {
-                Authorization: `Bearer ${accessToken}`
-            }
-        });
-        const dataFromAPI = response.data.data;
-        return res.render('uv/manacv_uv', { dataFromAPI, url });
-    } catch (error) {
-        console.error('Error fetching data from API:', error);
-        if (error.response) {
-            return res.status(error.response.status).send(error.response.data);
-        } else if (error.request) {
-            return res.status(500).send('No response from API server');
-        } else {
-            return res.status(500).send('Error in setting up API request');
-        }
-    }
-};
 // cv
 exports.viewcvpng = async (req, res) => {
     const url = req.url;

@@ -85,7 +85,6 @@ router.get('/dang-nhap-ung-vien', site.login_candi);
 router.get('/dang-ky-tai-cv', site.regis_candi_cv);
 router.get('/uv/quan-ly-ung-vien', checkUser('2'), site.managcanhome);
 router.get('/uv/quan-ly-cv-xin-viec', checkUser('2'), site.managcv);
-router.get('/uv/quan-ly-cv-xin-viec-fix', checkUser('2'), site.managcv2);
 router.get('/uv/quan-ly-viec-ung-tuyen', checkUser('2'), site.managjobapply);
 router.get('/uv/quan-ly-viec-da-luu', checkUser('2'), site.managjobsave);
 router.get('/uv/quan-ly-ho-so-xin-viec', checkUser('2'), site.managprofile);
