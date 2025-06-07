@@ -1254,33 +1254,6 @@ export const CandidateRegisterByCVOnline = async (req, res, next) => {
 
                 }
 
-
-                // Đồng bộ ứng viên 
-                await functions.addUvToVn(
-                    use_id,
-                    userName,
-                    tmp_phone_tk,
-                    tmp_pass,
-                    JsonCV?.position || "",
-                    tmp_nganh_nghe,
-                    tmp_job_city,
-                    JsonCV?.menu[0]?.content?.content?.content?.address || "",
-                    JsonCV?.menu[0]?.content?.content?.content?.email || "",
-                    3,
-                    1,
-                    JsonCV?.avatar || '',
-                    `${process.env.DOMAIN_API}/upload/cv_uv/uv_${use_id}/u_cv_${time}.png`,
-                    `${process.env.DOMAIN_API}/upload/cv_uv/uv_${use_id}/u_cv_hide_${time}.png`,
-                    tmp_job_city && tmp_job_city.split(',')[0],
-                    tmp_job_district && tmp_job_district.split(',')[0],
-                    JsonCV?.menu[0]?.content?.content?.content?.address || "",
-                    functions.getTime(new Date(JsonCV?.menu[0]?.content?.content?.content?.birthday || "")),
-                    `${process.env.DOMAIN_API}`,
-                    JSON.stringify(JsonCV),
-                    tmp_time,
-                    0
-                )
-
                 return functions.success(res,
                     'Đăng ký tài khoản thành công',
                     {
@@ -1409,31 +1382,6 @@ export const CandidateRegisterByUploadCV = async (req, res, next) => {
 
 
                 const checkUpload = await UserCvUpload.findOne({ id_upload: idupload })
-                // Đồng bộ ứng viên 
-                await functions.addUvToVn(
-                    use_id,
-                    tmp_name,
-                    tmp_phone_tk,
-                    tmp_pass,
-                    tmp_job_name || "",
-                    tmp_nganh_nghe,
-                    tmp_job_city,
-                    "",
-                    "",
-                    3,
-                    1,
-                    `${process.env.DOMAIN_API}/pictures/${date}/${tmp_image}`,
-                    type == 1 ? `${process.env.DOMAIN_API}/${upload}` : '',
-                    type == 1 ? checkUpload.link_scan : '',
-                    tmp_job_city && tmp_job_city.split(',')[0],
-                    tmp_job_district && tmp_job_district.split(',')[0],
-                    "",
-                    functions.getTime(new Date(birthday)),
-                    `${process.env.DOMAIN_API}`,
-                    '',
-                    tmp_time,
-                    0
-                )
 
                 return functions.success(res,
                     'Đăng ký tài khoản thành công',
@@ -1705,31 +1653,6 @@ export const CreateCVInOrderToRegister = async (req, res, next) => {
                                 base64StringPDF = buffer.toString("base64");
                             }
 
-                            // Đồng bộ ứng viên 
-                            await functions.addUvToVn(
-                                use_id,
-                                jsonCV?.name || username,
-                                phone,
-                                functions.createMd5(password),
-                                jsonCV?.position || "",
-                                nganhNghe,
-                                ddlv,
-                                address,
-                                email,
-                                3,
-                                1,
-                                jsonCV?.avatar || '',
-                                `${process.env.DOMAIN_API}/upload/cv_uv/uv_${use_id}/u_cv_${time}.png`,
-                                `${process.env.DOMAIN_API}/upload/cv_uv/uv_${use_id}/u_cv_hide_${time}.png`,
-                                ddlv && ddlv.split(',')[0],
-                                district && district.split(',')[0],
-                                address,
-                                functions.getTime(new Date(jsonCV?.menu[0]?.content?.content?.content?.birthday || "")),
-                                `${process.env.DOMAIN_API}`,
-                                JSON.stringify(jsonCV),
-                                time,
-                                0
-                            )
                             console.log('Dữ liệu API trả về:', {
                                 Token,
                                 use_id,
@@ -2860,169 +2783,6 @@ export const isPhoneUsedEmployer = async (req, res) => {
         return functions.setError(res, error?.message, 500)
     }
 }
-
-
-// Service check chưa đồng bộ thì đồng bộ
-export const addUvToVnCheck = async () => {
-    while (true) {
-        try {
-            // // Lock file
-            // const lockFileLocation = './services'
-            // const lockFilePath = path.join(lockFileLocation, 'addUvToVnCheck.lock')
-            // if (fs.existsSync(lockFilePath)) {
-            //     console.log('Already run');
-            //     const extra = functions.getRandomInt(10000, 20000)
-            //     console.log('Wait for ', 5 * 60 * 1000 + extra);
-            //     await functions.sleep(5 * 60 * 1000 + extra)
-            // }
-            // fs.writeFileSync(lockFilePath, '')
-
-            // console.log('Service addUvToVnCheck Start')
-            // console.time('Service addUvToVnCheck')
-
-            // // test
-            // await functions.sleep(5 * 60 * 1000)
-
-            const startDate = new Date()
-            startDate.setHours(0, 0, 0, 1)
-            const endDate = new Date()
-            endDate.setHours(23, 59, 59, 0)
-            const startTime = functions.getTime(startDate)
-            const endTime = functions.getTime(endDate)
-
-            const listUvNotSync = await Users.find({
-                idTimViec365: { $eq: 0 },
-                use_create_time: {
-                    $gte: startTime,
-                    $lte: endTime
-                }
-            })
-            console.log('Tìm thấy ', listUvNotSync.length);
-
-            if (listUvNotSync.length > 0) {
-                for (let i = 0; i < listUvNotSync.length; i++) {
-                    const uv = listUvNotSync[i];
-
-                    // ƯU TIÊN: Nếu UV tạo CV thì dùng CV 
-                    const checkCV = await SaveCandidateCv.findOne({ iduser: uv.use_id }).sort({ createdate: -1 })
-                    if (checkCV) {
-                        const JsonCv = functions.safeJSONparse(checkCV?.html)
-
-                        await functions.addUvToVn(
-                            uv.use_id,
-                            uv.use_name,
-                            uv.use_phone_tk,
-                            uv.use_pass,
-                            JsonCv?.position || "Chưa cập nhật",
-                            Array.isArray(uv.use_nganh_nghe) ? uv.use_nganh_nghe.map((item) => (item?.id || 0)).filter((item) => item != 0).join(',') : '0',
-                            Array.isArray(uv.use_city_job) ? uv.use_city_job.map((item) => (item?.id || 0)).filter((item) => item != 0).join(',') : '0',
-                            JsonCv?.menu[0]?.content?.content?.content?.address || 'Chi tiết ở CV',
-                            JsonCv?.menu[0]?.content?.content?.content?.email || 'Chi tiết ở CV',
-                            3,
-                            1,
-                            JsonCv?.avatar || '',
-                            `${process.env.DOMAIN_API}/upload/cv_uv/uv_${uv.use_id}/u_cv_${uv.use_create_time}.png`,
-                            `${process.env.DOMAIN_API}/upload/cv_uv/uv_${uv.use_id}/u_cv_hide_${uv.use_create_time}.png`,
-                            uv?.use_city || (Array.isArray(uv.use_city_job) && uv.use_city_job.length > 0 ? uv.use_city_job.map((item) => (item?.id || 0)).filter((item) => item != 0)[0] : '0'),
-                            uv?.use_district || (Array.isArray(uv.use_district_job) && uv.use_district_job.length > 0 ? uv.use_district_job.map((item) => (item?.id || 0)).filter((item) => item != 0)[0] : '0'),
-                            JsonCv?.menu[0]?.content?.content?.content?.address || 'Chi tiết ở CV',
-                            functions.getTime(new Date(JsonCv?.menu[0]?.content?.content?.content?.birthday || "")),
-                            'viecs.com',
-                            checkCV?.html,
-                            uv.use_create_time,
-                            uv.use_authentic,
-                        )
-
-                        console.log('Đồng bộ UV ', uv.use_id);
-                    } else {
-                        // Nếu UV Upload CV thì dùng upload 
-                        const checkUpload = await UserCvUpload.findOne({ use_id: uv.use_id })
-                        if (checkUpload) {
-                            const date = functions.getDate(uv.use_create_time * 1000)
-
-                            await functions.addUvToVn(
-                                uv.use_id,
-                                uv.use_name,
-                                uv.use_phone_tk,
-                                uv.use_pass,
-                                uv.use_job_name || 'Chi tiết ở CV',
-                                Array.isArray(uv.use_nganh_nghe) ? uv.use_nganh_nghe.map((item) => (item?.id || 0)).filter((item) => item != 0).join(',') : '0',
-                                Array.isArray(uv.use_city_job) ? uv.use_city_job.map((item) => (item?.id || 0)).filter((item) => item != 0).join(',') : '0',
-                                uv?.address || 'Chi tiết ở CV',
-                                uv?.use_mail || uv?.use_email_contact || 'Chi tiết ở CV',
-                                3,
-                                1,
-                                `${process.env.DOMAIN_API}/pictures/${date}/${uv?.use_logo}`,
-                                `${process.env.DOMAIN_API}/${checkUpload?.link}`,
-                                checkUpload?.link_scan,
-                                uv?.use_city || (Array.isArray(uv.use_city_job) && uv.use_city_job.length > 0 ? uv.use_city_job.map((item) => (item?.id || 0)).filter((item) => item != 0)[0] : '0'),
-                                uv?.use_district || (Array.isArray(uv.use_district_job) && uv.use_district_job.length > 0 ? uv.use_district_job.map((item) => (item?.id || 0)).filter((item) => item != 0)[0] : '0'),
-                                uv?.address || 'Chi tiết ở CV',
-                                uv?.birthday,
-                                'topcv1s.com',
-                                '',
-                                uv.use_create_time,
-                                uv.use_authentic,
-                            )
-
-                            console.log('Đồng bộ UV ', uv.use_id);
-
-                        } else {
-                            const checkVid = await UserVidUpload.findOne({ use_id: uv.use_id })
-                            if (checkVid) {
-                                const date = functions.getDate(uv.use_create_time * 1000)
-
-                                await functions.addUvToVn(
-                                    uv.use_id,
-                                    uv.use_name,
-                                    uv.use_phone_tk,
-                                    uv.use_pass,
-                                    uv.use_job_name || 'Chi tiết ở CV',
-                                    Array.isArray(uv.use_nganh_nghe) ? uv.use_nganh_nghe.map((item) => (item?.id || 0)).filter((item) => item != 0).join(',') : '0',
-                                    Array.isArray(uv.use_city_job) ? uv.use_city_job.map((item) => (item?.id || 0)).filter((item) => item != 0).join(',') : '0',
-                                    uv?.address || 'Chi tiết ở CV',
-                                    uv?.use_mail || uv?.use_email_contact || 'Chi tiết ở CV',
-                                    3,
-                                    1,
-                                    `${process.env.DOMAIN_API}/pictures/${date}/${uv?.use_logo}`,
-                                    ``,
-                                    '',
-                                    uv?.use_city || (Array.isArray(uv.use_city_job) && uv.use_city_job.length > 0 ? uv.use_city_job.map((item) => (item?.id || 0)).filter((item) => item != 0)[0] : '0'),
-                                    uv?.use_district || (Array.isArray(uv.use_district_job) && uv.use_district_job.length > 0 ? uv.use_district_job.map((item) => (item?.id || 0)).filter((item) => item != 0)[0] : '0'),
-                                    uv?.address || 'Chi tiết ở CV',
-                                    uv?.birthday,
-                                    'topcv1s.com',
-                                    '',
-                                    uv.use_create_time,
-                                    uv.use_authentic,
-                                )
-
-                                console.log('Đồng bộ UV ', uv.use_id);
-                            } else {
-                                console.log('Không Đồng bộ được UV ', uv.use_id);
-                            }
-                        }
-                    }
-                }
-            }
-
-            // console.timeEnd('Service addUvToVnCheck')
-
-            // End lock
-            // if (fs.existsSync(lockFilePath)) {
-            // fs.unlinkSync(lockFilePath)
-            // }
-        } catch (error) {
-            console.log(error.message);
-            console.log('Retry');
-            addUvToVnCheck()
-        }
-
-        await functions.sleep(5 * 60 * 1000)
-    }
-}
-// ONLY RUN ON SERVICE
-// addUvToVnCheck()
 
 // Service check uv chưa có ảnh cv => tạo lại 
 export const reGenCvImage = async () => {

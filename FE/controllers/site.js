@@ -109,21 +109,11 @@ exports.candi_page = async (req, res) => {
             Authorization: `Bearer ${accessToken}`
         }
     });
+    console.log(">>> Danh sách ứng viên: ", response)
     let data = {
         test: 'data test'
     }
     return res.render('candi_page', { data, city, catid,name, listCities, url, response, convertToUrl,getTimeRemain, findExp });
-}
-exports.candi_page_test = async (req, res) => {
-    const url = req.url;
-    const city = req.query.city;
-    const name = req.query.name;
-    const catid = req.query.catid;
-    var listCities = function_new.listCities;
-    let data = {
-        test: 'data test'
-    }
-    return res.render('candi_page_test', { data, city, catid, listCities, url });
 }
 exports.candi_detail = async (req, res) => {
     const url = req.url;

@@ -39,7 +39,6 @@ router.get('/cv-xin-viec', site.cvpage);
 router.get('/dang-nhap', site.login_page);
 router.get('/dang-ky', site.regis_page);
 router.get('/tim-ung-vien', site.candi_page);
-router.get('/tim-ung-vien-test', site.candi_page_test);
 router.get(/^(.+)-uv-(\d+)$/, site.candi_detail);
 router.get(['/tim-viec-lam', '/tim-viec-lam-tai-:city', '/tim-viec-lam-:category', '/tim-viec-lam-:category-tai-:city'], parseUrl, site.job_after_search);
 // router.get('/:title-job:jobId', site.job_detail);

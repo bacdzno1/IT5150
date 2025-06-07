@@ -26,7 +26,7 @@ function getCookie(name) {
  */
 function checkRegister_GgAds() {
     try {
-        var typeRegister = getCookie('viec3s_typeRegister'); // Tìm cờ trong cookie 
+        var typeRegister = getCookie('topcv1s_typeRegister'); // Tìm cờ trong cookie 
         // var phoneCookie = getCookie(cookiePhone); // Tìm số điện thoại ở cookie 
         var phoneCookie = getCookie('use_phone_tk' || 'phone'); // Tìm số điện thoại ở cookie 
         if (typeRegister && phoneCookie) {
@@ -39,7 +39,7 @@ function checkRegister_GgAds() {
                     'phone': ${phone}
                 });`;
                 addScriptJs(script);
-                Cookies.remove('viec3s_typeRegister');
+                Cookies.remove('topcv1s_typeRegister');
             }
 
             // NTD đăng ký 
@@ -49,7 +49,7 @@ function checkRegister_GgAds() {
                     'phone': ${phone}
                 });`;
                 addScriptJs(script);
-                Cookies.remove('viec3s_typeRegister');
+                Cookies.remove('topcv1s_typeRegister');
             }
 
             // Các luồng đăng ký ứng viên còn lại 
@@ -59,7 +59,7 @@ function checkRegister_GgAds() {
                     'phone': ${phone}
                 });`;
                 addScriptJs(script);
-                Cookies.remove('viec3s_typeRegister');
+                Cookies.remove('topcv1s_typeRegister');
             }
         }
     } catch (error) {

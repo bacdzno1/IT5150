@@ -5707,11 +5707,11 @@ $(document).ready(function () {
               `${respons?.data.email}`,
               `${respons?.data.use_logo}`,
             );
-            localStorage.setItem('viec3s_cv', respons?.data.base64StringPDF);
-            localStorage.setItem('viec3s_name', username);
+            localStorage.setItem('topcv1s_cv', respons?.data.base64StringPDF);
+            localStorage.setItem('topcv1s_name', username);
 
 
-            setCookie('viec3s_typeRegister', 'dangkycv', 1)
+            setCookie('topcv1s_typeRegister', 'dangkycv', 1)
             // setCookie('filter', $('#cvo-profile-avatar').css('filter'), 60)
             setAll(
               `${respons?.data.userName}`,
@@ -6655,8 +6655,8 @@ function resg_new() {
           });
           
           if (cookieIsAuth == 0) {
-            localStorage.setItem('viec3s_cv', response?.data.base64StringPDF);
-            localStorage.setItem('viec3s_name', name);
+            localStorage.setItem('topcv1s_cv', response?.data.base64StringPDF);
+            localStorage.setItem('topcv1s_name', name);
             alert("Lưu CV thành công, vui lòng xác thực tài khoản để tải xuống cv");
             window.location.href = '/otp'
           } else {

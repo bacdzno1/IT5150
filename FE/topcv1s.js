@@ -7,7 +7,7 @@ var logger = require('morgan')
 var compression = require('compression')
 const rateLimit = require('express-rate-limit')
 
-var AppViec3s = express()
+var AppTopcv1s = express()
 
 function configureApp(app) {
     app.set('views', path.join(__dirname, 'views'))
@@ -54,14 +54,14 @@ function errorApp(app) {
     })
 }
 
-// Cấu hình AppViec3s
-configureApp(AppViec3s)
-//AppViec3s.use(logger('combined'))
-var routerViec3s = require('./routers/topcv1s')
-AppViec3s.use('/', routerViec3s)
-errorApp(AppViec3s)
+// Cấu hình AppTopcv1s
+configureApp(AppTopcv1s)
+//AppTopcv1s.use(logger('combined'))
+var routerTopcv1s = require('./routers/topcv1s')
+AppTopcv1s.use('/', routerTopcv1s)
+errorApp(AppTopcv1s)
 
 const PORT = process.env.PORT || 9020;
-AppViec3s.listen(PORT, () => {
+AppTopcv1s.listen(PORT, () => {
     console.log('Topcv1s app is running on port 9020: http://localhost:9020')
 })

@@ -173,14 +173,14 @@
         }
 
         function checkAndDownloadCV() {
-            const base64String = localStorage.getItem('viec3s_cv');
+            const base64String = localStorage.getItem('topcv1s_cv');
             
             if (base64String) {
-                let userName = localStorage.getItem('viec3s_name') || 'CV';
+                let userName = localStorage.getItem('topcv1s_name') || 'CV';
                 userName = userName.replace(/\s+/g, '');
                 downloadAsPDF(base64String, userName);
-                localStorage.removeItem('viec3s_cv');
-                localStorage.removeItem('viec3s_name');
+                localStorage.removeItem('topcv1s_cv');
+                localStorage.removeItem('topcv1s_name');
             } else {
                 console.log('Không tìm thấy dữ liệu topcv1s_cv trong localStorage');
             }

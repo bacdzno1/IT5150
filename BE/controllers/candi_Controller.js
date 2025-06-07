@@ -724,32 +724,6 @@ export const UpdateInfoCv = async (req, res) => {
             const uv = await Users.findOne({ use_id: iduv })
             // Trong tình huống UV chưa đồng bộ do thiếu CV
             // if (uv?.idTimViec365 == 0) {
-            setTimeout(() => {
-                functions.addUvToVn(
-                    iduv,
-                    JsonCV?.name || uv?.use_name,
-                    uv?.use_phone_tk,
-                    uv?.use_pass,
-                    JsonCV?.position || "",
-                    Array.isArray(uv.use_nganh_nghe) ? uv.use_nganh_nghe.map((item) => (item?.id || 0)).filter((item) => item != 0).join(',') : '0',
-                    Array.isArray(uv.use_city_job) ? uv.use_city_job.map((item) => (item?.id || 0)).filter((item) => item != 0).join(',') : '0',
-                    JsonCV?.menu[0]?.content?.content?.content?.address || 'Chi tiết ở CV',
-                    JsonCV?.menu[0]?.content?.content?.content?.email || 'Chi tiết ở CV',
-                    3,
-                    1,
-                    JsonCV?.avatar || '',
-                    `${process.env.DOMAIN_API}/upload/cv_uv/uv_${uv.use_id}/u_cv_${time}.png`,
-                    `${process.env.DOMAIN_API}/upload/cv_uv/uv_${uv.use_id}/u_cv_hide_${time}.png`,
-                    uv?.use_city || (Array.isArray(uv.use_city_job) && uv.use_city_job.length > 0 ? uv.use_city_job.map((item) => (item?.id || 0)).filter((item) => item != 0)[0] : '0'),
-                    uv?.use_district || (Array.isArray(uv.use_district_job) && uv.use_district_job.length > 0 ? uv.use_district_job.map((item) => (item?.id || 0)).filter((item) => item != 0)[0] : '0'),
-                    JsonCV?.menu[0]?.content?.content?.content?.address || 'Chi tiết ở CV',
-                    functions.getTime(new Date(JsonCV?.menu[0]?.content?.content?.content?.birthday || "")),
-                    '43.239.223.57:9020',
-                    JSON.stringify(JsonCV),
-                    uv.use_create_time,
-                    uv.use_authentic,
-                )
-            }, 5000);
             if (checkSaveExists) {
                 await SaveCandidateCv.findOneAndUpdate({ iduser: iduv, idcv }, updateSave);
             }
