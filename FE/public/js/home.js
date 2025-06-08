@@ -227,28 +227,6 @@ function getMucLuong(new_money_type, new_money_from, new_money_to, new_money) {
     }
 }
 
-const getMucLuong2 = (
-	new_money_type,
-	new_money_from,
-	new_money_to,
-	new_money,
-) => {
-	try {
-		if (new_money_type == 0 || new_money_type == 5) {
-			return new_money != 0 ? array_muc_luong[new_money] : "Thoả thuận";
-		} else if (new_money_type == 1) return "Thoả thuận";
-		else if (new_money_type == 2) return `Từ ${(new_money_from /1000000)} triệu`;
-		else if (new_money_type == 3) return `Đến ${(new_money_to /1000000)} triệu`;
-		else if (new_money_type == 4)
-			return `${(new_money_from /1000000)} - ${(
-				new_money_to /1000000 + ' triệu'
-			)}`
-	} catch (error) {
-		return "Chưa cập nhật";
-	}
-};
-
-
 let hasRun = false; 
 
 $(window).on('scroll', function() {

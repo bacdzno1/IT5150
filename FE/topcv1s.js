@@ -3,9 +3,7 @@ var express = require('express')
 var path = require('path')
 var cookieParser = require('cookie-parser')
 var cors = require('cors')
-var logger = require('morgan')
 var compression = require('compression')
-const rateLimit = require('express-rate-limit')
 
 var AppTopcv1s = express()
 

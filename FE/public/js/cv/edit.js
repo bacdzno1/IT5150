@@ -72,7 +72,7 @@ var commands = [
 var commandRelation = {}
 
 function supported(cmd) {
-	var css = !!document.queryCommandSupported(cmd.cmdNew) ? 'btn-succes' : 'btn-error'
+	var css = document.queryCommandSupported(cmd.cmdNew) ? 'btn-succes' : 'btn-error'
 	return css
 }
 

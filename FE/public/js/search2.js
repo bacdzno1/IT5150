@@ -318,476 +318,476 @@ const listCities = [
 ];
 const cateList = [
     {
-    cat_id: 1,
-    cat_name: "Kế toán - Kiểm toán",
+        cat_id: 1,
+        cat_name: "Kế toán - Kiểm toán",
     },
     {
-    cat_id: 2,
-    cat_name: "Hành chính - Văn phòng",
+        cat_id: 2,
+        cat_name: "Hành chính - Văn phòng",
     },
     {
-    cat_id: 83,
-    cat_name: "Việc làm thời vụ",
+        cat_id: 83,
+        cat_name: "Việc làm thời vụ",
     },
     {
-    cat_id: 3,
-    cat_name: "Sinh viên làm thêm",
+        cat_id: 3,
+        cat_name: "Sinh viên làm thêm",
     },
     {
-    cat_id: 4,
-    cat_name: "Xây dựng",
+        cat_id: 4,
+        cat_name: "Xây dựng",
     },
     {
-    cat_id: 5,
-    cat_name: "Điện - Điện tử",
+        cat_id: 5,
+        cat_name: "Điện - Điện tử",
     },
     {
-    cat_id: 6,
-    cat_name: "Làm bán thời gian",
+        cat_id: 6,
+        cat_name: "Làm bán thời gian",
     },
     {
-    cat_id: 7,
-    cat_name: "Vận tải - Lái xe",
+        cat_id: 7,
+        cat_name: "Vận tải - Lái xe",
     },
     {
-    cat_id: 8,
-    cat_name: "Khách sạn - Nhà hàng",
+        cat_id: 8,
+        cat_name: "Khách sạn - Nhà hàng",
     },
     {
-    cat_id: 9,
-    cat_name: "Nhân viên kinh doanh",
+        cat_id: 9,
+        cat_name: "Nhân viên kinh doanh",
     },
     {
-    cat_id: 10,
-    cat_name: "Bán hàng",
+        cat_id: 10,
+        cat_name: "Bán hàng",
     },
     {
-    cat_id: 11,
-    cat_name: "Cơ khí - Chế tạo",
+        cat_id: 11,
+        cat_name: "Cơ khí - Chế tạo",
     },
     {
-    cat_id: 12,
-    cat_name: "Lao động phổ thông",
+        cat_id: 12,
+        cat_name: "Lao động phổ thông",
     },
     {
-    cat_id: 13,
-    cat_name: "IT phần mềm",
+        cat_id: 13,
+        cat_name: "IT phần mềm",
     },
     {
-    cat_id: 14,
-    cat_name: "Marketing - PR",
+        cat_id: 14,
+        cat_name: "Marketing - PR",
     },
     {
-    cat_id: 43,
-    cat_name: "Nhập liệu",
+        cat_id: 43,
+        cat_name: "Nhập liệu",
     },
     {
-    cat_id: 17,
-    cat_name: "Giáo dục - Đào tạo",
+        cat_id: 17,
+        cat_name: "Giáo dục - Đào tạo",
     },
     {
-    cat_id: 18,
-    cat_name: "Kỹ thuật",
+        cat_id: 18,
+        cat_name: "Kỹ thuật",
     },
     {
-    cat_id: 19,
-    cat_name: "Y tế - Dược",
+        cat_id: 19,
+        cat_name: "Y tế - Dược",
     },
     {
-    cat_id: 20,
-    cat_name: "Quản trị kinh doanh",
+        cat_id: 20,
+        cat_name: "Quản trị kinh doanh",
     },
     {
-    cat_id: 21,
-    cat_name: "Dịch vụ",
+        cat_id: 21,
+        cat_name: "Dịch vụ",
     },
     {
-    cat_id: 22,
-    cat_name: "Biên - Phiên dịch",
+        cat_id: 22,
+        cat_name: "Biên - Phiên dịch",
     },
     {
-    cat_id: 23,
-    cat_name: "Dệt may - Da giày",
+        cat_id: 23,
+        cat_name: "Dệt may - Da giày",
     },
     {
-    cat_id: 87,
-    cat_name: "Tìm việc làm thêm",
+        cat_id: 87,
+        cat_name: "Tìm việc làm thêm",
     },
     {
-    cat_id: 24,
-    cat_name: "Kiến trúc - Tk nội thất",
+        cat_id: 24,
+        cat_name: "Kiến trúc - Tk nội thất",
     },
     {
-    cat_id: 25,
-    cat_name: "Xuất nhập khẩu",
+        cat_id: 25,
+        cat_name: "Xuất nhập khẩu",
     },
     {
-    cat_id: 26,
-    cat_name: "IT Phần cứng - mạng",
+        cat_id: 26,
+        cat_name: "IT Phần cứng - mạng",
     },
     {
-    cat_id: 27,
-    cat_name: "Nhân sự",
+        cat_id: 27,
+        cat_name: "Nhân sự",
     },
     {
-    cat_id: 28,
-    cat_name: "Thiết kế - Mỹ thuật",
+        cat_id: 28,
+        cat_name: "Thiết kế - Mỹ thuật",
     },
     {
-    cat_id: 29,
-    cat_name: "Tư vấn",
+        cat_id: 29,
+        cat_name: "Tư vấn",
     },
     {
-    cat_id: 30,
-    cat_name: "Bảo vệ",
+        cat_id: 30,
+        cat_name: "Bảo vệ",
     },
     {
-    cat_id: 31,
-    cat_name: "Ô tô - xe máy",
+        cat_id: 31,
+        cat_name: "Ô tô - xe máy",
     },
     {
-    cat_id: 32,
-    cat_name: "Thư ký - Trợ lý",
+        cat_id: 32,
+        cat_name: "Thư ký - Trợ lý",
     },
     {
-    cat_id: 33,
-    cat_name: "KD bất động sản",
+        cat_id: 33,
+        cat_name: "KD bất động sản",
     },
     {
-    cat_id: 34,
-    cat_name: "Du lịch",
+        cat_id: 34,
+        cat_name: "Du lịch",
     },
     {
-    cat_id: 35,
-    cat_name: "Báo chí",
+        cat_id: 35,
+        cat_name: "Báo chí",
     },
     {
-    cat_id: 36,
-    cat_name: "Thực phẩm - Đồ uống",
+        cat_id: 36,
+        cat_name: "Thực phẩm - Đồ uống",
     },
     {
-    cat_id: 37,
-    cat_name: "Ngành nghề khác",
+        cat_id: 37,
+        cat_name: "Ngành nghề khác",
     },
     {
-    cat_id: 38,
-    cat_name: "Vật tư - Thiết bị",
+        cat_id: 38,
+        cat_name: "Vật tư - Thiết bị",
     },
     {
-    cat_id: 39,
-    cat_name: "Thiết kế web",
+        cat_id: 39,
+        cat_name: "Thiết kế web",
     },
     {
-    cat_id: 40,
-    cat_name: "In ấn - Xuất bản",
+        cat_id: 40,
+        cat_name: "In ấn - Xuất bản",
     },
     {
-    cat_id: 41,
-    cat_name: "Nông - Lâm - Ngư - Nghiệp",
+        cat_id: 41,
+        cat_name: "Nông - Lâm - Ngư - Nghiệp",
     },
     {
-    cat_id: 42,
-    cat_name: "Thương mại điện tử",
+        cat_id: 42,
+        cat_name: "Thương mại điện tử",
     },
     {
-    cat_id: 44,
-    cat_name: "Việc làm thêm tại nhà",
+        cat_id: 44,
+        cat_name: "Việc làm thêm tại nhà",
     },
     {
-    cat_id: 45,
-    cat_name: "Chăm sóc khách hàng",
+        cat_id: 45,
+        cat_name: "Chăm sóc khách hàng",
     },
     {
-    cat_id: 46,
-    cat_name: "Sinh viên mới tốt nghiệp - Thực tập",
+        cat_id: 46,
+        cat_name: "Sinh viên mới tốt nghiệp - Thực tập",
     },
     {
-    cat_id: 47,
-    cat_name: "Kỹ thuật ứng dụng",
+        cat_id: 47,
+        cat_name: "Kỹ thuật ứng dụng",
     },
     {
-    cat_id: 48,
-    cat_name: "Bưu chính viễn thông",
+        cat_id: 48,
+        cat_name: "Bưu chính viễn thông",
     },
     {
-    cat_id: 112,
-    cat_name: "Telesales",
+        cat_id: 112,
+        cat_name: "Telesales",
     },
     {
-    cat_id: 49,
-    cat_name: "Dầu khí - Địa chất",
+        cat_id: 49,
+        cat_name: "Dầu khí - Địa chất",
     },
     {
-    cat_id: 50,
-    cat_name: "Giao thông vận tải - Thủy lợi - Cầu đường",
+        cat_id: 50,
+        cat_name: "Giao thông vận tải - Thủy lợi - Cầu đường",
     },
     {
-    cat_id: 51,
-    cat_name: "Khu chế xuất - Khu công nghiệp",
+        cat_id: 51,
+        cat_name: "Khu chế xuất - Khu công nghiệp",
     },
     {
-    cat_id: 52,
-    cat_name: "Làm đẹp - Thể lực - Spa",
+        cat_id: 52,
+        cat_name: "Làm đẹp - Thể lực - Spa",
     },
     {
-    cat_id: 53,
-    cat_name: "Luật - Pháp lý",
+        cat_id: 53,
+        cat_name: "Luật - Pháp lý",
     },
     {
-    cat_id: 54,
-    cat_name: "Môi trường - Xử lý chất thải",
+        cat_id: 54,
+        cat_name: "Môi trường - Xử lý chất thải",
     },
     {
-    cat_id: 55,
-    cat_name: "Mỹ phẩm - Thời trang - Trang sức",
+        cat_id: 55,
+        cat_name: "Mỹ phẩm - Thời trang - Trang sức",
     },
     {
-    cat_id: 56,
-    cat_name: "Ngân hàng - Chứng khoán - Đầu tư",
+        cat_id: 56,
+        cat_name: "Ngân hàng - Chứng khoán - Đầu tư",
     },
     {
-    cat_id: 57,
-    cat_name: "Nghệ thuật - Điện ảnh",
+        cat_id: 57,
+        cat_name: "Nghệ thuật - Điện ảnh",
     },
     {
-    cat_id: 58,
-    cat_name: "Phát triển thị trường",
+        cat_id: 58,
+        cat_name: "Phát triển thị trường",
     },
     {
-    cat_id: 59,
-    cat_name: "Phục vụ - Tạp vụ",
+        cat_id: 59,
+        cat_name: "Phục vụ - Tạp vụ",
     },
     {
-    cat_id: 60,
-    cat_name: "Quan hệ đối ngoại",
+        cat_id: 60,
+        cat_name: "Quan hệ đối ngoại",
     },
     {
-    cat_id: 61,
-    cat_name: "Quản lý điều hành",
+        cat_id: 61,
+        cat_name: "Quản lý điều hành",
     },
     {
-    cat_id: 62,
-    cat_name: "Sản xuất - Vận hành sản xuất",
+        cat_id: 62,
+        cat_name: "Sản xuất - Vận hành sản xuất",
     },
     {
-    cat_id: 63,
-    cat_name: "Thẩm định - Giám thẩm định - Quản lý chất lượng",
+        cat_id: 63,
+        cat_name: "Thẩm định - Giám thẩm định - Quản lý chất lượng",
     },
     {
-    cat_id: 64,
-    cat_name: "Thể dục - Thể thao",
+        cat_id: 64,
+        cat_name: "Thể dục - Thể thao",
     },
     {
-    cat_id: 65,
-    cat_name: "Hóa học - Sinh học",
+        cat_id: 65,
+        cat_name: "Hóa học - Sinh học",
     },
     {
-    cat_id: 66,
-    cat_name: "Bảo hiểm",
+        cat_id: 66,
+        cat_name: "Bảo hiểm",
     },
     {
-    cat_id: 67,
-    cat_name: "Freelancer",
+        cat_id: 67,
+        cat_name: "Freelancer",
     },
     {
-    cat_id: 68,
-    cat_name: "Công chức - Viên chức ",
+        cat_id: 68,
+        cat_name: "Công chức - Viên chức ",
     },
     {
-    cat_id: 71,
-    cat_name: "Điện tử viễn thông",
+        cat_id: 71,
+        cat_name: "Điện tử viễn thông",
     },
     {
-    cat_id: 73,
-    cat_name: "Hoạch định - Dự án",
+        cat_id: 73,
+        cat_name: "Hoạch định - Dự án",
     },
     {
-    cat_id: 75,
-    cat_name: "Lương cao",
+        cat_id: 75,
+        cat_name: "Lương cao",
     },
     {
-    cat_id: 77,
-    cat_name: "Tiếp thị - Quảng cáo",
+        cat_id: 77,
+        cat_name: "Tiếp thị - Quảng cáo",
     },
     {
-    cat_id: 79,
-    cat_name: "Việc làm Tết",
+        cat_id: 79,
+        cat_name: "Việc làm Tết",
     },
     {
-    cat_id: 81,
-    cat_name: "Giúp việc",
+        cat_id: 81,
+        cat_name: "Giúp việc",
     },
     {
-    cat_id: 88,
-    cat_name: "Thủy sản",
+        cat_id: 88,
+        cat_name: "Thủy sản",
     },
     {
-    cat_id: 89,
-    cat_name: "Công nghệ thực phẩm",
+        cat_id: 89,
+        cat_name: "Công nghệ thực phẩm",
     },
     {
-    cat_id: 90,
-    cat_name: "Chăn nuôi / Thú y",
+        cat_id: 90,
+        cat_name: "Chăn nuôi / Thú y",
     },
     {
-    cat_id: 91,
-    cat_name: "An toàn lao động",
+        cat_id: 91,
+        cat_name: "An toàn lao động",
     },
     {
-    cat_id: 92,
-    cat_name: "Hàng không",
+        cat_id: 92,
+        cat_name: "Hàng không",
     },
     {
-    cat_id: 102,
-    cat_name: "Thư viện",
+        cat_id: 102,
+        cat_name: "Thư viện",
     },
     {
-    cat_id: 94,
-    cat_name: "Tổ chức sự kiện",
+        cat_id: 94,
+        cat_name: "Tổ chức sự kiện",
     },
     {
-    cat_id: 95,
-    cat_name: "Trắc địa",
+        cat_id: 95,
+        cat_name: "Trắc địa",
     },
     {
-    cat_id: 103,
-    cat_name: "Thống kê",
+        cat_id: 103,
+        cat_name: "Thống kê",
     },
     {
-    cat_id: 97,
-    cat_name: "Bảo trì",
+        cat_id: 97,
+        cat_name: "Bảo trì",
     },
     {
-    cat_id: 98,
-    cat_name: "Hàng hải",
+        cat_id: 98,
+        cat_name: "Hàng hải",
     },
     {
-    cat_id: 99,
-    cat_name: "Nấu ăn",
+        cat_id: 99,
+        cat_name: "Nấu ăn",
     },
     {
-    cat_id: 100,
-    cat_name: "Truyền thông",
+        cat_id: 100,
+        cat_name: "Truyền thông",
     },
     {
-    cat_id: 101,
-    cat_name: "Startup",
+        cat_id: 101,
+        cat_name: "Startup",
     },
     {
-    cat_id: 104,
-    cat_name: "Copywriter",
+        cat_id: 104,
+        cat_name: "Copywriter",
     },
     {
-    cat_id: 105,
-    cat_name: "Xuất khẩu lao động",
+        cat_id: 105,
+        cat_name: "Xuất khẩu lao động",
     },
     {
-    cat_id: 106,
-    cat_name: "Công nghệ cao",
+        cat_id: 106,
+        cat_name: "Công nghệ cao",
     },
     {
-    cat_id: 107,
-    cat_name: "Tài chính",
+        cat_id: 107,
+        cat_name: "Tài chính",
     },
     {
-    cat_id: 108,
-    cat_name: "Thu ngân",
+        cat_id: 108,
+        cat_name: "Thu ngân",
     },
     {
-    cat_id: 114,
-    cat_name: "Lễ tân - PG - PB",
+        cat_id: 114,
+        cat_name: "Lễ tân - PG - PB",
     },
     {
-    cat_id: 115,
-    cat_name: "Pha chế - Bar",
+        cat_id: 115,
+        cat_name: "Pha chế - Bar",
     },
     {
-    cat_id: 116,
-    cat_name: "Đầu bếp - phụ bếp",
+        cat_id: 116,
+        cat_name: "Đầu bếp - phụ bếp",
     },
     {
-    cat_id: 117,
-    cat_name: "Logistic",
+        cat_id: 117,
+        cat_name: "Logistic",
     },
     {
-    cat_id: 118,
-    cat_name: "Vận chuyển - giao nhận",
+        cat_id: 118,
+        cat_name: "Vận chuyển - giao nhận",
     },
     {
-    cat_id: 119,
-    cat_name: "Quản lý đơn hàng",
+        cat_id: 119,
+        cat_name: "Quản lý đơn hàng",
     },
     {
-    cat_id: 120,
-    cat_name: "It",
+        cat_id: 120,
+        cat_name: "It",
     },
     {
-    cat_id: 121,
-    cat_name: "Tài chính - Ngân hàng",
+        cat_id: 121,
+        cat_name: "Tài chính - Ngân hàng",
     },
     {
-    cat_id: 122,
-    cat_name: "An ninh - Bảo vệ",
+        cat_id: 122,
+        cat_name: "An ninh - Bảo vệ",
     },
     {
-    cat_id: 123,
-    cat_name: "Dịch vụ du lịch",
+        cat_id: 123,
+        cat_name: "Dịch vụ du lịch",
     },
     {
-    cat_id: 124,
-    cat_name: "Giao thông vận tải",
+        cat_id: 124,
+        cat_name: "Giao thông vận tải",
     },
     {
-    cat_id: 125,
-    cat_name: "Bất động sản",
+        cat_id: 125,
+        cat_name: "Bất động sản",
     },
     {
-    cat_id: 126,
-    cat_name: "Kiến trúc - Nội thất",
+        cat_id: 126,
+        cat_name: "Kiến trúc - Nội thất",
     },
     {
-    cat_id: 127,
-    cat_name: "Môi trường",
+        cat_id: 127,
+        cat_name: "Môi trường",
     },
     {
-    cat_id: 128,
-    cat_name: "Sức khỏe - Spa",
+        cat_id: 128,
+        cat_name: "Sức khỏe - Spa",
     },
     {
-    cat_id: 129,
-    cat_name: "Mỹ phẩm - Thời trang",
+        cat_id: 129,
+        cat_name: "Mỹ phẩm - Thời trang",
     },
     {
-    cat_id: 130,
-    cat_name: "Marketing",
+        cat_id: 130,
+        cat_name: "Marketing",
     },
     {
-    cat_id: 131,
-    cat_name: "Kinh doanh - Bán hàng",
+        cat_id: 131,
+        cat_name: "Kinh doanh - Bán hàng",
     },
     {
-    cat_id: 132,
-    cat_name: "Thiết kế",
+        cat_id: 132,
+        cat_name: "Thiết kế",
     },
     {
-    cat_id: 133,
-    cat_name: "Truyền thông PR",
+        cat_id: 133,
+        cat_name: "Truyền thông PR",
     },
     {
-    cat_id: 134,
-    cat_name: "Y tế",
+        cat_id: 134,
+        cat_name: "Y tế",
     },
     {
-    cat_id: 135,
-    cat_name: "Việc làm online",
+        cat_id: 135,
+        cat_name: "Việc làm online",
     },
     {
-    cat_id: 136,
-    cat_name: "Việc làm nước ngoài",
+        cat_id: 136,
+        cat_name: "Việc làm nước ngoài",
     },
     {
-    cat_id: 137,
-    cat_name: "Phi chính phủ - Phi lợi nhuận",
+        cat_id: 137,
+        cat_name: "Phi chính phủ - Phi lợi nhuận",
     },
 ];
 const data_tags = [
@@ -9086,31 +9086,11 @@ const data_tags = [
         label: "điện máy chợ lớn",
         alias: "dien-may-cho-lon"
     },
-    ]
-function getCityNameById(id) {
-    const city = listCities.find(city => city.cit_id === id);
-    return city ? city.cit_name : null;
-}
-function getCategoryIdByName(cat_name) {
-    const category = cateList.find(category => category.cat_name === cat_name);
-    return category ? category.cat_id : null;
-}
-function getCityIdByUrl(city_name) {
-    const city = listCities.find(city => convertToUrl(city.cit_name) === city_name);
-    return city ? city.cit_id : null;
-}
-function getCategoryIdByUrl(cat_name) {
-    const category = cateList.find(category => convertToUrl(category.cat_name) === cat_name);
-    return category ? category.cat_id : null;
-}
-function findAliasByTag(label){
-    const tag = data_tags.find(tag => tag.label === label);
-    return tag ? tag.alias : '';
-}
+]
 function convertToUrl(name) {
     return name.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
         .replace(/đ/g, 'd').replace(/Đ/g, 'D')
-        .replace(/\s+/g, '-') 
+        .replace(/\s+/g, '-')
         .replace(/-+/g, '-')
         .toLowerCase();
 }
@@ -9172,7 +9152,7 @@ $('#cit_id').change(function () {
         }
     });
 });
-$(document).ready(function() {
+$(document).ready(function () {
     const $select = $('#cit_id');
 
     listCities.forEach(city => {
@@ -9182,13 +9162,13 @@ $(document).ready(function() {
         });
         $select.append($option);
     });
-	$('#cit_id').trigger('update');
+    $('#cit_id').trigger('update');
 });
-$(document).ready(function() {
-    $('#s_key').focus(function() {
+$(document).ready(function () {
+    $('#s_key').focus(function () {
         $('.search-remind').addClass('active');
     });
-    $(document).click(function(event) {
+    $(document).click(function (event) {
         var target = $(event.target);
         if (!target.closest('#s_key').length && !target.closest('.search-remind').length) {
             $('.search-remind').removeClass('active');
@@ -9197,14 +9177,14 @@ $(document).ready(function() {
 });
 
 var cateItems = [];
-cateList.forEach(function(category) {
+cateList.forEach(function (category) {
     var item = '<li class="fw-500">' + category.cat_name + '</li>';
     cateItems.push(item);
     $('.remind-lis-box').append(item);
 });
 
 var tagItems = [];
-data_tags.forEach(function(tag) {
+data_tags.forEach(function (tag) {
     var item = '<li class="">' + tag.label + '</li>';
     tagItems.push(item);
 });
@@ -9215,7 +9195,7 @@ function loadSearchHistory() {
         searchKeywords = JSON.parse(searchKeywords);
         searchKeywords.reverse();
         var $remindHisBox = $('.remind-his-box').empty();
-        searchKeywords.forEach(function(keyword) {
+        searchKeywords.forEach(function (keyword) {
             var item;
             if (cateItems.some(item => item.includes(keyword))) {
                 item = '<li class="fw-500">' + keyword + '</li>';
@@ -9230,19 +9210,19 @@ function loadSearchHistory() {
 // Load search history initially
 loadSearchHistory();
 
-$('.remind-lis-box').on('click', 'li', function() {
+$('.remind-lis-box').on('click', 'li', function () {
     var text = $(this).text();
     $('#s_key').val(text);
     $('.search-remind').removeClass('active');
 });
 
-$('.remind-his-box').on('click', 'li', function() {
+$('.remind-his-box').on('click', 'li', function () {
     var text = $(this).text();
     $('#s_key').val(text);
     $('.search-remind').removeClass('active');
 });
 
-$('#s_key').on('input', function() {
+$('#s_key').on('input', function () {
     var inputText = removeDiacritics($(this).val().toLowerCase());
 
     if (inputText === '') {
@@ -9251,27 +9231,27 @@ $('#s_key').on('input', function() {
         return;
     }
 
-    var filteredCateItems = cateItems.filter(function(item) {
+    var filteredCateItems = cateItems.filter(function (item) {
         var listItemText = removeDiacritics($(item).text().toLowerCase());
         return listItemText.includes(inputText);
     });
 
-    var filteredTagItems = tagItems.filter(function(item) {
+    var filteredTagItems = tagItems.filter(function (item) {
         var listItemText = removeDiacritics($(item).text().toLowerCase());
         return listItemText.includes(inputText);
     });
 
     var filteredItems = filteredCateItems.concat(filteredTagItems);
     var $remindHisBox = $('.remind-his-box').empty();
-    
-    filteredItems.forEach(function(item) {
+
+    filteredItems.forEach(function (item) {
         var $item = $(item);
         if ($item.hasClass('fw-500')) {
             $item.addClass('fw-500');
         }
         $remindHisBox.append($item);
     });
-    
+
     $('.search-remind').addClass('active');
 });
 
@@ -9279,7 +9259,7 @@ function removeDiacritics(str) {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
-$('.search-res-tool').on('click', function() {
+$('.search-res-tool').on('click', function () {
     if (!$('.adv_fil').is(':visible')) {
         $('.adv_fil').css('display', 'flex').hide().slideToggle(300);
     } else {

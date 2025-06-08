@@ -20,9 +20,6 @@ function getCookie(name) {
     if (parts.length === 2) return parts.pop().split(";").shift();
 }   
 
-function deleteCookie(name) {
-    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-}
 function getCookieNew(name) {
     const nameEQ = name + "=";
     const ca = document.cookie.split(';');

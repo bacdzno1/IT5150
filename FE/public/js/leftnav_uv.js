@@ -30,10 +30,6 @@ function getCookieNew(name) {
     return null;
 }
 
-function deleteCookie(name) {
-    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-}
-
 $(document).ready(function(){
     $('.refresh_prf,.refresh_prf_moblie').click(function(){
         $.ajax({

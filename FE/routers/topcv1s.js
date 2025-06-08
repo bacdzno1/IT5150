@@ -1,7 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var formData = require('express-form-data');
-const functions = require('../services/functions');
 const site = require('../controllers/site');
 const apiController = require('../controllers/apicontroller');
 const checkHardcodedRoutes = require('../middleware/checkHardcodedRoutes');

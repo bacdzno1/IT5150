@@ -677,16 +677,6 @@ $(window).on('popstate', function(event) {
     handleUrlChange();
 });
 
-function updateUrlWithoutRedirect(newUrl) {
-    history.pushState(null, null, newUrl);
-    $(window).trigger('popstate');
-}
-
-
-function updateUrlWithoutRedirect(url) {
-    // Cập nhật URL mà không reload trang, có thể sử dụng History API hoặc thư viện hỗ trợ
-    history.pushState(null, null, url);
-}
 function getCookie(name) {
     var value = "; " + document.cookie;
     var parts = value.split("; " + name + "=");
