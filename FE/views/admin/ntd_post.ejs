@@ -73,8 +73,6 @@
                                 <th>Ghim box lương cao</th>
                                 <th>Thời hạn ghim tin</th>
                                 <th>Ghim</th>
-                                <th>Sửa</th>
-                                <th>Xóa</th>
                             </tr>
                         </thead>
                         <tbody id="ntdPostNews">
@@ -105,138 +103,6 @@
                 </div>
                 <div class="form-buttons">
                     <button id="updateGhim">Cập nhật</button>
-                </div>
-            </div>
-        </div>
-        <div class="edit-info">
-            <div id="editForm">
-                <div class="form-edit-title text-c fs-5 mb-3"><b>Chỉnh sửa tin tuyển dụng</b></div>
-                <div class="form-group">
-                    <label for="idCongTy"><span class="asterisk">*</span>ID công ty:</label>
-                    <input type="text" id="idCongTy">
-                </div>
-                <div class="form-group">
-                    <label for="tieuDeTin"><span class="asterisk">*</span>Tiêu đề tin:</label>
-                    <input type="text" id="tieuDeTin">
-                </div>
-                <div class="form-group">
-                    <label for="chonCapBac"><span class="asterisk">*</span>Chọn cấp bậc:</label>
-                    <select id="chonCapBac">
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="chonNganh">Chọn ngành nghề:</label>
-                    <select id="chonNganh">
-                        <option></option>
-                        <option>IT phần mềm</option>
-                        <option>Hành chính văn phòng</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="chonTieuChiCongViec">Chọn tiêu chí công việc:</label>
-                    <select id="chonTieuChiCongViec">
-                        <option></option>
-                        <option>Việc nhẹ</option>
-                        <option>Lương cao</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="chonDiaDiemLamViec">Chọn địa điểm làm việc:</label>
-                    <select id="chonDiaDiemLamViec">
-                        <option></option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="chonQuanHuyen"><span class="asterisk">*</span>Chọn quận/huyện:</label>
-                    <select id="chonQuanHuyen">
-                        <option></option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="diaChiChiTiet"><span class="asterisk">*</span>Địa chỉ chi tiết:</label>
-                    <input type="text" id="diaChiChiTiet">
-                </div>
-                <div class="form-group">
-                    <label for="hoaHong">Hoa hồng:</label>
-                    <input type="text" id="hoaHong">
-                </div>
-                <div class="form-group">
-                    <label for="thoiGianThuViec">Thời gian thử việc:</label>
-                    <input type="text" id="thoiGianThuViec">
-                </div>
-                <div class="form-group">
-                    <label for="hinhThucLamViec"><span class="asterisk">*</span>Hình thức làm việc:</label>
-                    <select id="hinhThucLamViec">
-                        <option></option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="mucLuong"><span class="asterisk">*</span>Mức lương:</label>
-                    <select id="mucLuong">
-                        <option></option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="soLuongCanTuyen"><span class="asterisk">*</span>Số lượng cần tuyển:</label>
-                    <input type="text" id="soLuongCanTuyen">
-                </div>
-                <div class="form-group">
-                    <label for="chonKinhNghiemLamViec"><span class="asterisk">*</span>Chọn kinh nghiệm làm việc:</label>
-                    <select id="chonKinhNghiemLamViec">
-                        <option></option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="chonBangCap"><span class="asterisk">*</span>Chọn bằng cấp:</label>
-                    <select id="chonBangCap">
-                        <option></option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="chonGioiTinh"><span class="asterisk">*</span>Chọn giới tính:</label>
-                    <select id="chonGioiTinh">
-                        <option></option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="hanNop"><span class="asterisk">*</span>Hạn nộp:</label>
-                    <input type="date" id="hanNop" value="2025-07-27">
-                </div>
-                <div class="form-group">
-                    <label for="moTaCongViec"><span class="asterisk">*</span>Mô tả công việc:</label>
-                    <textarea id="moTaCongViec"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="yeuCauCongViec"><span class="asterisk">*</span>Yêu cầu công việc:</label>
-                    <textarea id="yeuCauCongViec"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="quyenLoi"><span class="asterisk">*</span>Quyền lợi:</label>
-                    <textarea id="quyenLoi"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="hoSo"><span class="asterisk">*</span>Hồ sơ:</label>
-                    <textarea id="hoSo"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="nguoiLienHe">Người liên hệ:</label>
-                    <input type="text" id="nguoiLienHe">
-                </div>
-                <div class="form-group">
-                    <label for="diaChiLienHe">Địa chỉ liên hệ:</label>
-                    <input type="text" id="diaChiLienHe">
-                </div>
-                <div class="form-group">
-                    <label for="sdtLienHe">SĐT liên hệ:</label>
-                    <input type="text" id="sdtLienHe">
-                </div>
-                <div class="form-group">
-                    <label for="emailLienHe">Email liên hệ:</label>
-                    <input type="email" id="emailLienHe">
-                </div>
-                <div class="form-buttons">
-                    <button type="submit" id="updateForm">Cập nhật</button>
-                    <button type="button" id="closeForm">Làm lại</button>
                 </div>
             </div>
         </div>
@@ -388,8 +254,6 @@
                                         <td>${newItem.new_cao == 0 ? '<img src="/images/icon/checkx.svg" width="15" height="15" alt="Check Icon">' : '<img src="/images/icon/check.svg" width="15" height="15" alt="Check Icon">'}</td>
                                         <td>${time_expired}</td>
                                         <td><img class="ghim-icon" src="/images/icon/plusicon.svg" width="15" height="15" alt="Check Icon" data-id="${newItem.new_id}"></td>
-                                        <td><img class="edit-icon" src="/images/icon/editicon.svg" width="15" height="15" alt="Edit Icon"></td>
-                                        <td><img src="/images/icon/delete.svg" width="15" height="15" alt="Delete Icon"></td>
                                     </tr>`;
                             tableBody.append(row);
                         });
@@ -541,25 +405,8 @@
         var box_cao = 0;
         var today = new Date().toISOString().split('T')[0];
         $('#dateGhim').attr('min', today);
-        $('#closeForm').click(function() {
-            $('.edit-info').hide();
-        });
-
-        $('#updateForm').submit(function(event) {
-            event.preventDefault(); 
-            $('.edit-info').hide();
-        });
-        
-        $(document).on('click', '.edit-icon', function() {
-            $('.edit-info').fadeIn();
-        });
 
         $(document).mouseup(function(e) {
-            var editContainer = $(".edit-info div");
-            if (!editContainer.is(e.target) && editContainer.has(e.target).length === 0) {
-                $('.edit-info').fadeOut();
-            }
-
             var ghimContainer = $(".box-ghim-tin div");
             if (!ghimContainer.is(e.target) && ghimContainer.has(e.target).length === 0) {
                 $('.box-ghim-tin').fadeOut();
