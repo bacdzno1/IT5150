@@ -378,7 +378,7 @@ export const Login = async (req, res, next) => {
             }, {
                 usc_id: 1, usc_phone: 1, usc_phone_tk: 1, usc_email: 1,
                 usc_company: 1, usc_city: 1, usc_district: 1, usc_address: 1,
-                usc_authentic: 1, usc_logo: 1, usc_alias: 1, usc_create_time: 1, usc_company: 1, usc_logo: 1
+                usc_authentic: 1, usc_logo: 1, usc_alias: 1, usc_create_time: 1
             }).lean();
             if (check) {
                 const logo = functions.getAvatarNTD(check.usc_create_time, check.usc_logo);
@@ -1012,10 +1012,7 @@ const candidateRegister = async (data, file) => {
             if (logo === false) return false;
         }
 
-        const db_max_id = await TmpUser.findOne({}, { tmp_emp: 1 }).sort({ tmp_id: -1 }).lean();
-
         let new_val = 0;
-        let emp_id = 0;
 
         const tmp_id = await functions.getMaxId(TmpUser, 'tmp_id');
         await TmpUser.create({
@@ -2272,7 +2269,6 @@ export const previewCv2 = async (req, res) => {
             const dataCV = JSON.parse(dataCVJson).avatar;
             const jsonCV = JSON.parse(dataCVJson)
 
-            const date = functions.getDate();
             let linkNew = '';
 
             // console.log('jsonCV.avatar before', jsonCV.avatar);

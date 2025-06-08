@@ -323,7 +323,6 @@ export const SpecialistsSendCandidates = async (req, res) => {
                     id: 1,
                     result: 1,
                     nhs_time: 1,
-                    date_interview: 1,
                     note_uv: "$note",
                 }
             }
@@ -444,7 +443,6 @@ export const CandidatesComeToApply = async (req, res) => {
                     id: 1,
                     result: 1,
                     nhs_time: 1,
-                    date_interview: 1,
                     note_uv: "$note",
                     thuxinviec: "$letter",
                 }

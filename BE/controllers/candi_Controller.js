@@ -569,7 +569,7 @@ export const DetailCV = async (req, res) => {
                     data.alias = alias
                 } else {
                     const result = await SampleCv.findOne({ id: idcv }).lean();
-                    const user = await Users.findOne({ use_id: id }, { use_mail: 1, use_phone: 1, use_phone: 1, address: 1 }).lean();
+                    const user = await Users.findOne({ use_id: id }, { use_mail: 1, use_phone: 1, address: 1 }).lean();
                     data.result = result;
                     data.type = 0;
                     data.user = user;

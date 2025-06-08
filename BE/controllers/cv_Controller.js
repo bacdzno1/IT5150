@@ -483,14 +483,6 @@ export const ListSampleCV = async (req, res) => {
     }
 }
 
-export const cvSameNganh = async (req, res) => {
-    try {
-
-    } catch (error) {
-        return functions.setError(res, error.message);
-    }
-}
-
 export const ListSampleCVNew = async (req, res) => {
     try {
         const page = req.body.page || 1;
