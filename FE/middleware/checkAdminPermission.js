@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const data_get = require('../function/data');
 
-function checkPermission(requiredModuleId) {
+function checkPermission() {
     return (req, res, next) => {
         const token = req.headers.authorization?.split(' ')[1] || req.cookies.adminToken;
 
@@ -19,9 +19,8 @@ function checkPermission(requiredModuleId) {
             }
 
             const { modules } = decoded.data;
-            const hasPermission = modules.includes(requiredModuleId);
 
-            if (hasPermission || decoded.data.isFullModules === 1) {
+            if (decoded.data.isFullModules === 1) {
                 const availableModules = decoded.data.isFullModules === 1
                     ? data_get.data_left_admin
                     : data_get.data_left_admin.filter(module =>

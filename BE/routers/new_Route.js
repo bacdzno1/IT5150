@@ -174,8 +174,7 @@ router.post('/GetTtbsCate', formdata.parse(), New.GetTtbsCate);
 // Chi tiết bổ sung
 router.post('/detailTtbsDetail', formdata.parse(), New.detailTtbsDetail);
 
-// Luồng mới: do trùng tên, sử dụng chung page nên dùng chung api
-router.post('/detailBlog_New_Ntd', formdata.parse(), New.detailBlog_New_Ntd);
+router.post('/detailJob_Comp', formdata.parse(), New.detailJob_Comp);
 
 // Lấy chi tiết cv
 router.post('/getCvDetail', formdata.parse(), New.getCvDetail);

@@ -43,7 +43,7 @@ function configureApp(app) {
     app.use('/upload', express.static('upload'));
     app.use('/dowload', express.static('dowload'));
     // app.use('/public', express.static('public'))
-    app.use(function (err, req, res) {
+    app.use(function (err, req, res, next) {
         res.locals.message = err.message;
         res.locals.error = req.app.get('env') === 'development' ? err : {};
         res.status(err.status || 500);
@@ -58,7 +58,7 @@ function errorApp(app) {
     });
 
     // error handler
-    app.use(function (err, req, res) {
+    app.use(function (err, req, res, next) {
         // set locals+++, only providing error in development
         res.locals.message = err.message;
         res.locals.error = req.app.get('env') === 'development' ? err : {};

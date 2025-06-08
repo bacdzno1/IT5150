@@ -25,7 +25,7 @@ const takeData = async () => {
         console.log(infor.use_first_name.trim())
         console.log(infor.use_first_name.trim().split(" ")[infor.use_first_name.trim().split(" ").length - 1])
         //! Here
-        const response = await fetch("/api/topcv1s/candidate/takeInforCan", {
+        const response = await fetch("http://localhost:3052/api/topcv1s/candidate/takeInforCan", {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${getCookie(tokenName)}`, // Add Bearer token

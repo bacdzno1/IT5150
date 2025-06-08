@@ -18111,20 +18111,20 @@ const data_left_admin = [
             }
         ]
     },
-    // {
-    //     module_id: 73,
-    //     module_name : "Tin tuyển dụng",
-    //     list_url: [
-    //         {
-    //             alias: "/nha-tuyen-dung-tu-dang",
-    //             name: "NTD tự đăng"
-    //         },
-    //         {
-    //             alias: "/admin/dang-tin-tuyen-dung",
-    //             name: "Thêm mới"
-    //         }
-    //     ]
-    // },
+    {
+        module_id: 73,
+        module_name : "Tin tuyển dụng",
+        list_url: [
+            {
+                alias: "/nha-tuyen-dung-tu-dang",
+                name: "NTD tự đăng"
+            },
+            // {
+            //     alias: "/admin/dang-tin-tuyen-dung",
+            //     name: "Thêm mới"
+            // }
+        ]
+    },
     // {
     //     module_id: 28,
     //     module_name : "Blog",

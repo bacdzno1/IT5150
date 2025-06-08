@@ -16,16 +16,6 @@ const { token } = require('morgan');
 const setCookie = (res, name, value, options = {}) => {
     res.cookie(name, value, options);
 };
-
-exports.getDataBlogAjax = async (req, res) => {
-    try {
-        const payload = { id: 2 };
-        const response = await axios.post('http://localhost:3053/api/topcv1s/new/getBlog', payload);
-        res.json(response.data);
-    } catch (error) {
-        res.status(500).json({ error: 'Error fetching data' });
-    }
-};
 exports.getDataHomeAjax = async (req, res) => {
     try {
         const payload = { id: 2 };
