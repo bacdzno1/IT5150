@@ -168,10 +168,6 @@ const UserCompany = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    is_login: {
-        type: Number,
-        default: 0
-    },
     register: {
         type: Number,
         default: 1

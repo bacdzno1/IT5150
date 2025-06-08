@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+ 
 import "dotenv/config";
 import * as functions from '../services/functions.js';
 import * as puppeteer from 'puppeteer'

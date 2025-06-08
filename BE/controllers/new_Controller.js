@@ -566,7 +566,6 @@ export const Home = async(req, res) => {
             functions.success(res, 'success', { data: data_home });
         }
         const time = functions.getTime();
-        const time30 = time + 86400 * 30;
         const seo_Promise = SeoTt.findOne({ name_page: "home" }).lean();
 
         const idNewHot = [];
@@ -901,13 +900,6 @@ export const Home = async(req, res) => {
                 $sort: { count: -1 }
             }
         ]);
-        const companiesWithMostNews = await UserCompany.find({
-            usc_id: { $in: newsByCompany.map(item => item._id) }
-        },{
-            usc_company:1,
-            usc_alias:1,
-            usc_logo: 1
-        }).lean();
 
         const blog_Promise = News.find({ new_active: 1 }, {
                 new_id: 1,
@@ -1475,18 +1467,15 @@ export const DetailNew = async(req, res) => {
                     { $project: item }
                 ]);
                 const checkSaveNew_Promise = TblLuuTin.findOne({ id_tin: id, id_uv: iduser });
-                const updateView_Promise = New.findOneAndUpdate({ new_id: id }, { $inc: { new_view_count: +1 } });
                 const Blog_Promise = News.find({}, { new_id: 1, new_title: 1, new_picture: 1, new_des: 1 }).sort({ new_id: -1 }).limit(3).lean()
                 const [checkApply,
                     viecLamTuongTu,
                     checkSaveNew,
-                    updateView,
                     Blog
                 ] = await Promise.all([
                     checkApply_Promise,
                     viecLamTuongTu_Promise,
                     checkSaveNew_Promise,
-                    updateView_Promise,
                     Blog_Promise
                 ]);
                 const leng_viecLamTuongTu = viecLamTuongTu.length;
@@ -1571,7 +1560,6 @@ export const SearchNew = async(req, res) => {
             address: "$company.usc_address",
             new_han_nop: 1,
             new_alias: 1,
-            is_login: 1,
             new_money_type: 1,
             new_money_from: 1,
             new_money_to: 1,
@@ -1604,8 +1592,6 @@ export const SearchNew = async(req, res) => {
             new_mota: 1,
             new_company_name:1,
         }
-        
-        const city = await City.find({}, { cit_id: 1, cit_name: 1 }).lean()
 
         const conditions = {};
         const conditions_ai={};
@@ -1798,7 +1784,6 @@ export const SearchCandi = async(req, res) => {
         const kinhNghiem = Number(req.body.kinhNghiem);
         const gioiTinh = Number(req.body.gioiTinh);
         const mucLuong = Number(req.body.mucLuong);
-        const address = Number(req.body.address);
         const keywords = req.body.keywords;
         const conditionsAI = {
             site: "uvTopcv1s",
@@ -1844,7 +1829,6 @@ export const SearchCandi = async(req, res) => {
         };
         if (mucLuong) conditions.salary = mucLuong;
 
-        let arrIdByAI = [];
         let totalAI = 0;
         // if (resultAI && resultAI.data && resultAI.data.result == true) {
         //     arrIdByAI = resultAI.data.list_id.split(',').map(item => Number(item));
@@ -1877,8 +1861,7 @@ export const SearchCandi = async(req, res) => {
             address: 1,
             use_city: 1,
             use_city_job: 1,
-            exp_years: 1,
-            is_login: 1
+            exp_years: 1
         }).sort({ use_update_time: -1, use_id: -1 }).skip(skip).limit(limit).lean();
         const total_promise = Users.countDocuments({
             use_show: 1,
@@ -3761,8 +3744,7 @@ export const getDangTin = async(req, res) => {
                     address: 1,
                     use_city: 1,
                     use_city_job: 1,
-                    exp_years: 1,
-                    is_login: 1
+                    exp_years: 1
                 }
             }
         ])
@@ -3818,8 +3800,7 @@ export const getDangTin = async(req, res) => {
                             address: 1,
                             use_city: 1,
                             use_city_job: 1,
-                            exp_years: 1,
-                            is_login: 1
+                            exp_years: 1
                         }
                     }
                 ])
@@ -3884,8 +3865,7 @@ export const getDangTinSearch = async(req, res) => {
                     address: 1,
                     use_city: 1,
                     use_city_job: 1,
-                    exp_years: 1,
-                    is_login: 1
+                    exp_years: 1
                 }
             }
         ])
@@ -4075,7 +4055,6 @@ export const detailBlog_New_Ntd = async(req, res) => {
 
                     const com_promise = UserCompany.findOne({ usc_id: data.new_user_id })
                     const cate_Promise = Category.find({}, { cat_id: 1, cat_name: 1, cat_tags: 1, cat_count: 1, cat_count_vl: 1, cat_ut: 1 }).lean();
-                    const updateView_Promise = New.findOneAndUpdate({ new_id: id }, { $inc: { new_view_count: +1 } });
                     const Blog_Promise = News.find({}, { new_id: 1, new_title: 1, new_picture: 1, new_des: 1 }).sort({ new_id: -1 }).limit(3).lean()
                     const checkSaveNew_Promise = TblLuuTin.findOne({ id_tin: id, id_uv: iduser });
                     const checkApply_Promise = NopHoSo.findOne({ nhs_new_id: id, nhs_use_id: iduser });
@@ -4103,7 +4082,6 @@ export const detailBlog_New_Ntd = async(req, res) => {
                         com,
                         cate,
                         Cityy,
-                        updateView,
                         Blog,
                         checkSaveNew,
                         checkApply,
@@ -4112,7 +4090,6 @@ export const detailBlog_New_Ntd = async(req, res) => {
                         com_promise,
                         cate_Promise,
                         City.find({}, { cit_id: 1, cit_name: 1 }).lean(),
-                        updateView_Promise,
                         Blog_Promise,
                         checkSaveNew_Promise,
                         checkApply_Promise,
@@ -4262,8 +4239,7 @@ export const detailBlog_New_Ntd = async(req, res) => {
                                 new_nganh: 1,
                                 usc_alias: "$company.usc_alias",
                                 new_han_nop: 1,
-                                new_alias: 1,
-                                is_login: 1
+                                new_alias: 1
                             }
                         }
                     ]).exec();
@@ -4335,8 +4311,7 @@ export const detailBlog_New_Ntd = async(req, res) => {
                                 new_nganh: 1,
                                 usc_alias: "$company.usc_alias",
                                 new_han_nop: 1,
-                                new_alias: 1,
-                                is_login: 1,
+                                new_alias: 1
                             }
                         },
                         {

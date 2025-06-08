@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+ 
 import * as functions from '../services/functions.js';
 import TblPointCompany from '../models/tbl/TblPointCompany.js';
 import TblPointUsed from '../models/tbl/TblPointUsed.js';
@@ -46,7 +46,6 @@ export const ManageServiceNTD = async (req, res, next) => {
                 }
             }
         ]);
-        const ntd = await UserCompany.findOne({ usc_id: Number(idNTD) })
         const [
             pointFree,
             pointRecharge,
@@ -648,7 +647,6 @@ export const CandiDidSave = async (req, res) => {
 // xoá hồ sơ ứng viên đã lưu
 export const DeleteCandiDidSave = async (req, res) => {
     try {
-        const idNTD = req.idNTD;
         const { id_hoso } = req.body;
         if (id_hoso) {
             const checkUpdate = await TblLuuHoSoUv.findOneAndDelete({ id_hoso });
@@ -896,8 +894,7 @@ export const DetailNTD = async (req, res, next) => {
                         new_nganh: 1,
                         usc_alias: "$company.usc_alias",
                         new_han_nop: 1,
-                        new_alias: 1,
-                        is_login: 1
+                        new_alias: 1
                     }
                 }
             ]).exec();
@@ -966,8 +963,7 @@ export const DetailNTD = async (req, res, next) => {
                         new_nganh: 1,
                         usc_alias: "$company.usc_alias",
                         new_han_nop: 1,
-                        new_alias: 1,
-                        is_login: 1,
+                        new_alias: 1
                     }
                 },
                 {
@@ -1150,8 +1146,7 @@ export const DetailNTD2 = async (req, res, next) => {
                         new_nganh: 1,
                         usc_alias: "$company.usc_alias",
                         new_han_nop: 1,
-                        new_alias: 1,
-                        is_login: 1
+                        new_alias: 1
                     }
                 }
             ]).exec();
@@ -1220,8 +1215,7 @@ export const DetailNTD2 = async (req, res, next) => {
                         new_nganh: 1,
                         usc_alias: "$company.usc_alias",
                         new_han_nop: 1,
-                        new_alias: 1,
-                        is_login: 1,
+                        new_alias: 1
                     }
                 },
                 {

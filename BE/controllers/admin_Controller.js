@@ -25,7 +25,6 @@ import LanguageCv from '../models/language/LanguageCv.js';
 import NganhCv from '../models/NganhCv.js';
 import ttbsCate from '../models/ThongTinBoSung/ttbsCate.js';
 import ttbsDetail from '../models/ThongTinBoSung/ttbsDetail.js';
-import axios from 'axios';
 import TblLuuHoSoUv from '../models/tbl/TblLuuHoSoUv.js';
 
 export const list = async (req, res) => {
@@ -33,7 +32,6 @@ export const list = async (req, res) => {
         const adminID = req.adminID;
         const module = Number(req.body.module);
         let subSort = req.body.sort;
-        let total = 0;
         const page = req.body.page || 1;
         const pageSize = req.body.pageSize || 50;
         const skip = (page - 1) * pageSize;
@@ -811,7 +809,6 @@ export const list = async (req, res) => {
                             usc_address: 1,
                             usc_website: 1,
                             usc_active: 1,
-                            is_login: 1,
                             usc_index: 1,
                             usc_note: 1,
                             usc_city: 1,
@@ -974,7 +971,6 @@ export const list = async (req, res) => {
                             usc_address: 1,
                             usc_website: 1,
                             usc_active: 1,
-                            is_login: 1,
                             usc_index: 1,
                             usc_note: 1,
                             usc_city: 1,
@@ -1564,7 +1560,6 @@ export const count = async (req, res) => {
             // danh sách tài khoản
             if (module === 1) {
                 Table = AdminUser;
-                const total = await Table.countDocuments({ adm_loginname: { $ne: "admin" } });
                 sort = { "adm_loginname": 1, "adm_active": -1 };
                 const data = await Table.find({ adm_loginname: { $ne: "admin" } }, searchItem).sort(sort).skip(skip).limit(limit).lean();
                 for (let i = 0; i < data.length; i++) {
@@ -2192,7 +2187,6 @@ export const count = async (req, res) => {
                             usc_address: 1,
                             usc_website: 1,
                             usc_active: 1,
-                            is_login: 1,
                             usc_index: 1,
                             usc_note: 1,
                             usc_city: 1,
@@ -2899,11 +2893,6 @@ const promiseNopHoSo = (new_id) => {
     return query
 }
 
-const promisePointCom = (usc_id, time) => {
-    const query = TblPointCompany.findOne({ usc_id: usc_id, day_end: { $gt: time } }, { point_usc: 1 }).lean()
-    return query
-}
-
 export const AdminDelete = async (req, res) => {
     try {
         const module = Number(req.body.module);
@@ -3207,7 +3196,6 @@ export const DetailPinNew = async (req, res) => {
         let {
             new_id,
         } = req.body
-        const adminID = req.adminID;
         if (new_id) {
             const checkExist = await New.findOne({ new_id: Number(new_id) })
             if (checkExist) {
@@ -3846,8 +3834,6 @@ export const createAdminUser = async (req, res) => {
             const adm_id = await functions.getMaxId(AdminUser, 'adm_id')
 
             const permisionArr = JSON.parse(permision)
-            const languageArr = JSON.parse(language)
-            const categoryArr = JSON.parse(category)
 
             await AdminUserRight.deleteMany({ adu_admin_id: adm_id })
             await AdminUserLanguage.deleteMany({ aul_admin_id: adm_id })
@@ -3929,15 +3915,10 @@ export const editAdminUser = async (req, res) => {
                 }
 
                 const permisionArr = JSON.parse(permision)
-                const languageArr = JSON.parse(language)
-                const categoryArr = JSON.parse(category)
 
                 await AdminUserRight.deleteMany({ adu_admin_id: adm_id })
                 await AdminUserLanguage.deleteMany({ aul_admin_id: adm_id })
                 await AdminUserCategory.deleteMany({ auc_admin_id: adm_id })
-                let permisionArr_promise = [],
-                    languageArr_promise = [],
-                    categoryArr_promise = []
 
                 if (Array.isArray(permisionArr) && permisionArr.length > 0) {
                     for (let i = 0; i < permisionArr.length; i++) {
@@ -4626,17 +4607,6 @@ export const createEmployer_v2 = async (req, res) => {
                 day_end: 0
             });
             UserCompanyError.deleteMany({ err_usc_phone_tk: usc_phone_tk });
-
-            // Chia gio
-            await functions.addUserToCrm_v2(
-                `${process.env.DOMAIN_API_TIMVIECHAY}/${alias}`,
-                id,
-                usc_phone_tk,
-                usc_email,
-                usc_company,
-                checkAdmin?.emp_id,
-            )
-
             return functions.success(res, 'Tạo NTD thành công', { usc_id: id });
         }
         return functions.setError(res, 'Missing data', 400)

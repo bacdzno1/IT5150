@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+ 
 import "dotenv/config";
 import * as functions from '../services/functions.js';
 import NopHoSo from '../models/NopHoSo.js';
@@ -24,8 +24,6 @@ import Category from "../models/category/Category.js";
 import City from '../models/city/City.js';
 import UserVidUpload from "../models/user/UserVidUpload.js";
 import UserCompany from "../models/user/UserCompany.js";
-import path from 'node:path';
-import * as fs from 'node:fs';
 
 // quản lý chung ứng viên
 export const ManageAllCandi = async (req, res) => {
@@ -515,7 +513,6 @@ export const ManageCvCandiDidCreated = async (req, res) => {
 export const DowloadFileCVPDF = async (req, res) => {
     try {
         const iduv = req.params.iduv || -1;
-        const name = req.params.name;
         const id = req.params.id;
 
         const result = await Users.findOne({ use_id: iduv }, { use_name: 1 }).lean();
@@ -721,9 +718,6 @@ export const UpdateInfoCv = async (req, res) => {
 
             await Users.findOneAndUpdate({ use_id: iduv }, updateUsers);
 
-            const uv = await Users.findOne({ use_id: iduv })
-            // Trong tình huống UV chưa đồng bộ do thiếu CV
-            // if (uv?.idTimViec365 == 0) {
             if (checkSaveExists) {
                 await SaveCandidateCv.findOneAndUpdate({ iduser: iduv, idcv }, updateSave);
             }
@@ -1709,7 +1703,6 @@ export const UploadFile = async (req, res) => {
                     return functions.setError(res, 'File size is too large')
                 }
                 const checkExist = await UserCvUpload.findOne({ use_id: iduv })
-                const date = functions.getDate();
                 const time = functions.getTime();
                 const upload = await functions.uploadCV(`uv_${iduv}`, file.CV, time);
                 if (upload === false) return functions.setError(res, 'The CV format is invalid', 400);
@@ -1735,7 +1728,6 @@ export const UploadFile = async (req, res) => {
                     return functions.setError(res, 'File size is too large')
                 }
                 const checkExist = await UserVidUpload.findOne({ use_id: iduv })
-                const date = functions.getDate();
                 const time = functions.getTime();
                 const upload = await functions.uploadVideo(`uv_vid_${iduv}`, file.CV, time);
                 if (upload === false) return functions.setError(res, 'The CV format is invalid', 400);
@@ -1773,7 +1765,6 @@ export const infoUV = async (req, res, next) => {
         }, {
             use_mail: 1,
             use_phone: 1,
-            use_mail: 1,
             use_name: 1,
             use_city_job: 1,
             use_nganh_nghe: 1,

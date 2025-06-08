@@ -2,7 +2,6 @@ import axios from "axios";
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import path, { dirname } from "path";
-import nodeMailer from 'nodemailer';
 import * as fs from 'node:fs';
 import puppeteer from 'puppeteer';
 import Users from '../models/user/Users.js';
@@ -10,17 +9,10 @@ const tokenCRM = `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7ImlkIjoiMzMxM
 import admin from 'firebase-admin';
 import { fileURLToPath } from 'url';
 import UserTempNoAuth from '../models/user/UserTempNoAuth.js'
-import AdminUser from "../models/admin/AdminUser.js";
 import UserCompany from "../models/user/UserCompany.js";
-import { url } from "inspector";
 import * as XLSX from 'xlsx';
 import ImportantLogs from "../models/ImportantLogs.js";
 import News from "../models/blog/News.js";
-import Category from "../models/category/Category.js";
-import NganhCv from "../models/NganhCv.js";
-import City from "../models/city/City.js";
-import LanguageCv from "../models/language/LanguageCv.js";
-import UserCompanyError from "../models/user/UserCompanyError.js";
 
 // hàm khi thành công
 export const success = (res, messsage = '', data = []) => {
@@ -295,178 +287,6 @@ export const SendmailNew = async (email, subject, mailContent) => {
         console.log('Error sending email:', e);
         return false;
     }
-};
-
-// body mail quên mật khẩu ứng viên
-const bodyMailQMK_ungvien = (name, link) => {
-	return `<!DOCTYPE html
-PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Xác thực đăng ký nhà tuyển dụng</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="robots" content="noindex,nofollow" />
-</head>
-
-<body
-style="width: 100%;background-color: #eeeeee;padding: 0;margin: 0;font-family: Aria Regular,sans-serif;padding-top: 20px;padding-bottom: 20px;color: #000">
-<table style="width: 600px;margin: 0 auto;border-collapse: collapse;">
-   <tr>
-	  <td>
-		 <table width="100%" style="background: #fff;border-collapse: collapse;" cellpadding="0" cellspacing="0">
-			<tr>
-			   <td style="padding-top:18px;padding-right:20px;text-align: right;">
-				  <img width="135px" height="50px" src="http://localhost:9020/images/logo/logo.png"
-					 alt="Tìm việc làm nhanh">
-			   </td>
-			</tr>
-			<tr>
-			   <td style="padding: 40px 25px 0;">
-				  <table width="100%" cellpadding="0" cellspacing="0">
-					 <tr>
-						<td style="padding-bottom:30px">
-						   <i style="color:#04111d;font-weight: 600;font-size: 20px;">Hello <span
-								 style="color:#2767a5">${name}</span> !!!</i>
-						</td>
-					 <tr>
-						<td style="line-height: 22px;font-size: 17px;color:#030f1b;padding-bottom: 30px;">We have received your request to reset your password on our website <a
-							  style="color: #f89700">Topcv1s.com</a></td>
-					 </tr>
-					 <tr>
-						<td style="line-height: 22px;font-size: 17px;color:#030f1b;padding-bottom: 50px;">Your OTP is: ${link}</td>
-					 </tr>
-				  </table>
-			   </td>
-			</tr>
-			<tr
-			   style="background-image: url(https://work247.vn/images/fotter_mail.png);background-size: 100% 100%;background-repeat: no-repeat;">
-			   <td style="padding-left: 30px;">
-				  <table width="100%" cellpadding="0" cellspacing="0">
-					 <tr>
-						<td style="padding-bottom: 10px;font-size: 17px;color:#040f1a;font-weight: 600;">Please contact our support team for assistance</td>
-					 </tr>
-					 <tr>
-						<td style="padding-bottom: 10px;color: #2196f3;font-size:16px;font-weight: 600">
-						   <img width="27px" height="27px" style="vertical-align: middle;"
-							  src="https://work247.vn/images/mail_phone.png" alt="Hotline"> 0971.335.869 | 024
-						   36.36.66.99
-						</td>
-					 </tr>
-					 <tr>
-						<td style="padding-bottom: 30px;font-size: 17px;color:#040f1a;font-weight: 600;">
-						   Sincerely!
-						</td>
-					 </tr>
-				  </table>
-			   </td>
-			</tr>
-		 </table>
-	  </td>
-   </tr>
-   <tr>
-	  <td>
-		 <table width="100%" cellspacing="0" cellpadding="0">
-			<tr>
-			   <td style="font-weight:600;padding-top: 30px;padding-bottom:10px;text-align: center;font-size: 17px;">
-				  <b>Note :</b> This is an automated email, please do not reply</td>
-			</tr>
-			<!-- <tr>
-			   <td style="text-align: center;font-size: 17px;font-weight: 600;">Để ngừng nhận email, vui lòng click <a
-					 style="color: #f89700;text-decoration: none" href="">"tại đây"</a></td>
-			</tr> -->
-		 </table>
-	  </td>
-   </tr>
-</table>
-</body>
-
-</html>`;
-};
-
-// body mail xác thực tài khoản ứng viên
-const bodyMailAuthenCandidate = (name, link) => {
-	return `<!DOCTYPE html
-PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Xác thực đăng ký nhà tuyển dụng</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="robots" content="noindex,nofollow" />
-</head>
-
-<body
-style="width: 100%;background-color: #eeeeee;padding: 0;margin: 0;font-family: Aria Regular,sans-serif;padding-top: 20px;padding-bottom: 20px;color: #000">
-<table style="width: 600px;margin: 0 auto;border-collapse: collapse;">
-   <tr>
-	  <td>
-		 <table width="100%" style="background: #fff;border-collapse: collapse;" cellpadding="0" cellspacing="0">
-			<tr>
-			   <td style="padding-top:18px;padding-right:20px;text-align: right;">
-				  <img width="135px" height="50px" src="http://localhost:9020/images/logo/logo.png"
-					 alt="Tìm việc làm nhanh">
-			   </td>
-			</tr>
-			<tr>
-			   <td style="padding: 40px 25px 0;">
-				  <table width="100%" cellpadding="0" cellspacing="0">
-					 <tr>
-						<td style="padding-bottom:30px">
-						   <i style="color:#04111d;font-weight: 600;font-size: 20px;">Hello <span
-								 style="color:#2767a5">${name}</span> !!!</i>
-						</td>
-					 <tr>
-						<td style="line-height: 22px;font-size: 17px;color:#030f1b;padding-bottom: 30px;">We have received your account verification request on our website <a
-							  style="color: #f89700">Topcv1s.com</a></td>
-					 </tr>
-					 <tr>
-						<td style="line-height: 22px;font-size: 17px;color:#030f1b;padding-bottom: 50px;">Your OTP is: ${link}</td>
-					 </tr>
-				  </table>
-			   </td>
-			</tr>
-			<tr
-			   style="background-image: url(https://work247.vn/images/fotter_mail.png);background-size: 100% 100%;background-repeat: no-repeat;">
-			   <td style="padding-left: 30px;">
-				  <table width="100%" cellpadding="0" cellspacing="0">
-					 <tr>
-						<td style="padding-bottom: 10px;font-size: 17px;color:#040f1a;font-weight: 600;">Please contact our support team for assistance</td>
-					 </tr>
-					 <tr>
-						<td style="padding-bottom: 10px;color: #2196f3;font-size:16px;font-weight: 600">
-						   <img width="27px" height="27px" style="vertical-align: middle;"
-							  src="https://work247.vn/images/mail_phone.png" alt="Hotline"> 0971.335.869 | 024
-						   36.36.66.99
-						</td>
-					 </tr>
-					 <tr>
-						<td style="padding-bottom: 30px;font-size: 17px;color:#040f1a;font-weight: 600;">
-						   Sincerely!
-						</td>
-					 </tr>
-				  </table>
-			   </td>
-			</tr>
-		 </table>
-	  </td>
-   </tr>
-   <tr>
-	  <td>
-		 <table width="100%" cellspacing="0" cellpadding="0">
-			<tr>
-			   <td style="font-weight:600;padding-top: 30px;padding-bottom:10px;text-align: center;font-size: 17px;">
-				  <b>Note :</b> This is an automated email, please do not reply</td>
-			</tr>
-		 </table>
-	  </td>
-   </tr>
-</table>
-</body>
-
-</html>`;
 };
 
 // từ khoá ngành nghề
@@ -1118,26 +938,6 @@ export const renderPdfFromUrl = async (link, userID, idCV) => {
 
 	const page = await browser.newPage();
 	try {
-
-		// await page.setCacheEnabled(false)
-
-		// const token = await tempUserToken(userID)
-		// const cookies = [
-		// 	{
-		// 		name: 'work247_token',
-		// 		value: token,
-		// 		domain: 'job247.vn',
-		// 	},
-		// 	{
-		// 		name: 'isLogin',
-		// 		value: 'true',
-		// 		domain: 'job247.vn',
-		// 	},
-		// ]
-		// for (const cookie of cookies) {
-		// 	await page.setCookie(cookie)
-		// }
-
 		const session = await page.target().createCDPSession();
 		// const session = await page.createCDPSession();
 		await session.send('DOM.enable');
@@ -1200,7 +1000,7 @@ export const renderPdfFromUrl = async (link, userID, idCV) => {
 };
 
 // hàm render file ảnh
-export const renderImageFromUrl = async (link, path1, filePath, iduv) => {
+export const renderImageFromUrl = async (link, path1, filePath) => {
 	let returnData = false
 	const docHeight = () => {
 		const body = document.body;
@@ -1228,25 +1028,6 @@ export const renderImageFromUrl = async (link, path1, filePath, iduv) => {
 
 	const page = await browser.newPage();
 	try {
-
-		// const token = await tempUserToken(iduv)
-		// const cookies = [
-		// 	{
-		// 		name: 'work247_token',
-		// 		value: token,
-		// 		domain: 'job247.vn',
-		// 	},
-		// 	{
-		// 		name: 'isLogin',
-		// 		value: 'true',
-		// 		domain: 'job247.vn',
-		// 	},
-		// ]
-		// for (const cookie of cookies) {
-		// 	await page.setCookie(cookie)
-		// }
-
-
 		const website_url = link;
 		// Open URL in current page
 		await page.goto(website_url, { waitUntil: ['domcontentloaded', 'networkidle0'] }); // 2s, font hi?n th? d�ng
@@ -1296,27 +1077,6 @@ export const renderImageFromUrl = async (link, path1, filePath, iduv) => {
 	return returnData
 };
 
-const tempUserToken = async (iduv) => {
-	try {
-		const user = await Users.findOne({ use_id: iduv }, { use_id: 1, use_authentic: 1, use_name: 1, use_phone: 1 }).lean()
-		if (user) {
-			const data = {
-				use_id: user.use_id,
-				auth: 1,
-				type: 2,
-				// userName: user.use_name,
-				// use_phone: user.use_phone,
-				// use_logo: getAvatarCandi(user.use_create_time, user.use_logo)
-			};
-			const Token = await createToken(data, '1d');
-			return Token
-		}
-		return ''
-	} catch (error) {
-		return ''
-	}
-}
-
 // hàm lấy thời gian giây
 export const getTime = (time) => {
 	let result = 0;
@@ -1362,29 +1122,6 @@ export const callApiAddUVError = async (data, id) => {
 	} catch (error) {
 		return null;
 	}
-};
-
-// hàm convert cate sang tìm việc 365
-const convert_category = (use_nganh_nghe) => {
-	const arr = [
-		{ id: 88, data: 89 }, { id: 89, data: 91 }, { id: 90, data: 93 }, { id: 91, data: 95 },
-		{ id: 92, data: 97 }, { id: 94, data: 101 }, { id: 95, data: 103 }, { id: 97, data: 107 },
-		{ id: 98, data: 109 }, { id: 116, data: 111 }, { id: 100, data: 113 }, { id: 101, data: 115 },
-		{ id: 102, data: 119 }, { id: 103, data: 121 }, { id: 104, data: 123 }, { id: 105, data: 125 },
-		{ id: 106, data: 127 }, { id: 117, data: 129 }, { id: 107, data: 131 }, { id: 118, data: 133 },
-		{ id: 114, data: 135 }, { id: 115, data: 137 }, { id: 119, data: 139 }, { id: 108, data: 141 },
-		{ id: 112, data: 345 }, { id: 122, data: 30 }, { id: 126, data: 34 }, { id: 124, data: 50 },
-		{ id: 125, data: 33 }, { id: 126, data: 24 }, { id: 127, data: 54 }, { id: 128, data: 52 },
-		{ id: 129, data: 55 }, { id: 130, data: 14 }, { id: 131, data: 10 }, { id: 132, data: 28 },
-		{ id: 133, data: 113 }, { id: 134, data: 19 }, { id: 135, data: 44 }, { id: 120, data: 13 },
-		{ id: 121, data: 56 }, { id: 136, data: 125 }
-	];
-	const arrUseNganhNghe = use_nganh_nghe.split(',');
-	for (let i = 0; i < arrUseNganhNghe.length; i++) {
-		const data = arr.find(item => item.id == arrUseNganhNghe[i]);
-		if (data) arrUseNganhNghe[i] = data.data;
-	}
-	return arrUseNganhNghe.join(',');
 };
 
 // hàm update data học vấn user sang base tìm việc
@@ -1710,7 +1447,7 @@ export const getAvatarAdmin = (img) => {
 	}
 }
 
-export const checkAllowNoAuth = async (use_id, token) => {
+export const checkAllowNoAuth = async (use_id) => {
 	try {
 		const userNoAuth = await UserTempNoAuth.findOne({ use_id: use_id }).lean()
 		if (userNoAuth) {
@@ -1842,25 +1579,6 @@ export const renderPdfFromUrlNew = async (link) => {
 
 	const page = await browser.newPage();
 	try {
-		// await page.setCacheEnabled(false)
-
-		// const token = await tempUserToken(userID)
-		// const cookies = [
-		// 	{
-		// 		name: 'work247_token',
-		// 		value: token,
-		// 		domain: 'job247.vn',
-		// 	},
-		// 	{
-		// 		name: 'isLogin',
-		// 		value: 'true',
-		// 		domain: 'job247.vn',
-		// 	},
-		// ]
-		// for (const cookie of cookies) {
-		// 	await page.setCookie(cookie)
-		// }
-
 		const session = await page.target().createCDPSession();
 		// const session = await page.createCDPSession();
 		await session.send('DOM.enable');
@@ -2079,7 +1797,6 @@ export const getCityDistrictPhilippinesFromXlsx = () => {
         let currentProvince = '';
 
         data.slice(1).forEach(row => {
-            const stt = row[0];
             const province = row[1];
             const district = row[2];
 
@@ -2421,65 +2138,6 @@ function calculateYearDifference(inputString) {
 
 }
 
-//! Quan trọng - IMPORTANT 
-// Thông báo NTD đăng nhập
-export const notifyNtdLogin = async (idNTD) => {
-	try {
-		// const checkNtd = await UserCompany.findOne({ usc_id: Number(idNTD) })
-		// if (checkNtd) {
-		// 	const adm_id = checkNtd.usc_kd
-		// 	const checkAdmin = await AdminUser.findOne({ adm_id: adm_id })
-		// 	if (checkAdmin) {
-
-		// 		const InfoSupportTitle = "Đăng nhập"
-		// 		const message = `Xin chào, tôi tên là ${checkNtd.usc_company}, ${checkNtd.usc_phone_tk}, ${checkNtd.usc_mail}, tôi vừa đăng nhập tài khoản nhà tuyển dụng trên job247.vn, tôi cần bạn hỗ trợ! `
-		// 		const InfoSupport = {
-		// 			'Title': InfoSupportTitle,
-		// 			'Status': 0
-		// 		}
-		// 		const messageShow = `${checkNtd.usc_company} vừa đăng nhập tài khoản nhà tuyển dụng trên job247.vn`
-		// 		const LiveChat = {
-		// 			ClientId: `${checkNtd.idQLC}_liveChatV2`,
-		// 			ClientName: checkNtd.usc_company,
-		// 			FromWeb: 'job247.vn',
-		// 			FromConversation: 142015
-		// 		}
-
-		// 		const config = {
-		// 			method: 'post',
-		// 			maxBodyLength: Infinity,
-		// 			url: 'http://210.245.108.202:9000/api/message/SendMessage_v2',
-		// 			headers: {
-		// 				'Content-Type': 'application/json',
-		// 			},
-		// 			data: {
-		// 				ContactId: checkAdmin.emp_id,
-		// 				// ContactId: '22423625',
-		// 				SenderID: checkNtd.idQLC,
-		// 				Message: messageShow,
-		// 				MessageType: 'text',
-		// 				LiveChat: JSON.stringify(LiveChat),
-		// 				InfoSupport: JSON.stringify(InfoSupport),
-		// 				MessageInforSupport: message
-		// 			}
-		// 		}
-
-		// 		await axios.request(config)
-		// 			.then((res) => {
-		// 				if (res.data?.data?.result) {
-		// 					console.log('Thông báo NTD đăng nhập');
-		// 				}
-		// 			})
-		// 			.catch((error) => {
-		// 				console.log('notifyNtdLogin', error.message)
-		// 			})
-		// 	}
-		// }
-	} catch (error) {
-		console.log('notifyNtdLogin', error.message)
-	}
-}
-
 export const array_muc_luong = {
 	0: "Chọn mức lương",
 	1: "Thỏa thuận",
@@ -2671,26 +2329,6 @@ export const renderPdfFromUrlToDir = async (link, path1, filePath) => {
 
 	const page = await browser.newPage();
 	try {
-
-		// await page.setCacheEnabled(false)
-
-		// const token = await tempUserToken(userID)
-		// const cookies = [
-		// 	{
-		// 		name: 'work247_token',
-		// 		value: token,
-		// 		domain: 'job247.vn',
-		// 	},
-		// 	{
-		// 		name: 'isLogin',
-		// 		value: 'true',
-		// 		domain: 'job247.vn',
-		// 	},
-		// ]
-		// for (const cookie of cookies) {
-		// 	await page.setCookie(cookie)
-		// }
-
 		const session = await page.target().createCDPSession();
 		// const session = await page.createCDPSession();
 		await session.send('DOM.enable');
@@ -2789,110 +2427,9 @@ export const checkFetchFile = async (url) => {
     }
 }
 
-export const test = async (link) => {
+export const test = async () => {
 	try {
-		// console.time("browser launch")
-		// const browser = await puppeteer.launch({
-		// 	headless: 'chrome',
-		// 	args: [
-		// 		'--no-sandbox',
-		// 		'--disabled-setupid-sandbox',
-		// 		'--font-render-hinting=none',
-		// 		'--force-color-profile=srgb',
-		// 		'--disable-web-security',
-		// 		// '--disk-cache-size=0',
-		// 	],
-		// 	// defaultViewport: null,
-		// 	ignoreHTTPSErrors: true,
-		// });
-		// console.timeEnd("browser launch")
-
-		// console.time("page new page")
-		// const page = await browser.newPage();
-		// console.timeEnd("page new page")
-		// // await page.setCacheEnabled(false)
-
-		// // const token = await tempUserToken(userID)
-		// // const cookies = [
-		// // 	{
-		// // 		name: 'work247_token',
-		// // 		value: token,
-		// // 		domain: 'job247.vn',
-		// // 	},
-		// // 	{
-		// // 		name: 'isLogin',
-		// // 		value: 'true',
-		// // 		domain: 'job247.vn',
-		// // 	},
-		// // ]
-		// // for (const cookie of cookies) {
-		// // 	await page.setCookie(cookie)
-		// // }
-
-		// console.time("session cdp")
-		// const session = await page.target().createCDPSession();
-		// console.timeEnd("session cdp")
-		// // const session = await page.createCDPSession();
-		// console.time("session dom css")
-		// await session.send('DOM.enable');
-		// await session.send('CSS.enable');
-		// console.timeEnd("session dom css")
-		// const website_url = link;
-		// // Open URL in current page
-		// // await page.setViewport({ width: 1920, height: 1080 });
-		// console.time("page goto")
-		// await page.goto(website_url, { waitUntil: ['load', 'domcontentloaded', 'networkidle0'] }); // 2s, font hiển thị đúng
-		// console.timeEnd("page goto")
-		// // await page.reload({ waitUntil: ['load', 'domcontentloaded', 'networkidle0'] });
-		// console.time("page wait loading done")
-		// await page.waitForSelector('#loadingDone');
-		// console.timeEnd("page wait loading done")
-		// // await page.waitForSelector('')
-		// console.time("page print")
-		// await page.emulateMediaType('print');
-		// console.timeEnd("page print")
-		// console.time("page font ready")
-		// await page.evaluateHandle('document.fonts.ready');
-		// console.timeEnd("page font ready")
-
-		// // Downlaod the PDF
-		// console.time("page pdf")
-		// const pdf = await page
-		// 	.pdf({
-		// 		margin: {
-		// 			top: '0px',
-		// 			right: '0px',
-		// 			bottom: '0px',
-		// 			left: '0px',
-		// 		},
-		// 		printBackground: true,
-		// 		// preferCSSPageSize: true,
-		// 		// scale: 0.5
-		// 	})
-		// 	.then(function (data) {
-		// 		return data;
-		// 	});
-		// console.timeEnd("page pdf")
-
-		// console.time("write file")
-		// const path1 = `./services/temp`;
-		// const filePath = `./services/temp/job247.pdf`;
-		// if (!fs.existsSync(path1)) {
-		// 	fs.mkdirSync(path1, { recursive: true });
-		// }
-		// fs.writeFile(filePath, pdf, (err) => {
-		// 	if (err) {
-		// 		return false;
-		// 	}
-		// 	// console.log('pdf success')
-		// });
-		// console.timeEnd("write file")
-		// console.time("page close")
-		// await page.close()
-		// console.timeEnd("page close")
-		// console.time("browser close")
-		// await browser.close();
-		// console.timeEnd("browser close")
+		
 	} catch (error) {
 		console.log('test', error.message)
 	}

@@ -26,21 +26,9 @@ const Users = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    register_way: {
-        type: Number,
-        default: 0
-    },
     use_name: {
         type: String,
         default: null
-    },
-    is_login: {
-        type: Number,
-        default: 0
-    },
-    last_login: {
-        type: Number,
-        default: 0
     },
     use_city: {
         type: Number,

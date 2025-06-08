@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+ 
 import * as functions from '../services/functions.js';
 import * as fs from 'node:fs';
 import UserCompany from '../models/user/UserCompany.js';
@@ -18,7 +18,6 @@ import UseNgoaiNgu from '../models/use/UseNgoaiNgu.js';
 import UserTempNoAuth from '../models/user/UserTempNoAuth.js';
 import UserVidUpload from '../models/user/UserVidUpload.js';
 import TblCvPreview from '../models/tbl/TblCvPreview.js';
-import path from 'node:path';
 import SampleCv from '../models/sample/SampleCv.js';
 import jwt from 'jsonwebtoken';
 import New from '../models/new/New.js';
@@ -319,9 +318,7 @@ export const RegisterEmployers = async (req, res, next) => {
         const rePassword = req.body.rePassword;
         const nameCompany = req.body.nameCompany;
         const city = Number(req.body.city);
-        const descriptions = req.body.descriptions;
         const address = req.body.address;
-        const phone = req.body.phone;
         const file = req.files;
         const ip = req.ip;
         const arrMessage = {};
@@ -384,16 +381,6 @@ export const Login = async (req, res, next) => {
                 usc_authentic: 1, usc_logo: 1, usc_alias: 1, usc_create_time: 1, usc_company: 1, usc_logo: 1
             }).lean();
             if (check) {
-                const arrAPI = {
-                    from: 'tv365com',
-                    name: '',
-                    email: '',
-                    phone: "",
-                    address: "",
-                    city: "",
-                    district: "",
-                    group: "162",
-                };
                 const logo = functions.getAvatarNTD(check.usc_create_time, check.usc_logo);
                 await UserCompany.updateOne({ usc_id: check.usc_id }, { usc_time_signin: functions.getTime() });
                 const conditionsToken = { usc_id: check.usc_id, phone: check.usc_phone_tk, usc_email: check.usc_email, auth: check.usc_authentic, type: 1, usc_company: check.usc_company, logo };
@@ -464,10 +451,6 @@ export const EmployersForgotPass = async (req, res, next) => {
                 usc_phone: 1, usc_city: 1, usc_district: 1, usc_address: 1, usc_kd_crm: 1
             }).lean();
             if (checkExists) {
-                const arrAPI = {
-                    from: 'tv365com',
-                    group: "156",
-                };
                 const otp = functions.randomNumber();
                 if (phoneTK.includes('@')) {
                     const startDate = new Date(new Date().toISOString().slice(0, 10)).getTime() / 1000;
@@ -714,7 +697,6 @@ export const UpdateInfoEmployers = async (req, res, next) => {
         const existImage = req.body.existImage;
 
         if (nameCompany && phone && inforCompany && nameContact && addressContact && phoneContact && emailContact) {
-            const arrMessage = {};
             var messageCheck = '';
             const checkNameCom = await UserCompany.findOne({ usc_company: nameCompany, usc_md5: null, usc_id: { $ne: idNTD } }).lean();
             const checkTrung = await UserCompany.findOne({ usc_phone: phoneContact, usc_md5: null, usc_id: { $ne: idNTD } }).lean();
@@ -823,26 +805,6 @@ export const UpdateInfoEmployers = async (req, res, next) => {
                 usc_alias: functions.createLinkTilte2(nameCompany.trim())
             };
             await UserCompany.findOneAndUpdate({ usc_id: idNTD }, fields);
-            const checkCRM = await UserCompany.findOne({ usc_id: idNTD }, { usc_email: 1, usc_kd_crm: 1 }).lean();
-            const conditions = {
-                name: nameCompany,
-                email: checkCRM.usc_email,
-                phone: phone,
-                address: address,
-                city,
-                district,
-                group: 156,
-                ep_id: checkCRM.usc_kd_crm
-            };
-            const dataUpdate = {
-                'email': checkCRM.usc_email,
-                'name_ntd': nameCompany,
-                'city_id': city,
-                'district_id': district,
-                'address': address,
-                'phone': phone,
-            };
-
             return functions.success(res, "Cập nhật thông tin thành công");
         }
         return functions.setError(res, 'Missing data', 400);
@@ -1051,10 +1013,8 @@ const candidateRegister = async (data, file) => {
         }
 
         const db_max_id = await TmpUser.findOne({}, { tmp_emp: 1 }).sort({ tmp_id: -1 }).lean();
-        const last_val = db_max_id ? db_max_id.tmp_emp : 0;
 
         let new_val = 0;
-        let key = 0;
         let emp_id = 0;
 
         const tmp_id = await functions.getMaxId(TmpUser, 'tmp_id');
@@ -1072,21 +1032,6 @@ const candidateRegister = async (data, file) => {
             tmp_name: data.name,
             tmp_job_district: Array.isArray(data.jobDistrict) ? data.jobDistrict.join(',') : `${data.jobDistrict}`
         });
-        const arrAPI = {
-            name: "Chưa cập nhật",
-            city: 0,
-            email: "",
-            district: 0,
-            address: "Chưa cập nhật",
-            phone: data.phoneTK,
-            ep_id: emp_id,
-            id_cus_from: tmp_id,
-            resoure: 3,
-            status: 12,
-            from: "uv365com",
-            group: 200,
-            type: 2,
-        };
         return tmp_id;
     } catch (error) {
         console.log(error.message)
@@ -1286,8 +1231,7 @@ export const CandidateRegisterByUploadCV = async (req, res, next) => {
         if (file && file.CV && birthday && exp && bangcap && id) {
             const check = await TmpUser.findOne({ tmp_id: id }).lean();
             if (check) {
-                const { tmp_phone_tk, tmp_pass, tmp_job_name, tmp_name, tmp_job_city, tmp_image, tmp_phone, tmp_time, tmp_nganh_nghe, tmp_job_district } = check;
-                const date = functions.getDate();
+                const { tmp_phone_tk, tmp_pass, tmp_job_name, tmp_name, tmp_job_city, tmp_image, tmp_time, tmp_nganh_nghe, tmp_job_district } = check;
                 const time = functions.getTime();
                 const use_id = await functions.getMaxId(Users, 'use_id');
                 const upload = type == 1 ? (await functions.uploadCV(`uv_${use_id}`, file.CV, time)) : (await functions.uploadVideo(`uv_vid_${use_id}`, file.CV, time))
@@ -1375,9 +1319,6 @@ export const CandidateRegisterByUploadCV = async (req, res, next) => {
                     token: Token,
                 })
 
-
-                const checkUpload = await UserCvUpload.findOne({ id_upload: idupload })
-
                 return functions.success(res,
                     'Đăng ký tài khoản thành công',
                     {
@@ -1419,7 +1360,6 @@ export const CandidateRegisterByUploadCV2 = async (req, res, next) => {
             if (checkUser) {
 
                 const time = functions.getTime();
-                const date = functions.getDate();
                 const upload = type == 1 ? (await functions.uploadCV(`uv_${id}`, file.CV, time)) : (await functions.uploadVideo(`uv_vid_${id}`, file.CV, time))
 
                 await Users.findOneAndUpdate({ use_id: id }, {
@@ -1706,8 +1646,7 @@ export const LoginCandidate = async (req, res, next) => {
             }, { use_id: 1, use_authentic: 1, use_mail: 1, use_name: 1, use_phone: 1 }).lean();
             if (checkExits) {
                 await Users.updateOne({ use_id: checkExits.use_id }, {
-                    use_update_time: functions.getTime(),
-                    last_login: functions.getTime()
+                    use_update_time: functions.getTime()
                 });
 
                 const updateTV = await functions.updateTimeTv(checkExits.use_phone);
@@ -2242,13 +2181,7 @@ export const PreviewCv = async (req, res) => {
 
         const {
             idcv,
-            username,
-            jobName,
             dataCVJson,
-            phone,
-            email,
-            birthday,
-            address,
             lang,
             height_cv,
         } = req.body
@@ -2263,7 +2196,6 @@ export const PreviewCv = async (req, res) => {
             const dataCV = JSON.parse(dataCVJson).avatar;
             const jsonCV = JSON.parse(dataCVJson)
 
-            const date = functions.getDate();
             let linkNew = '';
 
             // console.log('jsonCV.avatar before', jsonCV.avatar);
@@ -2325,13 +2257,7 @@ export const previewCv2 = async (req, res) => {
 
         const {
             idcv,
-            username,
-            jobName,
             dataCVJson,
-            phone,
-            email,
-            birthday,
-            address,
             lang,
             height_cv,
         } = req.body
@@ -2461,7 +2387,6 @@ export const generatePdfAhead = async (req, res) => {
             const dataCV = JSON.parse(dataCVJson).avatar;
             const jsonCV = JSON.parse(dataCVJson)
 
-            const date = functions.getDate();
             let linkNew = '';
 
             // console.log('jsonCV.avatar before', jsonCV.avatar);
@@ -2758,14 +2683,5 @@ export const isPhoneUsedEmployer = async (req, res) => {
         }
     } catch (error) {
         return functions.setError(res, error?.message, 500)
-    }
-}
-
-// Service check uv chưa có ảnh cv => tạo lại 
-export const reGenCvImage = async () => {
-    try {
-
-    } catch (error) {
-        console.log('reGenCvImage', error.message);
     }
 }

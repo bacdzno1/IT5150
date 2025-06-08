@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+ 
 import createError from 'http-errors';
 import express from 'express';
 import cookieParser from 'cookie-parser';
@@ -13,9 +13,6 @@ import CandiRouter from './routers/candi_Route.js';
 import NewsRouter from './routers/new_Route.js';
 import admin_Route from './routers/admin_Route.js';
 import CVRouter from './routers/cv_Route.js'
-import path from 'path';
-import morgan from 'morgan';
-import * as fs from 'node:fs';
 
 const Users = express();
 const NTD = express();
@@ -46,7 +43,7 @@ function configureApp(app) {
     app.use('/upload', express.static('upload'));
     app.use('/dowload', express.static('dowload'));
     // app.use('/public', express.static('public'))
-    app.use(function (err, req, res, next) {
+    app.use(function (err, req, res) {
         res.locals.message = err.message;
         res.locals.error = req.app.get('env') === 'development' ? err : {};
         res.status(err.status || 500);
@@ -61,7 +58,7 @@ function errorApp(app) {
     });
 
     // error handler
-    app.use(function (err, req, res, next) {
+    app.use(function (err, req, res) {
         // set locals+++, only providing error in development
         res.locals.message = err.message;
         res.locals.error = req.app.get('env') === 'development' ? err : {};
