@@ -47,8 +47,6 @@ router.post('/LoginAs', functions.checkAdminToken(), Admin.LoginAs)
 // CV UV
 router.post('/getAllCandiCV', functions.checkAdminToken(), Admin.getAllCandiCV);
 
-// Ẩn hiện
-router.post('/showHide', functions.checkAdminToken(), Admin.showHide);
 
 // Từ chối ứng viên đăng ký lỗi
 router.post('/denyUserRegisterFail', functions.checkAdminToken(), Admin.denyUserRegisterFail);

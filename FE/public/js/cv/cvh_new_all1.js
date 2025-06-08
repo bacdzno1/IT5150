@@ -1,6 +1,6 @@
 var cookieToken = "accessToken";
 var cookieRfToken = "refreshtoken";
-var cookiePhone = "use_phone_tk";
+var cookiePhone = "use_phone";
 var cookieEmail = "use_mail"
 var cookieType = "type";
 var cookieStep1 = "isStep1Ok";
@@ -6644,7 +6644,7 @@ function resg_new() {
                 document.cookie = `type=2; max-age=${60 * 24 * 60 * 60}; path=/`;
                 setCookie("userName", infoUV.name, 60);
                 // document.cookie = `userName=${response.data.data.data.userName}; max-age=${60 * 24 * 60 * 60}`;
-                document.cookie = `use_phone_tk=${infoUV.phone}; max-age=${60 * 24 * 60 * 60}; path=/`;
+                document.cookie = `use_phone=${infoUV.phone}; max-age=${60 * 24 * 60 * 60}; path=/`;
                 document.cookie = `use_logo=${infoUV.avatar}; max-age=${60 * 24 * 60 * 60}; path=/`;
                 document.cookie = `isLogin=true; max-age=${60 * 24 * 60 * 60}; path=/`;
               }
@@ -6700,7 +6700,7 @@ function getAccountDetail() {
         document.cookie = `type=2; max-age=${60 * 24 * 60 * 60}; path=/`;
         setCookie("userName", response.data.data.data.userName, 60);
         // document.cookie = `userName=${response.data.data.data.userName}; max-age=${60 * 24 * 60 * 60}`;
-        document.cookie = `use_phone_tk=${infoUV.phone}; max-age=${60 * 24 * 60 * 60}; path=/`;
+        document.cookie = `use_phone=${infoUV.phone}; max-age=${60 * 24 * 60 * 60}; path=/`;
         document.cookie = `use_logo=${infoUV.avatar}; max-age=${60 * 24 * 60 * 60}; path=/`;
         document.cookie = `isLogin=true; max-age=${60 * 24 * 60 * 60}; path=/`;
       }

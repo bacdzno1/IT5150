@@ -1835,10 +1835,7 @@ export const SearchCandi = async(req, res) => {
             ]
         }
         if (hinhThuc) conditionsAI.cv_loaihinh_id = hinhThuc;
-        if (hinhThuc) conditions.work_option = hinhThuc;
         if (capBac) conditionsAI.cv_capbac_id = capBac;
-        // if (capBac) conditions.cap_bac_mong_muon = capBac;
-        if (capBac) conditions.use_hocvan = capBac; // Thiết kế mới 
         if (kinhNghiem || kinhNghiem === 0) conditions.exp_years = kinhNghiem;
         if (gioiTinh) conditions.gender = gioiTinh;
         if (district) {
@@ -1863,7 +1860,6 @@ export const SearchCandi = async(req, res) => {
         const usersWithCv = [...new Set([...usersWithCvUpload, ...usersWithSaveCandiCv])];
         conditions.use_id = { $in: usersWithCv };
         const data_promise = Users.find({
-            site_from: 0,
             use_show: 1,
             usc_search: 1,
             register: { $ne: 4 },
@@ -1885,7 +1881,6 @@ export const SearchCandi = async(req, res) => {
             is_login: 1
         }).sort({ use_update_time: -1, use_id: -1 }).skip(skip).limit(limit).lean();
         const total_promise = Users.countDocuments({
-            site_from: 0,
             use_show: 1,
             usc_search: 1,
             register: { $ne: 4 },
@@ -5610,10 +5605,7 @@ export const JobRecommend = async (req, res) => {
             cat_name: 1,
             use_job_name: 1,
             exp_years: 1,
-            work_option: 1,
-            cap_bac_mong_muon: 1,
             salary: 1,
-            muc_tieu_nghe_nghiep: 1,
             gender: 1,
             use_nganh_nghe: 1,
             use_city: 1,

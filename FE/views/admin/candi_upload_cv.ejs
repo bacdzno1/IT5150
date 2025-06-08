@@ -29,7 +29,7 @@
                 <div class="regis-candi-title fs-4 pt-4 pb-3"><b>Ứng viên tải CV lên</b></div>
                 <div class="candi-search-bar pt-2">
                     <input class="input-info" id="use_name" type="text" placeholder="Nhập tên ứng viên">
-                    <input class="input-info" id="use_email_contact" type="email" placeholder="Nhập email">
+                    <input class="input-info" id="use_mail" type="email" placeholder="Nhập email">
                     <input class="input-info" id="from" type="date" placeholder="Từ">
                     <input class="input-info" id="to" type="date" placeholder="Đến">
                     <select class="input-info" id="">
@@ -168,9 +168,9 @@
             if (use_name) {
                 conditions.use_name = use_name;
             }
-            let use_email_contact = $('#use_email_contact').val();
-            if (use_email_contact) {
-                conditions.use_email_contact = use_email_contact;
+            let use_mail = $('#use_mail').val();
+            if (use_mail) {
+                conditions.use_mail = use_mail;
             }
             let fromDate = $('#from').val();
             let toDate = $('#to').val();
@@ -219,8 +219,8 @@
                                         <td>${rowIndex}</td>
                                         <td>${candidate.use_id}</td>
                                         <td><b><a href="${slug}-uv-${candidate.use_id}" target="_blank"> ${candidate.use_name}</a></b></td>
-                                        <td>${candidate.use_email_contact}</td>
-                                        <td style="display:none">${candidate.use_phone_tk}</td>
+                                        <td>${candidate.use_mail}</td>
+                                        <td style="display:none">${candidate.use_phone}</td>
                                         <td><b><a href="${candidate.link}" target="_blank"> Link</a></b></td>
                                         <td>${dateRegis}</td>
                                         <td><img src="/images/icon/editicon.svg" width="15" height="15" alt="Save Job Icon"></td>

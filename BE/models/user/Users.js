@@ -8,18 +8,8 @@ const Users = new mongoose.Schema({
     use_mail: {
         type: String,
     },
-    use_phone_tk: {
-        //	tk ứng viên đăng ký bằng sđt
-        type: String,
-        default: null
-    },
     use_phone: {
         type: String,
-    },
-    use_email_contact: {
-        //email liên hệ
-        type: String,
-        default: null
     },
     use_pass: {
         type: String,
@@ -86,18 +76,6 @@ const Users = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    lg_honnhan: {
-        type: Number,
-        default: null
-    },
-    school_name: {
-        type: String,
-        default: null
-    },
-    rank: {
-        type: Number,
-        default: null
-    },
     exp_years: {
         type: Number,
         default: 0
@@ -105,23 +83,7 @@ const Users = new mongoose.Schema({
     salary: {
         type: Number,
         default: 0
-    },
-    work_option: {
-        type: Number,
-        default: 0
-    },
-    cap_bac_mong_muon: {
-        type: String,
-        default: null
-    },
-    muc_tieu_nghe_nghiep: {
-        type: String,
-        default: null
-    },
-    ki_nang_ban_than: {
-        type: String,
-        default: null
-    },
+    }, // Check sau
     use_view_count: {
         type: Number,
         default: 0
@@ -134,92 +96,21 @@ const Users = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    use_hocvan: {
-        type: Number,
-        default: 0
-    },
-    use_show: {
-        type: Number,
-        default: 1
-    },
-    use_lat: {
-        type: String
-    },
-    use_long: {
-        type: String
-    },
     register: {
         type: Number,
         default: 0
-    },
-    update_latlng: {
-        type: Number,
-        default: 0
-    },
+    }, // Check sau
     usc_search: {
-        type: Number,
-        default: 1
-    },
-    use_passCV: {
-        type: Number,
-        default: 0
-    },
-    use_config: {
-        type: Number,
-        default: 0
-    },
-    use_stop_mail: {
-        type: Number,
-        default: 0
-    },
-    use_sent_blog: {
-        type: Number,
-        default: 0
-    },
-    use_sent_job: {
-        type: Number,
-        default: 0
-    },
-    site_from: {
-        type: Number,
-        default: 0
-    },
-    scan_logo: {
-        type: Number,
-        default: 0
-    },
-    sent_uv: {
-        type: Number,
-        default: 0
-    },
-    use_lock: {
         type: Number,
         default: 1
     },
     tmp_id: {
         type: Number,
-        default: 0
-    },
-    quet_cds: {
-        type: Number,
-        default: 0
-    },
-    scan_ai: {
-        //1: đã đẩy dữ liệu sang api	
-        type: Number,
-        default: 0
-    },
-    idChat: {
-        type: Number,
-        default: 0
-    },
-    checkImgCV:{ // Check ảnh cv xem có chưa
+        default: 0 
+    }, // Check sau
+    checkImgCV:{
         type:Number,
         default : 1
-    },
-    timeExp: {
-        type: Number,
-        default: 0
     }
 }, {
     collection: 'Users',

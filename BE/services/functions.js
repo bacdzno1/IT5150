@@ -870,13 +870,6 @@ export const callApiAddCrm = async (data) => {
 	}
 };
 
-// hàm gọi api add ứng viên crm
-export const addUvCRM = async (data, id) => {
-	data.link_multi = `https://timviec365.vn/admin/modules/ungvien/edit_unset_crm.php?type=tv365com&id_uv=${id}`;
-	const result = await getDataAxios(`https://crm.timviec365.vn/api/customer/add`, data, tokenCRM);
-	return result;
-};
-
 // hàm copy file
 export const copyFile = async (linkOld, linkNew, pathNew) => {
 	try {
@@ -1305,14 +1298,14 @@ export const renderImageFromUrl = async (link, path1, filePath, iduv) => {
 
 const tempUserToken = async (iduv) => {
 	try {
-		const user = await Users.findOne({ use_id: iduv }, { use_id: 1, use_authentic: 1, use_name: 1, use_phone_tk: 1 }).lean()
+		const user = await Users.findOne({ use_id: iduv }, { use_id: 1, use_authentic: 1, use_name: 1, use_phone: 1 }).lean()
 		if (user) {
 			const data = {
 				use_id: user.use_id,
 				auth: 1,
 				type: 2,
 				// userName: user.use_name,
-				// use_phone_tk: user.use_phone_tk,
+				// use_phone: user.use_phone,
 				// use_logo: getAvatarCandi(user.use_create_time, user.use_logo)
 			};
 			const Token = await createToken(data, '1d');
@@ -1369,33 +1362,6 @@ export const callApiAddUVError = async (data, id) => {
 	} catch (error) {
 		return null;
 	}
-};
-
-// hàm update data base 202
-export const callApiUpdateDataBase202 = async (conditions, params) => {
-	const data = { account: params };
-	if (conditions.jobName) data.cv_title = conditions.jobName;
-	if (conditions.workOption) data.cv_loaihinh_id = conditions.workOption;
-	if (conditions.levelDesired) data.cv_capbac_id = conditions.levelDesired;
-	if (conditions.experience) data.experience = conditions.experience;
-	if (conditions.jobCity) data.cv_city_id = conditions.jobCity;
-	if (conditions.category) data.cv_cate_id = convert_category(conditions.category);
-	if (conditions.money) data.cv_money_id = conditions.money;
-	if (conditions.mtnn) data.cv_muctieu = conditions.mtnn;
-	if (conditions.knbt) data.cv_kynang = conditions.knbt;
-	if (conditions.use_name) data.name = conditions.use_name;
-	if (conditions.use_phone) data.phone = conditions.use_phone;
-	if (conditions.birthday) data.birthday = conditions.birthday;
-	if (conditions.gender) data.gender = conditions.gender;
-	if (conditions.lg_honnhan) data.married = conditions.lg_honnhan;
-	if (conditions.address) data.address = conditions.address;
-	if (conditions.use_city) data.city = conditions.use_city;
-	if (conditions.use_district) data.district = conditions.use_district;
-	if (conditions.use_email_contact) data.email_contact = conditions.use_email_contact;
-
-
-	const result = await getDataAxios(`${process.env.DOMAIN_API_SYNC_202}/api/timviec/candidate/site_vt/update`, data);
-	return result;
 };
 
 // hàm convert cate sang tìm việc 365

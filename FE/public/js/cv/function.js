@@ -1,6 +1,6 @@
 // let isLogin = getCookie('isLogin');
 let userName = getCookieNew('userName')
-let userPhone = getCookie('use_phone_tk')
+let userPhone = getCookie('use_phone')
 let userLogo = getCookieNew('use_logo')
 let userEmail = getCookie('use_mail')
 
@@ -1166,7 +1166,7 @@ const appendScript = () => {
   appendScript("/js/cv/taocv_v2.js", false);
   appendScript("/js/cv/cvh_new_all1.js", false);
   appendScript("/js/cv/edit.js", false);
-  appendScript("/js/cv/main.min.js", false);
+  appendScript("/js/cv/main.js", false);
 }
 
 function preventDefaultAction(e) {

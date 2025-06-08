@@ -33,7 +33,7 @@ function LogoutFuntion(){
     deleteCookie('refreshToken');
     deleteCookie('usc_search');
     deleteCookie('use_id');
-    deleteCookie('use_phone_tk');
+    deleteCookie('use_phone');
     deleteCookie('userName');
     deleteCookie('use_mail');
     deleteCookie('isLogin');

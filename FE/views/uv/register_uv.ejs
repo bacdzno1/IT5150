@@ -221,7 +221,7 @@
                             success: function (response) {
                                 document.cookie = `accessToken=${response.data.Token}; max-age=${60 * 24 * 60 * 60}`;
                                 document.cookie = `use_id=${response.data.use_id}; max-age=${365 * 24 * 60 * 60}`;
-                                document.cookie = `use_phone_tk=${response.data.phone}; max-age=${60 * 24 * 60 * 60}`;
+                                document.cookie = `use_phone=${response.data.phone}; max-age=${60 * 24 * 60 * 60}`;
                                 document.cookie = `type=${response.data.type}; max-age=${60 * 24 * 60 * 60}`;
                                 document.cookie = `auth=${response.data.auth}; max-age=${60 * 24 * 60 * 60}`;
                                 document.cookie = `userName=${response.data.userName}; max-age=${60 * 24 * 60 * 60}`;
@@ -291,7 +291,7 @@
                                 localStorage.setItem("userInfo", JSON.stringify(infoCV))
                                 document.cookie = `accessToken=${response.data.Token}; max-age=${60 * 24 * 60 * 60}`;
                                 document.cookie = `use_id=${response.data.use_id}; max-age=${365 * 24 * 60 * 60}`;
-                                document.cookie = `use_phone_tk=${response.data.phone}; max-age=${60 * 24 * 60 * 60}`;
+                                document.cookie = `use_phone=${response.data.phone}; max-age=${60 * 24 * 60 * 60}`;
                                 document.cookie = `type=${response.data.type}; max-age=${60 * 24 * 60 * 60}`;
                                 document.cookie = `auth=${response.data.auth}; max-age=${60 * 24 * 60 * 60}`;
                                 document.cookie = `userName=${response.data.userName}; max-age=${60 * 24 * 60 * 60}`;

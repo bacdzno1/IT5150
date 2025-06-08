@@ -28,7 +28,7 @@ function checkRegister_GgAds() {
     try {
         var typeRegister = getCookie('topcv1s_typeRegister'); // Tìm cờ trong cookie 
         // var phoneCookie = getCookie(cookiePhone); // Tìm số điện thoại ở cookie 
-        var phoneCookie = getCookie('use_phone_tk' || 'phone'); // Tìm số điện thoại ở cookie 
+        var phoneCookie = getCookie('use_phone' || 'phone'); // Tìm số điện thoại ở cookie 
         if (typeRegister && phoneCookie) {
             var phone = '+84' + String(phoneCookie.slice(1)); // format số điện thoại 
             

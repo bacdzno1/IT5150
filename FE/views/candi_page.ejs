@@ -112,12 +112,12 @@
                                                             <% if (item.use_city_job.length> 0) { %>
                                                                 <% item.use_city_job.forEach(function(city, index) { %>
                                                                     <%= city %>
-                                                                        <% if (index < item.use_city_job.length - 1) { %>, <% }
-                                                                                %>
-                                                                                <% }); %>
-                                                                                    <% } else { %>
-                                                                                        Chưa cập nhật
-                                                                                        <% } %>
+                                                                    <% if (index < item.use_city_job.length - 1) { %>, <% }
+                                                                    %>
+                                                                <% }); %>
+                                                            <% } else { %>
+                                                                Chưa cập nhật
+                                                            <% } %>
                                                         
                                                     </div>
                                                     <div class="lcandi-list-gpos d-flex align-c gap-2">

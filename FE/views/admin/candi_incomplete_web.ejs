@@ -30,7 +30,7 @@
                 <div class="candi-search-bar pt-2">
                     <input class="input-info" id="use_id" type="text" placeholder="Nhập Id">
                     <input class="input-info" id="use_name" type="text" placeholder="Nhập tên ứng viên">
-                    <input class="input-info" id="use_email_contact" type="email" placeholder="Nhập email">
+                    <input class="input-info" id="use_mail" type="email" placeholder="Nhập email">
                     <input class="input-info" id="use_phone" type="text" placeholder="Nhập SDT">
                     <input class="input-info" id="address" type="text" placeholder="Nhập địa chỉ">
                     <input class="input-info" id="from" type="date" placeholder="Từ">
@@ -171,9 +171,9 @@
             if (use_name) {
                 conditions.use_name = use_name;
             }
-            let use_email_contact = $('#use_email_contact').val();
-            if (use_email_contact) {
-                conditions.use_email_contact = use_email_contact;
+            let use_mail = $('#use_mail').val();
+            if (use_mail) {
+                conditions.use_mail = use_mail;
             }
             let use_phone = $('#use_phone').val();
             if (use_phone) {

@@ -572,7 +572,7 @@ export const DetailCV = async (req, res) => {
                     data.alias = alias
                 } else {
                     const result = await SampleCv.findOne({ id: idcv }).lean();
-                    const user = await Users.findOne({ use_id: id }, { use_mail: 1, use_phone_tk: 1, use_phone: 1, address: 1 }).lean();
+                    const user = await Users.findOne({ use_id: id }, { use_mail: 1, use_phone: 1, use_phone: 1, address: 1 }).lean();
                     data.result = result;
                     data.type = 0;
                     data.user = user;
@@ -879,7 +879,7 @@ export const DetailLetter = async (req, res) => {
             } else {
                 const result = await SampleLetter.findOne({ id: idletter }).lean();
 
-                const user = await Users.findOne({ use_id: iduser }, { use_mail: 1, use_phone_tk: 1, use_phone: 1, address: 1 }).lean();
+                const user = await Users.findOne({ use_id: iduser }, { use_mail: 1, use_phone: 1, use_phone: 1, address: 1 }).lean();
                 data.user = user;
                 data.result = result;
                 data.type = 0;
@@ -1258,34 +1258,25 @@ export const DetailCandi = async (req, res) => {
         if (id) {
             const data = await Users.findOne({ use_id: id }, {
                 use_name: 1,
-                ki_nang_ban_than: 1,
                 use_id: 1,
                 address: 1,
                 cit_name: 1,
                 cat_name: 1,
                 use_job_name: 1,
                 exp_years: 1,
-                work_option: 1,
-                cap_bac_mong_muon: 1,
                 salary: 1,
-                muc_tieu_nghe_nghiep: 1,
                 use_view_count: 1,
                 gender: 1,
                 use_create_time: 1,
                 use_logo: 1,
                 birthday: 1,
-                lg_honnhan: 1,
                 use_mail: 1,
                 use_phone: 1,
                 use_nganh_nghe: 1,
-                use_email_contact: 1,
                 use_city: 1,
                 use_district: 1,
                 use_city_job: 1,
                 use_update_time: 1,
-                use_email_contact: 1,
-                use_phone_tk: 1,
-                use_hocvan: 1,
                 use_district_job: 1,
                 use_authentic: 1,
             }).lean();
@@ -1343,11 +1334,6 @@ export const DetailCandi = async (req, res) => {
                     }
                 }
 
-                if (data.ki_nang_ban_than && data.ki_nang_ban_than !== "") {
-                    data.arr_type = '<div class="item"><a class="" data-id="hs_online">hồ sơ online</a></div>';
-                    data.arr_body = 'hs_online';
-                }
-
                 const resultCvUpload = await UserCvUpload.findOne({ use_id: id }, { link: 1, link_scan: 1 }).lean();
 
                 if (resultCvUpload) {
@@ -1392,8 +1378,7 @@ export const DetailCandi = async (req, res) => {
                 if (!iduser || !data.xemTT) {
                     data.use_mail = '';
                     data.use_phone = '';
-                    data.use_email_contact = '';
-                    data.use_phone_tk = '';
+                    data.use_mail = '';
                     data.step2_img = '';
                     data.img_full = '';
                 }
@@ -1454,8 +1439,6 @@ export const DetailCandi = async (req, res) => {
                             cat_name: 1,
                             use_job_name: 1,
                             exp_years: 1,
-                            work_option: 1,
-                            cap_bac_mong_muon: 1,
                             salary: 1,
                             use_view_count: 1,
                             gender: 1,
@@ -1466,7 +1449,6 @@ export const DetailCandi = async (req, res) => {
                             use_district: 1,
                             use_city_job: 1,
                             use_update_time: 1,
-                            use_hocvan: 1,
                             use_district_job: 1
                         }
                     },
@@ -1485,8 +1467,6 @@ export const DetailCandi = async (req, res) => {
                 //     cat_name: 1,
                 //     use_job_name: 1,
                 //     exp_years: 1,
-                //     work_option: 1,
-                //     cap_bac_mong_muon: 1,
                 //     salary: 1,
                 //     use_view_count: 1,
                 //     gender: 1,
@@ -1618,14 +1598,6 @@ const percentHoSoComplete = async (iduv) => {
             if (ngoaiNgu) percent += 12.5;
             const bangCap = await UserHocVan.findOne({ use_id: iduv }, { id_hocvan: 1 })
             if (bangCap) percent += 12.5;
-            // Thông tin cá nhân
-            if (existUser?.lg_honnhan) percent += 12.5;
-            // Kĩ năng bản thân
-            if (existUser?.ki_nang_ban_than) percent += 12.5;
-            // Mục tiêu nghề nghiệp
-            if (existUser?.muc_tieu_nghe_nghiep) percent += 12.5;
-            // Công việc mong muốn
-            if (existUser?.cap_bac_mong_muon) percent += 12.5;
 
             return percent
         } else {
@@ -1800,23 +1772,15 @@ export const infoUV = async (req, res, next) => {
             use_id: iduv
         }, {
             use_mail: 1,
-            use_phone_tk: 1,
             use_phone: 1,
-            use_email_contact: 1,
+            use_mail: 1,
             use_name: 1,
             use_city_job: 1,
             use_nganh_nghe: 1,
             use_district_job: 1,
             gender: 1,
-            lg_honnhan: 1,
-            school_name: 1,
-            rank: 1,
             exp_years: 1,
             salary: 1,
-            work_option: 1,
-            cap_bac_mong_muon: 1,
-            muc_tieu_nghe_nghiep: 1,
-            ki_nang_ban_than: 1,
             use_logo: 1,
             birthday: 1,
             use_job_name: 1,

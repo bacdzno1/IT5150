@@ -72,7 +72,7 @@ $(document).ready(function () {
             // let userName = getCookie("userName");
             let userName = getCookieNew("userName");
             let useralias = convertToAlias(userName);
-            let userPhoneTk = getCookie("use_phone_tk");
+            let userPhoneTk = getCookie("use_phone");
             let id = getCookie("use_id");
             $(".drop-defaul").hide();
             $(".nav-candi").closest(".nav-item").remove();
@@ -95,7 +95,7 @@ $(document).ready(function () {
                 deleteCookie("usc_search");
                 deleteCookie("use_id");
                 deleteCookie("use_mail");
-                deleteCookie("use_phone_tk");
+                deleteCookie("use_phone");
                 deleteCookie("userName");
                 deleteCookie("isLogin");
                 deleteCookie("confirmBoxSeen");
@@ -204,7 +204,7 @@ $("#login_uv_modal .button_login").click(function () {
                     document.cookie = `type=${response.data.data.data.type}; max-age=${60 * 24 * 60 * 60}`;
                     setCookie("userName", response.data.data.data.userName, 1440)
                     // document.cookie = `userName=${response.data.data.data.userName}; max-age=${60 * 24 * 60 * 60}`;
-                    document.cookie = `use_phone_tk=${response.data.data.data.use_phone_tk}; max-age=${60 * 24 * 60 * 60}`;
+                    document.cookie = `use_phone=${response.data.data.data.use_phone}; max-age=${60 * 24 * 60 * 60}`;
                     document.cookie = `use_mail=${response.data.data.data.use_mail}; max-age=${60 * 24 * 60 * 60}`;
                     document.cookie = `percentHoSo=${response.data.data.data.percentHoSo}; max-age=${60 * 24 * 60 * 60}`;
                     document.cookie = `use_logo=${response.data.data.data.use_logo}; max-age=${60 * 24 * 60 * 60}`;

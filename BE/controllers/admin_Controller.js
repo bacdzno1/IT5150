@@ -115,7 +115,7 @@ export const list = async (req, res) => {
             // ứng viên đăng kí mới
             if (module === 2) {
                 Table = Users;
-                condition = { register: { $ne: 4 }, site_from: 0 };
+                condition = { register: { $ne: 4 }};
                 // if (name_uv) condition.use_name = new RegExp(name_uv, 'i');
                 if (conditions?.use_nganh_nghe) {
                     conditions['use_nganh_nghe.id'] = conditions.use_nganh_nghe
@@ -127,8 +127,7 @@ export const list = async (req, res) => {
                 }
                 if (conditions?.use_id) { conditions.use_id = Number(conditions.use_id) }
                 if (conditions?.use_name) { conditions.use_name = new RegExp(conditions.use_name, 'i') }
-                if (conditions?.use_email_contact) { conditions.use_email_contact = new RegExp(conditions.use_email_contact, 'i') }
-                if (conditions?.use_phone_tk) { conditions.use_phone_tk = new RegExp(conditions.use_phone_tk, 'i') }
+                if (conditions?.use_mail) { conditions.use_mail = new RegExp(conditions.use_mailt, 'i') }
                 if (conditions?.use_phone) { conditions.use_phone = new RegExp(conditions.use_phone, 'i') }
                 functions.CompareTime(condition, 'use_create_time', from, to)
                 sort = { use_id: -1 };
@@ -238,10 +237,10 @@ export const list = async (req, res) => {
             // ứng viên sửa, cập nhật hồ sơ
             if (module === 3) {
                 Table = Users;
-                condition = { register: { $ne: 4 }, site_from: 0 };
+                condition = { register: { $ne: 4 } };
                 // if (name_uv) condition.use_name = new RegExp(name_uv, 'i');
                 if (conditions?.use_name) { conditions.use_name = new RegExp(conditions.use_name, 'i') }
-                if (conditions?.use_email_contact) { conditions.use_email_contact = new RegExp(conditions.use_email_contact, 'i') }
+                if (conditions?.use_mail) { conditions.use_mail = new RegExp(conditions.use_mail, 'i') }
                 functions.CompareTime(condition, 'use_update_time', from, to);
                 sort = { use_update_time: -1, use_id: -1 };
             }
@@ -250,10 +249,8 @@ export const list = async (req, res) => {
             // ứng viên tải CV từ máy tính cá nhân
             if (module === 4) {
                 Table = Users;
-                // condition = { use_show: 0, site_from: 0 };
-                // if (name_uv) condition.use_name = new RegExp(name_uv, 'i');
                 if (conditions?.use_name) { conditions.use_name = new RegExp(conditions.use_name, 'i') }
-                if (conditions?.use_email_contact) { conditions.use_email_contact = new RegExp(conditions.use_email_contact, 'i') }
+                if (conditions?.use_mail) { conditions.use_mail = new RegExp(conditions.use_mail, 'i') }
                 functions.CompareTime(condition, 'use_update_time', from, to);
                 sort = { use_id: -1 };
 
@@ -277,8 +274,8 @@ export const list = async (req, res) => {
                 }];
                 searchItem = {
                     use_id: 1,
-                    use_phone_tk: 1,
-                    use_email_contact: 1,
+                    use_phone: 1,
+                    use_mail: 1,
                     use_name: 1,
                     use_create_time: 1,
                     link: {
@@ -447,7 +444,7 @@ export const list = async (req, res) => {
                 searchItem = {
                     id: 1,
                     use_name: { $ifNull: ['$user.use_name', 'Chưa cập nhật'] },
-                    use_phone_tk: { $ifNull: ['$user.use_phone_tk', 'Chưa cập nhật'] },
+                    use_phone: { $ifNull: ['$user.use_phone', 'Chưa cập nhật'] },
                     new_title: { $ifNull: ['$new.new_title', 'Chưa cập nhật'] },
                     new_id: { $ifNull: ['$new.new_id', 'Chưa cập nhật'] },
                     usc_company: { $ifNull: ['$com.usc_company', 'Chưa cập nhật'] },
@@ -462,7 +459,7 @@ export const list = async (req, res) => {
             // tất cả ứng viên
             if (module === 9) {
                 Table = Users;
-                condition = { register: { $ne: 4 }, site_from: 0 };
+                condition = { register: { $ne: 4 } };
                 // if (name_uv) condition.use_name = new RegExp(name_uv, 'i');
                 if (conditions?.use_nganh_nghe) {
                     conditions['use_nganh_nghe.id'] = conditions.use_nganh_nghe
@@ -474,8 +471,8 @@ export const list = async (req, res) => {
                 }
                 if (conditions?.use_id) { conditions.use_id = Number(conditions.use_id) }
                 if (conditions?.use_name) { conditions.use_name = new RegExp(conditions.use_name, 'i') }
-                if (conditions?.use_email_contact) { conditions.use_email_contact = new RegExp(conditions.use_email_contact, 'i') }
-                if (conditions?.use_phone_tk) { conditions.use_phone_tk = new RegExp(conditions.use_phone_tk, 'i') }
+                if (conditions?.use_mail) { conditions.use_mail = new RegExp(conditions.use_mail, 'i') }
+                if (conditions?.use_phone) { conditions.use_phone = new RegExp(conditions.use_phone, 'i') }
                 if (conditions?.address) { conditions.address = new RegExp(conditions.address, 'i') }
                 if (conditions?.gender) { conditions.gender = Number(conditions.gender) }
                 if (conditions?.use_district_job) {
@@ -486,17 +483,17 @@ export const list = async (req, res) => {
                 sort = { use_id: -1 };
             }
 
-            // ứng viên bị ẩn
-            if (module === 10) {
-                Table = Users;
-                condition = { use_show: 0 };
-                // if (name_uv) condition.use_name = new RegExp(name_uv, 'i');
-                if (conditions?.use_name) { conditions.use_name = new RegExp(conditions.use_name, 'i') }
-                if (conditions?.use_email_contact) { conditions.use_email_contact = new RegExp(conditions.use_email_contact, 'i') }
-                if (conditions?.use_mail) { conditions.use_mail = new RegExp(conditions.use_mail, 'i') }
-                functions.CompareTime(condition, 'use_create_time', from, to);
-                sort = { use_id: -1 };
-            }
+            // // ứng viên bị ẩn
+            // if (module === 10) {
+            //     Table = Users;
+            //     condition = { use_show: 0 };
+            //     // if (name_uv) condition.use_name = new RegExp(name_uv, 'i');
+            //     if (conditions?.use_name) { conditions.use_name = new RegExp(conditions.use_name, 'i') }
+            //     if (conditions?.use_mail) { conditions.use_mail = new RegExp(conditions.use_mail, 'i') }
+            //     if (conditions?.use_mail) { conditions.use_mail = new RegExp(conditions.use_mail, 'i') }
+            //     functions.CompareTime(condition, 'use_create_time', from, to);
+            //     sort = { use_id: -1 };
+            // }
 
             // trạng thái ứng viên NHS
             if (module === 11) {
@@ -621,15 +618,10 @@ export const list = async (req, res) => {
                 searchItem = {
                     id: 1,
                     use_name: { $ifNull: ['$user.use_name', 'Chưa cập nhật'] },
-                    // use_phone_tk: '$user.use_phone_tk',
                     new_title: { $ifNull: ['$new.new_title', 'Chưa cập nhật'] },
                     new_id: { $ifNull: ['$new.new_id', 'Chưa cập nhật'] },
                     usc_company: { $ifNull: ['$com.usc_company', 'Chưa cập nhật'] },
                     nhs_time: 1,
-                    // usc_phone_tk: '$com.usc_phone_tk',
-                    // usc_name_email: '$com.usc_name_email',
-                    // createdAt: 1,
-                    // type: 1,
                     result: 1,
                     note: 1,
                 }
@@ -818,7 +810,6 @@ export const list = async (req, res) => {
                             usc_skype: 1,
                             usc_address: 1,
                             usc_website: 1,
-                            site_from: 1,
                             usc_active: 1,
                             is_login: 1,
                             usc_index: 1,
@@ -982,7 +973,6 @@ export const list = async (req, res) => {
                             usc_skype: 1,
                             usc_address: 1,
                             usc_website: 1,
-                            site_from: 1,
                             usc_active: 1,
                             is_login: 1,
                             usc_index: 1,
@@ -1619,7 +1609,7 @@ export const count = async (req, res) => {
             // ứng viên đăng kí mới
             if (module === 2) {
                 Table = Users;
-                condition = { register: { $ne: 4 }, site_from: 0 };
+                condition = { register: { $ne: 4 } };
                 // if (name_uv) condition.use_name = new RegExp(name_uv, 'i');
                 if (conditions?.use_nganh_nghe) {
                     conditions['use_nganh_nghe.id'] = conditions.use_nganh_nghe
@@ -1631,8 +1621,7 @@ export const count = async (req, res) => {
                 }
                 if (conditions?.use_id) { conditions.use_id = Number(conditions.use_id) }
                 if (conditions?.use_name) { conditions.use_name = new RegExp(conditions.use_name, 'i') }
-                if (conditions?.use_email_contact) { conditions.use_email_contact = new RegExp(conditions.use_email_contact, 'i') }
-                if (conditions?.use_phone_tk) { conditions.use_phone_tk = new RegExp(conditions.use_phone_tk, 'i') }
+                if (conditions?.use_mail) { conditions.use_mail = new RegExp(conditions.use_mail, 'i') }
                 if (conditions?.use_phone) { conditions.use_phone = new RegExp(conditions.use_phone, 'i') }
                 functions.CompareTime(condition, 'use_create_time', from, to)
                 sort = { use_id: -1 };
@@ -1641,10 +1630,10 @@ export const count = async (req, res) => {
             // ứng viên sửa, cập nhật hồ sơ
             if (module === 3) {
                 Table = Users;
-                condition = { register: { $ne: 4 }, site_from: 0 };
+                condition = { register: { $ne: 4 } };
                 // if (name_uv) condition.use_name = new RegExp(name_uv, 'i');
                 if (conditions?.use_name) { conditions.use_name = new RegExp(conditions.use_name, 'i') }
-                if (conditions?.use_email_contact) { conditions.use_email_contact = new RegExp(conditions.use_email_contact, 'i') }
+                if (conditions?.use_mail) { conditions.use_mail = new RegExp(conditions.use_mail, 'i') }
                 functions.CompareTime(condition, 'use_update_time', from, to);
                 sort = { use_update_time: -1, use_id: -1 };
             }
@@ -1653,10 +1642,8 @@ export const count = async (req, res) => {
             // ứng viên tải CV từ máy tính cá nhân
             if (module === 4) {
                 Table = Users;
-                // condition = { use_show: 0, site_from: 0 };
-                // if (name_uv) condition.use_name = new RegExp(name_uv, 'i');
                 if (conditions?.use_name) { conditions.use_name = new RegExp(conditions.use_name, 'i') }
-                if (conditions?.use_email_contact) { conditions.use_email_contact = new RegExp(conditions.use_email_contact, 'i') }
+                if (conditions?.use_mail) { conditions.use_mail = new RegExp(conditions.use_mail, 'i') }
                 functions.CompareTime(condition, 'use_update_time', from, to);
                 sort = { use_id: -1 };
 
@@ -1680,8 +1667,8 @@ export const count = async (req, res) => {
                 }];
                 searchItem = {
                     use_id: 1,
-                    use_phone_tk: 1,
-                    use_email_contact: 1,
+                    use_phone: 1,
+                    use_mail: 1,
                     use_name: 1,
                     use_create_time: 1,
                     link: {
@@ -1850,7 +1837,7 @@ export const count = async (req, res) => {
                 searchItem = {
                     id: 1,
                     use_name: { $ifNull: ['$user.use_name', 'Chưa cập nhật'] },
-                    use_phone_tk: { $ifNull: ['$user.use_phone_tk', 'Chưa cập nhật'] },
+                    use_phone: { $ifNull: ['$user.use_phone', 'Chưa cập nhật'] },
                     new_title: { $ifNull: ['$new.new_title', 'Chưa cập nhật'] },
                     usc_company: { $ifNull: ['$com.usc_company', 'Chưa cập nhật'] },
                     usc_phone_tk: { $ifNull: ['$com.usc_phone_tk', 'Chưa cập nhật'] },
@@ -1863,7 +1850,7 @@ export const count = async (req, res) => {
             // tất cả ứng viên
             if (module === 9) {
                 Table = Users;
-                condition = { register: { $ne: 4 }, site_from: 0 };
+                condition = { register: { $ne: 4 } };
                 // if (name_uv) condition.use_name = new RegExp(name_uv, 'i');
                 if (conditions?.use_nganh_nghe) {
                     conditions['use_nganh_nghe.id'] = conditions.use_nganh_nghe
@@ -1875,8 +1862,8 @@ export const count = async (req, res) => {
                 }
                 if (conditions?.use_id) { conditions.use_id = Number(conditions.use_id) }
                 if (conditions?.use_name) { conditions.use_name = new RegExp(conditions.use_name, 'i') }
-                if (conditions?.use_email_contact) { conditions.use_email_contact = new RegExp(conditions.use_email_contact, 'i') }
-                if (conditions?.use_phone_tk) { conditions.use_phone_tk = new RegExp(conditions.use_phone_tk, 'i') }
+                if (conditions?.use_mail) { conditions.use_mail = new RegExp(conditions.use_mail, 'i') }
+                if (conditions?.use_phone) { conditions.use_phone = new RegExp(conditions.use_phone, 'i') }
                 if (conditions?.address) { conditions.address = new RegExp(conditions.address, 'i') }
                 if (conditions?.gender) { conditions.gender = Number(conditions.gender) }
                 if (conditions?.use_district_job) {
@@ -1887,16 +1874,16 @@ export const count = async (req, res) => {
                 sort = { tmp_id: -1 };
             }
 
-            // ứng viên bị ẩn
-            if (module === 10) {
-                Table = Users;
-                condition = { use_show: 0 };
-                // if (name_uv) condition.use_name = new RegExp(name_uv, 'i');
-                if (conditions?.use_name) { conditions.use_name = new RegExp(conditions.use_name, 'i') }
-                if (conditions?.use_email_contact) { conditions.use_email_contact = new RegExp(conditions.use_email_contact, 'i') }
-                functions.CompareTime(condition, 'use_create_time', from, to);
-                sort = { tmp_id: -1 };
-            }
+            // // ứng viên bị ẩn
+            // if (module === 10) {
+            //     Table = Users;
+            //     condition = { use_show: 0 };
+            //     // if (name_uv) condition.use_name = new RegExp(name_uv, 'i');
+            //     if (conditions?.use_name) { conditions.use_name = new RegExp(conditions.use_name, 'i') }
+            //     if (conditions?.use_mail) { conditions.use_mail = new RegExp(conditions.use_mail, 'i') }
+            //     functions.CompareTime(condition, 'use_create_time', from, to);
+            //     sort = { tmp_id: -1 };
+            // }
 
             // trạng thái ứng viên NHS
             if (module === 11) {
@@ -2021,13 +2008,8 @@ export const count = async (req, res) => {
                 searchItem = {
                     id: 1,
                     use_name: { $ifNull: ['$user.use_name', 'Chưa cập nhật'] },
-                    // use_phone_tk: '$user.use_phone_tk',
                     new_title: { $ifNull: ['$new.new_title', 'Chưa cập nhật'] },
                     usc_company: { $ifNull: ['$com.usc_company', 'Chưa cập nhật'] },
-                    // usc_phone_tk: '$com.usc_phone_tk',
-                    // usc_name_email: '$com.usc_name_email',
-                    // createdAt: 1,
-                    // type: 1,
                     result: 1,
                     note: 1,
                 }
@@ -2209,7 +2191,6 @@ export const count = async (req, res) => {
                             usc_skype: 1,
                             usc_address: 1,
                             usc_website: 1,
-                            site_from: 1,
                             usc_active: 1,
                             is_login: 1,
                             usc_index: 1,
@@ -2359,22 +2340,6 @@ export const count = async (req, res) => {
                     {
                         $project: {
                             usc_id: 1,
-                            // usc_company: 1,
-                            // usc_phone_tk: 1,
-                            // usc_email: 1,
-                            // usc_name_phone: 1,
-                            // usc_name_email: 1,
-                            // usc_skype: 1,
-                            // usc_address: 1,
-                            // usc_website: 1,
-                            // site_from: 1,
-                            // usc_active: 1,
-                            // is_login: 1,
-                            // usc_index: 1,
-                            // usc_note: 1,
-                            // usc_city: 1,
-                            // usc_district: 1,
-                            // usc_authentic: 1,
                         }
                     }
 
@@ -3005,23 +2970,6 @@ export const Login = async (req, res) => {
     }
 }
 
-export const createUV = async (req, res) => {
-    try {
-        const {
-            use_name,
-            use_phone_tk,
-            birthday,
-            gender,
-            lg_honnhan,
-            use_city_job,
-            use_district_job,
-        } = req.body
-
-    } catch (error) {
-        return functions.setError(res, error.message)
-    }
-}
-
 // Tạo gói điểm
 export const CreatePoint = async (req, res) => {
     try {
@@ -3345,7 +3293,7 @@ export const LoginAs = async (req, res) => {
                 if (checkExits) {
                     const data = {
                         id: checkExits.use_id,
-                        phone: checkExits.use_phone_tk,
+                        phone: checkExits.use_phone,
                         name: checkExits.use_name,
                         auth: checkExits.use_authentic,
                         type: 2,
@@ -3420,46 +3368,6 @@ export const getAllCandiCV = async (req, res) => {
                 data,
                 total
             })
-        }
-        return functions.setError(res, 'Missing data', 400)
-    } catch (error) {
-        return functions.setError(res, error.message)
-    }
-}
-
-// Ẩn, hiện NTD, UV
-export const showHide = async (req, res) => {
-    try {
-        let {
-            id,
-            type,
-            show,
-        } = req.body
-        type = Number(type)
-        show = Number(show)
-        id = Number(id)
-        if (id && !isNaN(type) && !isNaN(show)) {
-            if (type === 1) { // ntd
-                const checkExist = await UserCompany.findOne({ usc_id: id }).lean()
-                if (checkExist) {
-                    await UserCompany.updateOne({ usc_id: id }, {
-                        $set: {
-                            usc_show: show
-                        }
-                    })
-                }
-            }
-            if (type === 2) { // uv
-                const checkExist = await Users.findOne({ use_id: id }).lean()
-                if (checkExist) {
-                    await Users.updateOne({ use_id: id }, {
-                        $set: {
-                            use_show: show
-                        }
-                    })
-                }
-            }
-            return functions.setError(res, 'Not found', 404)
         }
         return functions.setError(res, 'Missing data', 400)
     } catch (error) {

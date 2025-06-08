@@ -30,7 +30,7 @@
                 <div class="candi-search-bar pt-2">
                     <input class="input-info" id="use_id" type="text" placeholder="Nhập ID">
                     <input class="input-info" id="use_name" type="text" placeholder="Nhập tên ứng viên">
-                    <input class="input-info" id="use_email_contact" type="email" placeholder="Nhập email">
+                    <input class="input-info" id="use_mail" type="email" placeholder="Nhập email">
                     <input class="input-info" id="use_phone" type="text" placeholder="Nhập SĐT">
                     <input class="input-info" id="address" type="text" placeholder="Nhập địa chỉ">
                     <select class="input-info" id="use_nganh_nghe">
@@ -201,9 +201,9 @@
             if (use_name) {
                 conditions.use_name = use_name;
             }
-            let use_email_contact = $('#use_email_contact').val();
-            if (use_email_contact) {
-                conditions.use_email_contact = use_email_contact;
+            let use_mail = $('#use_mail').val();
+            if (use_mail) {
+                conditions.use_mail = use_mail;
             }
             let use_phone = $('#use_phone').val();
             if (use_phone) {
@@ -270,9 +270,9 @@
                                         <td>${rowIndex}</td>
                                         <td>${candidate.use_id}</td>
                                         <td><b><a href="${slug}-uv-${candidate.use_id}" target="_blank"> ${candidate.use_name}</a></b></td>
-                                        <td>${candidate.use_email_contact}</td>
-                                        <td style="display:none">${candidate.use_phone_tk}</td>
-                                        <td style="">${candidate.use_phone ? candidate.use_phone : candidate.use_phone_tk ? candidate.use_phone_tk : "Chưa cập nhật"}</td>
+                                        <td>${candidate.use_mail}</td>
+                                        <td style="display:none">${candidate.use_phone}</td>
+                                        <td style="">${candidate.use_phone ? candidate.use_phone : candidate.use_phone ? candidate.use_phone : "Chưa cập nhật"}</td>
                                         <td>${candidate.use_job_name}</td>
                                         <td>${dateRegis}</td>
                                         <td>${candidate.use_authentic == 0 ? '<img src="/images/icon/checkx.svg" width="15" height="15" alt="X Icon">' : '<img src="/images/icon/check.svg" width="15" height="15" alt="Save Job Icon">'}</td>

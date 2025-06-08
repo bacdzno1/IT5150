@@ -868,7 +868,7 @@ export const RegisterCandidate = async (req, res, next) => {
             if (checkPhoneTK) {
                 const checkPassWord = functions.checkPassWord(password);
                 if (checkPassWord) {
-                    const checkExists = await Users.findOne({ use_phone_tk: phoneTK }, { use_phone_tk: 1 }).lean();
+                    const checkExists = await Users.findOne({ use_phone: phoneTK }, { use_phone: 1 }).lean();
                     if (!checkExists) {
                         // Luồng mới: Đăng ký bước 1 là đăng ký luôn 
 
@@ -921,7 +921,7 @@ export const RegisterCandidate2 = async (req, res, next) => {
             const checkPhoneTK = await functions.checkPhone(phoneTK);
             const checkPassWord = functions.checkPassWord(password);
             const checkExistsEmail = await Users.findOne({ use_mail: email }, { use_mail: 1 }).lean();
-            const checkExistsPhone = await Users.findOne({ use_phone_tk: phoneTK }, { use_phone_tk: 1 }).lean();
+            const checkExistsPhone = await Users.findOne({ use_phone: phoneTK }, { use_phone: 1 }).lean();
             if (!checkPhoneTK) {
                 return functions.setError(res, "Nhập đúng định dạng số điện thoại.", 400);
             }
@@ -963,7 +963,7 @@ export const RegisterCandidate2 = async (req, res, next) => {
 
             await Users.create({
                 use_id,
-                use_phone_tk: phoneTK,
+                use_phone: phoneTK,
                 use_pass: functions.createMd5(password),
                 use_time: time,
                 use_authentic: 0,
@@ -972,9 +972,7 @@ export const RegisterCandidate2 = async (req, res, next) => {
                 use_nganh_nghe: arrNganhNghe,
                 use_create_time: time,
                 use_update_time: time,
-                use_config: 3,
                 use_logo: logo,
-                use_email_contact: email,
                 // birthday: new Date(birthday).getTime() / 1000,
                 // exp_years: exp,
                 use_show: 1,
@@ -1089,7 +1087,6 @@ const candidateRegister = async (data, file) => {
             group: 200,
             type: 2,
         };
-        functions.addUvCRM(arrAPI, tmp_id);
         return tmp_id;
     } catch (error) {
         console.log(error.message)
@@ -1182,7 +1179,7 @@ export const CandidateRegisterByCVOnline = async (req, res, next) => {
                 const userName = JSON.parse(cv).name.replaceAll('+', ' ');
                 await Users.create({
                     use_id,
-                    use_phone_tk: tmp_phone_tk,
+                    use_phone: tmp_phone_tk,
                     use_pass: tmp_pass,
                     use_time: tmp_time,
                     use_authentic: 0,
@@ -1191,7 +1188,6 @@ export const CandidateRegisterByCVOnline = async (req, res, next) => {
                     use_nganh_nghe: arrNganhNghe,
                     use_create_time: tmp_time,
                     use_update_time: tmp_time,
-                    use_config: 3,
                     tmp_id: id,
                     use_logo: tmp_image,
                     use_name: userName,
@@ -1318,7 +1314,7 @@ export const CandidateRegisterByUploadCV = async (req, res, next) => {
                 }
                 await Users.create({
                     use_id,
-                    use_phone_tk: tmp_phone_tk,
+                    use_phone: tmp_phone_tk,
                     use_pass: tmp_pass,
                     use_time: tmp_time,
                     use_authentic: 0,
@@ -1327,7 +1323,6 @@ export const CandidateRegisterByUploadCV = async (req, res, next) => {
                     use_nganh_nghe: arrNganhNghe,
                     use_create_time: tmp_time,
                     use_update_time: tmp_time,
-                    use_config: 3,
                     tmp_id: id,
                     use_logo: tmp_image,
                     birthday: new Date(birthday).getTime() / 1000,
@@ -1521,8 +1516,8 @@ export const CreateCVInOrderToRegister = async (req, res, next) => {
                 const checkPassWord = functions.checkPassWord(password);
                 if (checkPassWord) {
                     if (password === rePassword) {
-                        const checkExistsEmail = await Users.findOne({ use_email_contact: email }, { use_phone_tk: 1 }).lean();
-                        const checkExistsPhone = await Users.findOne({ use_phone_tk: phone }, { use_phone_tk: 1 }).lean();
+                        const checkExistsEmail = await Users.findOne({ use_mail: email }, { use_phone: 1 }).lean();
+                        const checkExistsPhone = await Users.findOne({ use_phone: phone }, { use_phone: 1 }).lean();
                         if (checkExistsEmail) {
             
                             return functions.setError(res, "Email này đã được sử dụng, vui lòng kiểm tra lại.", 400);
@@ -1533,10 +1528,10 @@ export const CreateCVInOrderToRegister = async (req, res, next) => {
                         }
                         const checkExists = await Users.findOne({
                             $or: [
-                                { use_phone_tk: phone },
-                                { use_email_contact: email }
+                                { use_phone: phone },
+                                { use_mail: email }
                             ],
-                        }, { use_phone_tk: 1 }).lean();
+                        }, { use_phone: 1 }).lean();
                         ddlv.split(',').map(item => arrCityJob.push({ id: item.trim() }));
                         nganhNghe.split(',').map(item => arrNganhNghe.push({ id: item.trim() }));
                         district.split(',').map(item => arrDistrictJob.push({ id: item.trim() }));
@@ -1566,8 +1561,7 @@ export const CreateCVInOrderToRegister = async (req, res, next) => {
                             const new_user = await Users.create({
                                 use_id,
                                 use_phone: phone,
-                                use_phone_tk: phone,
-                                use_email_contact: email,
+                                use_mail: email,
                                 use_pass: functions.createMd5(password),
                                 use_time: time,
                                 use_authentic: 0,
@@ -1578,7 +1572,6 @@ export const CreateCVInOrderToRegister = async (req, res, next) => {
                                 use_nganh_nghe: arrNganhNghe,
                                 use_create_time: time,
                                 use_update_time: time,
-                                use_config: 3,
                                 use_res: 1,
                                 use_logo: logo,
                                 use_district_job: arrDistrictJob,
@@ -1706,18 +1699,18 @@ export const LoginCandidate = async (req, res, next) => {
         if (user_name, password) {
             const checkExits = await Users.findOne({
                 $or: [
-                    { use_phone_tk: user_name },
-                    { $expr: { $eq: [{ $toLower: "$use_email_contact" }, user_name] } }
+                    { use_phone: user_name },
+                    { $expr: { $eq: [{ $toLower: "$use_mail" }, user_name] } }
                 ],
                 use_pass: functions.createMd5(password)
-            }, { use_id: 1, use_authentic: 1, use_email_contact: 1, use_name: 1, use_phone_tk: 1 }).lean();
+            }, { use_id: 1, use_authentic: 1, use_mail: 1, use_name: 1, use_phone: 1 }).lean();
             if (checkExits) {
                 await Users.updateOne({ use_id: checkExits.use_id }, {
                     use_update_time: functions.getTime(),
                     last_login: functions.getTime()
                 });
 
-                const updateTV = await functions.updateTimeTv(checkExits.use_phone_tk);
+                const updateTV = await functions.updateTimeTv(checkExits.use_phone);
                 console.log(updateTV)
 
                 // Mức độ hoàn thiện hồ sơ
@@ -1728,8 +1721,8 @@ export const LoginCandidate = async (req, res, next) => {
                     auth: checkExits.use_authentic,
                     type: 2,
                     userName: checkExits.use_name,
-                    use_phone_tk: checkExits.use_phone_tk,
-                    use_mail: checkExits.use_email_contact,
+                    use_phone: checkExits.use_phone,
+                    use_mail: checkExits.use_mail,
                     percentHoSo: percentHoSo,
                     use_logo: functions.getAvatarCandi(checkExits.use_create_time, checkExits.use_logo)
                 };
@@ -1762,8 +1755,8 @@ export const ForgotPassUv = async (req, res, next) => {
         if (username) {
             const checkExists = await Users.findOne({
                 $or: [
-                    { use_phone_tk: username },
-                    { $expr: { $eq: [{ $toLower: "$use_email_contact" }, username] } }
+                    { use_phone: username },
+                    { $expr: { $eq: [{ $toLower: "$use_mail" }, username] } }
                 ],
             }, { use_id: 1, use_pass: 1, use_name: 1 }).lean();
             if (checkExists) {
@@ -1797,7 +1790,7 @@ export const ForgotPassUv = async (req, res, next) => {
                         });
 
                         await Users.updateOne({
-                            use_email_contact: username,
+                            use_mail: username,
                         }, { use_otp: otp });
 
                         // Gửi OTP qua email
@@ -1838,7 +1831,7 @@ export const ForgotPassUv = async (req, res, next) => {
                             type: 0
                         });
                         await Users.updateOne({
-                            use_phone_tk: username,
+                            use_phone: username,
                         }, { use_otp: otp });
                         functions.sendOtpSMS(username, otp);
                         return functions.success(res, "Hãy xác thực OTP.", { id: checkExists.use_id });
@@ -2073,8 +2066,8 @@ export const GetAuthenticateOtp = async (req, res) => {
         if (type == 2) {
             const checkExists = await Users.findOne({
                 $or: [
-                    { use_phone_tk: username },
-                    { use_email_contact: username }
+                    { use_phone: username },
+                    { use_mail: username }
                 ],
             }, { use_id: 1, use_pass: 1, use_name: 1 }).lean();
             if (checkExists) {
@@ -2106,7 +2099,7 @@ export const GetAuthenticateOtp = async (req, res) => {
                         type: 1
                     });
                     await Users.updateOne({
-                        use_email_contact: username,
+                        use_mail: username,
                     }, { use_otp: otp });
                     // Gửi OTP qua email
                     functions.SendOtpMail(username, otp)
@@ -2201,14 +2194,6 @@ const percentHoSoComplete = async (iduv) => {
             if (ngoaiNgu) percent += 12.5;
             const bangCap = await UserHocVan.findOne({ use_id: iduv }, { id_hocvan: 1 })
             if (bangCap) percent += 12.5;
-            // Thông tin cá nhân
-            if (existUser?.lg_honnhan) percent += 12.5;
-            // Kĩ năng bản thân
-            if (existUser?.ki_nang_ban_than) percent += 12.5;
-            // Mục tiêu nghề nghiệp
-            if (existUser?.muc_tieu_nghe_nghiep) percent += 12.5;
-            // Công việc mong muốn
-            if (existUser?.cap_bac_mong_muon) percent += 12.5;
 
             return percent
         } else {
@@ -2693,17 +2678,16 @@ export const getAccountDetail = async (req, res) => {
                         auth: checkExists?.use_authentic,
                         type: 2,
                         userName: checkExists?.use_name,
-                        use_phone_tk: checkExists?.use_phone_tk,
+                        use_phone: checkExists?.use_phone,
                     }
                     const Token = await functions.createToken(tokenObj, '60d');
                     returnData = {
                         name: checkExists?.use_name,
-                        phone: checkExists?.use_phone_tk,
+                        phone: checkExists?.use_phone,
                         avatar: functions.getAvatarCandi(checkExists?.use_create_time, checkExists?.use_logo) || '/images/candidate/ava_default.png',
                         auth: checkExists?.use_authentic,
                         use_mail: checkExists?.use_mail,
-                        use_phone_contact: checkExists?.use_phone,
-                        use_email_contact: checkExists?.use_email_contact,
+                        use_phone: checkExists?.use_phone,
                         use_city_job: checkExists?.use_city_job,
                         use_nganh_nghe: checkExists?.use_nganh_nghe,
                         use_district_job: checkExists?.use_district_job,
@@ -2711,15 +2695,8 @@ export const getAccountDetail = async (req, res) => {
                         use_district: checkExists?.use_district,
                         gender: checkExists?.gender,
                         address: checkExists?.address,
-                        lg_honnhan: checkExists?.lg_honnhan,
-                        school_name: checkExists?.school_name,
-                        rank: checkExists?.rank,
                         exp_years: checkExists?.exp_years,
                         salary: checkExists?.salary,
-                        work_option: checkExists?.work_option,
-                        cap_bac_mong_muon: checkExists?.cap_bac_mong_muon,
-                        muc_tieu_nghe_nghiep: checkExists?.muc_tieu_nghe_nghiep,
-                        ki_nang_ban_than: checkExists?.ki_nang_ban_than,
                         birthday: checkExists?.birthday,
                         use_job_name: checkExists?.use_job_name,
                         Token: Token,
