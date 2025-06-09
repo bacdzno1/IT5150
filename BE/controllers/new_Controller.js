@@ -96,34 +96,6 @@ export const PostNew = async(req, res) => {
         // email liên hệ
         const emailContact = req.body.emailContact;
 
-        // console.log(
-        //     'idNTD:', `${idNTD}\n`,
-        //     'title:', `${title}\n`,
-        //     'capBac:', `${capBac}\n`,
-        //     'catId:', `${catId}\n`,
-        //     'tag:', `${tag}\n`,
-        //     'city:', `${city}\n`,
-        //     'district:', `${district}\n`,
-        //     'address:', `${address}\n`,
-        //     'hinhThuc:', `${hinhThuc}\n`,
-        //     'money:', `${money}\n`,
-        //     'soLuong:', `${soLuong}\n`,
-        //     'thuViec:', `${thuViec}\n`,
-        //     'hoaHong:', `${hoaHong}\n`,
-        //     'moTa:', `${moTa}\n`,
-        //     'exp:', `${exp}\n`,
-        //     'bangCap:', `${bangCap}\n`,
-        //     'gioiTinh:', `${gioiTinh}\n`,
-        //     'yeuCau:', `${yeuCau}\n`,
-        //     'quyenLoi:', `${quyenLoi}\n`,
-        //     'hoSo:', `${hoSo}\n`,
-        //     'hanNop:', `${hanNop}\n`,
-        //     'userContact:', `${userContact}\n`,
-        //     'addressContact:', `${addressContact}\n`,
-        //     'phoneContact:', `${phoneContact}\n`,
-        //     'emailContact:', `${emailContact}\n`,
-        // )
-
         console.log('>>> check city: ', city, "district: ", district)
 
         if (title && capBac && catId && city &&

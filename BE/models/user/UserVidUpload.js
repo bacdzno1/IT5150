@@ -15,10 +15,6 @@ const UserVidUpload = new mongoose.Schema({
         type: String,
         default: 0
     },
-    scanned: {
-        type: Number,
-        default: 0
-    },
     link_scan: {
         type: String,
         default: null

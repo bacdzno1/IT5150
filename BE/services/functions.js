@@ -877,7 +877,6 @@ export const hideInfoCV = async (id, link, UserCvUpload) => {
 				if (element && element.link) {
 					await UserCvUpload.findOneAndUpdate({ id_upload: element.id }, {
 						link_scan: element.link,
-						scanned: 1
 					});
 					link = element.link
 				}
