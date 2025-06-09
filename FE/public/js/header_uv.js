@@ -29,7 +29,6 @@ function LogoutFuntion(){
     deleteCookie('auth');
     deleteCookie('use_logo');
     deleteCookie('type');
-    deleteCookie('percentHoSo');
     deleteCookie('refreshToken');
     deleteCookie('usc_search');
     deleteCookie('use_id');

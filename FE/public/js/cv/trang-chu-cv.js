@@ -181,7 +181,7 @@ $(document).ready(function () {
             const id = getCookie("use_id");
             const token = getCookie("accessToken");
             $.ajax({
-              url: 'http://localhost:3052/api/topcv1s/candidate/detailCV',
+              url: 'http://localhost:3052/api/topcv1s/candidate/DetailCV',
               type: 'POST',
               data: { idcv: idcv, id: id },
               beforeSend: function (request) {

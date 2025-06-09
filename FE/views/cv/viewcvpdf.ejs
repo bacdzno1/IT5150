@@ -57,7 +57,7 @@
             $('title').text(`http://localhost:9020/xem-cv2-u${id}-c${idcv}`)
 
             $.ajax({
-                url: "http://localhost:3052/api/topcv1s/candidate/detailCV",
+                url: "http://localhost:3052/api/topcv1s/candidate/DetailCV",
                 type: "POST",
                 data: { idcv: idcv, id: id },
                 success: function (result) {

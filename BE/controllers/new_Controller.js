@@ -1844,7 +1844,6 @@ export const SearchCandi = async(req, res) => {
         const usersWithCv = [...new Set([...usersWithCvUpload, ...usersWithSaveCandiCv])];
         conditions.use_id = { $in: usersWithCv };
         const data_promise = Users.find({
-            use_show: 1,
             usc_search: 1,
             register: { $ne: 4 },
             ...conditions
@@ -1864,7 +1863,6 @@ export const SearchCandi = async(req, res) => {
             exp_years: 1
         }).sort({ use_update_time: -1, use_id: -1 }).skip(skip).limit(limit).lean();
         const total_promise = Users.countDocuments({
-            use_show: 1,
             usc_search: 1,
             register: { $ne: 4 },
             ...conditions

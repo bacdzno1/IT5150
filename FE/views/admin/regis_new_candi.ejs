@@ -242,7 +242,7 @@
                 data: JSON.stringify({
                     page: page,
                     pageSize: pageSize,
-                    module: 2,
+                    module: 1,
                     conditions: conditions,
                     from: from, 
                     to: to
@@ -276,7 +276,7 @@
                                         <td>${candidate.use_job_name}</td>
                                         <td>${dateRegis}</td>
                                         <td>${candidate.use_authentic == 0 ? '<img src="/images/icon/checkx.svg" width="15" height="15" alt="X Icon">' : '<img src="/images/icon/check.svg" width="15" height="15" alt="Save Job Icon">'}</td>
-                                        <td>${candidate.use_show == 0 ? '<img src="/images/icon/checkx.svg" width="15" height="15" alt="X Icon">' : '<img src="/images/icon/check.svg" width="15" height="15" alt="Save Job Icon">'}</td>
+                                        <td>${candidate.usc_search == 0 ? '<img src="/images/icon/checkx.svg" width="15" height="15" alt="X Icon">' : '<img src="/images/icon/check.svg" width="15" height="15" alt="Save Job Icon">'}</td>
                                     </tr>`;
                             tableBody.append(row);
                         });

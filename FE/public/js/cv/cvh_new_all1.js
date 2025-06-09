@@ -3917,7 +3917,6 @@ function setMultipleCookie(
   email,
   logo,
   rf_token,
-  percentHoSo = ""
 ) {
   setCookie(cookieToken, token, 60);
   setCookie(cookieId, id.toString(), 60);
@@ -3926,7 +3925,6 @@ function setMultipleCookie(
   setCookie(cookiePhone, phone, 60);
   setCookie(cookieEmail, email, 60);
   setCookieNew(cookieName, name, 60);
-  setCookie("percentHoSo", percentHoSo, 60);
   logo && setCookieNew(cookieLogo, logo, 60);
   rf_token && setCookie(cookieRfToken, rf_token, 60);
   setCookie(cookieLogin, "true", 60);

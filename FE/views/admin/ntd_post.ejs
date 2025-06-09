@@ -217,7 +217,7 @@
                 data: JSON.stringify({
                     page: page,
                     pageSize: pageSize,
-                    module: 20,
+                    module: 4,
                     conditions: conditions,
                     from: from, 
                     to: to
@@ -361,7 +361,7 @@
             },
             contentType: "application/json",
             data: JSON.stringify({
-                page: 1, pageSize: pageSize, module: 20
+                page: 1, pageSize: pageSize, module: 4
             }),
             success: function (response) {
                 if (response.data.result == true) {

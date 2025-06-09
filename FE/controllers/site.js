@@ -86,12 +86,6 @@ exports.candi_page = async (req, res) => {
     const city = req.query.city;
     const catid = req.query.catid;
     const name = req.query.name;
-    const district = req.query.district;
-    const exp = req.query.exp;
-    const money = req.query.money;
-    const address = req.query.address;
-    const level = req.query.level;
-    const type = req.query.type;
     const pageSize = 10;
     const page = req.query.page || 1;
     const accessToken = req.cookies.accessToken;

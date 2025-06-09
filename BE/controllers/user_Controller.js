@@ -937,7 +937,6 @@ export const RegisterCandidate2 = async (req, res, next) => {
                 use_logo: logo,
                 // birthday: new Date(birthday).getTime() / 1000,
                 // exp_years: exp,
-                use_show: 1,
                 use_name: name,
                 use_district_job: arrDistrictJob,
                 use_mail: email,
@@ -1268,7 +1267,6 @@ export const CandidateRegisterByUploadCV = async (req, res, next) => {
                     use_logo: tmp_image,
                     birthday: new Date(birthday).getTime() / 1000,
                     exp_years: exp,
-                    use_show: 1,
                     use_name: tmp_name,
                     use_district_job: arrDistrictJob,
                 });
@@ -1649,9 +1647,6 @@ export const LoginCandidate = async (req, res, next) => {
                 const updateTV = await functions.updateTimeTv(checkExits.use_phone);
                 console.log(updateTV)
 
-                // Mức độ hoàn thiện hồ sơ
-                const percentHoSo = await percentHoSoComplete(checkExits.use_id)
-
                 const data = {
                     use_id: checkExits.use_id,
                     auth: checkExits.use_authentic,
@@ -1659,7 +1654,6 @@ export const LoginCandidate = async (req, res, next) => {
                     userName: checkExits.use_name,
                     use_phone: checkExits.use_phone,
                     use_mail: checkExits.use_mail,
-                    percentHoSo: percentHoSo,
                     use_logo: functions.getAvatarCandi(checkExits.use_create_time, checkExits.use_logo)
                 };
                 console.log(data);
@@ -2110,34 +2104,8 @@ export const GetAuthenticateOtp = async (req, res) => {
             }
             return functions.setError(res, 'Không tìm thấy tài khoản', 404);
         }
-        return functions.setError(res, 'missing data', 400);
     } catch (error) {
         return functions.setError(res, error.message);
-    }
-}
-
-// Kiểm tra mức độ hoàn thiện hồ sơ của ứng viên
-const percentHoSoComplete = async (iduv) => {
-    try {
-        let percent = 0
-        const existUser = await Users.findOne({ use_id: iduv })
-        if (existUser) {
-            const thamChieu = await UserThamChieu.findOne({ id_user: iduv }, { id_thamchieu: 1 })
-            if (thamChieu) percent += 12.5;
-            const kinhNghiem = await UseKinhNghiem.findOne({ use_id: iduv }, { id_kinhnghiem: 1 })
-            if (kinhNghiem) percent += 12.5;
-            const ngoaiNgu = await UseNgoaiNgu.findOne({ use_id: iduv }, { id_ngoaingu: 1 })
-            if (ngoaiNgu) percent += 12.5;
-            const bangCap = await UserHocVan.findOne({ use_id: iduv }, { id_hocvan: 1 })
-            if (bangCap) percent += 12.5;
-
-            return percent
-        } else {
-            return 0
-        }
-    } catch (error) {
-        console.log(error.message)
-        return 0
     }
 }
 

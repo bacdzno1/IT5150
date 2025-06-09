@@ -90,7 +90,6 @@ $(document).ready(function () {
                 deleteCookie("phoneForOtp");
                 deleteCookie("use_logo");
                 deleteCookie("type");
-                deleteCookie("percentHoSo");
                 deleteCookie("refreshToken");
                 deleteCookie("usc_search");
                 deleteCookie("use_id");
@@ -206,7 +205,6 @@ $("#login_uv_modal .button_login").click(function () {
                     // document.cookie = `userName=${response.data.data.data.userName}; max-age=${60 * 24 * 60 * 60}`;
                     document.cookie = `use_phone=${response.data.data.data.use_phone}; max-age=${60 * 24 * 60 * 60}`;
                     document.cookie = `use_mail=${response.data.data.data.use_mail}; max-age=${60 * 24 * 60 * 60}`;
-                    document.cookie = `percentHoSo=${response.data.data.data.percentHoSo}; max-age=${60 * 24 * 60 * 60}`;
                     document.cookie = `use_logo=${response.data.data.data.use_logo}; max-age=${60 * 24 * 60 * 60}`;
                     document.cookie = `usc_search=${response.data.data.data.usc_search}; max-age=${60 * 24 * 60 * 60}`;
                     document.cookie = `isLogin=true; max-age=${60 * 24 * 60 * 60}`;

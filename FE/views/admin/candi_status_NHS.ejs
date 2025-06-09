@@ -144,7 +144,7 @@
             headers: {
                 "Authorization": "Bearer " + getCookie('adminToken')
             },
-            data: { page: 1, pageSize: pageSize, module: 11},
+            data: { page: 1, pageSize: pageSize, module: 2},
             success: function (response) {
                 if (response.data.result == true) {
                     totalCandis = response.data.total;
@@ -211,7 +211,7 @@
                 data: JSON.stringify({
                     page: page,
                     pageSize: pageSize,
-                    module: 11,
+                    module: 2,
                     conditions: conditions,
                     from: from, 
                     to: to
