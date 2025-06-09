@@ -41,22 +41,6 @@ const UserCompany = new mongoose.Schema({
         type: String,
         default: null
     },
-    usc_md5: {
-        type: String,
-        default: null
-    },
-    usc_redirect: {
-        type: String,
-        default: null
-    },
-    usc_type: {
-        type: Number,
-        default: 0
-    },
-    usc_order: {
-        type: Number,
-        default: 0
-    },
     usc_address: {
         type: String,
         default: null
@@ -76,9 +60,6 @@ const UserCompany = new mongoose.Schema({
     DateOfIncorporation: {
         type: Number,
         default: 0
-    },
-    usc_loai_hinh: {
-        type: Number,
     },
     usc_website: {
         type: String,
@@ -103,14 +84,6 @@ const UserCompany = new mongoose.Schema({
     usc_time_signin: {
         type: Number,
     },
-    usc_view_count: {
-        type: Number,
-        default: 0
-    },
-    usc_money: {
-        type: Number,
-        default: 0
-    },
     usc_active: {
         type: Number,
         default: 1
@@ -131,136 +104,7 @@ const UserCompany = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    usc_security: {
-        type: Number,
-        default: 0
-    },
-    usc_show: {
-        type: Number,
-        default: 1
-    },
-    usc_lat: {
-        type: String,
-        default: null
-    },
-    usc_long: {
-        type: String,
-        default: null
-    },
-    usc_stop_mail: {
-        type: Number,
-        default: 0
-    },
-    usc_sent_blog: {
-        type: Number,
-        default: 0
-    },
-    meta_tit: {
-        type: String,
-    },
-    meta_key: {
-        type: String,
-    },
-    meta_des: {
-        type: String,
-    },
-    update_latlng: {
-        type: Number,
-        default: 0
-    },
-    register: {
-        type: Number,
-        default: 1
-    },
-    ip_address: {
-        type: String,
-    },
-    ip_difference_login: {
-        type: String,
-        default: 0
-    },
-    usc_skype: {
-        type: String,
-        default: null
-    },
-    usc_sent_bg: {
-        type: Number,
-        default: 0
-    },
-    usc_new_hethan: {
-        type: Number,
-        default: 0
-    },
-    usc_index: {
-        type: Number,
-        default: 1
-    },
-    usc_kd: {
-        type: Number,
-        default: 0
-    },
-    usc_kd_crm: {
-        type: Number,
-        default: 0
-    },
-    usc_lock: {
-        type: Number,
-        default: 1
-    },
-    site_from: { // 1 - topcv
-        type: Number,
-        default: 0
-    },
-    scan_logo: {
-        type: Number,
-        default: 0
-    },
-    quet_cds: {
-        type: Number,
-        default: 0
-    },
-    usc_resouce: {
-        // Nguồn khách hàng (CRM)	
-        type: Number,
-    },
-    usc_group: {
-        //	Nhóm khách hàng (CRM)	
-        type: Number,
-
-    },
-    usc_status: {
-        //Trạng thái khách hàng (CRM)
-        type: Number,
-
-    },
-    usc_name_gender: {
-        //Giới tính (CRM)
-        type: Number,
-
-    },
-    usc_name_birth: {
-        //Ngày sinh (CRM)
-        type: String,
-
-    },
-    usc_crm: {
-        type: Number,
-        default: 0
-    },
-    up_crm: {
-        type: Number,
-        default: 0
-    },
-    dk: {
-        //1: ntd tự đăng ký,2 : nhập liệu
-        type: Number,
-        default: 1
-    },
     usc_company_info: {
-        type: String,
-        default: null
-    },
-    usc_note: {
         type: String,
         default: null
     },
@@ -276,18 +120,6 @@ const UserCompany = new mongoose.Schema({
             type: String
         }
     }],
-    usc_like: {
-        type: Number,
-        default: 0
-    },
-    baocao: { // Phục vụ cho quá trình báo cáo, 1 - Có tính vào, 2 - Không tính 
-        type: Number,
-        default: 0
-    },
-    idQLC: { // id hung ha tu chia gio
-        type: Number,
-        default: 0
-    }
 }, {
     collection: 'UserCompany',
     versionKey: false,

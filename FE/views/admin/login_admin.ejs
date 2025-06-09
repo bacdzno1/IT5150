@@ -67,12 +67,6 @@
                         document.cookie = `adminToken=${response.data.data.Token}; max-age=${60 * 24 * 60 * 60}`;
                         document.cookie = `adminRefToken=${response.data.data.RefreshToken}; max-age=${365 * 24 * 60 * 60}`;
                         document.cookie = `adm_id=${response.data.data.data.adm_id}; max-age=${60 * 24 * 60 * 60}`;
-                        document.cookie = `adm_name=${response.data.data.data.adm_name}; max-age=${60 * 24 * 60 * 60}`;
-                        document.cookie = `adm_email=${response.data.data.data.adm_email}; max-age=${60 * 24 * 60 * 60}`;
-                        document.cookie = `adm_phone=${response.data.data.data.adm_phone}; max-age=${60 * 24 * 60 * 60}`;
-                        document.cookie = `adm_bophan=${response.data.data.data.adm_bophan}; max-age=${60 * 24 * 60 * 60}`;
-                        document.cookie = `id_bophankd=${response.data.data.data.id_bophankd}; max-age=${60 * 24 * 60 * 60}`;
-                        document.cookie = `adm_picture=${response.data.data.data.adm_picture}; max-age=${60 * 24 * 60 * 60}`;
                         document.cookie = `typeadmin=${response.data.data.data.type}; max-age=${60 * 24 * 60 * 60}`;
                         document.cookie = `isLogin=true; max-age=${60 * 24 * 60 * 60}`;
                         alert("Đăng nhập thành công");

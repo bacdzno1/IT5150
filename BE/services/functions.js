@@ -11,8 +11,6 @@ import { fileURLToPath } from 'url';
 import UserTempNoAuth from '../models/user/UserTempNoAuth.js'
 import UserCompany from "../models/user/UserCompany.js";
 import * as XLSX from 'xlsx';
-import ImportantLogs from "../models/ImportantLogs.js";
-import News from "../models/blog/News.js";
 
 // hàm khi thành công
 export const success = (res, messsage = '', data = []) => {
@@ -69,7 +67,6 @@ export const checkToken = (conditions, type) => {
 			if (user.data.auth == 0 && !type) {
 				// Nếu là ứng viên mới đăng ký thì không cần xác thực
 				if (user.data.type == 2) {
-					// const isAllow = await checkAllowNoAuth(user.data.use_id, token)
 					// // console.log('is allow', isAllow)
 					// if (!isAllow) {
 					// 	return setError(res, "Vui lòng xác thực tài khoản", 401);
@@ -970,7 +967,7 @@ export const renderPdfFromUrl = async (link, userID, idCV) => {
 			});
 			// userName = createLinkTilte(userName) != '' ? createLinkTilte(userName) : `ung-vien`;
 			const path1 = `./dowload/cv_pdf/user_${userID}/cvid_${idCV}`;
-		const filePath = `./dowload/cv_pdf/user_${userID}/cvid_${idCV}/${idCV}-job247.pdf`;
+		const filePath = `./dowload/cv_pdf/user_${userID}/cvid_${idCV}/${idCV}-topcv1s.pdf`;
 		if (!fs.existsSync(path1)) {
 			fs.mkdirSync(path1, { recursive: true });
 		}
@@ -1122,58 +1119,6 @@ export const callApiAddUVError = async (data, id) => {
 	} catch (error) {
 		return null;
 	}
-};
-
-// hàm update data học vấn user sang base tìm việc
-export const updateBase202HV = async (UserHocVan, use_id, params) => {
-	let data = { 'account': params, 'type': 'update_bc' };
-	const check = await UserHocVan.find({ use_id }, {
-		truong_hoc: 1,
-		bang_cap: 1,
-		chuyen_nganh: 1,
-		xep_loai: 1,
-		thongtin_bosung: 1,
-		tg_batdau: 1,
-		tg_ketthuc: 1
-	}).lean();
-	const arr = [];
-	let th_id = 1;
-	for (let i = 0; i < check.length; i++) {
-		const element = check[i];
-		arr.push(
-			{
-				"th_id": th_id,
-				"th_name": element.truong_hoc,
-				"th_bc": element.bang_cap,
-				"th_cn": element.chuyen_nganh,
-				"th_xl": element.xep_loai,
-				"th_bs": element.thongtin_bosung,
-				"th_one_time": element.tg_batdau,
-				"th_two_time": element.tg_ketthuc
-			}
-		);
-		th_id++;
-	}
-	data.list = arr;
-	data = JSON.stringify(data);
-
-	const config = {
-		method: 'post',
-		maxBodyLength: Infinity,
-		url: `${process.env.DOMAIN_API_SYNC_202}/api/timviec/candidate/site_vt/update_list`,
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		data: data
-	};
-
-	await axios.request(config)
-		.then((response) => {
-			console.log(JSON.stringify(response.data));
-		})
-		.catch((error) => {
-			console.log(error.message);
-		});
 };
 
 // hàm so sánh thời gian hiện tại
@@ -1429,21 +1374,6 @@ export const checkFbToken = () => {
 			}
 		}
 
-	}
-}
-
-export const getAvatarAdmin = (img) => {
-	try {
-		if (img && typeof img === 'string') {
-			if (img.includes("upload")) {
-				return `${process.env.DOMAIN_API}/${img}`
-			} else {
-				return `${process.env.DOMAIN_API}/pictures/${img}`
-			}
-		}
-		return null
-	} catch (error) {
-		return null
 	}
 }
 
@@ -1822,22 +1752,6 @@ export const getCityDistrictPhilippinesFromXlsx = () => {
     }
 }
 
-export const importantLogs = async (logFrom, logs) => {
-	try {
-		const time = getTime()
-		const maxId = await getMaxId(ImportantLogs, 'id')
-
-		await ImportantLogs.create({
-			id: maxId,
-			logFrom: logFrom,
-			time: time,
-			logs: logs
-		})
-	} catch (error) {
-		console.log('importantLogs\n', error, '\n', logFrom, logs);
-	}
-}
-
 export const checkAlias = async (str, excludeId) => {
 	try {
 		if (!str) {
@@ -1945,16 +1859,6 @@ export const checkAlias = async (str, excludeId) => {
 		if (checkCom) {
 			return `${process.env.DOMAIN_API_TIMVIECHAY}/${checkCom.usc_alias}`
 		}
-
-		// bài viết 
-		const checkBlog = await News.findOne({
-			new_title_rewrite: linkStr,
-			...(excludeId && !isNaN(Number(excludeId)) && { new_id: { $ne: Number(excludeId) } })
-		})
-		if (checkBlog) {
-			return `${process.env.DOMAIN_API_TIMVIECHAY}/${checkBlog.new_title_rewrite}`
-		}
-		console.log(linkStr)
 
 		// tin 
 		const endOfStr = linkStr.split('-').filter(item => item.trim() != '').pop()

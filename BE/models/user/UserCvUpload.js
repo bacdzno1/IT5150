@@ -23,15 +23,6 @@ const UserCvUpload = new mongoose.Schema({
         type: String,
         default: null
     },
-    scan: {
-        //1: thành công, 2 lỗi file
-        type: Number,
-        default: 0
-    },
-    scan_ai: {
-        type: Number,
-        default: 0
-    },
 }, {
     collection: 'UserCvUpload',
     versionKey: false,

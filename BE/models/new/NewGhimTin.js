@@ -4,9 +4,6 @@ const NewGhimTin = new mongoose.Schema({
         type: Number,
         require: true,
     },
-    admin_id: {
-        type: Number,
-    },
     new_hot: {
         type: Number,
         default: 0,

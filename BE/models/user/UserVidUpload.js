@@ -28,10 +28,6 @@ const UserVidUpload = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    scan_ai: {
-        type: Number,
-        default: 0
-    },
 }, {
     collection: 'UserVidUpload',
     versionKey: false,

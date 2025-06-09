@@ -98,7 +98,6 @@ routesNewJob.forEach(route => {
 router.get('/admin/403', site.admin_not_permission);
 
 //get data
-router.post('/api/dataHome', apiController.getDataHomeAjax);
 router.post('/api/getDistrict', apiController.getDiscByCity);
 router.post('/api/getTagCate', apiController.getTagCate);
 router.use(checkHardcodedRoutes);

@@ -4728,11 +4728,6 @@ const listEdu = [
     { 18: "Tiến sĩ" },
     { 19: "Khác" },
 ];
-const arrCateBlog = [
-    { cate_name: 'Bí quyết viết CV', id: 2, limit: 4, order: 'first', link: '/bi-quyet-viet-cv' },
-    { cate_name: 'Cẩm nang tìm việc', id: 1, limit: 6, order: 'second', link: '/blog/c1/cam-nang-tim-viec' },
-    { cate_name: 'Biểu mẫu', id: 3, limit: 5, order: 'third', link: '/blog/c3/bieu-mau' }
-];
 const litsNewsCate = [
     {
         "cat_id": 1,
@@ -5200,10 +5195,6 @@ const litsNewsCate = [
         "cat_link": "bua-com-van-phong"
     }
 ]
-function findCateBlog(type_id) {
-    const cate = arrCateBlog.find(cate => cate.id === type_id);
-    return cate ? cate : '';
-}
 function findCateNewsAlias(cat_alias) {
     const cate = litsNewsCate.find(cate => cate.cat_link === cat_alias);
     return cate ? cate : '';
@@ -5551,5 +5542,5 @@ module.exports = {
     listCities, findCity, checkDeadline, findCompSize, getMucLuong,
     checkElapsedTime, convertTimestamp, findExp,findEdu, findTypeWork, findGender, findCate,getTimeRemain,
     levelList, cateList, listTypeWork, listRangeMoney, listSizeExp, listEdu, genderList,
-    findDistrict, convertTimestampDetail, findCateBlog, listSizeCompany, city_array, arrCateBlog, findLevel, getCookie, getCategoryIdByUrl, getCityIdByUrl, parseUrl, findCateNewsAlias, convertToUrl, findRangeMoney, findCateCV, findLangCV, capitalizeFirstLetter, toLowerCaseString, findTagByalias, getMucLuong2, litsNewsCate, findCateNewsById, renderOTP
+    findDistrict, convertTimestampDetail, listSizeCompany, city_array, findLevel, getCookie, getCategoryIdByUrl, getCityIdByUrl, parseUrl, findCateNewsAlias, convertToUrl, findRangeMoney, findCateCV, findLangCV, capitalizeFirstLetter, toLowerCaseString, findTagByalias, getMucLuong2, litsNewsCate, findCateNewsById, renderOTP
 };

@@ -84,22 +84,10 @@ const Users = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    register: {
-        type: Number,
-        default: 0
-    }, // Check sau
     usc_search: {
         type: Number,
         default: 1
     },
-    tmp_id: {
-        type: Number,
-        default: 0 
-    }, // Check sau
-    checkImgCV:{
-        type:Number,
-        default : 1
-    }
 }, {
     collection: 'Users',
     versionKey: false,

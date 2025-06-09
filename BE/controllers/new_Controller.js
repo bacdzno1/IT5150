@@ -1,15 +1,11 @@
 import * as functions from '../services/functions.js';
 import UserCompany from '../models/user/UserCompany.js';
 import New from '../models/new/New.js';
-import NewAI from '../models/new/NewAi.js';
 import Users from '../models/user/Users.js';
-import SeoTt from '../models/SeoTt.js';
-import News from '../models/blog/News.js';
 import NewGhimTin from '../models/new/NewGhimTin.js';
 import Category from '../models/category/Category.js';
 import NopHoSo from '../models/NopHoSo.js';
 import TblLuuTin from '../models/tbl/TblLuuTin.js';
-import TblPointUsed from '../models/tbl/TblPointUsed.js';
 import TblLuuHoSoUv from '../models/tbl/TblLuuHoSoUv.js';
 import City from '../models/city/City.js';
 import SampleCv from '../models/sample/SampleCv.js';
@@ -172,7 +168,7 @@ export const PostNew = async(req, res) => {
                             const arr = [];
                             realCate.map(item => arr.push({ id: item }));
                             const check = await New.countDocuments({ new_user_id: idNTD });
-                            if (check == 0) await UserCompany.updateOne({ usc_id: idNTD }, { usc_index: 1 });
+                            if (check == 0) await UserCompany.updateOne({ usc_id: idNTD });
                             const new_id = await functions.getMaxId(New, 'new_id');
                             const linkAlias = functions.createLinkTilte(title);
                             const data = {
@@ -201,14 +197,10 @@ export const PostNew = async(req, res) => {
                                 'new_hoahong': hoaHong,
                                 'new_thuviec': thuViec,
                                 'new_real_cate': arr,
-                                'new_thuc': 1,
-                                'new_tag': tag,
                                 'new_mota': moTa,
                                 'new_yeucau': yeuCau,
                                 'new_quyenloi': quyenLoi,
                                 'new_ho_so': hoSo,
-                                'baocao': 1,
-                                'selfpost': 1,
                                 'from': 'TopCv1s.com'
                             };
                             await New.create(data);
@@ -252,9 +244,7 @@ export const ListNewNTD = async(req, res) => {
             new_view_count: 1,
             new_han_nop: 1,
             new_hot: 1,
-            new_gap: 1,
             new_cao: 1,
-            new_nganh: 1,
             new_city: 1,
             user: 1,
             'soLuongNHS': "$nhs.id"
@@ -360,9 +350,6 @@ export const UpdateNew = async(req, res) => {
         // ngành nghề 
         const catId = req.body.catId;
 
-        // chi tiết công việc cần tuyển
-        const tag = Number(req.body.tag);
-
         // địa điểm làm việc
         // const city = Number(req.body.city);
         const city = req.body.city;
@@ -459,7 +446,7 @@ export const UpdateNew = async(req, res) => {
                                 const arr = [];
                                 realCate.map(item => arr.push({ id: item }));
                                 const check = await New.countDocuments({ new_user_id: idNTD });
-                                if (check == 0) await UserCompany.updateOne({ usc_id: idNTD }, { usc_index: 1 });
+                                if (check == 0) await UserCompany.updateOne({ usc_id: idNTD });
                                 const new_id = await functions.getMaxId(New, 'new_id');
                                 const linkAlias = functions.createLinkTilte(title);
                                 const data = {
@@ -485,8 +472,6 @@ export const UpdateNew = async(req, res) => {
                                     'new_hoahong': hoaHong || '',
                                     'new_thuviec': thuViec || '',
                                     'new_real_cate': arr,
-                                    'new_thuc': 1,
-                                    'new_tag': tag,
                                     'new_mota': moTa,
                                     'new_yeucau': yeuCau,
                                     'new_quyenloi': quyenLoi,
@@ -541,7 +526,6 @@ export const Home = async(req, res) => {
             functions.success(res, 'success', { data: data_home });
         }
         const time = functions.getTime();
-        const seo_Promise = SeoTt.findOne({ name_page: "home" }).lean();
 
         const idNewHot = [];
         const idNewCao = [];
@@ -571,7 +555,6 @@ export const Home = async(req, res) => {
         const ViecLamHapDan_Promise = await New.aggregate([{
                 $match: {
                     new_active: 1,
-                    new_thuc: 1,
                     new_han_nop: { $gt: time },
                     new_id: {
                         $in: idNewHot
@@ -602,8 +585,6 @@ export const Home = async(req, res) => {
                     usc_alias: '$company.usc_alias',
                     usc_create_time: '$company.usc_create_time',
                     new_alias: 1,
-                    new_index: 1,
-                    new_thuc: 1,
                     new_city: 1,
                     new_hot: 1,
                     new_update_time: 1,
@@ -620,43 +601,9 @@ export const Home = async(req, res) => {
                 }
             }
         ]);
-        const ViecLamAi_Promise = await NewAI.aggregate([
-            { $sort: { new_create_time2: -1 } },
-            { $limit: 100 },
-            {
-                $project: {
-                    new_id: 1,
-                    new_title: 1,
-                    new_alias: 1,
-                    new_cate_id: 1,
-                    new_city: 1,
-                    new_qh_id: 1,
-                    new_addr: 1,
-                    new_money: 1,
-                    new_cap_bac: 1,
-                    new_exp: 1,
-                    new_bang_cap: 1,
-                    new_gioi_tinh: 1,
-                    new_so_luong: 1,
-                    new_hinh_thuc: 1,
-                    new_create_time: 1,
-                    new_create_time2: 1,
-                    new_han_nop: 1,
-                    new_usercontact: 1,
-                    new_addcontact: 1,
-                    new_phonecontact: 1,
-                    new_emailcontact: 1,
-                    new_mota: 1,
-                    new_yeucau: 1,
-                    new_quyenloi: 1,
-                    new_company_name: 1,
-                }
-            }
-        ]);
         const ViecLamThuongHieu_Promise = await New.aggregate([{
                 $match: {
                     new_active: 1,
-                    new_thuc: 1,
                     new_han_nop: { $gt: time },
                     new_id: {
                         $in: idNewCao
@@ -687,8 +634,6 @@ export const Home = async(req, res) => {
                     usc_alias: '$company.usc_alias',
                     usc_create_time: '$company.usc_create_time',
                     new_alias: 1,
-                    new_index: 1,
-                    new_thuc: 1,
                     new_city: 1,
                     new_cao: 1,
                     new_update_time: 1,
@@ -710,7 +655,6 @@ export const Home = async(req, res) => {
         const TinThuongHapDan_Promise = New.aggregate([{
                 $match: {
                     new_active: 1,
-                    new_thuc: 1,
                     new_han_nop: { $gt: time },
                     new_user_id: {
                         $in: idCompany
@@ -748,8 +692,6 @@ export const Home = async(req, res) => {
                     usc_alias: '$company.usc_alias',
                     usc_create_time: '$company.usc_create_time',
                     new_alias: 1,
-                    new_index: 1,
-                    new_thuc: 1,
                     new_city: 1,
                     new_hot: 1,
                     new_update_time: 1,
@@ -770,7 +712,6 @@ export const Home = async(req, res) => {
         const TinThuongThuongHieu_Promise = New.aggregate([{
                 $match: {
                     new_active: 1,
-                    new_thuc: 1,
                     new_han_nop: { $gt: time },
                     new_user_id: {
                         $in: idCompany
@@ -808,8 +749,6 @@ export const Home = async(req, res) => {
                     usc_alias: '$company.usc_alias',
                     usc_create_time: '$company.usc_create_time',
                     new_alias: 1,
-                    new_index: 1,
-                    new_thuc: 1,
                     new_city: 1,
                     new_hot: 1,
                     new_update_time: 1,
@@ -865,79 +804,25 @@ export const Home = async(req, res) => {
             }
         ]);
 
-        const blog_Promise = News.find({ new_active: 1 }, {
-                new_id: 1,
-                new_title: 1,
-                new_title_rewrite: 1,
-                new_picture: 1,
-                new_des: 1,
-                new_date: 1
-            })
-            .sort({ new_date_last_edit: -1, new_date: -1, new_id: -1 })
-            .limit(8).lean();
-
-        const tinTucNoiBat_Promise = News.aggregate([{
-                $match: {
-                    new_active: 1
-                }
-            },
-            { $sort: { new_id: -1 } },
-            {
-                $limit: 12
-            },
-            {
-                $lookup: {
-                    from: 'AdminUser',
-                    localField: 'adm_id',
-                    foreignField: 'adm_id',
-                    as: "adminUser"
-                }
-            },
-            { $unwind: "$adminUser" },
-            {
-                $project: {
-                    new_title_rewrite: 1,
-                    new_title: 1,
-                    new_picture: 1,
-                    new_id: 1,
-                    // adm_id: "$adminUser.admin_id",
-                    adm_name: "$adminUser.adm_name",
-                    new_des: 1,
-                    new_date: 1,
-                    new_date_last_edit: 1,
-                    // adm_picture: "$adminUser.adm_picture",
-                }
-            }
-        ])
-
         const com_promise = UserCompany.distinct("usc_id")
 
         const [
-            seo,
             ViecLamHapDan,
             TinThuongHapDan,
             ViecLamThuongHieu,
             TinThuongThuongHieu,
-            ViecLamAi,
             CongTyHangDau,
-            blog,
             Cityy,
-            tinTucNoiBat,
             com
         ] =
         await Promise.all([
-            seo_Promise,
             ViecLamHapDan_Promise,
             TinThuongHapDan_Promise,
             ViecLamThuongHieu_Promise,
             TinThuongThuongHieu_Promise,
-            ViecLamAi_Promise,
             CongTyHangDau_Promise,
-            blog_Promise,
             City.find({}, { cit_id: 1, cit_name: 1 }).lean(),
-            tinTucNoiBat_Promise,
             com_promise,
-            // nganhNgheNoiBat_Promise
         ]);
 
         //check lưu tin và ứng tuyển
@@ -1050,13 +935,6 @@ export const Home = async(req, res) => {
             ))
         );
 
-        // for (let i = 0; i < arr.length; i++) {
-        //     const element = arr[i];
-        //     nganhNgheNoiBat.push({
-        //         _id: element,
-        //         count: JobNumber[i]
-        //     })
-        // }
         for (let i = 0; i < arr.length; i++) {
             const element = arr[i];
             const hotCateItem = arrHotCate.find(cate => cate._id === element);
@@ -1071,35 +949,18 @@ export const Home = async(req, res) => {
             }
         }
 
-        const leng_blog = blog.length;
-        for (let i = 0; i < leng_blog; i++) {
-            const element = blog[i];
-            // element.new_picture = `${process.env.DOMAIN_API}/pictures/news/${element.new_picture}`;
-            element.new_picture = `${process.env.DOMAIN_API}/pictures/${element.new_picture}`;
-        }
-
-        for (let i = 0; i < tinTucNoiBat.length; i++) {
-            const element = tinTucNoiBat[i];
-            // element.new_picture = `${process.env.DOMAIN_API}/pictures/news/${element.new_picture}`;
-            element.new_picture = `${process.env.DOMAIN_API}/pictures/${element.new_picture}`;
-        }
-
         console.log('so viec moi nhat:', ViecLamThuongHieu, TinThuongThuongHieu);
 
-        data.Seo = seo;
         data.ViecLamHapDan = ViecLamHapDan.length < 30 ? [...ViecLamHapDan, ...TinThuongHapDan] : [...ViecLamHapDan];
         data.Attractive_Job = ViecLamHapDan.length < 0 ? [...ViecLamHapDan, ...TinThuongHapDan] : [...ViecLamHapDan];
         data.New_Job = ViecLamThuongHieu.length < 30 ? [...ViecLamThuongHieu, ...TinThuongThuongHieu] : [...ViecLamThuongHieu];
         data.ViecLamThuongHieu = ViecLamThuongHieu.length < 30 ? [...ViecLamThuongHieu, ...TinThuongThuongHieu] : [...ViecLamThuongHieu];
         data.TinThuongHapDan = TinThuongHapDan;
         data.TinThuongThuongHieu = TinThuongThuongHieu;
-        data.ViecLamAi = ViecLamAi;
         data.TopCompany = CongTyHangDau;
         // data.ViecLamTuyenGap = ViecLamTuyenGap;
-        data.blog = blog;
         data.JobNumber = JobNumber;
         data.Outstanding_Category = nganhNgheNoiBat;
-        data.tinTucNoiBat = tinTucNoiBat;
         data_home = data;
         if (flag) {
             functions.success(res, 'success', { data });
@@ -1155,7 +1016,6 @@ export const DetailNew = async(req, res) => {
             new_money: 1,
             new_so_luong: 1,
             new_addr: 1,
-            new_tag: 1,
             new_real_cate: 1,
             new_money_type: 1,
             new_money_from: 1,
@@ -1177,7 +1037,6 @@ export const DetailNew = async(req, res) => {
                 { $unwind: "$company" },
                 { $project: item }
             ]);
-            // const cate_Promise = Category.find({ cat_301: "" }, { cat_id: 1, cat_name: 1, cat_tags: 1, cat_count: 1, cat_count_vl: 1, cat_ut: 1 }).lean();
             const cate_Promise = Category.find({}, { cat_id: 1, cat_name: 1, cat_tags: 1, cat_count: 1, cat_count_vl: 1, cat_ut: 1 }).lean();
 
             const [dataNew, cate, Cityy] = await Promise.all([
@@ -1188,7 +1047,7 @@ export const DetailNew = async(req, res) => {
             if (data) {
                 const arrCity = data.new_city.split(',');
 
-                const conditions = { new_city: { $in: arrCity }, new_active: 1, new_thuc: 1, new_id: { $ne: id } };
+                const conditions = { new_city: { $in: arrCity }, new_active: 1, new_id: { $ne: id } };
 
                 if (data.new_real_cate.length > 0) {
                     const arrConditionsRealCate = getConditionsRealCate(data.new_real_cate);
@@ -1248,28 +1107,20 @@ export const DetailNew = async(req, res) => {
                     { $project: item }
                 ]);
                 const checkSaveNew_Promise = TblLuuTin.findOne({ id_tin: id, id_uv: iduser });
-                const Blog_Promise = News.find({}, { new_id: 1, new_title: 1, new_picture: 1, new_des: 1 }).sort({ new_id: -1 }).limit(3).lean()
                 const [checkApply,
                     viecLamTuongTu,
                     checkSaveNew,
-                    Blog
                 ] = await Promise.all([
                     checkApply_Promise,
                     viecLamTuongTu_Promise,
                     checkSaveNew_Promise,
-                    Blog_Promise
                 ]);
                 const leng_viecLamTuongTu = viecLamTuongTu.length;
                 for (let i = 0; i < leng_viecLamTuongTu; i++) {
                     const element = viecLamTuongTu[i];
                     element.usc_logo = functions.getAvatarNTD(element.usc_create_time, element.usc_logo);
                 }
-                for (let i = 0; i < Blog.length; i++) {
-                    const element = Blog[i];
-                    element.new_picture = `${process.env.DOMAIN_API}/pictures/news/${element.new_picture}`
-                }
                 data.apply = checkApply ? true : false;
-                data.Blog = Blog;
                 data.SaveNew = checkSaveNew ? true : false;
                 // data.new_cat_id = cateName;
                 data.usc_logo = functions.getAvatarNTD(data.usc_create_time, data.usc_logo);
@@ -1304,7 +1155,6 @@ export const SearchNew = async(req, res) => {
     try {
         let arrIDSearchByAI = [];
         let data = [];
-        let data_ai =[];
         let total = 0;
         const page = Number(req.body.page) || 1;
         const pageSize = Number(req.body.pageSize) || 10;
@@ -1336,7 +1186,6 @@ export const SearchNew = async(req, res) => {
             usc_logo: "$company.usc_logo",
             usc_company: "$company.usc_company",
             new_title: 1,
-            new_nganh: 1,
             usc_alias: "$company.usc_alias",
             address: "$company.usc_address",
             new_han_nop: 1,
@@ -1353,26 +1202,6 @@ export const SearchNew = async(req, res) => {
             new_emailcontact: 1,
             new_mota: 1,
         };
-        const item_ai = {
-            new_id: 1,
-            new_money: 1,
-            new_city: 1,
-            new_cap_bac: 1,
-            new_create_time: 1,
-            new_title: 1,
-            new_nganh: 1,
-            new_han_nop: 1,
-            new_alias: 1,
-            new_update_time: 1,
-            new_addr: 1,
-            new_qh_id: 1,
-            new_usercontact: 1,
-            new_addcontact: 1,
-            new_phonecontact: 1,
-            new_emailcontact: 1,
-            new_mota: 1,
-            new_company_name:1,
-        }
 
         const conditions = {};
         const conditions_ai={};
@@ -1472,17 +1301,9 @@ export const SearchNew = async(req, res) => {
                 { $project: item }
             ]);
             console.log(conditions_ai)
-            data_ai = await NewAI.aggregate([
-                { $match: conditions_ai },
-                { $sort: { [sortField]: sortOrder } },
-                { $skip: skip },
-                { $limit: limit },
-                { $project: item_ai }
-            ]);
             const totalTinThuong = await New.countDocuments(conditions);
-            const totalTinAI = await NewAI.countDocuments(conditions_ai);
 
-            total = totalTinThuong + totalTinAI;
+            total = totalTinThuong ;
 
         }
         const iduser = await functions.getTokenJustUser(req, res);
@@ -1519,7 +1340,7 @@ export const SearchNew = async(req, res) => {
                 }
             }
         }
-        return functions.success(res, 'success', { total, data,data_ai });
+        return functions.success(res, 'success', { total, data});
     } catch (error) {
         return functions.setError(res, error.message);
     }
@@ -1573,7 +1394,6 @@ export const SearchCandi = async(req, res) => {
         };
         let conditions = {
             usc_search: 1,
-            checkImgCV: 1,
         };
 
         if (city) {
@@ -1587,13 +1407,10 @@ export const SearchCandi = async(req, res) => {
         if (keywords) {
             const key = keySearch(keywords);
             conditionsAI.keyword = key;
-            // const userIdCv = await SaveCandidateCv.distinct('iduser', {
-            //     html: new RegExp(functions.allVietnameseRegex(key), 'i')
-            // })
             const userIdCv = await SaveCandidateCv.distinct('iduser', {
                 html: new RegExp(key, 'i')
             })
-            console.log(userIdCv)
+            // console.log(userIdCv)
             conditions['$or'] = [
                 { use_job_name: new RegExp(functions.allVietnameseRegex(key), 'i') },
                 { use_name: new RegExp(functions.allVietnameseRegex(key), 'i') },
@@ -1626,7 +1443,6 @@ export const SearchCandi = async(req, res) => {
         conditions.use_id = { $in: usersWithCv };
         const data_promise = Users.find({
             usc_search: 1,
-            register: { $ne: 4 },
             ...conditions
         }, {
             use_create_time: 1,
@@ -1645,7 +1461,6 @@ export const SearchCandi = async(req, res) => {
         }).sort({ use_update_time: -1, use_id: -1 }).skip(skip).limit(limit).lean();
         const total_promise = Users.countDocuments({
             usc_search: 1,
-            register: { $ne: 4 },
             ...conditions
         });
         const ungVienTheoNganhNghe_promise = Category.find({}, { cat_name: 1, cat_count: 1, _id: 0 }).lean();
@@ -1664,22 +1479,6 @@ export const SearchCandi = async(req, res) => {
 
         let showNew = 0;
 
-        // if (!catid && !city) {
-        //     const result = await SeoTt.findOne({ name_page: "nguoi-tim-viec" }).lean();
-        //     showNew = 1;
-        //     dataSeo.title = result.seo_tt;
-        //     dataSeo.description = result.seo_des;
-        //     dataSeo.seo_key = result.seo_key;
-        //     dataSeo.h1 = 'Hồ sơ ứng viên mới nhất';
-        //     dataSeo.index = 'noodp,index,follow';
-        //     dataSeo.breakCrumb = `<div class="breakcrumb">
-        //     <ul>
-        //         <li><a href="/">Trang chủ</a></li>
-        //         <li class="active"><span>Ứng viên</span></li>
-        //     </ul>
-        // </div>`;
-        //     dataSeo.seo_text = result.seo_text;
-        // } else 
         if (catid && !city) {
             const catName = await Category.findOne({ cate_id: catid }, { cat_name: 1 }).lean();
             const name = catName ? catName.cat_name : "Ứng viên";
@@ -1736,7 +1535,6 @@ export const SearchCandi = async(req, res) => {
         for (let i = 0; i < leng_data; i++) {
             const element = data[i];
             if (iduser) {
-                arrPromise.push(promiseTblPointUsed(iduser, element.use_id));
                 arrPromise2.push(promiseTblLuuHoSo(iduser, element.use_id));
             }
             element.use_logo = functions.getAvatarCandi(element.use_create_time, element.use_logo);
@@ -1771,12 +1569,6 @@ export const SearchCandi = async(req, res) => {
     }
 };
 
-// promise call tblPointUsed 
-const promiseTblPointUsed = (iduser, use_id) => {
-    const query = TblPointUsed.findOne({ usc_id: iduser, use_id }, { type: 1 }).lean();
-    return query;
-};
-
 // promise call tbl_luuhoso_uv 
 const promiseTblLuuHoSo = (iduser, use_id) => {
     const query = TblLuuHoSoUv.findOne({ id_uv: use_id, id_ntd: iduser }, { id_uv: 1 }).lean();
@@ -1803,18 +1595,13 @@ export const getTagCate = async (req, res) => {
 
 export const detailJob_Comp = async(req, res) => {
     try {
-        const {
-            alias
-        } = req.body
+        const { alias } = req.body
         const currentTime = Math.floor(Date.now() / 1000);
-        // type: 1 - tin | 2 - ntd | 3 - blog
         let type = 0
 
         // Ưu tiên theo thứ tự này 
 
         if (alias && typeof alias === 'string') {
-
-            // Tin
             // Cố lấy id 
             const strId = alias.split('-').filter(part => !!(part.trim())).pop()
             if (!isNaN(Number(strId))) {
@@ -1830,7 +1617,7 @@ export const detailJob_Comp = async(req, res) => {
                     const arrCity = data.new_city.split(',');
                     const new_cat_id = data.new_cat_id
                     console.log('tinh thanh',arrCity)
-                    const conditions = { new_city: { $in: arrCity },new_cat_id:new_cat_id, new_active: 1, new_thuc: 1, new_id: { $ne: id } };
+                    const conditions = { new_city: { $in: arrCity },new_cat_id:new_cat_id, new_active: 1, new_id: { $ne: id } };
                     // if (data.new_real_cate.length > 0) {
                     //     const arrConditionsRealCate = getConditionsRealCate(data.new_real_cate);
                     //     conditions['$or'] = arrConditionsRealCate;
@@ -1877,7 +1664,6 @@ export const detailJob_Comp = async(req, res) => {
                         new_money: 1,
                         new_so_luong: 1,
                         new_addr: 1,
-                        new_tag: 1,
                         new_real_cate: 1,
                         new_money_type: 1,
                         new_money_from: 1,
@@ -1887,7 +1673,6 @@ export const detailJob_Comp = async(req, res) => {
                         new_alias: 1,
                     };
 
-                    // const name_tag = await 
                     const name_tag = await Promise.all(
                         data.new_tag.split(',').map(
                             (item) => {
@@ -1900,7 +1685,6 @@ export const detailJob_Comp = async(req, res) => {
 
                     const com_promise = UserCompany.findOne({ usc_id: data.new_user_id })
                     const cate_Promise = Category.find({}, { cat_id: 1, cat_name: 1, cat_tags: 1, cat_count: 1, cat_count_vl: 1, cat_ut: 1 }).lean();
-                    const Blog_Promise = News.find({}, { new_id: 1, new_title: 1, new_picture: 1, new_des: 1 }).sort({ new_id: -1 }).limit(3).lean()
                     const checkSaveNew_Promise = TblLuuTin.findOne({ id_tin: id, id_uv: iduser });
                     const checkApply_Promise = NopHoSo.findOne({ nhs_new_id: id, nhs_use_id: iduser });
                     const viecLamTuongTu_Promise = New.aggregate([
@@ -1927,7 +1711,6 @@ export const detailJob_Comp = async(req, res) => {
                         com,
                         cate,
                         Cityy,
-                        Blog,
                         checkSaveNew,
                         checkApply,
                         viecLamTuongTu,
@@ -1935,7 +1718,6 @@ export const detailJob_Comp = async(req, res) => {
                         com_promise,
                         cate_Promise,
                         City.find({}, { cit_id: 1, cit_name: 1 }).lean(),
-                        Blog_Promise,
                         checkSaveNew_Promise,
                         checkApply_Promise,
                         viecLamTuongTu_Promise,
@@ -1991,13 +1773,8 @@ export const detailJob_Comp = async(req, res) => {
                         const checkApply = await NopHoSo.findOne({ nhs_new_id: element.new_id, nhs_use_id: iduser });
                         element.checkApply = checkApply ? true : false;
                     }
-                    for (let i = 0; i < Blog.length; i++) {
-                        const element = Blog[i];
-                        element.new_picture = `${process.env.DOMAIN_API}/pictures/news/${element.new_picture}`
-                    }
 
                     data.apply = checkApply ? true : false;
-                    data.Blog = Blog;
                     data.SaveNew = checkSaveNew ? true : false;
                     data.viecLamTuongTu = viecLamTuongTu;
 
@@ -2022,7 +1799,6 @@ export const detailJob_Comp = async(req, res) => {
                     usc_mst: 1,
                     financial_sector: 1,
                     DateOfIncorporation: 1,
-                    usc_skype: 1,
                     usc_website: 1,
                     usc_city: 1,
                     usc_district: 1,
@@ -2081,7 +1857,6 @@ export const detailJob_Comp = async(req, res) => {
                                 usc_logo: data.usc_logo,
                                 usc_company: "$company.usc_company",
                                 new_title: 1,
-                                new_nganh: 1,
                                 usc_alias: "$company.usc_alias",
                                 new_han_nop: 1,
                                 new_alias: 1
@@ -2122,7 +1897,6 @@ export const detailJob_Comp = async(req, res) => {
                     ]).exec();
 
                     if (finan_sect && Array.isArray(finan_sect) && finan_sect.length > 0) finan_sect = finan_sect.map(item => Number(item))
-                        // conditions = finan_sect.length > 0 ? { new_nganh: { $in: finan_sect }, new_active: 1 } : { new_active: 1 }
                     const sameJob_Promise = New.aggregate([
                         { $match: { new_active: 1, new_user_id: { $ne: Number(idNTD) } } },
                         { $sort: { new_id: -1 } },
@@ -2153,7 +1927,6 @@ export const detailJob_Comp = async(req, res) => {
                                 // usc_logo: data.usc_logo,
                                 usc_company: "$company.usc_company",
                                 new_title: 1,
-                                new_nganh: 1,
                                 usc_alias: "$company.usc_alias",
                                 new_han_nop: 1,
                                 new_alias: 1
@@ -2161,49 +1934,14 @@ export const detailJob_Comp = async(req, res) => {
                         },
                         {
                             $addFields: {
-                                priority: { $cond: { if: { $in: ["$new_nganh", finan_sect] }, then: 1, else: 0 } }
+                                priority: { $cond: { if: { $in: [ finan_sect] }, then: 1, else: 0 } }
                             }
                         },
                         { $sort: { priority: -1 } },
                     ]).exec();
 
-                    // const blog_Promise = News.find(
-                    //     { new_active: 1 },
-                    //     {
-                    //         new_id: 1, new_title: 1,
-                    //         new_title_rewrite: 1, new_picture: 1, new_des: 1, new_date: 1
-                    //     })
-                    //     .sort({ new_id: -1 })
-                    //     .limit(8).lean();
-
-                    const blog_Promise = News.aggregate([
-                        { $match: { new_active: 1 } },
-                        { $sort: { new_id: -1 } },
-                        { $limit: 10 },
-                        {
-                            $lookup: {
-                                from: "AdminUser",
-                                localField: "adm_id",
-                                foreignField: "adm_id",
-                                as: "adminUser",
-                            }
-                        },
-                        { $unwind: { path: "$adminUser", preserveNullAndEmptyArrays: true } },
-                        {
-                            $project: {
-                                new_id: 1,
-                                new_title: 1,
-                                new_title_rewrite: 1,
-                                new_picture: 1,
-                                new_des: 1,
-                                new_date: 1,
-                                admin_name: "$adminUser.adm_name"
-                            }
-                        }
-                    ]).exec();
-
-                    const [dataNew, dataSameCom, dataSameJob, blogs] = await Promise.all([
-                        dataNewPromise, sameCompany_Promise, sameJob_Promise, blog_Promise
+                    const [dataNew, dataSameCom, dataSameJob] = await Promise.all([
+                        dataNewPromise, sameCompany_Promise, sameJob_Promise
                     ]);
 
                     // let dataSameCom2 = [], dataSameJob2 = []
@@ -2257,7 +1995,6 @@ export const detailJob_Comp = async(req, res) => {
                     data.news = dataNew
                     data.sameCom = dataSameCom
                     data.sameJob = dataSameJob
-                    data.blog = blogs
                     return functions.success(res, 'get data success', { point: endPoint, data, type });
                 }
             }
@@ -2319,848 +2056,7 @@ export const getCvDetail= async(req, res) => {
     } catch (error) {
         return functions.setError(res, error.message);
     }
-
 };
-
-let data_home_ejs = {};
-export const trangChuEjs = async(req, res) => {
-    try {
-        const data = {};
-        let flag = true;
-        if (Object.keys(data_home_ejs).length) {
-            flag = false;
-            res.render('trang-chu', {
-                ...data_home_ejs
-            });
-            // functions.success(res, 'success', { data: data_home });
-        }
-
-        const time = functions.getTime();
-        const idNewHot = [];
-        const idNewCao = [];
-        // const idCompany = []
-        const idCompany = await UserCompany.distinct('usc_id')
-
-        const HotNewGhimTin_Promise = await NewGhimTin.find({ expired: { $gt: time } })
-            // const UserCompany_Promise = await UserCompany.find()
-
-        if (time - last_sitemap_time >= 86400) {
-            last_sitemap_time = time
-            // genSitemap()
-        }
-
-        for (let i = 0; i < HotNewGhimTin_Promise.length; i++) {
-            if (HotNewGhimTin_Promise[i].new_hot === 1) {
-                idNewHot.push(HotNewGhimTin_Promise[i].new_id)
-            }
-            if (HotNewGhimTin_Promise[i].new_cao === 1) {
-                idNewCao.push(HotNewGhimTin_Promise[i].new_id)
-            }
-        }
-
-        // for (let i = 0; i < UserCompany_Promise.length; i++) {
-        //     idCompany.push(UserCompany_Promise[i].usc_id)
-        // }
-
-        const ViecLamHapDan_Promise = await New.aggregate([{
-                $match: {
-                    new_active: 1,
-                    new_thuc: 1,
-                    new_han_nop: { $gt: time },
-                    new_id: {
-                        $in: idNewHot
-                    },
-                }
-            },
-            { $sort: { new_update_time: -1 } },
-            // { $limit: 72 },
-            { $limit: 30 },
-            {
-                $lookup: {
-                    from: "UserCompany",
-                    localField: "new_user_id",
-                    foreignField: "usc_id",
-                    as: "company",
-                }
-            },
-            { $unwind: "$company" },
-            {
-                $project: {
-                    new_title: 1,
-                    new_id: 1,
-                    new_money: 1,
-                    new_han_nop: 1,
-                    usc_logo: '$company.usc_logo',
-                    usc_id: '$company.usc_id',
-                    usc_company: '$company.usc_company',
-                    usc_alias: '$company.usc_alias',
-                    usc_create_time: '$company.usc_create_time',
-                    new_alias: 1,
-                    new_index: 1,
-                    new_thuc: 1,
-                    new_city: 1,
-                    new_hot: 1,
-                    new_update_time: 1,
-                    new_money_type: 1,
-                    new_money_from: 1,
-                    new_money_to: 1
-                }
-            }
-        ]);
-
-        const ViecLamThuongHieu_Promise = await New.aggregate([{
-                $match: {
-                    new_active: 1,
-                    new_thuc: 1,
-                    new_han_nop: { $gt: time },
-                    new_id: {
-                        $in: idNewCao
-                    },
-                }
-            },
-            { $sort: { new_cao: -1, new_update_time: -1 } },
-            // { $limit: 72 },
-            { $limit: 30 },
-            {
-                $lookup: {
-                    from: "UserCompany",
-                    localField: "new_user_id",
-                    foreignField: "usc_id",
-                    as: "company",
-                }
-            },
-            { $unwind: "$company" },
-            {
-                $project: {
-                    new_title: 1,
-                    new_id: 1,
-                    new_money: 1,
-                    new_han_nop: 1,
-                    usc_logo: '$company.usc_logo',
-                    usc_id: '$company.usc_id',
-                    usc_company: '$company.usc_company',
-                    usc_alias: '$company.usc_alias',
-                    usc_create_time: '$company.usc_create_time',
-                    new_alias: 1,
-                    new_index: 1,
-                    new_thuc: 1,
-                    new_city: 1,
-                    new_cao: 1,
-                    new_update_time: 1,
-                    new_money_type: 1,
-                    new_money_from: 1,
-                    new_money_to: 1
-                }
-            }
-        ]);
-
-        // Đẩy thêm 15 tin thường lên việc làm hấp dẫn, việc làm lương cao trên trang chủ (sắp xếp theo thời gian cập nhật)
-        const TinThuongHapDan_Promise = New.aggregate([{
-                $match: {
-                    new_active: 1,
-                    new_thuc: 1,
-                    new_han_nop: { $gt: time },
-                    new_user_id: {
-                        $in: idCompany
-                    },
-                    new_id: {
-                        $nin: [...idNewHot, ...idNewCao]
-                    },
-                }
-            },
-            { $sort: { new_update_time: -1 } },
-            { $limit: ViecLamHapDan_Promise.length < 30 ? 30 - ViecLamHapDan_Promise.length : 1 },
-            {
-                $lookup: {
-                    from: "UserCompany",
-                    localField: "new_user_id",
-                    foreignField: "usc_id",
-                    as: "company",
-                }
-            },
-            { $unwind: "$company" },
-            {
-                $addFields: {
-                    tinthuong: true
-                }
-            },
-            {
-                $project: {
-                    new_title: 1,
-                    new_id: 1,
-                    new_money: 1,
-                    new_han_nop: 1,
-                    usc_logo: '$company.usc_logo',
-                    usc_id: '$company.usc_id',
-                    usc_company: '$company.usc_company',
-                    usc_alias: '$company.usc_alias',
-                    usc_create_time: '$company.usc_create_time',
-                    new_alias: 1,
-                    new_index: 1,
-                    new_thuc: 1,
-                    new_city: 1,
-                    new_hot: 1,
-                    new_update_time: 1,
-                    new_money_type: 1,
-                    new_money_from: 1,
-                    new_money_to: 1,
-                    tinthuong: true,
-                }
-            }
-        ])
-
-        const TinThuongThuongHieu_Promise = New.aggregate([{
-                $match: {
-                    new_active: 1,
-                    new_thuc: 1,
-                    new_han_nop: { $gt: time },
-                    new_user_id: {
-                        $in: idCompany
-                    },
-                    new_id: {
-                        $nin: [...idNewHot, ...idNewCao]
-                    },
-                }
-            },
-            { $sort: { new_update_time: -1 } },
-            { $limit: ViecLamThuongHieu_Promise.length < 30 ? 30 - ViecLamThuongHieu_Promise.length : 1 },
-            {
-                $lookup: {
-                    from: "UserCompany",
-                    localField: "new_user_id",
-                    foreignField: "usc_id",
-                    as: "company",
-                }
-            },
-            { $unwind: "$company" },
-            {
-                $addFields: {
-                    tinthuong: true
-                }
-            },
-            {
-                $project: {
-                    new_title: 1,
-                    new_id: 1,
-                    new_money: 1,
-                    new_han_nop: 1,
-                    usc_logo: '$company.usc_logo',
-                    usc_id: '$company.usc_id',
-                    usc_company: '$company.usc_company',
-                    usc_alias: '$company.usc_alias',
-                    usc_create_time: '$company.usc_create_time',
-                    new_alias: 1,
-                    new_index: 1,
-                    new_thuc: 1,
-                    new_city: 1,
-                    new_hot: 1,
-                    new_update_time: 1,
-                    new_money_type: 1,
-                    new_money_from: 1,
-                    new_money_to: 1,
-                    tinthuong: true,
-                }
-            }
-        ])
-
-        const tinTucNoiBat_Promise = News.aggregate([{
-                $match: {
-                    new_active: 1
-                }
-            },
-            { $sort: { new_id: -1 } },
-            {
-                $limit: 12
-            },
-            {
-                $lookup: {
-                    from: 'AdminUser',
-                    localField: 'adm_id',
-                    foreignField: 'adm_id',
-                    as: "adminUser"
-                }
-            },
-            { $unwind: "$adminUser" },
-            {
-                $project: {
-                    new_title_rewrite: 1,
-                    new_title: 1,
-                    new_picture: 1,
-                    new_id: 1,
-                    // adm_id: "$adminUser.admin_id",
-                    adm_name: "$adminUser.adm_name",
-                    new_des: 1,
-                    new_date: 1,
-                    new_date_last_edit: 1,
-                    // adm_picture: "$adminUser.adm_picture",
-                }
-            }
-        ])
-
-        const com_promise = UserCompany.distinct("usc_id")
-
-        const [
-            // seo,
-            ViecLamHapDan,
-            TinThuongHapDan,
-            ViecLamThuongHieu,
-            TinThuongThuongHieu,
-            // blog,
-            Cityy,
-            tinTucNoiBat,
-            com
-        ] =
-        await Promise.all([
-            // seo_Promise,
-            ViecLamHapDan_Promise,
-            TinThuongHapDan_Promise,
-            ViecLamThuongHieu_Promise,
-            TinThuongThuongHieu_Promise,
-            // blog_Promise,
-            City.find({}, { cit_id: 1, cit_name: 1, cit_alias: 1 }).lean(),
-            tinTucNoiBat_Promise,
-            com_promise,
-            // nganhNgheNoiBat_Promise
-        ]);
-
-        const leng_hapDan = ViecLamHapDan.length;
-        for (let i = 0; i < leng_hapDan; i++) {
-            const element = ViecLamHapDan[i];
-            element.usc_logo = functions.getAvatarNTD2(element.usc_create_time, element.usc_logo);
-
-            const nameCity = element.new_city.split(',');
-            const cityArr = [];
-            if (nameCity.length > 0) nameCity.map((itemm) => {
-                const city = Cityy.find((item) => (item.cit_id == itemm));
-                if (city) cityArr.push(city.cit_name);
-            });
-            element.new_city = cityArr;
-            element.new_money_name = functions.getMucLuong(element.new_money_type, element.new_money_from, element.new_money_to, element.new_money)
-            element.new_han_nop = functions.getHanNop(element.new_han_nop)
-        }
-        // console.log('ViecLamHapDan', ViecLamHapDan);
-
-        const leng_thuongHieu = ViecLamThuongHieu.length;
-        for (let i = 0; i < leng_thuongHieu; i++) {
-            const element = ViecLamThuongHieu[i];
-            element.usc_logo = functions.getAvatarNTD2(element.usc_create_time, element.usc_logo);
-            const nameCity = element.new_city.split(',');
-            const cityArr = [];
-            if (nameCity.length > 0) nameCity.map((itemm) => {
-                const city = Cityy.find((item) => (item.cit_id == itemm));
-                if (city) cityArr.push(city.cit_name);
-            });
-            element.new_city = cityArr;
-            element.new_money_name = functions.getMucLuong(element.new_money_type, element.new_money_from, element.new_money_to, element.new_money)
-            element.new_han_nop = functions.getHanNop(element.new_han_nop)
-
-        }
-
-        if (leng_hapDan < 30) {
-            const leng_tinthuonghapdan = TinThuongHapDan.length;
-            for (let i = 0; i < leng_tinthuonghapdan; i++) {
-                const element = TinThuongHapDan[i];
-                element.usc_logo = functions.getAvatarNTD2(element.usc_create_time, element.usc_logo);
-
-                const nameCity = element.new_city.split(',');
-                const cityArr = [];
-                if (nameCity.length > 0) nameCity.map((itemm) => {
-                    const city = Cityy.find((item) => (item.cit_id == itemm));
-                    if (city) cityArr.push(city.cit_name);
-                });
-                element.new_city = cityArr;
-                element.new_money_name = functions.getMucLuong(element.new_money_type, element.new_money_from, element.new_money_to, element.new_money)
-                element.new_han_nop = functions.getHanNop(element.new_han_nop)
-
-            }
-        }
-
-        if (leng_thuongHieu < 30) {
-            const leng_tinthuongthuonghieu = TinThuongThuongHieu.length;
-            for (let i = 0; i < leng_tinthuongthuonghieu; i++) {
-                const element = TinThuongThuongHieu[i];
-                element.usc_logo = functions.getAvatarNTD2(element.usc_create_time, element.usc_logo);
-                const nameCity = element.new_city.split(',');
-                const cityArr = [];
-                if (nameCity.length > 0) nameCity.map((itemm) => {
-                    const city = Cityy.find((item) => (item.cit_id == itemm));
-                    if (city) cityArr.push(city.cit_name);
-                });
-                element.new_city = cityArr;
-                element.new_money_name = functions.getMucLuong(element.new_money_type, element.new_money_from, element.new_money_to, element.new_money)
-                element.new_han_nop = functions.getHanNop(element.new_han_nop)
-
-            }
-        }
-
-        let nganhNgheNoiBat = []
-        const arr = ['9', '13', '2', '14', '33', '27', '66', '10'];
-
-        const JobNumber = await Promise.all(
-            arr.map(item => (
-                // New.countDocuments({ new_cat_id: { $regex: item, $options: 'i' }, new_active: 1, new_han_nop: { $gt: new Date().getTime() / 1000 } })
-                New.countDocuments({ new_cat_id: new RegExp(`(^|,)${item}(,|$)`), new_active: 1, new_han_nop: { $gt: new Date().getTime() / 1000 }, new_user_id: { $in: com } })
-            ))
-        );
-
-        for (let i = 0; i < arr.length; i++) {
-            const element = arr[i];
-            nganhNgheNoiBat.push({
-                _id: element,
-                count: JobNumber[i]
-            })
-        }
-
-        for (let i = 0; i < tinTucNoiBat.length; i++) {
-            const element = tinTucNoiBat[i];
-            // element.new_picture = `${process.env.DOMAIN_API}/pictures/news/${element.new_picture}`;
-            element.new_picture = `${process.env.DOMAIN_API}/pictures/${element.new_picture}`;
-            element.new_display_date = functions.getDate(element.new_date_last_edit * 1000)
-        }
-
-        data.ViecLamHapDan = ViecLamHapDan.length < 30 ? [...ViecLamHapDan, ...TinThuongHapDan] : [...ViecLamHapDan];
-        data.ViecLamThuongHieu = ViecLamThuongHieu.length < 30 ? [...ViecLamThuongHieu, ...TinThuongThuongHieu] : [...ViecLamThuongHieu];
-        data.TinThuongHapDan = TinThuongHapDan;
-        data.TinThuongThuongHieu = TinThuongThuongHieu;
-
-        data.JobNumber = JobNumber;
-        data.nganhNgheNoiBat = nganhNgheNoiBat;
-        data.tinTucNoiBat = tinTucNoiBat;
-        data.Cityy = Cityy
-        data_home_ejs = data;
-
-        if (flag) {
-            // functions.success(res, 'success', { data });
-            res.render('trang-chu', {
-                ...data_home_ejs
-            });
-        }
-        return true
-    } catch (error) {
-        console.error(error);
-        res.json(error)
-    }
-}
-
-let data_home_ejs2 = {};
-export const trangChuEjs2 = async(req, res) => {
-    try {
-        const data = {};
-        let flag = true;
-        if (Object.keys(data_home_ejs2).length) {
-            flag = false;
-            res.render('trang-chu2', {
-                ...data_home_ejs2
-            });
-            // functions.success(res, 'success', { data: data_home });
-        }
-
-        const time = functions.getTime();
-        const idNewHot = [];
-        const idNewCao = [];
-        // const idCompany = []
-        const idCompany = await UserCompany.distinct('usc_id')
-
-        const HotNewGhimTin_Promise = await NewGhimTin.find({ expired: { $gt: time } })
-            // const UserCompany_Promise = await UserCompany.find()
-
-        // if (time - last_sitemap_time >= 86400) {
-        //     last_sitemap_time = time
-        //     genSitemap()
-        // }
-
-        for (let i = 0; i < HotNewGhimTin_Promise.length; i++) {
-            if (HotNewGhimTin_Promise[i].new_hot === 1) {
-                idNewHot.push(HotNewGhimTin_Promise[i].new_id)
-            }
-            if (HotNewGhimTin_Promise[i].new_cao === 1) {
-                idNewCao.push(HotNewGhimTin_Promise[i].new_id)
-            }
-        }
-
-        // for (let i = 0; i < UserCompany_Promise.length; i++) {
-        //     idCompany.push(UserCompany_Promise[i].usc_id)
-        // }
-
-        const ViecLamHapDan_Promise = await New.aggregate([{
-                $match: {
-                    new_active: 1,
-                    new_thuc: 1,
-                    new_han_nop: { $gt: time },
-                    new_id: {
-                        $in: idNewHot
-                    },
-                }
-            },
-            { $sort: { new_update_time: -1 } },
-            // { $limit: 72 },
-            { $limit: 30 },
-            {
-                $lookup: {
-                    from: "UserCompany",
-                    localField: "new_user_id",
-                    foreignField: "usc_id",
-                    as: "company",
-                }
-            },
-            { $unwind: "$company" },
-            {
-                $project: {
-                    new_title: 1,
-                    new_id: 1,
-                    new_money: 1,
-                    new_han_nop: 1,
-                    usc_logo: '$company.usc_logo',
-                    usc_id: '$company.usc_id',
-                    usc_company: '$company.usc_company',
-                    usc_alias: '$company.usc_alias',
-                    usc_create_time: '$company.usc_create_time',
-                    new_alias: 1,
-                    new_index: 1,
-                    new_thuc: 1,
-                    new_city: 1,
-                    new_hot: 1,
-                    new_update_time: 1,
-                    new_money_type: 1,
-                    new_money_from: 1,
-                    new_money_to: 1
-                }
-            }
-        ]);
-
-        const ViecLamThuongHieu_Promise = await New.aggregate([{
-                $match: {
-                    new_active: 1,
-                    new_thuc: 1,
-                    new_han_nop: { $gt: time },
-                    new_id: {
-                        $in: idNewCao
-                    },
-                }
-            },
-            { $sort: { new_cao: -1, new_update_time: -1 } },
-            // { $limit: 72 },
-            { $limit: 30 },
-            {
-                $lookup: {
-                    from: "UserCompany",
-                    localField: "new_user_id",
-                    foreignField: "usc_id",
-                    as: "company",
-                }
-            },
-            { $unwind: "$company" },
-            {
-                $project: {
-                    new_title: 1,
-                    new_id: 1,
-                    new_money: 1,
-                    new_han_nop: 1,
-                    usc_logo: '$company.usc_logo',
-                    usc_id: '$company.usc_id',
-                    usc_company: '$company.usc_company',
-                    usc_alias: '$company.usc_alias',
-                    usc_create_time: '$company.usc_create_time',
-                    new_alias: 1,
-                    new_index: 1,
-                    new_thuc: 1,
-                    new_city: 1,
-                    new_cao: 1,
-                    new_update_time: 1,
-                    new_money_type: 1,
-                    new_money_from: 1,
-                    new_money_to: 1
-                }
-            }
-        ]);
-
-        // Đẩy thêm 15 tin thường lên việc làm hấp dẫn, việc làm lương cao trên trang chủ (sắp xếp theo thời gian cập nhật)
-        const TinThuongHapDan_Promise = New.aggregate([{
-                $match: {
-                    new_active: 1,
-                    new_thuc: 1,
-                    new_han_nop: { $gt: time },
-                    new_user_id: {
-                        $in: idCompany
-                    },
-                    new_id: {
-                        $nin: [...idNewHot, ...idNewCao]
-                    },
-                }
-            },
-            { $sort: { new_update_time: -1 } },
-            { $limit: ViecLamHapDan_Promise.length < 30 ? 30 - ViecLamHapDan_Promise.length : 1 },
-            {
-                $lookup: {
-                    from: "UserCompany",
-                    localField: "new_user_id",
-                    foreignField: "usc_id",
-                    as: "company",
-                }
-            },
-            { $unwind: "$company" },
-            {
-                $addFields: {
-                    tinthuong: true
-                }
-            },
-            {
-                $project: {
-                    new_title: 1,
-                    new_id: 1,
-                    new_money: 1,
-                    new_han_nop: 1,
-                    usc_logo: '$company.usc_logo',
-                    usc_id: '$company.usc_id',
-                    usc_company: '$company.usc_company',
-                    usc_alias: '$company.usc_alias',
-                    usc_create_time: '$company.usc_create_time',
-                    new_alias: 1,
-                    new_index: 1,
-                    new_thuc: 1,
-                    new_city: 1,
-                    new_hot: 1,
-                    new_update_time: 1,
-                    new_money_type: 1,
-                    new_money_from: 1,
-                    new_money_to: 1,
-                    tinthuong: true,
-                }
-            }
-        ])
-
-        const TinThuongThuongHieu_Promise = New.aggregate([{
-                $match: {
-                    new_active: 1,
-                    new_thuc: 1,
-                    new_han_nop: { $gt: time },
-                    new_user_id: {
-                        $in: idCompany
-                    },
-                    new_id: {
-                        $nin: [...idNewHot, ...idNewCao]
-                    },
-                }
-            },
-            { $sort: { new_update_time: -1 } },
-            { $limit: ViecLamThuongHieu_Promise.length < 30 ? 30 - ViecLamThuongHieu_Promise.length : 1 },
-            {
-                $lookup: {
-                    from: "UserCompany",
-                    localField: "new_user_id",
-                    foreignField: "usc_id",
-                    as: "company",
-                }
-            },
-            { $unwind: "$company" },
-            {
-                $addFields: {
-                    tinthuong: true
-                }
-            },
-            {
-                $project: {
-                    new_title: 1,
-                    new_id: 1,
-                    new_money: 1,
-                    new_han_nop: 1,
-                    usc_logo: '$company.usc_logo',
-                    usc_id: '$company.usc_id',
-                    usc_company: '$company.usc_company',
-                    usc_alias: '$company.usc_alias',
-                    usc_create_time: '$company.usc_create_time',
-                    new_alias: 1,
-                    new_index: 1,
-                    new_thuc: 1,
-                    new_city: 1,
-                    new_hot: 1,
-                    new_update_time: 1,
-                    new_money_type: 1,
-                    new_money_from: 1,
-                    new_money_to: 1,
-                    tinthuong: true,
-                }
-            }
-        ])
-
-        const tinTucNoiBat_Promise = News.aggregate([{
-                $match: {
-                    new_active: 1
-                }
-            },
-            { $sort: { new_id: -1 } },
-            {
-                $limit: 12
-            },
-            {
-                $lookup: {
-                    from: 'AdminUser',
-                    localField: 'adm_id',
-                    foreignField: 'adm_id',
-                    as: "adminUser"
-                }
-            },
-            { $unwind: "$adminUser" },
-            {
-                $project: {
-                    new_title_rewrite: 1,
-                    new_title: 1,
-                    new_picture: 1,
-                    new_id: 1,
-                    // adm_id: "$adminUser.admin_id",
-                    adm_name: "$adminUser.adm_name",
-                    new_des: 1,
-                    new_date: 1,
-                    new_date_last_edit: 1,
-                    // adm_picture: "$adminUser.adm_picture",
-                }
-            }
-        ])
-
-        const com_promise = UserCompany.distinct("usc_id")
-
-        const [
-            // seo,
-            ViecLamHapDan,
-            TinThuongHapDan,
-            ViecLamThuongHieu,
-            TinThuongThuongHieu,
-            // blog,
-            Cityy,
-            tinTucNoiBat,
-            com
-        ] =
-        await Promise.all([
-            // seo_Promise,
-            ViecLamHapDan_Promise,
-            TinThuongHapDan_Promise,
-            ViecLamThuongHieu_Promise,
-            TinThuongThuongHieu_Promise,
-            // blog_Promise,
-            City.find({}, { cit_id: 1, cit_name: 1, cit_alias: 1 }).lean(),
-            tinTucNoiBat_Promise,
-            com_promise,
-            // nganhNgheNoiBat_Promise
-        ]);
-
-        const leng_hapDan = ViecLamHapDan.length;
-        for (let i = 0; i < leng_hapDan; i++) {
-            const element = ViecLamHapDan[i];
-            element.usc_logo = functions.getAvatarNTD2(element.usc_create_time, element.usc_logo);
-
-            const nameCity = element.new_city.split(',');
-            const cityArr = [];
-            if (nameCity.length > 0) nameCity.map((itemm) => {
-                const city = Cityy.find((item) => (item.cit_id == itemm));
-                if (city) cityArr.push(city.cit_name);
-            });
-            element.new_city = cityArr;
-            element.new_money_name = functions.getMucLuong(element.new_money_type, element.new_money_from, element.new_money_to, element.new_money)
-            element.new_han_nop = functions.getHanNop(element.new_han_nop)
-        }
-        // console.log('ViecLamHapDan', ViecLamHapDan);
-
-        const leng_thuongHieu = ViecLamThuongHieu.length;
-        for (let i = 0; i < leng_thuongHieu; i++) {
-            const element = ViecLamThuongHieu[i];
-            element.usc_logo = functions.getAvatarNTD2(element.usc_create_time, element.usc_logo);
-            const nameCity = element.new_city.split(',');
-            const cityArr = [];
-            if (nameCity.length > 0) nameCity.map((itemm) => {
-                const city = Cityy.find((item) => (item.cit_id == itemm));
-                if (city) cityArr.push(city.cit_name);
-            });
-            element.new_city = cityArr;
-            element.new_money_name = functions.getMucLuong(element.new_money_type, element.new_money_from, element.new_money_to, element.new_money)
-            element.new_han_nop = functions.getHanNop(element.new_han_nop)
-
-        }
-
-        if (leng_hapDan < 30) {
-            const leng_tinthuonghapdan = TinThuongHapDan.length;
-            for (let i = 0; i < leng_tinthuonghapdan; i++) {
-                const element = TinThuongHapDan[i];
-                element.usc_logo = functions.getAvatarNTD2(element.usc_create_time, element.usc_logo);
-
-                const nameCity = element.new_city.split(',');
-                const cityArr = [];
-                if (nameCity.length > 0) nameCity.map((itemm) => {
-                    const city = Cityy.find((item) => (item.cit_id == itemm));
-                    if (city) cityArr.push(city.cit_name);
-                });
-                element.new_city = cityArr;
-                element.new_money_name = functions.getMucLuong(element.new_money_type, element.new_money_from, element.new_money_to, element.new_money)
-                element.new_han_nop = functions.getHanNop(element.new_han_nop)
-
-            }
-        }
-
-        if (leng_thuongHieu < 30) {
-            const leng_tinthuongthuonghieu = TinThuongThuongHieu.length;
-            for (let i = 0; i < leng_tinthuongthuonghieu; i++) {
-                const element = TinThuongThuongHieu[i];
-                element.usc_logo = functions.getAvatarNTD2(element.usc_create_time, element.usc_logo);
-                const nameCity = element.new_city.split(',');
-                const cityArr = [];
-                if (nameCity.length > 0) nameCity.map((itemm) => {
-                    const city = Cityy.find((item) => (item.cit_id == itemm));
-                    if (city) cityArr.push(city.cit_name);
-                });
-                element.new_city = cityArr;
-                element.new_money_name = functions.getMucLuong(element.new_money_type, element.new_money_from, element.new_money_to, element.new_money)
-                element.new_han_nop = functions.getHanNop(element.new_han_nop)
-
-            }
-        }
-
-        let nganhNgheNoiBat = []
-        const arr = ['9', '13', '2', '14', '33', '27', '66', '10'];
-
-        const JobNumber = await Promise.all(
-            arr.map(item => (
-                // New.countDocuments({ new_cat_id: { $regex: item, $options: 'i' }, new_active: 1, new_han_nop: { $gt: new Date().getTime() / 1000 } })
-                New.countDocuments({ new_cat_id: new RegExp(`(^|,)${item}(,|$)`), new_active: 1, new_han_nop: { $gt: new Date().getTime() / 1000 }, new_user_id: { $in: com } })
-            ))
-        );
-
-        for (let i = 0; i < arr.length; i++) {
-            const element = arr[i];
-            nganhNgheNoiBat.push({
-                _id: element,
-                count: JobNumber[i]
-            })
-        }
-
-        for (let i = 0; i < tinTucNoiBat.length; i++) {
-            const element = tinTucNoiBat[i];
-            // element.new_picture = `${process.env.DOMAIN_API}/pictures/news/${element.new_picture}`;
-            element.new_picture = `${process.env.DOMAIN_API}/pictures/${element.new_picture}`;
-            element.new_display_date = functions.getDate(element.new_date_last_edit * 1000)
-        }
-
-        data.ViecLamHapDan = ViecLamHapDan.length < 30 ? [...ViecLamHapDan, ...TinThuongHapDan] : [...ViecLamHapDan];
-        data.ViecLamThuongHieu = ViecLamThuongHieu.length < 30 ? [...ViecLamThuongHieu, ...TinThuongThuongHieu] : [...ViecLamThuongHieu];
-        data.TinThuongHapDan = TinThuongHapDan;
-        data.TinThuongThuongHieu = TinThuongThuongHieu;
-
-        data.JobNumber = JobNumber;
-        data.nganhNgheNoiBat = nganhNgheNoiBat;
-        data.tinTucNoiBat = tinTucNoiBat;
-        data.Cityy = Cityy
-        data_home_ejs2 = data;
-
-        if (flag) {
-            // functions.success(res, 'success', { data });
-            res.render('trang-chu2', {
-                ...data_home_ejs2
-            });
-        }
-        return true
-    } catch (error) {
-        console.error(error);
-        res.json(error)
-    }
-}
 
 // Việc làm để xuất
 export const JobRecommend = async (req, res) => {
@@ -3384,7 +2280,6 @@ export const getRecommentComp = async (req, res) => {
                     usc_id: { $in: comWithNew }
                 }
             },
-            { $sort: { usc_view_count: -1 } },
             { $limit: 1 }
         ]);
 

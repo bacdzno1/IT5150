@@ -1,9 +1,7 @@
  
 import * as functions from '../services/functions.js';
 import TblPointCompany from '../models/tbl/TblPointCompany.js';
-import TblPointUsed from '../models/tbl/TblPointUsed.js';
 import TblLuuHoSoUv from '../models/tbl/TblLuuHoSoUv.js';
-import TblRelationship from '../models/chat/TblRelationship.js';
 import NopHoSo from '../models/NopHoSo.js';
 import "dotenv/config";
 import New from '../models/new/New.js';
@@ -60,8 +58,7 @@ export const ManageAll = async (req, res, next) => {
             {
                 $project: {
                     _id: 0,
-                    new_id: 1, new_title: 1, new_alias: 1, new_city: 1, new_han_nop: 1, new_hot: 1,
-                    new_gap: 1, new_cao: 1, new_nganh: 1, new_view_count: 1,
+                    new_id: 1, new_title: 1, new_alias: 1, new_city: 1, new_han_nop: 1, new_hot: 1, new_cao: 1, new_view_count: 1,
                     new_cat_id: 1,
                 }
             }
@@ -102,12 +99,11 @@ export const ManageAll = async (req, res, next) => {
         ]);
 
         const hoSoUtPromise = NopHoSo.countDocuments({ nhs_com_id: idNTD });
-        const hoSoDiemLocPromise = TblPointUsed.countDocuments({ type: { $ne: 0 }, use_id: { $ne: 0 }, usc_id: idNTD });
         const chuyenVienGuiUvPromise = NopHoSo.countDocuments({ nhs_com_id: idNTD, type: 2 });
 
         const [tinconhan, tinsaphethan, tinhethan, tindangtrongngay, tinlammoi, tinGanDay, hoSoMoi, hoSoUt, hoSoDiemLoc, chuyenVienGuiUv] = await Promise.all([
             tinconhanPromise, tinsaphethanPromise, tinhethanPromise, tindangtrongngayPromise,
-            tinlammoiPromise, tinGanDayPromise, hoSoMoiPromise, hoSoUtPromise, hoSoDiemLocPromise, chuyenVienGuiUvPromise
+            tinlammoiPromise, tinGanDayPromise, hoSoMoiPromise, hoSoUtPromise, chuyenVienGuiUvPromise
         ]);
         const arr = [];
         const arrUV = [];
@@ -428,30 +424,7 @@ export const ViewCandidateInformation = async (req, res) => {
             const requiredPoint = checkMailUv?.use_authentic == 1 ? 3 : 2
 
             if (checkPoint && checkPoint.point_usc > requiredPoint) {
-                await TblPointUsed.findOneAndUpdate({ usc_id: idNTD, use_id: iduv }, { type: 2, used_day: functions.getTime(), point: requiredPoint });
                 await TblPointCompany.findOneAndUpdate({ usc_id: idNTD }, { $inc: { point_usc: -requiredPoint } });
-                const checkRelations = await TblRelationship.findOne({
-                    $or: [
-                        { $and: [{ user_id: iduv }, { user_partner: idNTD }] },
-                        { $and: [{ user_id: idNTD }, { user_partner: iduv }] },
-                        { rela_type: 0 },
-                    ]
-                });
-                if (!checkRelations) {
-                    const id = await functions.getMaxId(TblRelationship, 'id');
-                    await TblRelationship.create({
-                        id,
-                        user_id: idNTD,
-                        user_type: 1,
-                        user_partner: iduv,
-                        partner_type: 0,
-                        rela_type: 0,
-                        rela_status: 1,
-                        room: `idNTD_iduv`,
-                        created_at: functions.getTime(),
-                        updated_at: functions.getTime(),
-                    });
-                }
                 if (checkMailUv.use_mail && checkMailUv.use_mail != '') {
                     const email_receive = checkMailUv.use_mail;
                     const name_receive = checkMailUv.use_name;
@@ -461,14 +434,14 @@ export const ViewCandidateInformation = async (req, res) => {
                     const job = await New.aggregate([
                         {
                             $match: {
-                                new_active: 1, new_thuc: 1, new_hot: 0, new_city: new RegExp(job_city),
+                                new_active: 1, new_hot: 0, new_city: new RegExp(job_city),
                                 $or: [
                                     { new_real_cate: new RegExp(job_cate) },
                                     { new_cat_id: new RegExp(job_cate) },
                                 ]
                             }
                         },
-                        { $sort: { new_nganh: -1, new_id: -1, new_han_nop: -1 } },
+                        { $sort: { new_id: -1, new_han_nop: -1 } },
                         { $limit: 5 },
                         {
                             $lookup: {
@@ -487,7 +460,6 @@ export const ViewCandidateInformation = async (req, res) => {
                                 new_cap_bac: 1,
                                 new_create_time: 1,
                                 new_title: 1,
-                                new_nganh: 1,
                                 new_han_nop: 1,
                                 new_alias: 1,
                                 usc_id: '$company.usc_id',

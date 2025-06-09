@@ -3,8 +3,7 @@ const functions = require('../services/functions');
 const function_new = require('../function/function_new');
 const data_get = require('../function/data');
 const apiController = require('./apicontroller');
-const { checkDeadline, findCity, checkElapsedTime, findCompSize,getTimeRemain, getMucLuong, convertTimestamp, findExp,findEdu, findTypeWork, findGender, findCate, levelList, cateList,
-    listTypeWork, city_array, listRangeMoney, listSizeExp, listEdu, genderList, findDistrict, findLevel, convertTimestampDetail, findCateBlog, listCities, getMucLuong2, findCateNewsById
+const { checkDeadline, findCity, checkElapsedTime, findCompSize, getTimeRemain, getMucLuong, convertTimestamp, findExp, findEdu, findTypeWork, findGender, findCate, cateList, city_array, findLevel, convertTimestampDetail, listCities, getMucLuong2, findCateNewsById
 } = require('../function/function_new');
 const { listQuanhuyen } = require('../function/functions');
 const axios = require('axios');
@@ -27,11 +26,11 @@ exports.cvpage = async (req, res) => {
     const response = await axios.post('http://localhost:3056/api/topcv1s/CV/ListSampleCV', {
         idnganh: 0
     },
-    {
-        headers: {
-            Authorization: `Bearer ${accessToken}`
-        }
-    });
+        {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
     cvList = response.data.data.data
     blog = response.data.data.blog
     // console.log(req.params)
@@ -95,7 +94,7 @@ exports.candi_page = async (req, res) => {
     const response = await axios.post('http://localhost:3053/api/topcv1s/new/SearchCandi', {
         keywords: name,
         city: city,
-        catid:catid,
+        catid: catid,
         pageSize: pageSize,
         page: page
     }, {
@@ -107,7 +106,7 @@ exports.candi_page = async (req, res) => {
     let data = {
         test: 'data test'
     }
-    return res.render('candi_page', { data, city, catid,name, listCities, url, response, convertToUrl,getTimeRemain, findExp });
+    return res.render('candi_page', { data, city, catid, name, listCities, url, response, convertToUrl, getTimeRemain, findExp });
 }
 exports.candi_detail = async (req, res) => {
     const url = req.url;
@@ -120,8 +119,8 @@ exports.candi_detail = async (req, res) => {
     var convertToUrl = function_new.convertToUrl;
     var findRangeMoney = function_new.findRangeMoney;
     var listRangeMoney = function_new.listRangeMoney;
-    var name =''
-    var city =''
+    var name = ''
+    var city = ''
 
     try {
         const token = req.cookies.accessToken;
@@ -141,7 +140,7 @@ exports.candi_detail = async (req, res) => {
         const dataFromAPI = response.data.data;
         // var checksave= response.xemtt
 
-        return res.render('candi_detail', {listCities,name,city, dataFromAPI, findCity,findExp,findTypeWork, findCate, listRangeMoney, token, convertToUrl, findRangeMoney, url });
+        return res.render('candi_detail', { listCities, name, city, dataFromAPI, findCity, findExp, findTypeWork, findCate, listRangeMoney, token, convertToUrl, findRangeMoney, url });
 
     } catch (error) {
         console.error('Error fetching data from API:', error);
@@ -206,7 +205,7 @@ exports.job_after_search = async (req, res) => {
         seoCNT = `Danh sách tin tuyển dụng việc làm theo ngành nghề hot nhất được gợi ý từng vị trí công việc. Ứng tuyển việc làm uy tín ngay trên TopCv1s, có việc liền tay.`
         seoh1 = `Top việc làm theo ngành nghề cho ứng viên tìm việc`;
     }
-    else if ( (!city_id && findTagByalias(category))) {
+    else if ((!city_id && findTagByalias(category))) {
         seoTT = ` Danh sách việc làm theo tag`
         seoCNT = `Cập nhật danh sách tin tuyển dụng việc làm theo từng vị trí công việc mới nhất trên topcv1s để ứng tuyển miễn phí ngay.`
         seoh1 = `Danh sách việc làm theo tag đa dạng cho ứng viên tìm việc`;
@@ -267,7 +266,6 @@ exports.alias = async (req, res) => {
                     dataToRender = dataFromAPI;
                     functions = function_new.findCity;
                     break;
-                case 3:
                 default:
                     const previousPage = req.headers.referer || '/'; // Nếu không có trang trước đó, quay về trang chủ '/'
                     res.redirect(previousPage);
@@ -283,9 +281,9 @@ exports.alias = async (req, res) => {
             if (url != `/${alias}-${id}`) {
                 return res.redirect(301, `/${alias}-${id}`)
             }
-        }        
+        }
 
-        return res.render(view, { dataToRender, findCity, checkDeadline, checkElapsedTime, findCompSize, getMucLuong, convertTimestamp, findExp,findEdu, findTypeWork, findGender, findCate, convertTimestampDetail, findCateBlog, findLevel, accessToken, url, city_array, getMucLuong2,findCateNewsById,capitalizeFirstLetter });
+        return res.render(view, { dataToRender, findCity, checkDeadline, checkElapsedTime, findCompSize, getMucLuong, convertTimestamp, findExp, findEdu, findTypeWork, findGender, findCate, convertTimestampDetail, findLevel, accessToken, url, city_array, getMucLuong2, findCateNewsById, capitalizeFirstLetter });
 
     } catch (error) {
         // console.error('Error fetching data from API:', error);
@@ -318,7 +316,7 @@ exports.cv_sel = async (req, res) => {
         des = `Tổng hợp mẫu CV ${data_cv.name} đẹp nhất với hướng dẫn chi tiết trên TopCv1s. Tạo và tải mẫu CV online ${data_cv.name} về máy để ứng tuyển việc làm như ý.`;
         title = `Bộ sưu tập mẫu CV online ${data_cv.name} đẹp, tạo và tải miễn phí`;
         h1tit = `Danh sách mẫu CV online ${data_cv.name} đẹp, hỗ trợ tạo 5 ngôn ngữ`;
-        return res.render('cv_page_selection', { url, slug, data_cv, response, capitalizeFirstLetter, des, title,h1tit });
+        return res.render('cv_page_selection', { url, slug, data_cv, response, capitalizeFirstLetter, des, title, h1tit });
     }
     else if (findLangCV(slug) && findLangCV(slug) != '') {
         data_cv = findLangCV(slug);
@@ -328,7 +326,7 @@ exports.cv_sel = async (req, res) => {
         des = `Top mẫu CV ${data_cv.name} đẹp, nội dung chuẩn, hướng dẫn tạo CV ${data_cv.name} nhanh chóng trong 3 phút với sự hỗ trợ của TopCv1s. Tạo CV online ${data_cv.name} ngay.`;
         title = ` Tổng hợp mẫu CV ${data_cv.name} Ấn tượng nhất`;
         h1tit = `Danh sách mẫu CV ${data_cv.name} ấn tượng, tải về miễn phí`;
-        return res.render('cv_page_selection', { url, slug, data_cv, response, capitalizeFirstLetter, des, title,h1tit });
+        return res.render('cv_page_selection', { url, slug, data_cv, response, capitalizeFirstLetter, des, title, h1tit });
     }
     else {
         const previousPage = req.headers.referer || '/';
@@ -495,11 +493,11 @@ exports.regis_candi = async (req, res) => {
     const url = req.url;
     // console.log(req.params)
     var data_check = 1
-    res.locals.data_check = data_check; 
+    res.locals.data_check = data_check;
     let data = {
         test: 'data test'
     }
-    return res.render('uv/register_uv', { listCities: function_new.listCities, cateList: function_new.cateList, url,data_check });
+    return res.render('uv/register_uv', { listCities: function_new.listCities, cateList: function_new.cateList, url, data_check });
 }
 exports.regis_candi_cv = async (req, res) => {
     const url = req.url;

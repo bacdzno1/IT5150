@@ -190,24 +190,6 @@
                                 </div>
                                 <div class="cnt-uif-row">
                                     <div class="cnt-uform">
-                                        <label for="skype_link">
-                                            Skype
-                                        </label>
-                                        <div class="form-ctr">
-                                            <input type="text" id="skype_link" name="skype_link" placeholder="Nhập link tài khoản Skype">
-                                        </div>
-                                    </div>
-                                    <div class="cnt-uform">
-                                        <label for="web_link">
-                                            Website
-                                        </label>
-                                        <div class="form-ctr">
-                                            <input type="text" id="web_link" name="web_link" placeholder="Nhập link Website">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="cnt-uif-row">
-                                    <div class="cnt-uform">
                                         <label for="city_loc">
                                             Tỉnh/Thành phố <span class="color-alert"></span>
                                         </label>
@@ -228,6 +210,14 @@
                                             <select id="disc_loc" name="disc_loc" data-city-array="<%= JSON.stringify(city_array) %>">                                              
                                             </select>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="cnt-uform">
+                                    <label for="web_link">
+                                        Website
+                                    </label>
+                                    <div class="form-ctr">
+                                        <input type="text" id="web_link" name="web_link" placeholder="Nhập link Website">
                                     </div>
                                 </div>
                                 <div class="cnt-uform">
@@ -495,7 +485,6 @@
         formData.append('mst', $("#tax_nb").val());
         formData.append('financial_sector[]', $("#field_op").val());
         formData.append('DateOfIncorporation', $("#found_date").val());
-        formData.append('skype', $("#skype_link").val());
         formData.append('website', $("#web_link").val());
         formData.append('city', $("#city_loc").val());
         formData.append('district', $("#disc_loc").val());
@@ -616,7 +605,6 @@
                 {
                     $("#found_date").val(convertToDateString(infoNTD.DateOfIncorporation))
                 }
-                $("#skype_link").val(infoNTD.usc_skype)
                 $("#web_link").val(infoNTD.usc_website)
                 $("#city_loc").val(infoNTD.usc_city)
                 $("#cmp_loc").val(infoNTD.usc_address)

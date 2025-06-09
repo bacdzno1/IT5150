@@ -6,8 +6,6 @@ import fs from 'fs'
 import SampleCv from '../models/sample/SampleCv.js';
 import LanguageCv from "../models/language/LanguageCv.js";
 import NganhCv from "../models/NganhCv.js";
-import NewsNganhNghe from "../models/blog/NewsNganhNghe.js";
-import NewsLang from "../models/blog/NewsLang.js";
 import CvEmotion from '../models/CvEmotion.js';
 
 export const getLangCv = async (req, res) => {
@@ -117,23 +115,7 @@ export const ListSampleCV = async (req, res) => {
             element.cover_image = `${process.env.DOMAIN_API_CV}/pictures/sample_cv/${element.cover_image}`
         }
 
-        // Bài đăng chân trang
-        let blog = {}
-        if (Number(idnganh)) {
-            const result_blog = await NewsNganhNghe.findOne({ idnganh: Number(idnganh) }).sort({ timeedit: -1 })
-            !!result_blog && (blog = result_blog)
-        }
-        if (Number(idlang)) {
-            const result_blog = await NewsLang.findOne({ idlang: Number(idlang) }).sort({ timeedit: -1 })
-            !!result_blog && (blog = result_blog)
-        }
-        // Mặc đinh
-        if (Object.keys(blog).length === 0) {
-            const result_blog = await NewsNganhNghe.findOne({ idnganh: 0 }).sort({ timeedit: -1 })
-            blog = result_blog
-        }
-
-        return functions.success(res, 'Mẫu CV', { data, total, blog, idnganh, idlang })
+        return functions.success(res, 'Mẫu CV', { data, total, idnganh, idlang })
     } catch (error) {
         return functions.setError(res, error.message);
     }
@@ -168,23 +150,7 @@ export const ListSampleCVNew = async (req, res) => {
             element.cover_image = `${process.env.DOMAIN_API}/pictures/sample_cv/${element.cover_image}`
         }
 
-        // Bài đăng chân trang
-        let blog = {}
-        if (Number(idnganh)) {
-            const result_blog = await NewsNganhNghe.findOne({ idnganh: Number(idnganh) }).sort({ timeedit: -1 })
-            !!result_blog && (blog = result_blog)
-        }
-        if (Number(idlang)) {
-            const result_blog = await NewsLang.findOne({ idlang: Number(idlang) }).sort({ timeedit: -1 })
-            !!result_blog && (blog = result_blog)
-        }
-        // Mặc đinh
-        if (Object.keys(blog).length === 0) {
-            const result_blog = await NewsNganhNghe.findOne({ idnganh: 0 }).sort({ timeedit: -1 })
-            blog = result_blog
-        }
-
-        return functions.success(res, 'Mẫu CV', { data, total, blog })
+        return functions.success(res, 'Mẫu CV', { data, total })
     } catch (error) {
         return functions.setError(res, error.message);
     }

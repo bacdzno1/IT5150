@@ -84,9 +84,6 @@ const SampleCv = new mongoose.Schema({
     meta_title: {
         type: String,
     },
-    meta_key: {
-        type: String,
-    },
     meta_desciption: {
         type: String,
     },

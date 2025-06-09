@@ -2,15 +2,6 @@ const axios = require('axios');
 const function_new = require('../function/function_new');
 const functions = require('../function/functions');
 
-exports.getDataHomeAjax = async (req, res) => {
-    try {
-        const payload = { id: 2 };
-        const response = await axios.post('http:/localhost:3053/api/topcv1s/new/Home', payload);
-        res.json(response.data);
-    } catch (error) {
-        res.status(500).json({ error: 'Error fetching data' });
-    }
-};
 exports.getDiscByCity = async (req, res) => {
     try {
         const { id } = req.body;

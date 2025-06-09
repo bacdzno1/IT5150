@@ -33,33 +33,13 @@ const SaveCandidateCv = new mongoose.Schema({
     status: {
         type: Number,
     },
-    cv_order: {
-        type: Number,
-        default: 0
-    },
-    cv: {
-        type: Number,
-    },
     timeedit: {
         type: Number,
     },
     createdate: {
         type: Number,
     },
-    scan_cv: {
-        type: Number,
-        default: 0
-    },
-    scan_cv_hide: {
-        type: Number,
-        default: 0
-    },
     height_cv: {
-        type: Number,
-        default: 0
-    },
-    cv_check_exist: {
-        //	1: file cv tồn tại	
         type: Number,
         default: 0
     },

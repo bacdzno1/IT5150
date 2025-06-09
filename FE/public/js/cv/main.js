@@ -780,40 +780,6 @@ function getBase64(file) {
     reader.onerror = (error) => reject(error);
   });
 }
-// $(document).on('change', '#inp_avatar_ai365', function (e) {
-// 	let file = this.files[0]
-// 	if (file) {
-// 		file_avatar = file
-// 		let base64_avatar = getBase64(file).then((base64) => {
-// 			detectAvatar(base64)
-// 		})
-// 	}
-// })
-
-//Upload image
-
-// $(document).on("click", ".upload_final", function (e) {
-//   let base64 = avatar_final;
-//   $.ajax("https://job247.vn/api/work247/user/uploadAvatarCV", {
-//     method: "POST",
-//     data: { image64: base64 },
-//     cache: false,
-//     beforeSend: function (response) {
-//       $(".bg-spinner").remove();
-//       $("body").append(
-//         '<div class="bg-spinner"><div class="spinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div></div>'
-//       );
-//     },
-//     success: function (img) {
-//       $(".bg-spinner").remove();
-//       $("#cvo-profile-avatar").attr("src", img);
-//       deletePop();
-//     },
-//     error: function () {
-//       console.log("Upload error");
-//     },
-//   });
-// });
 
 $(document).on("dragover", ".choose_image .avatar_handle", function (e) {
   e.preventDefault();
@@ -924,7 +890,7 @@ $(document).on(
   ".image_final_select, .ai_image_created .bottom-conatainer .right-span",
   function (e) {
     let base64 = avatar_final;
-    $.ajax(`https://job247.vn/api/work247/user/uploadAvatar`, {
+    $.ajax(`http://localhost:3050/api/topcv1s/user/uploadAvatar`, {
       method: "POST",
       data: { image64: base64 },
       cache: false,

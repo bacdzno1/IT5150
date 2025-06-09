@@ -2,18 +2,12 @@
 import * as functions from '../services/functions.js';
 import * as fs from 'node:fs';
 import UserCompany from '../models/user/UserCompany.js';
-import UserCompanyError from '../models/user/UserCompanyError.js';
 import Users from '../models/user/Users.js';
-import UserHocVan from '../models/user/UserHocVan.js';
 import UserCvUpload from '../models/user/UserCvUpload.js';
-import UserThamChieu from '../models/user/UserThamChieu.js';
-import UserCompanyCrm from '../models/user/UserCompanyCrm.js';
 import TblPointCompany from '../models/tbl/TblPointCompany.js';
 import HistoryCountOtp from '../models/history/HistoryCountOtp.js';
 import "dotenv/config";
 import SaveCandidateCv from '../models/save/SaveCandidateCv.js';
-import UseKinhNghiem from '../models/use/UseKinhNghiem.js';
-import UseNgoaiNgu from '../models/use/UseNgoaiNgu.js';
 import UserTempNoAuth from '../models/user/UserTempNoAuth.js';
 import UserVidUpload from '../models/user/UserVidUpload.js';
 import TblCvPreview from '../models/tbl/TblCvPreview.js';
@@ -22,7 +16,6 @@ import jwt from 'jsonwebtoken';
 import New from '../models/new/New.js';
 import NewGhimTin from '../models/new/NewGhimTin.js';
 import NopHoSo from '../models/NopHoSo.js';
-import TblPointUsed from '../models/tbl/TblPointUsed.js';
 import TblLuuHoSoUv from '../models/tbl/TblLuuHoSoUv.js';
 import ConfigFireBaseOTP from '../models/user/ConfigFireBaseOTP.js';
 import cron from 'node-cron'
@@ -38,7 +31,7 @@ cron.schedule('0 0 * * *', async () => {
 });
 
 // Hàm đăng kí tài khoản nhà tuyển dụng khi vượt qua validate (còn luồng TblPointCompany)
-const EmployersValidateSuccess = async (data, file, ip) => {
+const EmployersValidateSuccess = async (data, file) => {
     try {
         const { phoneTK, email, password, nameCompany, city, descriptions, phone } = data;
         const image = [];
@@ -67,19 +60,15 @@ const EmployersValidateSuccess = async (data, file, ip) => {
         const dataUpdate = {
             'usc_pass': hashedPassword,
             'usc_phone': phone,
-            'usc_security': '0',
             'usc_authentic': '0',
             'usc_company': nameCompany.trim(),
             'usc_city': city,
             'usc_district': "",
             'usc_address': "",
             'usc_alias': alias,
-            'ip_address': ip,
             'usc_create_time': time,
             'usc_update_time': time,
             'usc_logo': logo,
-            'usc_skype': "",
-            'usc_index': 0,
             'DateOfIncorporation': "",
             'usc_mst': "",
             'usc_loai_hinh': "",
@@ -90,10 +79,9 @@ const EmployersValidateSuccess = async (data, file, ip) => {
             'usc_company_info': descriptions,
             'image_com': image.join(','),
             'financial_sector': [{ id: '' }],
-            'baocao': 1,
         };
 
-        const check = await UserCompany.findOneAndUpdate({ usc_phone_tk: phoneTK, usc_md5: { $ne: null } }, { usc_id: 1 }).lean();
+        const check = await UserCompany.findOneAndUpdate({ usc_phone_tk: phoneTK }, { usc_id: 1 }).lean();
         if (check) {
             await UserCompany.findOneAndUpdate({ usc_phone_tk: phoneTK }, dataUpdate);
         } else {
@@ -112,7 +100,6 @@ const EmployersValidateSuccess = async (data, file, ip) => {
                 await NewGhimTin.deleteMany({ new_id: { $in: listNewId } })
             }
             await NopHoSo.deleteMany({ nhs_com_id: maxid1 })
-            await TblPointUsed.deleteMany({ usc_id: maxid1 })
             await TblLuuHoSoUv.deleteMany({ id_ntd: maxid1 })
             // Hết thu dọn 
 
@@ -125,8 +112,6 @@ const EmployersValidateSuccess = async (data, file, ip) => {
                 day_end: 0
             });
         }
-
-        await UserCompanyError.deleteMany({ err_usc_phone_tk: phoneTK });
 
         return true;
     } catch (error) {
@@ -146,14 +131,13 @@ export const RegisterEmployers = async (req, res, next) => {
         const city = Number(req.body.city);
         const address = req.body.address;
         const file = req.files;
-        const ip = req.ip;
         const arrMessage = {};
         const email = email_notlower.toLowerCase();
         if (phoneTK && password && rePassword && nameCompany && city) {
 
-            const checkNameCom = await UserCompany.findOne({ usc_company: nameCompany, usc_md5: null }).lean();
-            const checkAddress = await UserCompany.findOne({ usc_address: address, usc_md5: null }).lean();
-            const checkTrung = await UserCompany.findOne({ usc_phone_tk: phoneTK, usc_md5: null }).lean();
+            const checkNameCom = await UserCompany.findOne({ usc_company: nameCompany }).lean();
+            const checkAddress = await UserCompany.findOne({ usc_address: address }).lean();
+            const checkTrung = await UserCompany.findOne({ usc_phone_tk: phoneTK }).lean();
             const checkmail = await UserCompany.findOne({ usc_email: email }).lean();
             const checkPhoneTK = await functions.checkPhone(phoneTK);
             const checkPassWord = functions.checkPassWord(password);
@@ -169,7 +153,7 @@ export const RegisterEmployers = async (req, res, next) => {
             if (JSON.stringify(arrMessage) !== '{}') {
                 return functions.setError(res, arrMessage, 400);
             }
-            const checkRegister = await EmployersValidateSuccess(req.body, file, ip);
+            const checkRegister = await EmployersValidateSuccess(req.body, file);
             if (checkRegister) {
                 console.log(">>> CheckRegister")
                 const checkInfo = await UserCompany.findOne({ usc_phone_tk: phoneTK }, { usc_id: 1, usc_authentic: 1, usc_email: 1, usc_company: 1, usc_logo: 1 }).lean();
@@ -216,37 +200,6 @@ export const Login = async (req, res, next) => {
                 time.setMinutes(0);
                 time.setMilliseconds(0);
                 time.setSeconds(0);
-                const date1 = time.setHours(8);
-                const date2 = time.setHours(18);
-                const checkCRM = await UserCompanyCrm.findOne({
-                    usc_id: check.usc_id,
-                    time_created: {
-                        $gte: date1 / 1000,
-                        $lte: date2 / 1000
-                    }
-                }).lean();
-                if (8 <= new Date().getHours() && new Date().getHours() < 18) {
-                    if (checkCRM) {
-                        await UserCompanyCrm.updateOne({ id_crm: checkCRM.id_crm }, {
-                            usc_group: 162,
-                            use_status: 4,
-                            admin: 0,
-                            active: 0,
-                            time_created: functions.getTime()
-                        });
-                    } else {
-                        const id_crm = await functions.getMaxId(UserCompanyCrm, 'id_crm');
-                        await UserCompanyCrm.create({
-                            id_crm,
-                            usc_id: check.usc_id,
-                            usc_group: 162,
-                            use_status: 4,
-                            admin: 0,
-                            active: 1,
-                            time_created: functions.getTime()
-                        });
-                    }
-                }
                 const data = { token, reFreshToken, user: conditionsToken };
 
                 return functions.success(res, 'Đăng nhập thành công', data);
@@ -273,7 +226,7 @@ export const EmployersForgotPass = async (req, res, next) => {
                 ]
             }, {
                 usc_id: 1, usc_company: 1, usc_pass: 1, usc_email: 1,
-                usc_phone: 1, usc_city: 1, usc_district: 1, usc_address: 1, usc_kd_crm: 1
+                usc_phone: 1, usc_city: 1, usc_district: 1, usc_address: 1
             }).lean();
             if (checkExists) {
                 const otp = functions.randomNumber();
@@ -433,7 +386,6 @@ export const infoNTD = async (req, res, next) => {
             usc_mst: 1,
             financial_sector: 1,
             DateOfIncorporation: 1,
-            usc_skype: 1,
             usc_website: 1,
             usc_city: 1,
             usc_district: 1,
@@ -485,9 +437,6 @@ export const UpdateInfoEmployers = async (req, res, next) => {
         // Ngày thành lập công ty
         const DateOfIncorporation = req.body.DateOfIncorporation;
 
-        // Skype
-        const skype = req.body.skype;
-
         // Website
         const website = req.body.website;
 
@@ -523,8 +472,8 @@ export const UpdateInfoEmployers = async (req, res, next) => {
 
         if (nameCompany && phone && inforCompany && nameContact && addressContact && phoneContact && emailContact) {
             var messageCheck = '';
-            const checkNameCom = await UserCompany.findOne({ usc_company: nameCompany, usc_md5: null, usc_id: { $ne: idNTD } }).lean();
-            const checkTrung = await UserCompany.findOne({ usc_phone: phoneContact, usc_md5: null, usc_id: { $ne: idNTD } }).lean();
+            const checkNameCom = await UserCompany.findOne({ usc_company: nameCompany, usc_id: { $ne: idNTD } }).lean();
+            const checkTrung = await UserCompany.findOne({ usc_phone: phoneContact, usc_id: { $ne: idNTD } }).lean();
             const checkPhone = await functions.checkPhone(phoneContact);
             const checkEmail = await functions.checkEmail(emailContact);
             const checkAlias = await functions.checkAlias(nameCompany.trim(), idNTD)
@@ -618,7 +567,6 @@ export const UpdateInfoEmployers = async (req, res, next) => {
                 usc_website: website,
                 usc_mst: mst,
                 usc_update_time: time,
-                usc_skype: skype,
                 DateOfIncorporation: new Date(DateOfIncorporation).getTime() / 1000,
                 usc_name: nameContact,
                 usc_name_add: addressContact,
@@ -756,13 +704,6 @@ const candidateCleanUp = async (iduv) => {
             await NopHoSo.deleteMany({ nhs_use_id: use_id })
             // Xóa ứng viên đã lưu 
             await TblLuuHoSoUv.deleteMany({ id_uv: use_id })
-            // Xóa thông tin cá nhân (4 mục)
-            await UserHocVan.deleteMany({ use_id: use_id })
-            await UseNgoaiNgu.deleteMany({ use_id: use_id })
-            await UseKinhNghiem.deleteMany({ use_id: use_id })
-            await UserThamChieu.deleteMany({ id_user: use_id })
-            // }
-            // }
         }
     } catch (error) {
         console.log('candidateCleanUp\n', error);
@@ -797,13 +738,6 @@ export const CandidateRegisterByUploadCV = async (req, res, next) => {
                         exp_years: Number(exp),
                     }
                 })
-
-                const id_hocvan = await functions.getMaxId(UserHocVan, 'id_hocvan');
-                await UserHocVan.create({
-                    id_hocvan,
-                    use_id: id,
-                    bang_cap: bangcap
-                });
 
                 let idupload = 0
                 if (type == 1) {
@@ -959,13 +893,11 @@ export const CreateCVInOrderToRegister = async (req, res, next) => {
                                 html: JSON.stringify(jsonCV),
                                 nameimg: linkNew != '' ? linkNew.replace('.', '..') : null,
                                 status: 2,
-                                cv: 0,
                                 createdate: time,
                                 height_cv,
                                 // cv_name,
                                 name_cv_hide: `u_cv_hide_${time}.png`,
                                 name_cv: `u_cv_${time}.png`,
-                                cv_order: 0
                             });
 
                             console.log(new_cv)
@@ -1003,7 +935,7 @@ export const CreateCVInOrderToRegister = async (req, res, next) => {
                             // functions.renderImageFromUrl(
                             //     link,
                             //     `./dowload/cv_pdf/user_${use_id}/cvid_${idcv}`,
-                            //     `./dowload/cv_pdf/user_${use_id}/cvid_${idcv}/${idcv}-job247.png`,
+                            //     `./dowload/cv_pdf/user_${use_id}/cvid_${idcv}/${idcv}-topcv1s.png`,
                             //     use_id
                             // )
 
@@ -1488,22 +1420,6 @@ export const PreviewCv = async (req, res) => {
 
         const directoryPath = './tmp/previewcv';
         functions.deleteOldFiles(directoryPath, 1)
-        // const files = await fs.promises.readdir(directoryPath);
-
-        // for (const file of files) {
-        //     const filePath = path.join(directoryPath, file);
-        //     const stats = await fs.promises.stat(filePath);
-        //     const creationTime = stats.birthtime; // get the creation time of the file
-        //     const currentTime = new Date();
-        //     const timeDifference = (currentTime - creationTime) / (1000 * 60 * 60); // difference in hours
-
-        //     if (timeDifference > 1) {
-        //         fs.promises.unlink(filePath); // delete the file if it's more than 1 hour old
-        //         // console.log(`Deleted file: ${filePath}`);
-        //     }
-        // }
-
-        // preview 
 
         const {
             idcv,
@@ -1516,8 +1432,6 @@ export const PreviewCv = async (req, res) => {
             const time = functions.getTime();
             const idSave = await functions.getMaxId(TblCvPreview, 'id');
             const iduser = await functions.getMaxId(TblCvPreview, 'iduser');
-
-            // await TblCvPreview.deleteMany({ iduser: iduser })
 
             const dataCV = JSON.parse(dataCVJson).avatar;
             const jsonCV = JSON.parse(dataCVJson)
@@ -1551,7 +1465,6 @@ export const PreviewCv = async (req, res) => {
                 height_cv: height_cv || 0,
                 name_cv_hide: `u_cv_hide_${time}.png`,
                 name_cv: `u_cv_${time}.png`,
-                cv_order: 0
             })
 
             // puppeteer
@@ -1654,64 +1567,6 @@ export const getAccountDetail = async (req, res) => {
             if (userType == 2) {
                 const checkExists = await Users.findOne({ use_id: Number(userId) })
                 if (checkExists) {
-                    // const datadegree = await UserHocVan.findOne({ use_id: Number(userId) });
-                    const datadegree = await UserHocVan.aggregate([
-                        { $match: { use_id: Number(userId) } },
-                        {
-                            $project: {
-                                id_hocvan: 1,
-                                use_id: 1,
-                                truong_hoc: 1,
-                                bang_cap: 1,
-                                tg_batdau: 1,
-                                tg_ketthuc: 1,
-                                chuyen_nganh: 1,
-                                xep_loai: 1,
-                                thongtin_bosung: 1,
-                                new_category_id: 1,
-                            }
-                        }
-                    ]);
-                    const datalangue = await UseNgoaiNgu.aggregate([
-                        { $match: { use_id: Number(userId) } },
-                        {
-                            $project: {
-                                id_ngoaingu: 1,
-                                use_id: 1,
-                                id_ngonngu: 1,
-                                chung_chi: 1,
-                                ket_qua: 1,
-                            }
-                        }
-                    ]);
-                    const dataexp = await UseKinhNghiem.aggregate([
-                        { $match: { use_id: Number(userId) } },
-                        {
-                            $project: {
-                                id_kinhnghiem: 1,
-                                use_id: 1,
-                                use_chucdanh: 1,
-                                use_cty_lamviec: 1,
-                                tg_batdau: 1,
-                                tg_ketthuc: 1,
-                                them_thongtin: 1,
-                            }
-                        }
-                    ]);
-                    const datarefer = await UserThamChieu.aggregate([
-                        { $match: { id_user: Number(userId) } },
-                        {
-                            $project: {
-                                id_thamchieu: 1,
-                                id_user: 1,
-                                email: 1,
-                                chuc_vu: 1,
-                                company: 1,
-                                ho_ten: 1,
-                                sdt: 1,
-                            }
-                        }
-                    ]);
                     const tokenObj = {
                         use_id: checkExists.use_id,
                         auth: checkExists?.use_authentic,
@@ -1741,7 +1596,7 @@ export const getAccountDetail = async (req, res) => {
                         Token: Token,
                     }
 
-                    return functions.success(res, 'Success', { data: returnData, datadegree, datalangue, dataexp, datarefer })
+                    return functions.success(res, 'Success', { data: returnData })
                 }
             }
 

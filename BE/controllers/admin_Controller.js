@@ -5,11 +5,7 @@ import UserCompany from "../models/user/UserCompany.js";
 import TblPointCompany from '../models/tbl/TblPointCompany.js';
 import NopHoSo from '../models/NopHoSo.js'
 import New from '../models/new/New.js';
-import TblPointAdded from '../models/tbl/TblPointAdded.js';
 import NewGhimTin from '../models/new/NewGhimTin.js';
-import UserCompanyError from '../models/user/UserCompanyError.js';
-import TblPointUsed from '../models/tbl/TblPointUsed.js';
-import TblLuuHoSoUv from '../models/tbl/TblLuuHoSoUv.js';
 
 export const list = async (req, res) => {
     try {
@@ -50,8 +46,6 @@ export const list = async (req, res) => {
             // ứng viên đăng kí mới
             if (module === 1) {
                 Table = Users;
-                condition = { register: { $ne: 4 }};
-                // if (name_uv) condition.use_name = new RegExp(name_uv, 'i');
                 if (conditions?.use_nganh_nghe) {
                     conditions['use_nganh_nghe.id'] = conditions.use_nganh_nghe
                     delete conditions.use_nganh_nghe
@@ -220,8 +214,8 @@ export const list = async (req, res) => {
             if (module === 3) {
                 Table = UserCompany;
                 condition = {
-                    $or: [{ usc_alias: { $ne: "" } }, { register: 2 }],
-                    ...(!checkFullRight(adminID) && { usc_kd: Number(adminID) })
+                    $or: [{ usc_alias: { $ne: "" } }],
+                    ...(!checkFullRight(adminID))
                 };
                 functions.CompareTime(condition, 'usc_create_time', from, to);
                 sort = { usc_create_time: -1 };
@@ -353,17 +347,12 @@ export const list = async (req, res) => {
                             usc_email: 1,
                             usc_name_phone: 1,
                             usc_name_email: 1,
-                            usc_skype: 1,
                             usc_address: 1,
                             usc_website: 1,
                             usc_active: 1,
-                            usc_index: 1,
-                            usc_note: 1,
                             usc_city: 1,
                             usc_district: 1,
                             usc_authentic: 1,
-                            usc_kd: 1,
-                            usc_kd_crm: 1,
                             usc_mst: 1,
                             usc_create_time: 1,
                             'adminDetails.emp_id': 1, // Include emp_id from AdminUser
@@ -395,7 +384,6 @@ export const list = async (req, res) => {
             if (module === 4) {
                 Table = New;
                 sort = { new_id: -1 }
-                conditions.selfpost = 1
                 functions.CompareTime(condition, 'new_create_time', from, to)
                 if (conditions?.new_id) conditions.new_id = Number(conditions.new_id)
                 if (conditions?.new_user_id) conditions.new_user_id = Number(conditions.new_user_id)
@@ -406,7 +394,7 @@ export const list = async (req, res) => {
                 // Gioi han theo admin
                 const usc_company = conditions?.usc_company
                 const listComId = await UserCompany.distinct("usc_id", {
-                    ...(!checkFullRight(adminID) && { usc_kd: Number(adminID) }),
+                    ...(!checkFullRight(adminID)),
                     ...(!!usc_company && { usc_company: { $regex: functions.allVietnameseRegex(usc_company), $options: 'i' } })
                 })
 
@@ -481,11 +469,9 @@ export const list = async (req, res) => {
                     new_create_time: 1,
                     // new_hot: 1,
                     new_hot: { $ifNull: ['$pin.new_hot', 0] },
-                    new_gap: 1,
                     // new_cao: 1,
                     new_cao: { $ifNull: ['$pin.new_cao', 0] },
                     expired: { $ifNull: ['$pin.expired', 0] },
-                    new_nganh: 1,
                     new_cat_id: 1,
                     new_city: 1,
                     new_han_nop: 1,
@@ -620,7 +606,6 @@ export const Login = async (req, res) => {
                 adm_active: 1,
             }).lean()
             if (checkExist) {
-                checkExist.adm_picture = functions.getAvatarAdmin(checkExist?.adm_picture);
                 var isFullModules = checkFullRight(Number(checkExist.adm_id)) ? 1 : 0;
                 var modules = [];
 
@@ -647,12 +632,10 @@ export const PinNew = async (req, res) => {
     try {
         let {
             new_id,
-            // admin_id,
             new_hot,
             new_cao,
             expired,
         } = req.body
-        const adminID = req.adminID;
         if (new_id && !isNaN(Number(new_hot)) && !isNaN(Number(new_cao)) && expired) {
             const checkExist = await New.findOne({ new_id: Number(new_id) })
             if (checkExist) {
@@ -662,7 +645,6 @@ export const PinNew = async (req, res) => {
                 if (checkGhim) {
                     await NewGhimTin.updateOne({ new_id: new_id }, {
                         $set: {
-                            admin_id: adminID,
                             new_hot,
                             new_cao,
                             expired: functions.getTime(expired),
@@ -671,7 +653,6 @@ export const PinNew = async (req, res) => {
                 } else {
                     await NewGhimTin.create({
                         new_id,
-                        admin_id: adminID,
                         new_hot,
                         new_cao,
                         expired: functions.getTime(expired),
@@ -690,234 +671,6 @@ export const PinNew = async (req, res) => {
 // Check admin có phải toàn quyền 
 const checkFullRight = (adm_id) => {
     return adm_id === 1
-}
-
-// Thêm NTD v2
-export const createEmployer_v2 = async (req, res) => {
-    try {
-        let {
-            usc_phone_tk,
-            usc_email,
-            usc_pass,
-            usc_company,
-            financial_sector,
-            usc_city,
-            usc_district,
-            usc_note,
-            usc_address,
-            usc_boss,
-            usc_size,
-            usc_mst,
-            usc_skype,
-            usc_website,
-            usc_company_info,
-
-            // usc_logo,
-            // adm_ntd,
-            // id_bophankd,
-        } = req.body
-        // console.log("🚀 ~ constcreateEmployer_v2= ~ financial_sector:", financial_sector)
-        const files = req.files
-        const adm_id = req.adminID
-        const checkAdmin = await AdminUser.findOne({ adm_id: adm_id })
-        if (usc_email && usc_company && usc_phone_tk && usc_pass && adm_id && checkAdmin) {
-            const time = functions.getTime()
-            const date = functions.getDate()
-            const arrMessage = {};
-            const checkNameCom = await UserCompany.findOne({ usc_company: usc_company, usc_md5: null }).lean();
-            const checkAddress = await UserCompany.findOne({ usc_address: usc_address, usc_md5: null }).lean();
-            const checkTrung = await UserCompany.findOne({ usc_phone_tk: usc_phone_tk, usc_md5: null }).lean();
-            const checkPhoneTK = await functions.checkPhone(usc_phone_tk);
-            const checkSameAlias = await functions.checkAlias2(functions.createLinkTilte2(usc_company))
-            // const checkPassWord = functions.checkPassWord(password);
-            if (!checkPhoneTK) return functions.setError(res, 'Nhập số điện thoại không hợp lệ', 400);
-            if (checkNameCom) arrMessage.nameCompany = `Tên công ty đã được đăng ký, vui lòng kiểm tra lại.`;
-            if (checkAddress) arrMessage.address = `Địa chỉ này đã được sử dụng. Bạn vui lòng nhập địa chỉ khác.`;
-            if (checkTrung) arrMessage.phoneTK = `Số điện thoại này đã được sử dụng, vui lòng kiểm tra lại.`;
-            if (checkSameAlias) arrMessage.sameAlias = `Link trùng với ${checkSameAlias}`
-            // if (password !== rePassword) arrMessage.password = `Nhập password và re-password không khớp.`;
-            // if (!checkPassWord) arrMessage.password = `Mật khẩu phải ít nhất 6 ký tự, bao gồm có ít nhất 1 chữ và 1 số.`;
-
-            if (JSON.stringify(arrMessage) !== '{}') {
-                // RegisterFailEmployers(phoneTK, email, nameCompany, city, descriptions, address, phone);
-                return functions.setError(res, arrMessage[Object.keys(arrMessage)[0]], 400);
-            }
-            let logo = ""
-            if (files && files?.usc_logo) {
-                const checkUpload = await functions.uploadFile(`${date}`, files.usc_logo, time);
-                if (!checkUpload) return functions.setError(res, 'Gặp lỗi trong quá trình xử lí logo', 400);
-                logo = checkUpload;
-            }
-
-            const hashedPassword = functions.createMd5(usc_pass);
-            const alias = functions.createLinkTilte2(usc_company.trim());
-
-            const dataUpdate = {
-                usc_email: usc_email,
-                'usc_pass': hashedPassword,
-                'usc_security': '0',
-                'usc_authentic': 1,
-                'usc_company': usc_company.trim(),
-                'usc_city': Number(usc_city) || 0,
-                'usc_district': Number(usc_district) || 0,
-                'usc_address': usc_address,
-                'usc_alias': alias,
-                // 'ip_address': ip,
-                'usc_create_time': time,
-                'usc_update_time': time,
-                'usc_logo': logo,
-                'usc_skype': usc_skype || "",
-                'usc_index': 0,
-                'DateOfIncorporation': "",
-                'usc_mst': "",
-                'usc_loai_hinh': "",
-                'usc_kd': adm_id,
-                // 'usc_kd_crm': id_bophankd,
-                'usc_crm': 1,
-                // 'usc_otp': otp,
-                'usc_phone_tk': usc_phone_tk,
-                'usc_name_email': usc_email,
-                'usc_company_info': usc_company_info,
-                // 'image_com': image.join(','),
-                'financial_sector': Array.isArray(financial_sector) ? financial_sector.filter((item) => !isNaN(Number(item))).map((item) => ({ id: `${item}` })) : [{ id: '' }],
-                'usc_size': usc_size || 0,
-                'usc_website': usc_website || "",
-                usc_note: usc_note,
-                usc_boss: usc_boss,
-                usc_mst: usc_mst,
-            };
-
-            const id = await functions.getMaxId(UserCompany, "usc_id")
-            await UserCompany.create({
-                usc_id: id,
-                ...dataUpdate
-            });
-            const id_up = await functions.getMaxId(TblPointCompany, 'id_up')
-
-            // Thu dọn nếu tk mới trùng id với tk cũ bị xóa 
-            await TblPointCompany.deleteMany({
-                usc_id: id
-            })
-            const listNewId = await New.distinct('new_id', { new_user_id: id })
-            if (listNewId.length > 0) {
-                await New.deleteMany({ new_id: { $in: listNewId } })
-                await NewGhimTin.deleteMany({ new_id: { $in: listNewId } })
-            }
-            await NopHoSo.deleteMany({ nhs_com_id: id })
-            await TblPointUsed.deleteMany({ usc_id: id })
-            await TblPointAdded.deleteMany({ usc_id: id })
-            await TblLuuHoSoUv.deleteMany({ id_ntd: id })
-            // Hết thu dọn 
-
-            await TblPointCompany.create({
-                id_up,
-                usc_id: id,
-                point: 0,
-                point_usc: 0,
-                day_reset_point: 0,
-                day_end: 0
-            });
-            UserCompanyError.deleteMany({ err_usc_phone_tk: usc_phone_tk });
-            return functions.success(res, 'Tạo NTD thành công', { usc_id: id });
-        }
-        return functions.setError(res, 'Missing data', 400)
-    } catch (error) {
-        return functions.setError(res, error.message)
-    }
-}
-
-// Sua NTD v2
-export const editEmployer_v2 = async (req, res) => {
-    try {
-        let {
-            usc_id,
-            usc_phone_tk,
-            usc_email,
-            usc_pass,
-            usc_company,
-            financial_sector,
-            usc_city,
-            usc_district,
-            usc_note,
-            usc_address,
-            usc_boss,
-            usc_size,
-            usc_mst,
-            usc_skype,
-            usc_website,
-            usc_company_info,
-
-            // usc_logo,
-            // adm_ntd,
-            // id_bophankd,
-        } = req.body
-        // console.log("🚀 ~ constcreateEmployer_v2= ~ financial_sector:", financial_sector)
-        const files = req.files
-        const adm_id = req.adminID
-        const checkAdmin = await AdminUser.findOne({ adm_id: adm_id })
-        if (usc_id && usc_email && usc_company && usc_phone_tk && adm_id && checkAdmin) {
-            const time = functions.getTime()
-            const date = functions.getDate()
-            const arrMessage = {};
-            const checkNameCom = await UserCompany.findOne({ usc_company: usc_company, usc_md5: null, usc_id: { $ne: Number(usc_id) } }).lean();
-            const checkAddress = await UserCompany.findOne({ usc_address: usc_address, usc_md5: null, usc_id: { $ne: Number(usc_id) } }).lean();
-            const checkTrung = await UserCompany.findOne({ usc_phone_tk: usc_phone_tk, usc_md5: null, usc_id: { $ne: Number(usc_id) } }).lean();
-            const checkPhoneTK = await functions.checkPhone(usc_phone_tk);
-            const checkSameAlias = await functions.checkAlias2(functions.createLinkTilte2(usc_company), Number(usc_id), 1)
-            // const checkPassWord = functions.checkPassWord(password);
-            if (!checkPhoneTK) return functions.setError(res, 'Nhập số điện thoại không hợp lệ', 400);
-            if (checkNameCom) arrMessage.nameCompany = `Tên công ty đã được đăng ký, vui lòng kiểm tra lại.`;
-            if (checkAddress) arrMessage.address = `Địa chỉ này đã được sử dụng. Bạn vui lòng nhập địa chỉ khác.`;
-            if (checkTrung) arrMessage.phoneTK = `Số điện thoại này đã được sử dụng, vui lòng kiểm tra lại.`;
-            if (checkSameAlias) arrMessage.sameAlias = `Link trùng với ${checkSameAlias}`
-            // if (password !== rePassword) arrMessage.password = `Nhập password và re-password không khớp.`;
-            // if (!checkPassWord) arrMessage.password = `Mật khẩu phải ít nhất 6 ký tự, bao gồm có ít nhất 1 chữ và 1 số.`;
-
-            if (JSON.stringify(arrMessage) !== '{}') {
-                // RegisterFailEmployers(phoneTK, email, nameCompany, city, descriptions, address, phone);
-                return functions.setError(res, arrMessage[Object.keys(arrMessage)[0]], 400);
-            }
-            let logo = ""
-            if (files && files?.usc_logo) {
-                const checkUpload = await functions.uploadFile(`${date}`, files.usc_logo, time);
-                if (!checkUpload) return functions.setError(res, 'Gặp lỗi trong quá trình xử lí logo', 400);
-                logo = checkUpload;
-            }
-
-            const hashedPassword = usc_pass ? functions.createMd5(usc_pass) : "";
-            const alias = functions.createLinkTilte2(usc_company.trim());
-
-            const dataUpdate = {
-                usc_phone_tk: usc_phone_tk,
-                usc_email: usc_email,
-                usc_alias: alias,
-                usc_update_time: time,
-                usc_company: usc_company,
-                usc_city: Number(usc_city) || 0,
-                usc_district: Number(usc_district) || 0,
-                usc_address: usc_address,
-                usc_skype: usc_skype || "",
-                usc_company_info: usc_company_info,
-                financial_sector: Array.isArray(financial_sector) ? financial_sector.filter((item) => !isNaN(Number(item))).map((item) => ({ id: `${item}` })) : [{ id: "" }],
-                usc_size: usc_size || 0,
-                usc_website: usc_website || "",
-                usc_note: usc_note,
-                usc_boss: usc_boss,
-                usc_mst: usc_mst,
-                ...(!!logo && { usc_logo: logo }),
-                ...(!!usc_pass && { usc_pass: hashedPassword }),
-            };
-
-            await UserCompany.findOneAndUpdate({ usc_id: Number(usc_id) }, {
-                ...dataUpdate
-            });
-
-            return functions.success(res, 'Sửa NTD thành công', { usc_id: usc_id });
-        }
-        return functions.setError(res, 'Missing data', 400)
-    } catch (error) {
-        return functions.setError(res, error.message)
-    }
 }
 
 // Lam moi tin
@@ -940,243 +693,6 @@ export const refreshNew = async (req, res) => {
                 return functions.success(res, 'Làm mới thành công', { new_id })
             } else {
                 return functions.setError(res, 'not found', 404)
-            }
-        } else {
-            return functions.setError(res, 'missing data', 400)
-        }
-    } catch (error) {
-        return functions.setError(res, error.message, 500)
-    }
-}
-
-// lich su cong diem
-export const allPointAdd = async (req, res) => {
-    try {
-        const {
-            usc_id
-        } = req.body
-
-        if (usc_id && Number(usc_id)) {
-            // const data = await TblPointAdded
-            //     .find({ usc_id: Number(usc_id) })
-            //     .sort({ id_p: -1 })
-            const data = await TblPointAdded.aggregate([
-                {
-                    $match: {
-                        usc_id: Number(usc_id)
-                    }
-                },
-                {
-                    $sort: {
-                        id_p: -1
-                    },
-                },
-                {
-                    $lookup: {
-                        from: 'UserCompany',
-                        let: { usc_id: '$usc_id' },
-                        pipeline: [
-                            {
-                                $match: {
-                                    $expr: { $eq: ['$usc_id', '$$usc_id'] },
-
-                                }
-                            }
-                        ],
-                        as: 'com'
-                    }
-                },
-                {
-                    $unwind: '$com'
-                },
-                {
-                    $project: {
-                        id_p: 1,
-                        usc_id: 1,
-                        point: 1,
-                        added_day: 1,
-                        set_expired: 1,
-                        adm_id: 1,
-                        usc_company: '$com.usc_company',
-                        usc_alias: '$com.usc_alias',
-                    }
-                }
-            ])
-
-            return functions.success(res, "Danh sách cộng điểm", { data })
-        } else {
-            return functions.setError(res, 'missing data', 400)
-        }
-    } catch (error) {
-        return functions.setError(res, error.message, 500)
-    }
-}
-
-// lich su tieu diem
-export const allPointUsed = async (req, res) => {
-    try {
-        const {
-            usc_id
-        } = req.body
-
-        if (usc_id && Number(usc_id)) {
-            // const data = await TblPointAdded.find({ usc_id: Number(usc_id) }).sort({ id_p: -1 })
-            // const data = await TblPointUsed
-            //     .find({ usc_id: Number(usc_id) })
-            //     .sort({ id_p: -1 })
-            const data = await TblPointUsed.aggregate([
-                {
-                    $match: {
-                        usc_id: Number(usc_id),
-                        type: 2,
-                    }
-                },
-                {
-                    $sort: {
-                        id_p: -1
-                    },
-                },
-                {
-                    $lookup: {
-                        from: 'UserCompany',
-                        let: { usc_id: '$usc_id' },
-                        pipeline: [
-                            {
-                                $match: {
-                                    $expr: { $eq: ['$usc_id', '$$usc_id'] },
-
-                                }
-                            }
-                        ],
-                        as: 'com'
-                    }
-                },
-                {
-                    $lookup: {
-                        from: 'Users',
-                        let: { use_id: '$use_id' },
-                        pipeline: [
-                            {
-                                $match: {
-                                    $expr: { $eq: ['$use_id', '$$use_id'] },
-
-                                }
-                            }
-                        ],
-                        as: 'candi'
-                    }
-                },
-                {
-                    $unwind: '$com'
-                },
-                {
-                    $unwind: {
-                        path: '$candi',
-                        preserveNullAndEmptyArrays: true,
-                    },
-                },
-                {
-                    $project: {
-                        id_p: 1,
-                        usc_id: 1,
-                        use_id: 1,
-                        point: 1,
-                        type: 1,
-                        type_err: 1,
-                        note_uv: 1,
-                        used_day: 1,
-                        return_point: 1,
-                        redeem: 1,
-                        adm_id: 1,
-                        time_redeem: 1,
-                        usc_company: '$com.usc_company',
-                        usc_alias: '$com.usc_alias',
-                        use_name: "$candi.use_name",
-                    }
-                }
-            ])
-
-            return functions.success(res, "Danh sách tiêu điểm", { data })
-        } else {
-            return functions.setError(res, 'missing data', 400)
-        }
-    } catch (error) {
-        return functions.setError(res, error.message, 500)
-    }
-}
-
-// Hoan diem
-export const redeemPointUsed = async (req, res) => {
-    try {
-        const {
-            id_p
-        } = req.body
-        const adm_id = req.adminID
-        if (id_p) {
-            const checkExist = await TblPointUsed.findOne({ id_p: Number(id_p), redeem: { $ne: 1 }, type: 2 })
-            if (checkExist) {
-                // hoan diem
-                await TblPointCompany.findOneAndUpdate({ usc_id: checkExist.usc_id }, {
-                    $inc: {
-                        point_usc: checkExist.point
-                    }
-                })
-
-                // doi trang thai
-                await TblPointUsed.findOneAndUpdate({ id_p: checkExist.id_p }, {
-                    $set: {
-                        redeem: 1,
-                        adm_id: adm_id,
-                        time_redeem: functions.getTime(),
-                    }
-                })
-
-                return functions.success(res, 'Hoàn điểm thành công', {})
-            } else {
-                return functions.setError(res, 'not found', 404)
-            }
-        } else {
-            return functions.setError(res, 'missing data', 400)
-        }
-
-
-    } catch (error) {
-        return functions.setError(res, error.message, 500)
-    }
-}
-
-// Gui ung vien
-export const sendCandiToEmployer = async (req, res) => {
-    try {
-        const {
-            type, // 1 - UVUT | 2 - Chuyen vien
-            use_id,
-            // usc_id
-            new_id,
-        } = req.body
-
-        if (type && use_id && new_id && Number(type) && Number(use_id) && Number(new_id)) {
-            const checkUser = await Users.findOne({ use_id: Number(use_id) })
-            // const checkCom = await UserCompany.findOne({ usc_id: Number(usc_id) })
-            const checkNew = await New.findOne({ new_id: Number(new_id) })
-            if (checkUser && checkNew) {
-                const checkExist = await NopHoSo.findOne({ nhs_use_id: Number(use_id), nhs_new_id: Number(new_id), type: Number(type) })
-                if (!checkExist) {
-                    const id = await functions.getMaxId(NopHoSo, 'id')
-                    await NopHoSo.create({
-                        id: id,
-                        nhs_new_id: Number(new_id),
-                        nhs_com_id: checkNew.new_user_id,
-                        nhs_use_id: Number(use_id),
-                        type: Number(type),
-                    })
-
-                    return functions.success(res, 'Gửi ứng viên thành công', {})
-                } else {
-                    return functions.setError(res, 'Ứng viên đã được gửi cho tin này', 413)
-                }
-            } else {
-                return functions.setError(res, 'Kiểm tra lại mã ứng viên và tin tuyển dụng đã nhập', 404)
             }
         } else {
             return functions.setError(res, 'missing data', 400)

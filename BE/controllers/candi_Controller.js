@@ -4,18 +4,12 @@ import * as functions from '../services/functions.js';
 import NopHoSo from '../models/NopHoSo.js';
 import New from '../models/new/New.js';
 import Users from '../models/user/Users.js';
-import UserHocVan from '../models/user/UserHocVan.js';
 import UserCvUpload from '../models/user/UserCvUpload.js';
-import UseNgoaiNgu from '../models/use/UseNgoaiNgu.js';
-import UseKinhNghiem from '../models/use/UseKinhNghiem.js';
-import UserThamChieu from '../models/user/UserThamChieu.js';
 import SaveCandidateCv from '../models/save/SaveCandidateCv.js';
 import SampleCv from '../models/sample/SampleCv.js';
-import News from '../models/blog/News.js';
 import TblLuuTin from '../models/tbl/TblLuuTin.js';
 import TblLuuHoSoUv from '../models/tbl/TblLuuHoSoUv.js';
 import CvEmotion from '../models/CvEmotion.js';
-import TblPointUsed from "../models/tbl/TblPointUsed.js";
 import Category from "../models/category/Category.js";
 import City from '../models/city/City.js';
 import UserVidUpload from "../models/user/UserVidUpload.js";
@@ -132,25 +126,19 @@ export const ManageAllCandi = async (req, res) => {
         const idcv_da_tao = await SaveCandidateCv.distinct('idcv', { iduser: iduv })
         const mauCvDeXuatPromise = SampleCv.find({ id: { $nin: idcv_da_tao } }, { alias: 1, image: 1, name: 1, id: 1 }).sort({ serial: -1, id: -1 }).limit(20).lean();
 
-        const camNangTimViecPromise = News.find({}, { new_id: 1, new_title: 1, new_title_rewrite: 1, new_picture: 1 }).sort({ new_id: -1 }).limit(4).lean();
-
         const [
             daUngTuyen,
-            // cout_viecLamPhuHop,
             mauCvDaTao,
             viecLamPhuHop,
             CvCuaToi,
             mauCvDeXuat,
-            camNangTimViec,
             Cityy
         ] = await Promise.all([
             daUngTuyenPromise,
-            // cout_viecLamPhuHopPromise,
             mauCvDaTaoPromise,
             viecLamPhuHopPromise,
             CvCuaToiPromise,
             mauCvDeXuatPromise,
-            camNangTimViecPromise,
             City.find({}, { cit_id: 1, cit_name: 1 }).lean()
         ]);
         if (iduv) {
@@ -173,17 +161,12 @@ export const ManageAllCandi = async (req, res) => {
         for (let i = 0; i < CvCuaToi.length; i++) {
             const element = CvCuaToi[i];
             element.name_cv = functions.getCV(iduv, element.name_cv);
-            element.cvPDF = `${process.env.DOMAIN_API}/dowload/cv_pdf/user_${element.iduser}/cvid_${element.idcv}/${element.idcv}-job247.pdf`;
+            element.cvPDF = `${process.env.DOMAIN_API}/dowload/cv_pdf/user_${element.iduser}/cvid_${element.idcv}/${element.idcv}-topcv1s.pdf`;
         }
 
         for (let i = 0; i < mauCvDeXuat.length; i++) {
             const element = mauCvDeXuat[i];
             element.image = `${process.env.DOMAIN_API}/pictures/sample_cv/${element.image}`;
-        }
-
-        for (let i = 0; i < camNangTimViec.length; i++) {
-            const element = camNangTimViec[i];
-            element.new_picture = `${process.env.DOMAIN_API}/pictures/${element.new_picture}`;
         }
 
         for (let i = 0; i < viecLamPhuHop.length; i++) {
@@ -206,7 +189,6 @@ export const ManageAllCandi = async (req, res) => {
         data.xemHoSo = xemHoSo;
         data.viecLamPhuHop = viecLamPhuHop;
         data.mauCvDeXuat = mauCvDeXuat;
-        data.camNangTimViec = camNangTimViec;
         data.CvCuaToi = CvCuaToi;
 
         return functions.success(res, 'get data success', { data });
@@ -416,7 +398,7 @@ export const ManageCvCandiDidCreated = async (req, res) => {
         const iduv = req.iduv;
         const cvXinViecCuaToi = await SaveCandidateCv.aggregate([
             { $match: { iduser: iduv } },
-            { $sort: { cv_order: -1, timeedit: 1, id: -1 } },
+            { $sort: { timeedit: 1, id: -1 } },
             {
                 $lookup: {
                     from: "SampleCv",
@@ -439,7 +421,6 @@ export const ManageCvCandiDidCreated = async (req, res) => {
                     alias: "$samplecv.alias",
                     id: 1,
                     name: "$samplecv.name",
-                    cv_order: 1,
                     iduser: 1,
 
                 }
@@ -595,7 +576,6 @@ export const UpdateInfoCv = async (req, res) => {
                 cv_name: cv_name.name,
                 name_cv_hide: `u_cv_hide_${time}.png`,
                 name_cv: `u_cv_${time}.png`,
-                cv_order: 0,
                 html: JSON.stringify(JsonCV),
             };
             const idSave = await functions.getMaxId(SaveCandidateCv, 'id');
@@ -606,14 +586,12 @@ export const UpdateInfoCv = async (req, res) => {
                 idcv,
                 lang,
                 status: 2,
-                cv: 0,
                 createdate: functions.getTime(),
                 timeedit: functions.getTime(),
                 height_cv,
                 cv_name: cv_name.name,
                 name_cv_hide: `u_cv_hide_${time}.png`,
                 name_cv: `u_cv_${time}.png`,
-                cv_order: 0,
                 html: JSON.stringify(JsonCV),
             };
             const updateUsers = {
@@ -729,13 +707,12 @@ export const UpdateInfoCv = async (req, res) => {
 // xoá cv
 export const CandiDeleteCV = async (req, res) => {
     try {
-        // await SaveCandidateCv.deleteMany({});
         const idcv = req.body.idcv;
         const iduv = req.iduv;
         if (idcv) {
             const checkExists = await SaveCandidateCv.findOne({ idcv, iduser: iduv }, { nameimg: 1, name_cv: 1, name_cv_hide: 1 }).lean();
             if (checkExists) {
-                const pathPDF = `./dowload/cv_pdf/user_${iduv}/cvid_${idcv}/${idcv}-job247.pdf`;
+                const pathPDF = `./dowload/cv_pdf/user_${iduv}/cvid_${idcv}/${idcv}-topcv1s.pdf`;
                 const pathLogoCV = checkExists.nameimg;
                 const pathCvImage = `./upload/cv_uv/uv_${iduv}/${checkExists.name_cv}`;
                 const pathCvHideImage = `./upload/cv_uv/uv_${iduv}/${checkExists.name_cv_hide}`;
@@ -858,23 +835,6 @@ export const DetailCandi = async (req, res) => {
                 const userType = await functions.getUserType(req, res);
 
                 if (iduser) {
-                    const checkTBlPointUsed = await TblPointUsed.findOne({ usc_id: iduser, use_id: id }, { id_p: 1, type: 1 }).lean();
-
-                    if (!checkTBlPointUsed) {
-                        const id_p = await functions.getMaxId(TblPointUsed, 'id_p');
-                        await TblPointUsed.create({
-                            id_p,
-                            usc_id: iduser,
-                            use_id: id,
-                            point: 0,
-                            type: 0,
-                            note_uv: "",
-                            used_day: functions.getTime()
-                        });
-                    } else if (checkTBlPointUsed.type !== 0) {
-                        data.xemTT = true;
-                    }
-
                     const luuHoSo = await TblLuuHoSoUv.findOne({ id_ntd: iduser, id_uv: id }).lean();
 
                     if (luuHoSo) {
@@ -914,7 +874,7 @@ export const DetailCandi = async (req, res) => {
                 }
 
                 const resultSaveCandiCv = await SaveCandidateCv.findOne({ iduser: id }, { name_cv: 1, name_cv_hide: 1, id: 1 })
-                    .sort({ cv_order: -1, timeedit:-1,createdate: -1 }).lean();
+                    .sort({ timeedit:-1,createdate: -1 }).lean();
 
                 if (resultSaveCandiCv) {
                     data.arr_type = '<div class="item"><a class="" data-id="cv_step_3">cv xin việc</a></div>';
@@ -930,18 +890,6 @@ export const DetailCandi = async (req, res) => {
                 }
 
                 data.use_logo = functions.getAvatarCandi(data.use_create_time, data.use_logo);
-
-                const resultBangCap = await UserHocVan.find({ use_id: id }).lean();
-                data.hocVan = resultBangCap;
-
-                const resultNgoaiNgu = await UseNgoaiNgu.find({ use_id: id }).lean();
-                data.NgoaiNgu = resultNgoaiNgu;
-
-                const resultKinhNghiem = await UseKinhNghiem.findOne({ use_id: id }).sort({ id_kinhnghiem: -1 }).lean();
-                data.KinhNghiem = resultKinhNghiem;
-
-                const resultThamChieu = await UserThamChieu.findOne({ id_user: id }).lean();
-                data.thamChieu = resultThamChieu;
 
                 // Hide sensitive data if not authorized
                 if (!iduser || !data.xemTT) {
@@ -961,7 +909,6 @@ export const DetailCandi = async (req, res) => {
                     {
                         $match: {
                             use_id: { $ne: id },
-                            checkImgCV:1,
                             $or: [
                                 { use_job_name: data.use_job_name },
                                 { use_nganh_nghe: { $elemMatch: { id: { $in: nganhNgheIds } } } }
