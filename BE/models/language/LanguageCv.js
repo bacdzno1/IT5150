@@ -11,12 +11,6 @@ const LanguageCv = new mongoose.Schema({
     alias: {
         type: String,
     },
-    code: {
-        type: String,
-    },
-    timecreated: {
-        type: Number,
-    },
 }, {
     collection: 'LanguageCv',
     versionKey: false,

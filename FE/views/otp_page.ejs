@@ -193,12 +193,6 @@
             downloadLink.click();
         }
 
-        // $(document).on("click", ".icon_close", function () {
-        //     $("#m_formxacthuc").hide();
-        //     setCookie("active_account", "1", 1);
-        // });
-
-        // $("#btn_confirm_xn").click(function () {
         $("#send_otp_box, #resend_otp").click(function () {
             const use_mail = getCookieNew('use_mail') || getCookieNew('usc_email');
             let thiss = $(this);
@@ -232,37 +226,6 @@
                 return;
             }
         });
-
-        const codeverify = () => {
-            var code = $("#otp_input").val();
-            console.log(">>> code: ", code);
-
-            if (code != '') {
-                $.ajax({
-                    url: '/ConfirmOTPByAccount',
-                    type: 'POST',
-                    data: {
-                        phone: phone,
-                        type: type,
-                        otp: code,
-                    },
-                    dataType: "JSON",
-                    success: function (data) {
-                        console.log(">>> data 2: ", data);
-                        if (data.result) {
-                            alert(data.message);
-                            setCookie("auth", 1, 60)
-                            window.location.href = '/';
-                        } else {
-                            alert("Lỗi vui lòng thử lại");
-                            window.location.reload();
-                        }
-                    }
-                });
-            } else {
-                alert("Nhập mã xác thực");
-            }
-        };
     </script>
     
     

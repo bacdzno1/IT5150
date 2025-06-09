@@ -312,7 +312,7 @@ exports.cv_sel = async (req, res) => {
     var data_cv = findCateCV(slug);
     if (findCateCV(slug) && findCateCV(slug) != '') {
         data_cv = findCateCV(slug);
-        const response = await axios.post('http://localhost:3056/api/topcv1s/cv/ListSampleCV', {
+        const response = await axios.post('http://localhost:3056/api/topcv1s/CV/ListSampleCV', {
             idnganh: data_cv.id
         });
         des = `Tổng hợp mẫu CV ${data_cv.name} đẹp nhất với hướng dẫn chi tiết trên TopCv1s. Tạo và tải mẫu CV online ${data_cv.name} về máy để ứng tuyển việc làm như ý.`;
@@ -322,7 +322,7 @@ exports.cv_sel = async (req, res) => {
     }
     else if (findLangCV(slug) && findLangCV(slug) != '') {
         data_cv = findLangCV(slug);
-        const response = await axios.post('http://localhost:3056/api/topcv1s/cv/ListSampleCV', {
+        const response = await axios.post('http://localhost:3056/api/topcv1s/CV/ListSampleCV', {
             idlang: data_cv.id
         });
         des = `Top mẫu CV ${data_cv.name} đẹp, nội dung chuẩn, hướng dẫn tạo CV ${data_cv.name} nhanh chóng trong 3 phút với sự hỗ trợ của TopCv1s. Tạo CV online ${data_cv.name} ngay.`;

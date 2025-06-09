@@ -4,15 +4,12 @@ import TblPointCompany from '../models/tbl/TblPointCompany.js';
 import TblPointUsed from '../models/tbl/TblPointUsed.js';
 import TblLuuHoSoUv from '../models/tbl/TblLuuHoSoUv.js';
 import TblRelationship from '../models/chat/TblRelationship.js';
-import FeedBackCompany from '../models/feedBack/FeedBackCompany.js';
-import FeedBackWebsite from '../models/feedBack/FeedBackWebsite.js';
 import NopHoSo from '../models/NopHoSo.js';
 import "dotenv/config";
 import New from '../models/new/New.js';
 import Users from '../models/user/Users.js';
 import UserCompany from '../models/user/UserCompany.js';
 import City from '../models/city/City.js';
-import News from '../models/blog/News.js';
 
 // quản lý chung 
 export const ManageAll = async (req, res, next) => {

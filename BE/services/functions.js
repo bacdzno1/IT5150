@@ -2176,7 +2176,7 @@ export const getMucLuong = (
 	}
 };
 
-function formatCurrency() {
+function formatCurrency(amount) {
 	try {
 		return amount.toLocaleString("vi-VN", {
 			style: "currency",
@@ -2240,7 +2240,6 @@ export const getUvTimeExp2 = (arrHtml) => {
 	try {
 		let cvExp = arrHtml.experiences.find((item) => item.id == 'block02' && item.status == '');
 		if (cvExp) {
-			let timeExp = 0;
 			let listExp = cvExp.content.content;
 			// console.log(listExp)
 			if (listExp.length) {
@@ -2297,11 +2296,9 @@ export const getUvTimeExp2 = (arrHtml) => {
 				// console.log(timeExp);
 				//Cập nhật kinh nghiệm
 				if (timeExp) {
-					// dataUpdateCandi["inForPerson.account.experience"] = functions.convertTimeToExp(timeExp)
 					return timeExp
 				}
 			}
-			// return timeExp
 		}
 		return 0
 	} catch (error) {

@@ -101,9 +101,6 @@ router.get('/admin/403', site.admin_not_permission);
 router.post('/api/dataHome', apiController.getDataHomeAjax);
 router.post('/api/getDistrict', apiController.getDiscByCity);
 router.post('/api/getTagCate', apiController.getTagCate);
-router.post("/SendOTPToAccount", apiController.SendOTPToAccount);
-router.post("/ConfirmOTPByAccount", apiController.ConfirmOTPByAccount);
-
 router.use(checkHardcodedRoutes);
 
 router.get('/:slug', site.alias);

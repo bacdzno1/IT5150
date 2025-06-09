@@ -1,9 +1,7 @@
 var URL_API_USER = 'http://localhost:3050/api/topcv1s/user'
 var URL_API_NTD = 'http://localhost:3051/api/topcv1s/ntd'
 var URL_API_CANDI = 'http://localhost:3052/api/topcv1s/candidate'
-var URL_API_NEW = 'http://localhost:3053/api/topcv1s/new'
 var URL_API_DOWLOAD = 'http://localhost:3055/dowload'
-var URL_API_CV = 'http://localhost:3056/api/topcv1s/cv'
 var domain = 'http://localhost:9020'
 console.log('commonjsss')
 function convertToAlias(str) {
