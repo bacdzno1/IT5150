@@ -30,16 +30,10 @@ export const PostNew = async(req, res) => {
         // ngành nghề 
         const catId = req.body.catId;
 
-        // chi tiết công việc cần tuyển
-        const tag = req.body.tag;
-        console.log(tag);
-
         // địa điểm làm việc
-        // const city = Number(req.body.city);
         const city = req.body.city;
 
         // quận huyện làm việc
-        // const district = Number(req.body.district);
         const district = req.body.district;
 
         // địa chỉ chi tiết làm việc
@@ -96,7 +90,7 @@ export const PostNew = async(req, res) => {
         // email liên hệ
         const emailContact = req.body.emailContact;
 
-        console.log('>>> check city: ', city, "district: ", district)
+        // console.log('>>> check city: ', city, "district: ", district)
 
         if (title && capBac && catId && city &&
             district && address && hinhThuc && money &&
@@ -573,6 +567,7 @@ export const Home = async(req, res) => {
                 }
             }
         ]);
+        console.log(">>> Việc làm hấp dẫn: ", ViecLamHapDan_Promise)
         const ViecLamThuongHieu_Promise = await New.aggregate([{
                 $match: {
                     new_active: 1,
@@ -681,6 +676,7 @@ export const Home = async(req, res) => {
                 }
             }
         ])
+        console.log(">>> Tin thưởng hấp dẫn Promise: ", TinThuongHapDan_Promise)
         const TinThuongThuongHieu_Promise = New.aggregate([{
                 $match: {
                     new_active: 1,
@@ -796,6 +792,8 @@ export const Home = async(req, res) => {
             City.find({}, { cit_id: 1, cit_name: 1 }).lean(),
             com_promise,
         ]);
+
+        console.log(">>> Tin thưởng hấp dẫn: ", TinThuongHapDan)
 
         //check lưu tin và ứng tuyển
         const iduser = await functions.getTokenJustUser(req, res);

@@ -108,7 +108,7 @@ mongoose.connect("mongodb+srv://bacdzno1:narutohinata275@bacdz.m7quea5.mongodb.n
     console.log("Err when connect to database", err);
 });
 mongoose.connection.on('error', function () {
-    console.log("Lỗi try vấn")
+    console.log("Lỗi kết nối với Mongoose")
 });
 
 Users.listen(3050, () => {
