@@ -378,7 +378,7 @@
                                 id_uv: dataID
                             };
                             $.ajax({
-                            url: 'http://localhost:3051/api/topcv1s/ntd/SaveCandi',
+                            url: 'http://localhost:3050/api/topcv1s/ntd/SaveCandi',
                             type: 'POST',
                             headers: {
                                 Authorization: 'Bearer ' + accessToken
@@ -452,7 +452,7 @@
                     // })
                 
                     function loadMoreData(page) {
-                        var url = 'http://localhost:3053/api/topcv1s/new/SearchCandi';
+                        var url = 'http://localhost:3050/api/topcv1s/new/SearchCandi';
                         var nameValue = getParameterByName('name', window.location.href);
                         var cityValue = getParameterByName('city', window.location.href);
                         var catidValue = getParameterByName('catid', window.location.href);

@@ -23,7 +23,7 @@ exports.index = async (req, res) => {
 exports.cvpage = async (req, res) => {
     const url = req.url;
     const accessToken = req.cookies.accessToken;
-    const response = await axios.post('http://localhost:3056/api/topcv1s/CV/ListSampleCV', {
+    const response = await axios.post('http://localhost:3050/api/topcv1s/CV/ListSampleCV', {
         idnganh: 0
     },
         {
@@ -91,7 +91,7 @@ exports.candi_page = async (req, res) => {
     var convertToUrl = function_new.convertToUrl;
     var listCities = function_new.listCities;
     var findExp = function_new.findExp;
-    const response = await axios.post('http://localhost:3053/api/topcv1s/new/SearchCandi', {
+    const response = await axios.post('http://localhost:3050/api/topcv1s/new/SearchCandi', {
         keywords: name,
         city: city,
         catid: catid,
@@ -129,7 +129,7 @@ exports.candi_detail = async (req, res) => {
         //     return res.status(403).send('Token is required');
         // }
 
-        const response = await axios.post('http://localhost:3052/api/topcv1s/candidate/DetailCandi', {
+        const response = await axios.post('http://localhost:3050/api/topcv1s/candidate/DetailCandi', {
             id: dataId
         }, {
             headers: {
@@ -163,7 +163,7 @@ exports.job_after_search = async (req, res) => {
     var capitalizeFirstLetter = function_new.capitalizeFirstLetter
     var type = req.cookies.type ? req.cookies.type : 1;
     var id = req.cookies.use_id ? req.cookies.use_id : 0;
-    const job_recommend = await axios.post('http://localhost:3053/api/topcv1s/new/JobRecommend', {
+    const job_recommend = await axios.post('http://localhost:3050/api/topcv1s/new/JobRecommend', {
         id: id,
         type: type
     });
@@ -241,7 +241,7 @@ exports.alias = async (req, res) => {
     const accessToken = req.cookies.accessToken;
     var capitalizeFirstLetter = function_new.capitalizeFirstLetter;
     try {
-        const response = await axios.post('http://localhost:3053/api/topcv1s/new/detailJob_Comp', {
+        const response = await axios.post('http://localhost:3050/api/topcv1s/new/detailJob_Comp', {
             alias: slug
         }, {
             headers: {
@@ -310,7 +310,7 @@ exports.cv_sel = async (req, res) => {
     var data_cv = findCateCV(slug);
     if (findCateCV(slug) && findCateCV(slug) != '') {
         data_cv = findCateCV(slug);
-        const response = await axios.post('http://localhost:3056/api/topcv1s/CV/ListSampleCV', {
+        const response = await axios.post('http://localhost:3050/api/topcv1s/CV/ListSampleCV', {
             idnganh: data_cv.id
         });
         des = `Tổng hợp mẫu CV ${data_cv.name} đẹp nhất với hướng dẫn chi tiết trên TopCv1s. Tạo và tải mẫu CV online ${data_cv.name} về máy để ứng tuyển việc làm như ý.`;
@@ -320,7 +320,7 @@ exports.cv_sel = async (req, res) => {
     }
     else if (findLangCV(slug) && findLangCV(slug) != '') {
         data_cv = findLangCV(slug);
-        const response = await axios.post('http://localhost:3056/api/topcv1s/CV/ListSampleCV', {
+        const response = await axios.post('http://localhost:3050/api/topcv1s/CV/ListSampleCV', {
             idlang: data_cv.id
         });
         des = `Top mẫu CV ${data_cv.name} đẹp, nội dung chuẩn, hướng dẫn tạo CV ${data_cv.name} nhanh chóng trong 3 phút với sự hỗ trợ của TopCv1s. Tạo CV online ${data_cv.name} ngay.`;
@@ -343,7 +343,7 @@ exports.add_cv = async (req, res) => {
     console.log(alias)
     // console.log("🚀 ~ exports.add_cv= ~ alias:", alias)
     try {
-        const response = await axios.post('http://localhost:3053/api/topcv1s/new/getCvDetail', {
+        const response = await axios.post('http://localhost:3050/api/topcv1s/new/getCvDetail', {
             alias: alias
         });
 
@@ -430,7 +430,7 @@ exports.editpost = async (req, res) => {
         var genderList = function_new.genderList;
         var listCities = function_new.listCities;
         var findDistrict = function_new.findDistrict;
-        const response = await axios.post('http://localhost:3053/api/topcv1s/new/DetailNew', { id: id });
+        const response = await axios.post('http://localhost:3050/api/topcv1s/new/DetailNew', { id: id });
         let post = response.data.data.data;
         return res.render('ntd/edit_job_ntd', { title, id, levelList, cateList, listTypeWork, listRangeMoney, listSizeExp, listEdu, genderList, listCities, findDistrict, post, url });
     } catch (error) {
@@ -512,7 +512,7 @@ exports.managcanhome = async (req, res) => {
     const accessToken = req.cookies.accessToken;
     var getMucLuong = function_new.getMucLuong;
     try {
-        const response = await axios.post('http://localhost:3052/api/topcv1s/candidate/ManageAllCandi', {
+        const response = await axios.post('http://localhost:3050/api/topcv1s/candidate/ManageAllCandi', {
         }, {
             headers: {
                 Authorization: `Bearer ${accessToken}`
@@ -548,7 +548,7 @@ exports.managcv = async (req, res) => {
     const url = req.url;
     try {
         const accessToken = req.cookies.accessToken;
-        const response = await axios.post('http://localhost:3052/api/topcv1s/candidate/ManageCvCandiDidCreated', {
+        const response = await axios.post('http://localhost:3050/api/topcv1s/candidate/ManageCvCandiDidCreated', {
         }, {
             headers: {
                 Authorization: `Bearer ${accessToken}`

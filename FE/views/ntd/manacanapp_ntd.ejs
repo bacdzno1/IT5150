@@ -289,7 +289,7 @@
 
                 function fetchData(page) {
                     $.ajax({
-                        url: 'http://localhost:3051/api/topcv1s/ntd/CandidatesComeToApply',
+                        url: 'http://localhost:3050/api/topcv1s/ntd/CandidatesComeToApply',
                         type: 'POST',
                         contentType: 'application/json',
                         headers: {
@@ -365,7 +365,7 @@
 
                 function deleteCandidate(id, row) {
                     $.ajax({
-                        url: 'http://localhost:3051/api/topcv1s/ntd/DeleteCandidateApply',
+                        url: 'http://localhost:3050/api/topcv1s/ntd/DeleteCandidateApply',
                         type: 'POST',
                         contentType: 'application/json',
                         headers: {

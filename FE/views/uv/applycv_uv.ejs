@@ -161,7 +161,7 @@
                 var spinner = document.querySelector(".spinner");
                 spinner.style.display = "inline-block";
                 $.ajax({
-                    url: `http://localhost:3055/download/cv_pdf/user_${iduv}/cvid_${id}/${id}-topcv1s`,
+                    url: `http://localhost:3050/download/cv_pdf/user_${iduv}/cvid_${id}/${id}-topcv1s`,
                     type: 'get',
                     success: function (res) {
                         const downloadLink = document.createElement('a')
@@ -181,7 +181,7 @@
                 const res = confirm('Bạn có chắc chắn muốn xóa CV không?')
                 if (res) {
                     $.ajax({
-                        url: `http://localhost:3052/api/topcv1s/candidate/CandiDeleteCV`,
+                        url: `http://localhost:3050/api/topcv1s/candidate/CandiDeleteCV`,
                         type: 'post',
                         data: { idcv: idcv },
                         beforeSend: function (request) {
@@ -225,7 +225,7 @@
 
             $(document).ready(function () {
                 $.ajax({
-                    url: 'http://localhost:3052/api/topcv1s/candidate/ManageCvCandiDidCreated',
+                    url: 'http://localhost:3050/api/topcv1s/candidate/ManageCvCandiDidCreated',
                     type: 'post',
                     data: { iduv: id },
                     beforeSend: function (request) {

@@ -82,7 +82,7 @@
           console.log('>>> Check filter:', filter);
           console.log(">>> Check thông tin: ", JSON.parse(in4CVSsr?.html));
           $.ajax({
-            url: `http://localhost:3056/api/topcv1s/CV/upload/cv/${alias}/index.html`,
+            url: `http://localhost:3050/api/topcv1s/CV/upload/cv/${alias}/index.html`,
             method: 'GET',
             success: function (data) {
               $('#cvid').attr('value', idcv)
@@ -90,10 +90,10 @@
               $("#cvo-profile-avatar").addClass('show_modal_avar')
               appendScript()
               // CSS
-              $('#cv-css').attr('href', `http://localhost:3056/api/topcv1s/CV/upload/cv/${alias}/css/cv.css`);
+              $('#cv-css').attr('href', `http://localhost:3050/api/topcv1s/CV/upload/cv/${alias}/css/cv.css`);
 
               // Màu
-              $('#color-stylesheet').attr("href", `http://localhost:3056/api/topcv1s/CV/upload/cv/${alias}/css/colors/${color}.css`);
+              $('#color-stylesheet').attr("href", `http://localhost:3050/api/topcv1s/CV/upload/cv/${alias}/css/colors/${color}.css`);
 
               const handleChangeLang = (lang) => {
                 if (in4CVSsr && in4CVSsr?.html) {

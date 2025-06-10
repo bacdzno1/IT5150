@@ -277,7 +277,7 @@
                 var news_id = $(this).attr('save_target');
                 if(!$(this).hasClass('saved')){
                     $.ajax({
-                        url: 'http://localhost:3052/api/topcv1s/candidate/SaveNew',
+                        url: 'http://localhost:3050/api/topcv1s/candidate/SaveNew',
                         type: 'POST',
                         contentType: 'application/json',
                         headers: {
@@ -306,7 +306,7 @@
                 }
                 else{
                     $.ajax({
-                        url: 'http://localhost:3052/api/topcv1s/candidate/SaveNew',
+                        url: 'http://localhost:3050/api/topcv1s/candidate/SaveNew',
                         type: 'POST',
                         contentType: 'application/json',
                         headers: {

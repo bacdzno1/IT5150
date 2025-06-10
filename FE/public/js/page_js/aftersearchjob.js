@@ -395,7 +395,7 @@ $(document).ready(function() {
             requestData.edu = edu;
         }
         $.ajax({
-            url: 'http://localhost:3053/api/topcv1s/new/SearchNew',
+            url: 'http://localhost:3050/api/topcv1s/new/SearchNew',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(requestData),
@@ -690,7 +690,7 @@ $(document).ready(function() {
     }
     console.log(user_id);
     $.ajax({
-        url: "http://localhost:3053/api/topcv1s/new/getRecommentComp",
+        url: "http://localhost:3050/api/topcv1s/new/getRecommentComp",
         type: "POST",
         data: formData,
         headers: {

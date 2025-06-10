@@ -520,7 +520,7 @@
                             var news_id = $(this).attr('news_id');
                             // if(!$(this).hasClass('saved')){
                                 $.ajax({
-                                    url: 'http://localhost:3052/api/topcv1s/candidate/SaveNew',
+                                    url: 'http://localhost:3050/api/topcv1s/candidate/SaveNew',
                                     type: 'POST',
                                     contentType: 'application/json',
                                     headers: {
@@ -592,7 +592,7 @@
                         var letter = $('#intro_letter').val();
                         var news_id = $(this).attr('news_id');
                         $.ajax({
-                            url: 'http://localhost:3052/api/topcv1s/candidate/ApplyJob',
+                            url: 'http://localhost:3050/api/topcv1s/candidate/ApplyJob',
                             type: 'POST',
                             contentType: 'application/json',
                             headers: {

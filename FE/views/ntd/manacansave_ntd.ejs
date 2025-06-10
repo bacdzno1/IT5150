@@ -201,7 +201,7 @@
                 
                         function fetchData(page) {
                             $.ajax({
-                                url: 'http://localhost:3051/api/topcv1s/ntd/CandiDidSave',
+                                url: 'http://localhost:3050/api/topcv1s/ntd/CandiDidSave',
                                 method: 'POST',
                                 contentType: 'application/json',
                                 headers: {
@@ -254,7 +254,7 @@
                                 var id_hoso = row.data('id');
                                 if (confirm('Bạn có chắc chắn muốn xóa ứng viên này đi ?')) {
                                     $.ajax({
-                                        url: 'http://localhost:3051/api/topcv1s/ntd/DeleteCandiDidSave',
+                                        url: 'http://localhost:3050/api/topcv1s/ntd/DeleteCandiDidSave',
                                         method: 'POST',
                                         contentType: 'application/json',
                                         headers: {

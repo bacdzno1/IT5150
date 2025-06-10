@@ -14,13 +14,7 @@ import NewsRouter from './routers/new_Route.js';
 import admin_Route from './routers/admin_Route.js';
 import CVRouter from './routers/cv_Route.js'
 
-const Users = express();
-const NTD = express();
-const Candi = express();
-const New = express();
-const dowload = express();
-const Admin = express();
-const CV = express()
+const app = express();
 
 function configureApp(app) {
     function shouldCompress(req, res) {
@@ -69,34 +63,18 @@ function errorApp(app) {
         res.json({ 'error': err });
     });
 }
+configureApp(app);
 
-configureApp(Users);
-Users.use('/api/topcv1s/user', UsersRouter);
-errorApp(Users);
+// Gộp tất cả router vào app
+app.use('/api/topcv1s/user', UsersRouter);
+app.use('/api/topcv1s/ntd', NTDRouter);
+app.use('/api/topcv1s/candidate', CandiRouter);
+app.use('/api/topcv1s/new', NewsRouter);
+app.use('/download', DowloadRouter);
+app.use('/api/topcv1s/CV', CVRouter);
+app.use('/api/topcv1s/admin', admin_Route);
 
-configureApp(NTD);
-NTD.use('/api/topcv1s/ntd', NTDRouter);
-errorApp(NTD);
-
-configureApp(Candi);
-Candi.use('/api/topcv1s/candidate', CandiRouter);
-errorApp(Candi);
-
-configureApp(New);
-New.use('/api/topcv1s/new', NewsRouter);
-errorApp(New);
-
-configureApp(dowload);
-dowload.use('/download', DowloadRouter);
-errorApp(dowload);
-
-configureApp(CV);
-CV.use('/api/topcv1s/CV', CVRouter);
-errorApp(CV);
-
-configureApp(Admin);
-Admin.use('/api/topcv1s/admin', admin_Route);
-errorApp(Admin);
+errorApp(app);
    
 mongoose.connect("mongodb+srv://bacdzno1:narutohinata275@bacdz.m7quea5.mongodb.net/",
     {
@@ -110,59 +88,8 @@ mongoose.connect("mongodb+srv://bacdzno1:narutohinata275@bacdz.m7quea5.mongodb.n
 mongoose.connection.on('error', function () {
     console.log("Lỗi kết nối với Mongoose")
 });
+const PORT = process.env.PORT || 3050;
 
-Users.listen(3050, () => {
-    console.log(`Users is running on port 3050`);
-});
-
-Users.on('error', (error) => {
-    console.error('Error occurred while listening on Users port:3050', error);
-});
-
-NTD.listen(3051, () => {
-    console.log(`NTD is running on port 3051`);
-});
-
-NTD.on('error', (error) => {
-    console.error('Error occurred while listening on NTD port:3051', error);
-});
-
-Candi.listen(3052, () => {
-    console.log(`Candi is running on port 3052`);
-});
-
-Candi.on('error', (error) => {
-    console.error('Error occurred while listening on Candi port:3052', error);
-});
-
-New.listen(3053, () => {
-    console.log(`New is running on port 3053`);
-});
-
-New.on('error', (error) => {
-    console.error('Error occurred while listening on New port:3053', error);
-});
-
-dowload.listen(3055, () => {
-    console.log(`Dowload is running on port 3055`);
-});
-
-dowload.on('error', (error) => {
-    console.error('Error occurred while listening on dowload port:3055', error);
-});
-
-CV.listen(3056, () => {
-    console.log(`Cv Candidate is running on port 3056`);
-});
-
-CV.on('error', (error) => {
-    console.error('Error occurred while listening on Cv Candidate port:3056', error);
-});
-
-Admin.listen(3057, () => {
-    console.log(`Admin is running on port 3057`);
-});
-
-Admin.on('error', (error) => {
-    console.error('Error occurred while listening on Admin port:3057', error);
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });

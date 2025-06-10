@@ -7,7 +7,7 @@ var nganhNgheNoiBat = [];
 //Gọi api lấy data trang chủ
 function getHomeData() {
     $.ajax({
-        url: "http://localhost:3053/api/topcv1s/new/Home",
+        url: "http://localhost:3050/api/topcv1s/new/Home",
         type: "POST",
         contentType: "application/json",
         headers: {

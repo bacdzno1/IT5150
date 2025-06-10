@@ -6513,7 +6513,7 @@ function resg_new() {
     var id = getCookie(cookieId);
     $.ajax({
       type: "POST",
-      url: "http://localhost:3052/api/topcv1s/candidate/UpdateInfoCv",
+      url: "http://localhost:3050/api/topcv1s/candidate/UpdateInfoCv",
       async: true,
       beforeSend: function (request) {
         $("body").append(

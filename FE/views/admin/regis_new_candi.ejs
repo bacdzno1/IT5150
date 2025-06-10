@@ -147,7 +147,7 @@
         });
         if(getCookie('adminToken')){
             $.ajax({
-            url: "http://localhost:3057/api/topcv1s/admin/list",
+            url: "http://localhost:3050/api/topcv1s/admin/list",
             type: "POST",
             headers: {
                 "Authorization": "Bearer " + getCookie('adminToken')
@@ -226,7 +226,7 @@
 
 
             $.ajax({
-                url: "http://localhost:3057/api/topcv1s/admin/list",
+                url: "http://localhost:3050/api/topcv1s/admin/list",
                 type: "POST",
                 headers: {
                     "Authorization": "Bearer " + getCookie('adminToken')

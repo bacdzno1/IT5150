@@ -20,7 +20,7 @@ exports.getTagCate = async (req, res) => {
     try {
         const { id } = req.body;
 
-        const response = await axios.post('http://localhost:3053/api/topcv1s/new/getTagCate', {
+        const response = await axios.post('http://localhost:3050/api/topcv1s/new/getTagCate', {
             id: id,
         })
 

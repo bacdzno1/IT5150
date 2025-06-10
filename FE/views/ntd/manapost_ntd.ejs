@@ -204,7 +204,7 @@
             var confirmed = confirm("Bạn có chắc chắn muốn xóa tin tuyển dụng này?");
             if (confirmed) {
                 $.ajax({
-                    url: "http://localhost:3053/api/topcv1s/new/DeleteNew",
+                    url: "http://localhost:3050/api/topcv1s/new/DeleteNew",
                     type: "POST",
                     headers: {
                         "Authorization": "Bearer " + getCookie('accessToken')
@@ -250,7 +250,7 @@
         
         function renderTable(page) {
             $.ajax({
-                url: "http://localhost:3053/api/topcv1s/new/listNewNTD",
+                url: "http://localhost:3050/api/topcv1s/new/listNewNTD",
                 type: "POST",
                 headers: {
                     "Authorization": "Bearer " + getCookie('accessToken')
@@ -399,7 +399,7 @@
         }
         // Khởi tạo trang đầu tiên và tổng số trang
         $.ajax({
-            url: "http://localhost:3053/api/topcv1s/new/listNewNTD",
+            url: "http://localhost:3050/api/topcv1s/new/listNewNTD",
             type: "POST",
             headers: {
                 "Authorization": "Bearer " + getCookie('accessToken')

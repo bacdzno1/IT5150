@@ -164,7 +164,7 @@
                     updateLayout();
                 } else {
                     $.ajax({
-                        url: "http://localhost:3052/api/topcv1s/candidate/JobDidSave",
+                        url: "http://localhost:3050/api/topcv1s/candidate/JobDidSave",
                         type: "POST",
                         headers: { "Authorization": "Bearer " + getCookie('accessToken') },
                         data: { page: page, pageSize: itemsPerPage }, // Chỉ lấy dữ liệu cho trang hiện tại
@@ -325,7 +325,7 @@
                 if (confirm_remove == true) {
                     var news_id = $(this).attr('data-target');
                     $.ajax({
-                        url: "http://localhost:3052/api/topcv1s/candidate/SaveNew",
+                        url: "http://localhost:3050/api/topcv1s/candidate/SaveNew",
                         type: "POST",
                         data: {
                             id_tin: news_id

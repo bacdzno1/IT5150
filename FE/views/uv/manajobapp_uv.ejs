@@ -164,7 +164,7 @@
                 if (confirm_remove == true) {
                     var news_id = $(this).attr('data-target');
                     $.ajax({
-                        url: "http://localhost:3052/api/topcv1s/candidate/UnApplyJob",
+                        url: "http://localhost:3050/api/topcv1s/candidate/UnApplyJob",
                         type: "POST",
                         data: {
                             id: news_id
@@ -204,7 +204,7 @@
                     updateLayout();
                 } else {
                     $.ajax({
-                        url: "http://localhost:3052/api/topcv1s/candidate/JobApply",
+                        url: "http://localhost:3050/api/topcv1s/candidate/JobApply",
                         type: "POST",
                         headers: { "Authorization": "Bearer " + getCookie('accessToken') },
                         data: { page: page, pageSize: itemsPerPage }, // Chỉ lấy dữ liệu cho trang hiện tại
