@@ -1434,7 +1434,7 @@ export const SearchCandi = async(req, res) => {
             ...conditions
         });
         const ungVienTheoNganhNghe_promise = Category.find({}, { cat_name: 1, cat_count: 1, _id: 0 }).lean();
-        const ungVienTheoTinhThanh_promise = City.find({}, { cit_name: 1, cit_count: 1, _id: 0 }).lean();
+        const ungVienTheoTinhThanh_promise = City.find({}, { cit_name: 1, _id: 0 }).lean();
         const [data, total_thuong, ungVienTheoNganhNghe, ungVienTheoTinhThanh, Cityy] = await Promise.all([
             data_promise,
             total_promise,
