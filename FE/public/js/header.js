@@ -37,6 +37,7 @@ $(document).ready(function () {
             var styleMenu = windowWidth <= 1024 ? ".drop-empl" : ".emp_info";
             let userLogo = getCookie("logo");
             let userName = getCookieNew("usc_company");
+            let useralias = convertToAlias(userName);
             let id = getCookie("usc_id");
             $(".drop-defaul").hide();
             $(".nav-only-candi").closest(".nav-item").remove();

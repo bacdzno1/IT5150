@@ -26,13 +26,7 @@
   <div class="cv-content">
     <div class="cv-body-content">
       <input type="hidden" id="cvid" name="cvid" value />
-      <p id="checktext" style='display: none;'>
-        bà nguyễn vũ anh linh
-        <br />
-        giám đốc kinh doanh tại công ty tnhh mốt quốc tế cv365
-        <br />
-        0987 541 258
-      </p>
+      <p id="checktext" style='display: none;'></p>
       <div class="box_content_taocv">
         <div class="page_cv" data-nopagi="1"></div>
         <div id="loadingDone"></div>
@@ -77,10 +71,6 @@
           } else {
             lang = "kr"
           }
-          console.log(">>> Check result: ", result);
-          console.log(">>> Check in4CVSsr: ", in4CVSsr);
-          console.log('>>> Check filter:', filter);
-          console.log(">>> Check thông tin: ", JSON.parse(in4CVSsr?.html));
           $.ajax({
             url: `http://localhost:3050/api/topcv1s/CV/upload/cv/${alias}/index.html`,
             method: 'GET',
@@ -100,7 +90,6 @@
                   return JSON.parse(in4CVSsr?.html)
                 }
               };
-              // console.log(">>> Check lang: ", lang);
               handleSetDataNew(handleChangeLang(lang))
               setPlaceholderHTMl(
                 lang,
@@ -124,7 +113,7 @@
         },
 
         error: function (xhr, status, error) {
-          console.error('Error:', error); // In lỗi ra console nếu có lỗi
+          console.error('Error:', error);
         }
       })
     })

@@ -6,24 +6,10 @@
     <div class="nhead-rig d-flex align-c justify-b">
         <div class="nhead-rig-nav fw-500 d-flex align-c">
             <div class="nhead-rig-nav-i">
-                <a href="/">
-                    Trang chủ
-                </a>
+                <a href="/">Trang chủ</a>
             </div>
             <div class="nhead-rig-nav-i">
-                <a href="">
-                    Bảng giá
-                </a>
-            </div>
-            <div class="nhead-rig-nav-i">
-                <a href="/tin-tuc">
-                    Tin tức
-                </a>
-            </div>
-            <div class="nhead-rig-nav-i">
-                <a href="/tim-ung-vien">
-                    Tìm ứng viên
-                </a>
+                <a href="/tim-ung-vien">Tìm ứng viên</a>
             </div>
         </div>
         <div class="nhead-rig-not">
@@ -136,7 +122,6 @@
     var name = getCookieNew('usc_company');
     var logo = getCookie('logo');
     if (name && name != '') {
-        // $('.menu-mb-compna').text(name);
         var alias = convertToAlias(name)
         var link_cpn = `<a href="/${alias}">${name}</a>`
         $('.menu-mb-compna').html(link_cpn);

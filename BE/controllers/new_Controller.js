@@ -1588,11 +1588,6 @@ export const detailJob_Comp = async(req, res) => {
                     const new_cat_id = data.new_cat_id
                     console.log('tinh thanh',arrCity)
                     const conditions = { new_city: { $in: arrCity },new_cat_id:new_cat_id, new_active: 1, new_id: { $ne: id } };
-                    // if (data.new_real_cate.length > 0) {
-                    //     const arrConditionsRealCate = getConditionsRealCate(data.new_real_cate);
-                    //     conditions['$or'] = arrConditionsRealCate;
-                    // }
-
                     console.log('conditions:',conditions)
 
                     const item = {

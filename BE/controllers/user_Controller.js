@@ -30,10 +30,10 @@ cron.schedule('0 0 * * *', async () => {
     }
 });
 
-// Hàm đăng kí tài khoản nhà tuyển dụng khi vượt qua validate (còn luồng TblPointCompany)
+// Hàm đăng kí tài khoản nhà tuyển dụng khi vượt qua validate
 const EmployersValidateSuccess = async (data, file) => {
     try {
-        const { phoneTK, email, password, nameCompany, city, descriptions, phone } = data;
+        const { phoneTK, email, password, nameCompany, city, district, phone } = data;
         const image = [];
         let logo = '';
         const time = functions.getTime();
@@ -58,26 +58,32 @@ const EmployersValidateSuccess = async (data, file) => {
         const alias = functions.createLinkTilte(nameCompany.trim());
         const otp = functions.randomNumber();
         const dataUpdate = {
+            'usc_phone_tk': phoneTK,
+            'usc_email': email,
+            'usc_name': '',
+            'usc_name_add': '',
+            'usc_name_phone': phone,
+            'usc_name_email': email,
             'usc_pass': hashedPassword,
-            'usc_phone': phone,
-            'usc_authentic': '0',
             'usc_company': nameCompany.trim(),
-            'usc_city': city,
-            'usc_district': "",
-            'usc_address': "",
             'usc_alias': alias,
+            'usc_address': "",
+            'usc_phone': phone,
+            'usc_logo': logo,
+            'usc_size': '',
+            'DateOfIncorporation': "",
+            'usc_website': '',
+            'usc_city': city,
+            'usc_district': district,
             'usc_create_time': time,
             'usc_update_time': time,
-            'usc_logo': logo,
-            'DateOfIncorporation': "",
+            'usc_mail': email,
             'usc_mst': "",
-            'usc_loai_hinh': "",
+            'usc_authentic': '0',
             'usc_otp': otp,
-            'usc_phone_tk': phoneTK,
-            'usc_name_email': email,
-            'usc_email': email,
-            'usc_company_info': descriptions,
+            'usc_company_info': '',
             'image_com': image.join(','),
+            'usc_boss': '',
             'financial_sector': [{ id: '' }],
         };
 
@@ -129,14 +135,13 @@ export const RegisterEmployers = async (req, res, next) => {
         const rePassword = req.body.rePassword;
         const nameCompany = req.body.nameCompany;
         const city = Number(req.body.city);
-        const address = req.body.address;
+        const district = req.body.district;
         const file = req.files;
         const arrMessage = {};
         const email = email_notlower.toLowerCase();
         if (phoneTK && password && rePassword && nameCompany && city) {
 
             const checkNameCom = await UserCompany.findOne({ usc_company: nameCompany }).lean();
-            const checkAddress = await UserCompany.findOne({ usc_address: address }).lean();
             const checkTrung = await UserCompany.findOne({ usc_phone_tk: phoneTK }).lean();
             const checkmail = await UserCompany.findOne({ usc_email: email }).lean();
             const checkPhoneTK = await functions.checkPhone(phoneTK);
@@ -144,7 +149,6 @@ export const RegisterEmployers = async (req, res, next) => {
 
             if (!checkPhoneTK) return functions.setError(res, 'Nhập số điện thoại không hợp lệ', 400);
             if (checkNameCom) arrMessage.nameCompany = `Tên công ty đã được đăng ký, vui lòng kiểm tra lại.`;
-            if (checkAddress) arrMessage.address = `Địa chỉ này đã được sử dụng. Bạn vui lòng nhập địa chỉ khác.`;
             if (checkTrung) arrMessage.phoneTK = `Số điện thoại này đã được sử dụng, vui lòng kiểm tra lại.`;
             if (checkmail) arrMessage.phoneTK = `Email này đã được sử dụng, vui lòng kiểm tra lại.`;
             if (password !== rePassword) arrMessage.password = `Nhập password và re-password không khớp.`;
@@ -155,7 +159,6 @@ export const RegisterEmployers = async (req, res, next) => {
             }
             const checkRegister = await EmployersValidateSuccess(req.body, file);
             if (checkRegister) {
-                console.log(">>> CheckRegister")
                 const checkInfo = await UserCompany.findOne({ usc_phone_tk: phoneTK }, { usc_id: 1, usc_authentic: 1, usc_email: 1, usc_company: 1, usc_logo: 1 }).lean();
                 const token = await functions.createToken({ usc_id: checkInfo.usc_id, auth: checkInfo.usc_authentic, type: 1 }, '60d');
 

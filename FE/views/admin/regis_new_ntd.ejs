@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow" />
     <link rel="icon" href="/images/img/icon_head.png">
-    <title>Danh sách ứng viên</title>
+    <title>Danh sách nhà tuyển dụng</title>
     <link rel="preload" href="/css/admin/regis_new_ntd.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
         <link rel="stylesheet" href="/css/admin/regis_new_ntd.css">
@@ -35,11 +35,6 @@
                     <input class="input-info" id="usc_name_email" type="text" placeholder="Nhập email liên hệ">
                     <input class="input-info" id="usc_name_phone" type="text" placeholder="Nhập SĐT">
                     <input class="input-info" id="usc_mst" type="text" placeholder="MST">
-                    <!-- <select class="input-info" id="vip">
-                        <option value="" selected disabled>Chọn vip</option>
-                        <option value="0">Chưa vip</option>
-                        <option value="1">Vip</option>
-                    </select> -->
                     <select class="input-info" id="usc_city">
                         <option value="" selected>Chọn tỉnh thành</option>
                         <% for (let i=0; i < listCities.length; i++) { %>
@@ -68,19 +63,10 @@
                                 <th>Tên công ty</th>
                                 <th>SĐT (TK đăng nhập)</th>
                                 <th>Email (TK đăng nhập)</th>
-                                <!-- <th>Email</th>
-                                <th>SĐT</th>
-                                <th>Skype</th> -->
                                 <th>Địa chỉ</th>
                                 <th>Website</th>
                                 <th>MST</th>
-                                <!-- <th>Trạng thái vip</th> -->
                                 <th>Ngày đăng ký</th>
-                                <!-- <th>Active</th>
-                                <th>Index</th>
-                                <th>Sửa</th>
-                                <th>Id chuyên viên</th>
-                                <th>Id quản lý chung</th> -->
                             </tr>
                         </thead>
                         <tbody id="newRegisteredEmp">

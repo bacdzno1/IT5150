@@ -177,11 +177,7 @@
                         nameCompany: eml_pos,
                         email: eml_loc,
                         city: eml_city,
-                        //  image: "url", 
-                        //  descriptions: '',
-                        //  ip: 1,
-                        //  file: 'url',
-                        address: eml_disc,
+                        district: eml_disc,
                     };
                     //  console.log(data)
                     // Gọi API để đăng ký tài khoản
@@ -189,9 +185,7 @@
                         url: "http://localhost:3050/api/topcv1s/user/RegisterEmployers",
                         type: "POST",
                         data: data,
-                        success: function (response) {
-                            console.log(">>> response: ",response.data);
-                            
+                        success: function (response) {                            
                             document.cookie = `accessToken=${response.data.token}; max-age=3600; path=/`;
                             document.cookie = `usc_id=${response.data.checkInfo.usc_id}; max-age=3600; path=/`;
                             document.cookie = `auth=${response.data.checkInfo.usc_authentic}; max-age=3600; path=/`;

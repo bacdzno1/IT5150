@@ -35,9 +35,6 @@
                     <input class="input-info" id="address" type="text" placeholder="Nhập địa chỉ">
                     <input class="input-info" id="from" type="date" placeholder="Từ">
                     <input class="input-info" id="to" type="date" placeholder="Đến">
-                    <!-- <select class="input-info" id="">
-                        <option>Chọn nguồn</option>
-                    </select> -->
                     <div class="btn-search-candi">
                         <button class="btn-search">Tìm kiếm</button>
                     </div>
@@ -52,8 +49,6 @@
                                 <th>Tên ứng viên</th>
                                 <th>Tên công ty</th>
                                 <th>Việc làm</th>
-                                <!-- <th>Trạng thái</th>
-                                <th>Ghi chú</th> -->
                             </tr>
                         </thead>
                         <tbody id="newRegisteredCandi">
@@ -233,8 +228,6 @@
                             tableBody.append(row);
                         });
                         Paginate(totalPage, page);
-                        // <td>${candidate.result ? candidate.result: "-"}</td>
-                        // <td>${candidate.note ? candidate.note: "-"}</td>
                     }
                 },
                 error: function (xhr, status, error) {
@@ -329,7 +322,6 @@
                 Paginate(totalPage, totalPage);
             });
         }
-        // Khởi tạo trang đầu tiên và tổng số trang
 
         function convertToSlug(text) {
             return text.toLowerCase()

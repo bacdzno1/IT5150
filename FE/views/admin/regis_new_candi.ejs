@@ -39,7 +39,7 @@
                             <option value="<%= cateList[i].cat_id %>">
                                 <%= cateList[i].cat_name %>
                             </option>
-                            <% } %>
+                        <% } %>
                     </select>
                     <select class="input-info" id="use_city">
                         <option value="" selected>Chọn tỉnh thành</option>
@@ -47,7 +47,7 @@
                             <option value="<%= listCities[i].cit_id %>">
                                 <%= listCities[i].cit_name %>
                             </option>
-                            <% } %>
+                        <% } %>
                     </select>
                     <input class="input-info" id="from" type="date" placeholder="Từ">
                     <input class="input-info" id="to" type="date" placeholder="Đến">
@@ -70,8 +70,6 @@
                                 <th>Ngày đăng ký</th>
                                 <th>Xác thực</th>
                                 <th>Cho phép NTD tìm kiếm</th>
-                                <!-- <th>Sửa</th>
-                                <th>Xóa</th> -->
                             </tr>
                         </thead>
                         <tbody id="newRegisteredCandi">
@@ -108,13 +106,12 @@
     function formatDateTime(date, startOfDay = true) {
         const pad = (num, size = 2) => String(num).padStart(size, '0');
 
-        // Trừ đi 7 tiếng từ thời gian hiện tại do lệch múi giờ với database
         if (startOfDay) {
-            date.setHours(0, 0, 0, 0);  // Đặt thời gian đầu ngày
-            date.setHours(date.getHours() - 7);  // Trừ đi 7 tiếng
+            date.setHours(0, 0, 0, 0); 
+            date.setHours(date.getHours() - 7);
         } else {
-            date.setHours(23, 59, 59, 999);  // Đặt thời gian cuối ngày
-            date.setHours(date.getHours() - 7);  // Trừ đi 7 tiếng
+            date.setHours(23, 59, 59, 999);
+            date.setHours(date.getHours() - 7);
         }
 
         const day = pad(date.getDate());
@@ -274,8 +271,6 @@
                             tableBody.append(row);
                         });
                         Paginate(totalPage, page);
-                        // <td><img src="/images/icon/editicon.svg" width="15" height="15" alt="Save Job Icon"></td>
-                        // <td><img src="/images/icon/delete.svg" width="15" height="15" alt="Save Job Icon"></td>
                     }
                 },
                 error: function (xhr, status, error) {

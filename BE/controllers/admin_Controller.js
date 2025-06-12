@@ -86,7 +86,6 @@ export const list = async (req, res) => {
                 if (conditions?.result) conditions.result = Number(conditions.result)
                 const use_name = conditions?.use_name
                 const new_title = conditions?.new_title
-                // const usc_name = conditions?.usc_name
                 const usc_company = conditions?.usc_company
 
                 let user_promise = [], new_promise = [], com_promise = []
