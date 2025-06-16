@@ -5986,10 +5986,7 @@ function xemtruoc_cv() {
       if (res.data && res.data.result) {
         let img_val = res.data.data;
         // console.log(img_val);
-        $(".cv-view-detail .img_cv").attr(
-          "src",
-          `${img_val}`
-        );
+        $(".cv-view-detail .img_cv").attr( "src", `${img_val}` );
         $("#modal_view").show();
         $(".bg-spinner").remove();
       } else {

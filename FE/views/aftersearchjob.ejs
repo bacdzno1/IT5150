@@ -4,48 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <meta name="robots" content="noindex, follow" /> -->
-    <meta name="robots" content="index, follow" />
-    <meta name="description" content="<%- seoCNT %>">
-    <meta name="twitter:card" content="<%- seoTT %>">
-    <meta name="twitter:site" content="TopCv1s">
-    <meta name="twitter:title" content="<%- seoTT %>">
-    <meta name="twitter:description" content="<%- seoCNT %>">
-    <meta property="og:site_name" content="TopCv1s">
-    <meta property="og:image" content="http://localhost:9020/images/img/icon_head.png">
-    <meta property="og:url" content="http://localhost:9020<%= url %>">
-    <meta property="og:type" content="website">
     <title><%- seoTT %></title>
-    <link rel="canonical" href="http://localhost:9020<%= url %>">
     <link rel="icon" href="/images/img/icon_head.png">
-    <link rel="preload" href="/css/page_css/aftersearchjob.css" as="style">
     <link rel="stylesheet" href="/css/page_css/aftersearchjob.css" as="style">
-    <link rel="preload" href="/css/common.css" as="style">
     <link rel="stylesheet" href="/css/common.css" as="style">
-    <link rel="preload" href="/css/header.css" as="style">
     <link rel="stylesheet" href="/css/header.css" as="style">
-    <link rel="preload" href="/css/search_job2.css" as="style">
     <link rel="stylesheet" href="/css/search_job2.css" as="style">
-    <link rel="preload" href="/css/custom_select2.css" as="style">
     <link rel="stylesheet" href="/css/custom_select2.css">
     <script src="/js/jquery.min.js"></script>
-    <script
-    type="application/ld+json">{"@context": "https://schema.org","@type": "ItemPage","url": "http://localhost:9020<%= url %>","mainEntityOfPage": "Trang Tin Tức Việc Làm Số 1 - Tìm Việc, Tuyển Dụng Hiệu Quả, Miễn Phí"}</script>
-    <script
-        type="application/ld+json">{"@context":"https://schema.org","@type":"EmploymentAgency","name":"topcv1s.com","alternateName":"Tìm Việc Nhanh, Tuyển Dụng Hiệu Quả | TopCv1s.com","logo":"http://localhost:9020/images/img/icon_head.png","image":"http://localhost:9020/images/img/icon_head.png","url":"http://localhost:9020"}</script>
-    <script
-        type="application/ld+json">{"@context":"http://schema.org","@type":"WebSite","url":"http://localhost:9020/"}</script>
-    <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "DesPage",
-            "url": "http://localhost:9020<%= url %>",
-            "title": "<%- seoTT %>",
-            "description": "<%- seoCNT %>",
-            "thumbnail": "http://localhost:9020/images/img/default_logo.jpg"
-        } 
-    </script> 
-    <meta name="google-site-verification" content="lwyGMjMCHXSuJXWOc3iy1MG_Hd6yRBARF5H8NuMxUPg" />
 </head>
 
 <body>
@@ -55,96 +21,84 @@
         <input type="hidden" id="cat_filter" value="<%= categoryId %>">
         <input type="hidden" id="tag_filter" value="<%= tag %>">
     </div>
-        <div id="content" style="padding-top:80px">
-            <%- include('layouts/search_job2', {}); %>
-                <div class="container cnt">
-                    <h1 class="cnt-heading fw-700">
-                        <span><%= seoh1 %></span>
-                    </h1>
-                    <div class="cnt-breadcrumb">
-                        <div class="breadcrumb-item">
-                            <a href="/">
-                        Trang chủ
-                    </a>
-                        </div>
-                        <div class="breadcrumb-next">
-                            <img src="/images/icon/chevron-right-bd.svg" width="16" height="16" alt="Breadcrumd Next Icon">
-                        </div>
-                        <div class="breadcrumb-item active">
-                            Cập nhật <span class="total_job"></span> việc làm tại <span class="city_search"><%= findCity(parseInt(city_id)) !=  'City not found' ? findCity(parseInt(city_id)) : 'Toàn quốc' %></span> [Update
-                            <%= data.formattedDate %>]
-                        </div>
-                    </div>
-                    <div class="cnt-fil">
-                        <span class="cnt-fil-text">
-                    Gợi ý địa điểm:
-                </span>
-                        <div class="cnt-fil-box">
-                            <button class="cnt-fil-lef">
+    <div id="content" style="padding-top:80px">
+        <%- include('layouts/search_job2', {}); %>
+        <div class="container cnt">
+            <h1 class="cnt-heading fw-700">
+                <span><%= seoh1 %></span>
+            </h1>
+            <div class="cnt-breadcrumb">
+                <div class="breadcrumb-item">
+                    <a href="/">Trang chủ</a>
+                </div>
+                <div class="breadcrumb-next">
+                    <img src="/images/icon/chevron-right-bd.svg" width="16" height="16" alt="Breadcrumd Next Icon">
+                </div>
+                <div class="breadcrumb-item active">
+                    Cập nhật <span class="total_job"></span> việc làm tại <span class="city_search">
+                        <%= findCity(parseInt(city_id)) !='City not found' ? findCity(parseInt(city_id)) : 'Toàn quốc' %>
+                    </span> [Update <%= data.formattedDate %>]
+                </div>
+            </div>
+            <div class="cnt-fil">
+                <span class="cnt-fil-text">Gợi ý địa điểm:</span>
+                <div class="cnt-fil-box">
+                    <button class="cnt-fil-lef">
                         <img src="/images/icon/Chevron-Left.svg" width="24" height="24" alt="Icon Chev Left">
                     </button>
-                            <div class="cnt-fil-mask">
-                                <div class="cnt-fil-list">
-                                    <% if (city_id && findDistrict(parseInt(city_id)).length > 0) { %>
-                                        <div class="fil-item active">
-                                            <%= findCity(parseInt(city_id)) %>
-                                        </div>
-                                        <% findDistrict(parseInt(city_id)).forEach(function(item) { %>
-                                    <div class="fil-item">
-                                        <%= item.cit_name %>
-                                    </div>
-                                    <% }); %>
-                                    <% } %>
+                    <div class="cnt-fil-mask">
+                        <div class="cnt-fil-list">
+                            <% if (city_id && findDistrict(parseInt(city_id)).length> 0) { %>
+                                <div class="fil-item active">
+                                    <%= findCity(parseInt(city_id)) %>
                                 </div>
-                            </div>
-                            <button class="cnt-fil-rig">
-                        <img src="/images/icon/Chevron-Right.svg" width="24" height="24" alt="Icon Chev Right">
-                    </button>
+                                <% findDistrict(parseInt(city_id)).forEach(function(item) { %>
+                                    <div class="fil-item"><%= item.cit_name %></div>
+                                <% }); %>
+                            <% } %>
                         </div>
                     </div>
-                    <div class="cnt-import d-flex flex-wr">
-                        <span class="fw-700">
+                    <button class="cnt-fil-rig">
+                        <img src="/images/icon/Chevron-Right.svg" width="24" height="24" alt="Icon Chev Right">
+                    </button>
+                </div>
+            </div>
+            <div class="cnt-import d-flex flex-wr">
+                <span class="fw-700">
                     Ưu tiên hiển thị theo:
                 </span>
-                        <div class="radio-choose">
-                            <label for="imp-relate">
+                <div class="radio-choose">
+                    <label for="imp-relate">
                         <input type="radio" id="imp-relate" checked="checked" name="important">
                         Liên quan
                         <span class="checkmark"></span>
                     </label>
-                        </div>
-                        <div class="radio-choose">
-                            <label for="imp-pdate">
+                </div>
+                <div class="radio-choose">
+                    <label for="imp-pdate">
                         <input type="radio" id="imp-pdate" name="important">
                         Ngày đăng
                         <span class="checkmark"></span>
                     </label>
-                        </div>
-                        <div class="radio-choose">
-                            <label for="imp-udate">
+                </div>
+                <div class="radio-choose">
+                    <label for="imp-udate">
                         <input type="radio" id="imp-udate" name="important">
                         Ngày cập nhật
                         <span class="checkmark"></span>
                     </label>
-                        </div>
-                        <div class="radio-choose">
-                            <label for="imp-hsalary">
+                </div>
+                <div class="radio-choose">
+                    <label for="imp-hsalary">
                         <input type="radio" id="imp-hsalary" name="important">
                         Lương cao đến thấp
                         <span class="checkmark"></span>
                     </label>
-                        </div>
-                        <!-- <div class="radio-choose">
-                            <label for="imp-urgent">
-                        <input type="radio" id="imp-urgent" name="important">
-                        Cần tuyển gấp
-                        <span class="checkmark"></span>
-                    </label>
-                        </div> -->
-                    </div>
-                    <div class="cnt-import-mb">
-                        <div class="box-form">
-                            <label class="d-flex align-c">
+                </div>
+            </div>
+            <div class="cnt-import-mb">
+                <div class="box-form">
+                    <label class="d-flex align-c">
                         <img src="/images/icon/fil_mb.svg" width="24" height="24" alt="Filter Mobile Icon">
                         Ưu tiên hiển thị theo:
                     </label>
@@ -154,186 +108,160 @@
                         <option value="Updated">Ngày cập nhật</option>
                         <option value="Salary">Mức lương : từ cao đến thấp</option>
                     </select>
-                        </div>
-                    </div>
-                    <div class="cnt-body d-flex justify-b">
-                        <div class="cnt-left">
-                            <div class="job-list">
-                                <div class="job-item">
-                                    <div class="job-avar">
-                                        <a href="">
-                                            <img class="rounded-circle outline_main" src="/images/img/default_logo.jpg" onerror="this.onerror=null;this.src='/images/img/default_logo.jpg';" width="117" height="117" alt="avatar">
-                                        </a>                    
-                                    </div>
-                                    <div class="job-body">
-                                        <div class="job-tit">
-                                            <div class="job-tit-all">
-                                                <h3 class="mb-0">
-                                                    <a href="" class="job-name" data-tooltip="">Công việc A</a>
-                                                </h3>
-                                                <a href="" class="job-comp" data-tooltip="">Công ty A</a>
-                                            </div>
-                                            <div class="job-salary">Mức lương</div>
-                                        </div>
-                                        <div class="job-info">
-                                            <div class="job-label">
-                                                <label class="address">Thành phố</label>
-                                                <label class="remain_time">Còn <span class="fw-600">X</span> ngày để ứng tuyển</label>
-                                                <label class="last_updated">Cập nhật X tháng trước</label>
-                                            </div>
-                                            <div class="job-act">
-                                                <a class="job-apply" href="" data_apply="">Ứng tuyển</a>
-                                                <button class="job-save" style="display:none" data_save="">
-                                                    <img src="/images/icon/saveJobIcon.svg" alt="Save Job Icon" width="15.75" height="21.203">
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="job-nav d-flex justify-c align-c gap-4">
-                                <button class="cnt-nav-lef">
-                            <img src="/images/icon/Chevron-Left.svg" width="24" height="24" alt="Icon Chev Left">
-                        </button>
-                                <div class="cnt-paginate fs-5 fw-600">
-                                    1/10 Trang
-                                </div>
-                                <button class="cnt-nav-rig">
-                            <img src="/images/icon/Chevron-Right.svg" width="24" height="24" alt="Icon Chev Right">
-                        </button>
-                            </div>
-                        </div>
-                        <div class="cnt-right">
-                            <div class="interes">
-                                <h2 class="interes-title fs-4 fw-700">Có thể bạn quan tâm</h2>
-                                <div class="interes-box">
-                                    <div class="interes-head">
-                                        <a href=""><img class="rounded-circle" onerror="this.onerror=null;this.src='/images/img/default_logo.jpg';" src="/images/img/default_logo.jpg" width="88" height="88" alt="Logo Company"></a>
-                                        <h3 class="interes-head-tit mb-0">
-                                            <a  href="">
-                                                Công ty X
-                                            </a>  
-                                        </h3>
-                                    </div>
-                                    <div class="interes-body">
-                                        <div class="interes-item">
-                                            <div class="interes-detail">
-                                                <div class="interes-info">
-                                                    <a href="">
-                                                        <img class="interes-avar rounded-circle" onerror="this.onerror=null;this.src='/images/img/default_logo.jpg';" src="/images/img/default_logo.jpg" width="45" height="45" alt="Logo Company">
-                                                    </a>
-                                                    <div class="interes-tit">
-                                                        <h4 class="interes-name mb-0">
-                                                        <a href="">
-                                                            Tuyển nhân viên
-                                                        </a>             
-                                                        </h4>
-                                                        <div class="interes-comp">
-                                                        <a href="">
-                                                            Công ty X
-                                                        </a>   
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <button class="interes-save">
-                                                <a href="">
-                                                    <img src="/images/icon/saveJobIcon.svg" alt="Save Job Icon" width="14.62" height="19.53">
-                                                </a>
-                                                </button>
-                                            </div>
-                                            <div class="interes-label">
-                                                <label>
-                                                    Thành phố
-                                                </label>
-                                                <label>
-                                                    Mức lương
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="interes-foot">
-                                        <a class="interes-more" href="">
-                                            Tìm hiểu ngay
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="cv-banner">
-                                <a href="/cv-xin-viec">
-                                    <img class="w-100" loading="lazy" src="/images/img/bannerCv.png" width="400" height="686" alt="Banner Cv">
+                </div>
+            </div>
+            <div class="cnt-body d-flex justify-b">
+                <div class="cnt-left">
+                    <div class="job-list">
+                        <div class="job-item">
+                            <div class="job-avar">
+                                <a href="">
+                                    <img class="rounded-circle outline_main" src="/images/img/default_logo.jpg" width="117" height="117" alt="avatar">
                                 </a>
                             </div>
+                            <div class="job-body">
+                                <div class="job-tit">
+                                    <div class="job-tit-all">
+                                        <h3 class="mb-0">
+                                            <a href="" class="job-name" data-tooltip="">Công việc A</a>
+                                        </h3>
+                                        <a href="" class="job-comp" data-tooltip="">Công ty A</a>
+                                    </div>
+                                    <div class="job-salary">Mức lương</div>
+                                </div>
+                                <div class="job-info">
+                                    <div class="job-label">
+                                        <label class="address">Thành phố</label>
+                                        <label class="remain_time">Còn <span class="fw-600">X</span> ngày để ứng tuyển</label>
+                                        <label class="last_updated">Cập nhật X tháng trước</label>
+                                    </div>
+                                    <div class="job-act">
+                                        <a class="job-apply" href="" data_apply="">Ứng tuyển</a>
+                                        <button class="job-save" style="display:none" data_save="">
+                                            <img src="/images/icon/saveJobIcon.svg" alt="Save Job Icon" width="15.75" height="21.203">
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="cnt-sugg bg-white">
-                        <h2 class="cnt-sugg-tit fw-700 color-main fs-4">
-                            Gợi ý việc làm phù hợp
-                        </h2>
-                        <div class="cnt-sugg-list">
-                            <div class="slide-list">
-                                <% if (job_recommend.data.data.data && job_recommend.data.data.data.length > 0) { %>
-                                    <% job_recommend.data.data.data.forEach(function(item) { %>
-                                        <div class="slide-item">
-                                            <div class="avar">
-                                                <a href="/<%= item.companyDetails.usc_alias %>">
-                                                    <img class="rounded-circle" src="<%= item.companyDetails.usc_logo %>" onerror="this.onerror=null;this.src='/images/img/default_logo-min_11zon.webp';" width="117" height="117" alt="avatar">
-                                                </a>
-                                            </div>
-                                            <div class="info gap-2">
-                                                <div class="info-left">
-                                                    <h3 class="tit-job">
-                                                        <a href="/<%= item.new_alias %>-<%= item.new_id %>">
-                                                            <%= item.new_title %>
-                                                        </a>
-                                                    </h3>
-                                                    <a class="company" href="/<%= item.companyDetails.usc_alias %>">
-                                                        <%= item.companyDetails.usc_company %>
-                                                    </a>
-                                                    <div class="rcmj_bot">
-                                                        <span><%=findCity(parseInt(item.new_city))%></span>
-                                                        <a class="apply" href="/<%= item.new_alias %>-<%= item.new_id %>">
-                                                            Ứng tuyển
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="info-right">
-                                                    <div class="salary">
-                                                        <%= getMucLuong2(item.new_money_type,item.new_money_from,item.new_money_to,item.new_money) %>
-                                                    </div>
-                                                    <!-- <div class="save-job">
-                                                        <img src="/images/icon/saveJobIcon.svg" alt="Save Job Icon" width="19.12" height="25.24">
-                                                    </div> -->
+                    <div class="job-nav d-flex justify-c align-c gap-4">
+                        <button class="cnt-nav-lef">
+                            <img src="/images/icon/Chevron-Left.svg" width="24" height="24"
+                                alt="Icon Chev Left">
+                        </button>
+                        <div class="cnt-paginate fs-5 fw-600">1/10 Trang </div>
+                        <button class="cnt-nav-rig">
+                            <img src="/images/icon/Chevron-Right.svg" width="24" height="24" alt="Icon Chev Right">
+                        </button>
+                    </div>
+                </div>
+                <div class="cnt-right">
+                    <div class="interes">
+                        <h2 class="interes-title fs-4 fw-700">Có thể bạn quan tâm</h2>
+                        <div class="interes-box">
+                            <div class="interes-head">
+                                <a href=""><img class="rounded-circle" onerror="this.onerror=null;this.src='/images/img/default_logo.jpg';" src="/images/img/default_logo.jpg" width="88" height="88" alt="Logo Company"></a>
+                                <h3 class="interes-head-tit mb-0">
+                                    <a href="">Công ty X</a>
+                                </h3>
+                            </div>
+                            <div class="interes-body">
+                                <div class="interes-item">
+                                    <div class="interes-detail">
+                                        <div class="interes-info">
+                                            <a href="">
+                                                <img class="interes-avar rounded-circle" onerror="this.onerror=null;this.src='/images/img/default_logo.jpg';" src="/images/img/default_logo.jpg" width="45" height="45" alt="Logo Company">
+                                            </a>
+                                            <div class="interes-tit">
+                                                <h4 class="interes-name mb-0">
+                                                    <a href="">Tuyển nhân viên</a>
+                                                </h4>
+                                                <div class="interes-comp">
+                                                    <a href="">Công ty X</a>
                                                 </div>
                                             </div>
                                         </div>
-                                    <% }); %>
-                                <% }  %>
+                                        <button class="interes-save">
+                                            <a href=""><img src="/images/icon/saveJobIcon.svg" alt="Save Job Icon" width="14.62" height="19.53"></a>
+                                        </button>
+                                    </div>
+                                    <div class="interes-label">
+                                        <label>Thành phố</label>
+                                        <label>Mức lương</label>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="cnt-sugg-nav d-flex justify-c align-c">
-                            <button class="cnt-nav-lef">
-                        <img src="/images/icon/Chevron-Left.svg" width="24" height="24" alt="Icon Chev Left">
-                    </button>
-                            <div class="cnt-paginate fs-5 fw-600">
-                                1/10 Trang
+                            <div class="interes-foot">
+                                <a class="interes-more" href="">Tìm hiểu ngay</a>
                             </div>
-                            <button class="cnt-nav-rig">
-                        <img src="/images/icon/Chevron-Right.svg" width="24" height="24" alt="Icon Chev Right">
-                    </button>
                         </div>
                     </div>
+                    <div class="cv-banner">
+                        <a href="/cv-xin-viec"><img class="w-100" loading="lazy" src="/images/img/bannerCv.png" width="400" height="686" alt="Banner Cv"></a>
+                    </div>
                 </div>
+            </div>
+            <div class="cnt-sugg bg-white">
+                <h2 class="cnt-sugg-tit fw-700 color-main fs-4">
+                    Gợi ý việc làm phù hợp
+                </h2>
+                <div class="cnt-sugg-list">
+                    <div class="slide-list">
+                        <% if (job_recommend.data.data.data && job_recommend.data.data.data.length> 0) { %>
+                            <% job_recommend.data.data.data.forEach(function(item) { %>
+                                <div class="slide-item">
+                                    <div class="avar">
+                                        <a href="/<%= item.companyDetails.usc_alias %>">
+                                            <img class="rounded-circle" src="<%= item.companyDetails.usc_logo %>" onerror="this.onerror=null;this.src='/images/img/default_logo-min_11zon.webp';" width="117" height="117" alt="avatar">
+                                        </a>
+                                    </div>
+                                    <div class="info gap-2">
+                                        <div class="info-left">
+                                            <h3 class="tit-job">
+                                                <a href="/<%= item.new_alias %>-<%= item.new_id %>"><%= item.new_title %></a>
+                                            </h3>
+                                            <a class="company" href="/<%= item.companyDetails.usc_alias %>"><%= item.companyDetails.usc_company %></a>
+                                            <div class="rcmj_bot">
+                                                <span><%=findCity(parseInt(item.new_city))%></span>
+                                                <a class="apply" href="/<%= item.new_alias %>-<%= item.new_id %>">
+                                                    Ứng tuyển
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="info-right">
+                                            <div class="salary">
+                                                <%= getMucLuong2(item.new_money_type,item.new_money_from,item.new_money_to,item.new_money) %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <% }); %>
+                        <% } %>
+                    </div>
+                </div>
+                <div class="cnt-sugg-nav d-flex justify-c align-c">
+                    <button class="cnt-nav-lef">
+                        <img src="/images/icon/Chevron-Left.svg" width="24" height="24" alt="Icon Chev Left">
+                    </button>
+                    <div class="cnt-paginate fs-5 fw-600">
+                        1/10 Trang
+                    </div>
+                    <button class="cnt-nav-rig">
+                        <img src="/images/icon/Chevron-Right.svg" width="24" height="24" alt="Icon Chev Right">
+                    </button>
+                </div>
+            </div>
         </div>
-        <link rel="stylesheet" href="/css/footer.css" as="style">
-        <%- include('layouts/footer', {}); %>
-        <script src="/js/custom_select.js"></script>
-            <script src="/js/search2.js"></script>
-            <script>
-                var search_name = '<%- data.name %>';
-            </script>
-            <script src="/js/page_js/aftersearchjob.js"></script>
-            
-            
+    </div>
+    <link rel="stylesheet" href="/css/footer.css" as="style">
+    <%- include('layouts/footer', {}); %>
+    <script src="/js/custom_select.js"></script>
+    <script src="/js/search2.js"></script>
+    <script>
+        var search_name = '<%- data.name %>';
+    </script>
+    <script src="/js/page_js/aftersearchjob.js"></script>
 </body>
 
 </html>

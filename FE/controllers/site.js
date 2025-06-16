@@ -184,17 +184,6 @@ exports.job_after_search = async (req, res) => {
         }
 
     }
-    // if (city_id && categoryId) {
-    //     seoTT = `Cập Nhật Việc Làm ${cat_uppercase} Tại ${city_name} Từ Công Ty Uy Tín`;
-    //     seoCNT = `Việc làm ${cat_lowcase} tại ${city_name} mới nhất thường xuyên được cập nhật tại TopCv1s. Truy cập mỗi ngày, ứng viên có cơ hội đón nhận top việc làm ${cat_lowcase} tại ${city_name} hấp dẫn từ các nhà tuyển dụng uy tín hàng đầu. Tin tức việc làm ${cat_lowcase} tại ${city_name} update thường xuyên, đăng nhập ngay để chọn.`;
-    //     seoh1 = `Tìm việc ${cat_lowcase} tại ${city_name} tốt nhất`;
-    // }
-    // else if (city_id && tag) {
-    //     seoTT = `Cập Nhật Việc Làm ${cat_uppercase} Tại ${city_name} Từ Công Ty Uy Tín`;
-    //     seoCNT = `Việc làm ${cat_lowcase} tại ${city_name} mới nhất thường xuyên được cập nhật tại TopCv1s. Truy cập mỗi ngày, ứng viên có cơ hội đón nhận top việc làm ${cat_lowcase} tại ${city_name} hấp dẫn từ các nhà tuyển dụng uy tín hàng đầu. Tin tức việc làm ${cat_lowcase} tại ${city_name} update thường xuyên, đăng nhập ngay để chọn.`;
-    //     seoh1 = `Tìm việc ${cat_lowcase} tại ${city_name} tốt nhất`;
-    // }
-    // else
     if (city_id && !categoryId) {
         seoTT = `Danh sách tin tuyển dụng việc làm tại ${city_name} mới nhất`;
         seoCNT = `Cập nhật tin tuyển dụng việc làm mới nhất tại ${city_name}. Tìm việc và ứng tuyển miễn phí ngay.`;
@@ -335,13 +324,10 @@ exports.cv_sel = async (req, res) => {
 }
 exports.add_cv = async (req, res) => {
     const url = req.url;
-    // console.log(url);
     var cateList = function_new.cateList;
     const parts = url.split('/');
 
     const alias = parts[parts.length - 1];
-    console.log(alias)
-    // console.log("🚀 ~ exports.add_cv= ~ alias:", alias)
     try {
         const response = await axios.post('http://localhost:3050/api/topcv1s/new/getCvDetail', {
             alias: alias

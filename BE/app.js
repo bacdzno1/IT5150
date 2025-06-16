@@ -33,10 +33,10 @@ function configureApp(app) {
     app.use(cookieParser());
     app.use(cors());
     app.use('/pictures', express.static('pictures'));
-    // app.use('/tmp', express.static('tmp'));
+    app.use('/tmp', express.static('tmp'));
     app.use('/upload', express.static('upload'));
     app.use('/dowload', express.static('dowload'));
-    // app.use('/public', express.static('public'))
+    app.use('/public', express.static('public'))
     app.use(function (err, req, res, next) {
         res.locals.message = err.message;
         res.locals.error = req.app.get('env') === 'development' ? err : {};

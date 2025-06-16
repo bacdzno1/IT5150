@@ -56,15 +56,6 @@
 .outline_main{
     outline: 1px solid #00b14f;
 }
-.lcandi-right{
-    display: none !important;
-    border: 1px solid#00b14f;
-    border-radius: 10px;
-    overflow: hidden;
-    flex-shrink: 0;
-    height: 100%;
-    width: calc(30% - 15px);
-}
 
 .icandi-head{
     padding-top: 14px;
@@ -268,7 +259,7 @@
         flex-direction: column;
         gap: 62px;
     }
-    .lcandi-right,.lcandi-left{
+    .lcandi-left{
         width: 100%;
     }
 }

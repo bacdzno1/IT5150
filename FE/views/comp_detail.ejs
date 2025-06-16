@@ -42,8 +42,9 @@
                                             <% } else { %>
                                                 <%= dataToRender.data.usc_website %>
                                             <% } %>
-                                        </a>                                
-                                    </div>
+                                        </a>  
+                                    </p>                              
+                                </div>
                                 <div class="d-flex gap-1 pt-3">
                                     <img src="/images/icon/clarity_building-line.svg" loading="eager" width="20px" height="20px" alt="building icon">
                                     <div class="color-white">
@@ -52,12 +53,9 @@
                                             <span class="fw-700">Quy mô: </span>
                                         <% } %>
                                         <%= compSize %>
-                                    </div>                                </div>
+                                    </div>                                
+                                </div>
                             </div>
-                            <!-- <div class="btn">
-                                <img src="/images/icon/plus.png" width="15px" height="15px" alt="Plus Icon">
-                                <div class="color-main">Theo dõi công ty</div>
-                            </div> -->
                         </span>
                     </div>
                 </div>
@@ -88,18 +86,16 @@
                                     <div class="list_img_cpn">
                                     <% if (dataToRender.data.image_com && dataToRender.data.image_com.length > 0) { 
                                         dataToRender.data.image_com.forEach(function(image) { %>
-                                        <img class="img_cpn" src="<%= image %>" alt="Image_cpn" />
+                                            <img class="img_cpn" src="<%= image %>" alt="Image_cpn" />
                                         <% }); 
                                     } else { %>
                                         <p>Chưa có hình ảnh nào</p>
                                     <% } %>
                                     </div>
                                 </div>
-                               
                             </div>
-
                         </div>
-                        <div class="comp-recuit  bg-white">
+                        <div class="comp-recuit bg-white">
                             <h2 class="bg-main comp-title mb-0">
                                 Tuyển dụng
                             </h2>
@@ -165,9 +161,6 @@
                                                     </div>
                                                     <div class="recuit-act">
                                                         <button class="recuit-appl <%= item.checkUngTuyen == true?"":"apply_action"%> " data-id="<%= item.new_id%>"><%= item.checkUngTuyen == true?"Đã ứng tuyển":"Ứng tuyển"%></button>
-                                                        <!-- <button class="recuit-save">
-                                                            <img src="/images/icon/saveJobIcon.svg" loading="lazy" alt="Save Job Icon" width="19.12" height="25.24">
-                                                        </button> -->
                                                     </div>
                                                 </div>
                                             </div>
@@ -191,12 +184,8 @@
                                                 <a class="fs-5 fw-700" href="/<%= item.usc_alias %>"><%= item.usc_company %></a>
                                                 <div class="jobs">97 việc làm</div>
                                             </div>
-                                            <!-- <div class="btn">
-                                                <img src="/images/icon/plus.png" loading="lazy" width="15px" height="15px" alt="Plus Icon">
-                                                <p class="color-main">Theo dõi </p>
-                                            </div> -->
                                         </div>
-                                <% }); %>
+                                    <% }); %>
                                 <% } else { %>
                                     <p>No news available.</p>
                                 <% } %>
@@ -229,17 +218,9 @@
                                     <p class="color-main fw-500">Email liên hệ</p>
                                 </div>
                                 <p class="gach_duoi"><%- dataToRender.data.usc_name_email ? dataToRender.data.usc_name_email : '<span style="opacity: 0.5;">Chưa cập nhật</span>'  %></p>
-                                <!-- <img src="/images/icon/Line.svg" loading="lazy" alt="Address Icon" width="314px" height="2px"> -->
-                                <!-- <div class="bottom-icon">
-                                    <img src="/images/icon/Vector.svg" loading="lazy" alt="More Icon" width="20px" height="51px">
-                                    <p class="color-main fw-500">Xem bản đồ</p>
-                                </div> -->
                                 <% if (dataToRender.data.usc_address) { %>
-                                    <!-- <img id="myImage" src="/images/img/Map-min_11zon.webp" alt="Map Icon" width="300px" height="280px"> -->
                                 <% } else { %>
-            
                                 <% } %>
-                            
                             </div>
                         </div>
                     </div>
@@ -271,7 +252,7 @@
       
         // Gọi hàm khi trang được tải
         window.onload = setLoadingAttribute;
-      </script>
+    </script>
     <script>
         $(document).ready(function() {
             $('.intro-toggle').on('click', function() {
@@ -289,61 +270,61 @@
                 }
             });
 
-            $('.recuit-appl').click(function(){
-                        accessToken = getCookie('accessToken');
-                        auth = getCookie('auth')
-                        type = getCookie('type');
-                        if(!accessToken || accessToken == '' ||type==1){
-                            alert('Vui lòng đăng nhập tài khoản ứng viên.');
-                            $('#login_uv_modal').show();
-                            return;
+            $('.recuit-appl').click( function(){
+                accessToken = getCookie('accessToken');
+                auth = getCookie('auth')
+                type = getCookie('type');
+                if(!accessToken || accessToken == '' ||type==1){
+                    alert('Vui lòng đăng nhập tài khoản ứng viên.');
+                    $('#login_uv_modal').show();
+                    return;
+                }
+                if (!$(this).hasClass('apply_action')) {
+                    return;
+                }
+                if(auth == 0){
+                    var confirmAction = confirm("Bạn cần xác thực tài khoản.");
+                    if (confirmAction) {
+                        window.location.href = "/otp"; 
+                        return
+                    } else {
+                        return;
+                    }
+                }
+                var button = $(this);
+                var letter = '';
+                var news_id = button.attr('data-id');
+                $.ajax({
+                    url: URL_API_CANDI+ '/ApplyJob',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    headers: {
+                        "Authorization": "Bearer " + getCookie('accessToken')
+                    },
+                    data: JSON.stringify({
+                        id: news_id,
+                        lt: letter
+                    }),
+                    success: function(response) {
+                        console.log(response);
+                        alert('Ứng tuyển thành công');
+                        button.removeClass('apply_action');
+                        button.text('Đã ứng tuyển')
+                    },
+                    error: function(error) {
+                        if(error.responseJSON.message){
+                            alert(error.responseJSON.message);
                         }
-                        if (!$(this).hasClass('apply_action')) {
-                            return;
+                        else if (error.responseJSON.error.message){
+                            alert(error.responseJSON.error.message);
                         }
-                        if(auth == 0){
-                            var confirmAction = confirm("Bạn cần xác thực tài khoản.");
-                            if (confirmAction) {
-                                window.location.href = "/otp"; 
-                                return
-                            } else {
-                                return;
-                            }
+                        else {
+                            alert('An error occurred, please try again.');
                         }
-                        var button = $(this);
-                        var letter = '';
-                        var news_id = button.attr('data-id');
-                        $.ajax({
-                            url: URL_API_CANDI+ '/ApplyJob',
-                            type: 'POST',
-                            contentType: 'application/json',
-                            headers: {
-                                "Authorization": "Bearer " + getCookie('accessToken')
-                            },
-                            data: JSON.stringify({
-                                id: news_id,
-                                lt: letter
-                            }),
-                            success: function(response) {
-                                console.log(response);
-                                alert('Ứng tuyển thành công');
-                                button.removeClass('apply_action');
-                                button.text('Đã ứng tuyển')
-                            },
-                            error: function(error) {
-                                if(error.responseJSON.message){
-                                    alert(error.responseJSON.message);
-                                }
-                                else if (error.responseJSON.error.message){
-                                    alert(error.responseJSON.error.message);
-                                }
-                                else {
-                                    alert('An error occurred, please try again.');
-                                }
-                                $("#modal_appl").css("display", "none");
-                            }
-                        });
-                    })
+                        $("#modal_appl").css("display", "none");
+                    }
+                });
+            })
         });
     </script>
     <script src="/js/custom_select.js"></script>
@@ -362,8 +343,6 @@
             }
         });
     </script>
-    
-    
 </body>
 
 </html>

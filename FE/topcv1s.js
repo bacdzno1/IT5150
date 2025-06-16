@@ -10,10 +10,7 @@ var AppTopcv1s = express()
 function configureApp(app) {
     app.set('views', path.join(__dirname, 'views'))
     app.set('view engine', 'ejs')
-    // app.use(logger('dev'));
-    // app.use(logger('combined'))
     app.set('trust proxy', '127.0.0.1');
-    //   AppTimviec.use(express.json({ limit: '100mb' }))
     app.use(express.json())
     app.use(express.urlencoded({ extended: false, limit: '10mb' }))
     app.use(cookieParser())
@@ -52,9 +49,7 @@ function errorApp(app) {
     })
 }
 
-// Cấu hình AppTopcv1s
 configureApp(AppTopcv1s)
-//AppTopcv1s.use(logger('combined'))
 var routerTopcv1s = require('./routers/topcv1s')
 AppTopcv1s.use('/', routerTopcv1s)
 errorApp(AppTopcv1s)

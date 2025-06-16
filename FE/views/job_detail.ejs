@@ -10,17 +10,14 @@
     <link rel="stylesheet" href="/css/common.css" as="style">
     <link rel="stylesheet" href="/css/header.css" as="style">
     <link rel="stylesheet" href="/css/footer.css" as="style">
-
     <link rel="stylesheet" href="/css/search_job2.css" as="style">
-    <link rel="preload" href="/css/custom_select2.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="/css/custom_select2.css" as="style">
 </head>
 
 <body id="body">
     <%- include('layouts/header', {}); %>
     <div id="content" style="padding-top:84px">
-        <%- 
-            include('layouts/search_job2', {});
-             %>
+        <%- include('layouts/search_job2', {}); %>
         <div class="container">
             <div class="breadcrumb d-flex flex-wr gap-1 align-c">
                 <a href="/" class="color-main breadcrumb__item fw-700">Trang chủ</a>
@@ -49,7 +46,6 @@
                                     <span class="fw-700">Địa điểm</span>
                                     <span><%= findCity(parseInt(dataToRender.data.new_city_id, 10)) %></span>
                                 </div>
-
                             </div>
                             <div class="header-exp d-flex gap-2">
                                 <img src="/images/icon/header-exp.svg" width="42px" height="42px">
@@ -57,7 +53,6 @@
                                     <span class="fw-700">Kinh nghiệm</span>
                                     <span><%= findExp(parseInt(dataToRender.data.new_exp)) %></span>
                                 </div>
-
                             </div>
                         </div>
                         <div class="header-loc-mb bg-grey mb-3">
@@ -97,17 +92,10 @@
                                 <img src="/images/icon/paper-flyer.png">
                                 <span class="color-white fw-700 fs-6"><%= dataToRender.data.apply == true ? 'Đã ứng tuyển' : 'Ứng tuyển ngay' %></span>
                             </button>
-
-                            <!-- <button class="bg-main chat-now d-flex align-c gap-2 border-none">
-                                <img src="/images/img/chat-now.png" width="20px" height="20px">
-                                <span class="color-white fw-700 fs-6">Chat ngay</span>
-                            </button> -->
-                            
                             <button class="save-news save_btn d-flex align-c gap-2 bg-white <%= dataToRender.data.SaveNew == true ? 'saved' : '' %>" news_id ="<%= dataToRender.data.new_id %>">
                                 <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M9.36115 16.8257L9.36043 16.825C6.88289 14.5784 4.86669 12.7468 3.46404 11.0308C2.06687 9.32143 1.33081 7.78791 1.33081 6.14583C1.33081 3.46132 3.42552 1.375 6.10164 1.375C7.61799 1.375 9.08162 2.08348 10.0347 3.19397L10.4141 3.63605L10.7936 3.19397C11.7467 2.08348 13.2103 1.375 14.7266 1.375C17.4028 1.375 19.4975 3.46132 19.4975 6.14583C19.4975 7.78791 18.7614 9.32143 17.3643 11.0308C15.9616 12.7468 13.9454 14.5784 11.4679 16.825L11.4671 16.8257L10.4141 17.7843L9.36115 16.8257Z" stroke="#00b14f"/>
-                                    </svg>
-                                    
+                                </svg>
                                 <span class="color-main fw-700 fs-6"><%= dataToRender.data.SaveNew == true ? 'Đã lưu tin' : 'Lưu tin' %></span>
                             </button>
                         </div>
@@ -225,56 +213,56 @@
                             <div class="job-list">
                                 <% if (dataToRender.data.viecLamTuongTu && dataToRender.data.viecLamTuongTu.length > 0) { %>
                                     <% dataToRender.data.viecLamTuongTu.forEach(function(item) { %>
-                                    <div class="job-item">
-                                        <div class="job-avar">
-                                            <img class="rounded-circle outline_main" onerror="this.onerror=null;this.src='/images/img/default_logo-min_11zon.webp';" src="<%= item.usc_logo %>" loading="lazy" width="117" height="117" alt="Logo Company">
-                                        </div>
-                                        <div class="job-body-2 gap-2">
-                                            <div class="job-tit gap-2">
-                                                <div class="job-tit-all">
-                                                    <h3 class="mb-2">
-                                                        <a href="<%= item.new_alias %>-<%= item.new_id %>" class="job-name" data-tooltip="<%= item.new_title %>"><%= item.new_title %> </a>
-                                                    </h3>
-                                                    <div>
-                                                        <a href="<%= item.usc_alias %>" class="job-comp" data-tooltip="<%= item.usc_company %>"><%= item.usc_company %></a>
+                                        <div class="job-item">
+                                            <div class="job-avar">
+                                                <img class="rounded-circle outline_main" onerror="this.onerror=null;this.src='/images/img/default_logo-min_11zon.webp';" src="<%= item.usc_logo %>" loading="lazy" width="117" height="117" alt="Logo Company">
+                                            </div>
+                                            <div class="job-body-2 gap-2">
+                                                <div class="job-tit gap-2">
+                                                    <div class="job-tit-all">
+                                                        <h3 class="mb-2">
+                                                            <a href="<%= item.new_alias %>-<%= item.new_id %>" class="job-name" data-tooltip="<%= item.new_title %>"><%= item.new_title %> </a>
+                                                        </h3>
+                                                        <div>
+                                                            <a href="<%= item.usc_alias %>" class="job-comp" data-tooltip="<%= item.usc_company %>"><%= item.usc_company %></a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="job-salary">
+                                                        <%= getMucLuong2(item.new_money_type,item.new_money_from,item.new_money_to,item.new_money) %>
                                                     </div>
                                                 </div>
-                                                <div class="job-salary">
-                                                    <%= getMucLuong2(item.new_money_type,item.new_money_from,item.new_money_to,item.new_money) %>
-                                                </div>
-                                            </div>
-                                            <div class="job-info">
-                                                <div class="job-label">
-                                                    <label class="address">
-                                                        <%= findCity(parseInt(item.new_city, 10)) %>
-                                                    </label>
-                                                    <label class="remain_time">
-                                                        <% const deadline = checkDeadline(parseInt(item.new_han_nop, 10)); %>
-                                                        <% if (deadline.value > 0) { %>
-                                                            Còn <span class="fw-600"><%= deadline.value %> <%= deadline.type %> để ứng tuyển</span>
-                                                        <% } else { %>
-                                                            Đã hết hạn
-                                                        <% } %>  
-                                                    </label>
-                                                    <label class="last_updated">
-                                                        <% const elapsedTime = checkElapsedTime (parseInt(item.new_update_time, 10)); %>
-                                                        Cập nhật <%= elapsedTime.value %> <%= elapsedTime.type %> trước</span>   
-                                                    </label>
-                                                </div>
-                                                <div class="job-act">
-                                                    <button class="job-apply apply-btn <%= item.checkApply == true ? 'applied' : '' %>" news_id ="<%= item.new_id %>">
-                                                        <span><%= item.checkApply == true ? 'Đã ứng tuyển' : 'Ứng tuyển' %></span>
-                                                    </button>
-                                                    <button class="job-save save_btn <%= item.checkSave == true ? 'saved' : '' %>" news_id ="<%= item.new_id %>" data-tooltip='Lưu tin'>
-                                                        <svg width="15.75" height="21.203" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M12.7843 17.0976L12.7826 17.0963C12.196 16.6503 11.384 16.6503 10.7974 17.0963L6.4675 20.3862L6.46739 20.386L6.45674 20.3946C6.28583 20.532 6.05282 20.5633 5.85173 20.4758C5.6554 20.3904 5.52113 20.2055 5.5 19.9933V5.96659C5.5353 5.2794 5.84161 4.63405 6.35205 4.17215C6.86526 3.70774 7.54246 3.46713 8.23364 3.50362L8.24681 3.50431H8.26H15.26H15.2714L15.2828 3.50379C15.9782 3.47202 16.6572 3.72039 17.168 4.19331C17.6769 4.66454 17.9764 5.3195 18 6.01248V19.9856C17.9725 20.1876 17.8424 20.3617 17.6553 20.445C17.4631 20.5305 17.2399 20.5072 17.0696 20.384L12.7843 17.0976Z" stroke="#00b14f"/>
+                                                <div class="job-info">
+                                                    <div class="job-label">
+                                                        <label class="address">
+                                                            <%= findCity(parseInt(item.new_city, 10)) %>
+                                                        </label>
+                                                        <label class="remain_time">
+                                                            <% const deadline = checkDeadline(parseInt(item.new_han_nop, 10)); %>
+                                                            <% if (deadline.value > 0) { %>
+                                                                Còn <span class="fw-600"><%= deadline.value %> <%= deadline.type %> để ứng tuyển</span>
+                                                            <% } else { %>
+                                                                Đã hết hạn
+                                                            <% } %>  
+                                                        </label>
+                                                        <label class="last_updated">
+                                                            <% const elapsedTime = checkElapsedTime (parseInt(item.new_update_time, 10)); %>
+                                                            Cập nhật <%= elapsedTime.value %> <%= elapsedTime.type %> trước</span>   
+                                                        </label>
+                                                    </div>
+                                                    <div class="job-act">
+                                                        <button class="job-apply apply-btn <%= item.checkApply == true ? 'applied' : '' %>" news_id ="<%= item.new_id %>">
+                                                            <span><%= item.checkApply == true ? 'Đã ứng tuyển' : 'Ứng tuyển' %></span>
+                                                        </button>
+                                                        <button class="job-save save_btn <%= item.checkSave == true ? 'saved' : '' %>" news_id ="<%= item.new_id %>" data-tooltip='Lưu tin'>
+                                                            <svg width="15.75" height="21.203" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path d="M12.7843 17.0976L12.7826 17.0963C12.196 16.6503 11.384 16.6503 10.7974 17.0963L6.4675 20.3862L6.46739 20.386L6.45674 20.3946C6.28583 20.532 6.05282 20.5633 5.85173 20.4758C5.6554 20.3904 5.52113 20.2055 5.5 19.9933V5.96659C5.5353 5.2794 5.84161 4.63405 6.35205 4.17215C6.86526 3.70774 7.54246 3.46713 8.23364 3.50362L8.24681 3.50431H8.26H15.26H15.2714L15.2828 3.50379C15.9782 3.47202 16.6572 3.72039 17.168 4.19331C17.6769 4.66454 17.9764 5.3195 18 6.01248V19.9856C17.9725 20.1876 17.8424 20.3617 17.6553 20.445C17.4631 20.5305 17.2399 20.5072 17.0696 20.384L12.7843 17.0976Z" stroke="#00b14f"/>
                                                             </svg>
-                                                    </button>
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                <% }); %>
+                                    <% }); %>
                                 <% } else { %>
                                     <p>Đang cập nhật...</p>
                                 <% } %>
@@ -380,7 +368,6 @@
                                             <span class="fw-700 color-main">Nhân viên Thiết kế </span>
                                             <span>CÔNG TY CP SCOTS ENGLISH</span>
                                         </div>
-
                                         <img class="bookmark-icon" src="/images/icon/Bookmark.svg">
                                     </div>
                                     <div class="rec-unit-bot d-flex justify-b ">
@@ -417,7 +404,6 @@
                     <span>Thư giới thiệu</span>
                 </div>
                 <div class="att_line">Viết thư giới thiệu sẽ khiến nhà tuyển dụng ấn tượng hơn</div>
-                
                 <textarea id="intro_letter"></textarea>
             </div>
             <div class="modal-footer">
@@ -429,240 +415,220 @@
     <%- include('layouts/footer', {}); %>
     <script src="/js/custom_select.js"></script>
     <script src="/js/search2.js"></script>
-            <script>
-                $(document).ready(function () {
-                    $('.cv-item-act').click(function (event) {
-                        event.stopPropagation();
+    <script>
+        $(document).ready(function () {
+            $('.cv-item-act').click(function (event) {
+                event.stopPropagation();
+                $('.cv-item-more').hide();
+                $(this).closest('.cv-item-info').find('.cv-item-more').css('display', 'flex');
+            });
 
-                        $('.cv-item-more').hide();
+            $(document).click(function () {
+                $('.cv-item-more').hide();
+            });
 
-                        $(this).closest('.cv-item-info').find('.cv-item-more').css('display', 'flex');
+            $('.cv-item-more').click(function (event) {
+                event.stopPropagation();
+            });
+            function toolTip(ele) {
+                $(ele).each(function() {
+                    var $this = $(this);
+                    var tooltipText = $this.attr('data-tooltip');
+                    var $tooltipContent = $('<div class="tooltip-content"></div>').text(tooltipText);
+                    $this.append($tooltipContent);
+                    $this.on('mouseenter', function() {
+                        $tooltipContent.css('opacity', 1);
                     });
-
-                    $(document).click(function () {
-                        $('.cv-item-more').hide();
-                    });
-
-                    $('.cv-item-more').click(function (event) {
-                        event.stopPropagation();
-                    });
-                    function toolTip(ele) {
-                        $(ele).each(function() {
-                            var $this = $(this);
-                            var tooltipText = $this.attr('data-tooltip');
-                            var $tooltipContent = $('<div class="tooltip-content"></div>').text(tooltipText);
-                            $this.append($tooltipContent);
-                            $this.on('mouseenter', function() {
-                                $tooltipContent.css('opacity', 1);
-                            });
-                            $this.on('mouseleave', function() {
-                                $tooltipContent.css('opacity', 0);
-                            });
-                        });
-                    }
-                    toolTip('.job-name');
-                    toolTip('.job-comp');
-                    toolTip('.job-save');
-                });
-            </script>
-            <script>
-                $(document).ready(function () {
-                    $('.nav-item').hover(function () {
-                        $(this).children('.nav-dropdown').stop(true, true).fadeIn(300);
-                    }, function () {
-                        $(this).children('.nav-dropdown').stop(true, true).fadeOut(300);
+                    $this.on('mouseleave', function() {
+                        $tooltipContent.css('opacity', 0);
                     });
                 });
-                
-            </script>
-            <script>
-                $(document).ready(function () {
-                    $('.save_btn').click(function(){
-                        accessToken = getCookie('accessToken');
-                        type = getCookie('type')
-                        $('.save_btn').removeClass('target');
-                        if(!accessToken || accessToken == '' || type == 1){
-                            alert('Vui lòng đăng nhập tài khoản ứng viên để thực hiện thao tác');
-                            $('#login_uv_modal').show();
-                        }
-                        else{
-                            $(this).addClass('target');
-                            var news_id = $(this).attr('news_id');
-                            // if(!$(this).hasClass('saved')){
-                                $.ajax({
-                                    url: 'http://localhost:3050/api/topcv1s/candidate/SaveNew',
-                                    type: 'POST',
-                                    contentType: 'application/json',
-                                    headers: {
-                                        "Authorization": "Bearer " + getCookie('accessToken')
-                                    },
-                                    data: JSON.stringify({
-                                        id_tin: news_id
-                                    }),
-                                    success: function(response) {
-                                        console.log(response);
-                                        // alert(response.data.message);
-                                        if(response.data.result_save == 1){
-                                            alert('Lưu tin thành công');
-                                            $('.save_btn.target').addClass('saved');
-                                            $('.save_btn.target').find('span').text('Đã lưu tin');
-                                        }else{
-                                            alert('Hủy lưu tin thành công');
-                                            $('.save_btn.target').removeClass('saved');
-                                            $('.save_btn.target').find('span').text('Lưu tin');
-                                        }
-                                    },
-                                    error: function(error) {
-                                    if(error.responseJSON.message){
-                                        alert(error.responseJSON.message);
-                                    }
-                                    else{
-                                        alert('Có lỗi xảy ra, vui lòng thử lại');
-                                    }
-                                    
-                                }
-                                });
-                            // }
-                        
+            }
+            toolTip('.job-name');
+            toolTip('.job-comp');
+            toolTip('.job-save');
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('.nav-item').hover(function () {
+                $(this).children('.nav-dropdown').stop(true, true).fadeIn(300);
+            }, function () {
+                $(this).children('.nav-dropdown').stop(true, true).fadeOut(300);
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('.save_btn').click(function(){
+                accessToken = getCookie('accessToken');
+                type = getCookie('type')
+                $('.save_btn').removeClass('target');
+                if(!accessToken || accessToken == '' || type == 1){
+                    alert('Vui lòng đăng nhập tài khoản ứng viên để thực hiện thao tác');
+                    $('#login_uv_modal').show();
+                } else {
+                    $(this).addClass('target');
+                    var news_id = $(this).attr('news_id');
+                    $.ajax({
+                        url: 'http://localhost:3050/api/topcv1s/candidate/SaveNew',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        headers: {
+                            "Authorization": "Bearer " + getCookie('accessToken')
+                        },
+                        data: JSON.stringify({
+                            id_tin: news_id
+                        }),
+                        success: function(response) {
+                            console.log(response);
+                            if(response.data.result_save == 1){
+                                alert('Lưu tin thành công');
+                                $('.save_btn.target').addClass('saved');
+                                $('.save_btn.target').find('span').text('Đã lưu tin');
+                            }else{
+                                alert('Hủy lưu tin thành công');
+                                $('.save_btn.target').removeClass('saved');
+                                $('.save_btn.target').find('span').text('Lưu tin');
                             }
-                        })
-                    function getCookie(name) {
-                        var value = "; " + document.cookie;
-                        var parts = value.split("; " + name + "=");
-                        if (parts.length === 2) return parts.pop().split(";").shift();
+                        },
+                        error: function(error) {
+                            if(error.responseJSON.message) {
+                                alert(error.responseJSON.message);
+                            } else{
+                                alert('Có lỗi xảy ra, vui lòng thử lại');
+                            }
+                        }
+                    });
+                }
+            })
+            function getCookie(name) {
+                var value = "; " + document.cookie;
+                var parts = value.split("; " + name + "=");
+                if (parts.length === 2) return parts.pop().split(";").shift();
+            }
+            $(".apply-btn").click(function() {
+                accessToken = getCookie('accessToken');
+                type = getCookie('type')
+                $(".apply-btn").removeClass('target');
+                $(this).addClass('target');
+                if(!accessToken || accessToken == '' || type == 1 ){
+                    alert('Vui lòng đăng nhập tài khoản ứng viên để thực hiện thao tác');
+                    $('#login_uv_modal').show();
+                }
+                else if(!$(this).hasClass('applied')){
+                    var news_id = $(this).attr('news_id');
+                    $('.apply_conf_btn').attr('news_id', news_id);
+                    $("#modal_appl").css("display", "block");
+                }
+            });
+
+            $(".close").click(function() {
+                $("#modal_appl").css("display", "none");
+            });
+            $(".cancel_btn").click(function() {
+                $("#modal_appl").css("display", "none");
+            });
+            $(window).click(function(event) {
+                if ($(event.target).is("#modal_appl")) {
+                    $("#modal_appl").css("display", "none");
+                }
+            });
+            $('.apply_conf_btn').click(function(){
+                var letter = $('#intro_letter').val();
+                var news_id = $(this).attr('news_id');
+                $.ajax({
+                    url: 'http://localhost:3050/api/topcv1s/candidate/ApplyJob',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    headers: {
+                        "Authorization": "Bearer " + getCookie('accessToken')
+                    },
+                    data: JSON.stringify({
+                        id: news_id,
+                        lt: letter
+                    }),
+                    success: function(response) {
+                        console.log(response);
+                        alert('Ứng tuyển thành công');
+                        $('.apply-btn.target').addClass('applied');
+                        $('.apply-btn.target').find('span').text('Đã ứng tuyển');
+                        $('.apply-btn').removeClass('target');
+                        $("#modal_appl").css("display", "none");
+                    },
+                    error: function(error) {
+                        if(error.responseJSON.message){
+                            alert(error.responseJSON.message);
+                        }
+                        else if (error.responseJSON.error.message){
+                            alert(error.responseJSON.error.message);
+                        }
+                        else {
+                            alert('Có lỗi xảy ra, vui lòng thử lại');
+                        }
+                        $("#modal_appl").css("display", "none");
                     }
-                    $(".apply-btn").click(function() {
-                        accessToken = getCookie('accessToken');
-                        type = getCookie('type')
-                        $(".apply-btn").removeClass('target');
-                        $(this).addClass('target');
-                        if(!accessToken || accessToken == '' || type == 1 ){
-                            alert('Vui lòng đăng nhập tài khoản ứng viên để thực hiện thao tác');
-                            $('#login_uv_modal').show();
+                });
+            })
+            $('.search-btn').click(function() {
+                var keyword = $('#s_key').val();
+                var cit_id = $('#cit_id').val();
+                var exp_id = $('#exp_id').val();
+                var sal_id = $('#sal_id').val();
+                if (keyword) {
+                    var searchKeywords = localStorage.getItem('searchKeywords');
+                    if (searchKeywords) {
+                        searchKeywords = JSON.parse(searchKeywords);
+                        if (!searchKeywords.includes(keyword)) {
+                            searchKeywords.push(keyword);
+                            localStorage.setItem('searchKeywords', JSON.stringify(searchKeywords));
                         }
-                        else if(!$(this).hasClass('applied')){
-                            var news_id = $(this).attr('news_id');
-                            $('.apply_conf_btn').attr('news_id', news_id);
-                            $("#modal_appl").css("display", "block");
-                        }
-                    });
+                    } else {
+                        searchKeywords = [keyword];
+                        localStorage.setItem('searchKeywords', JSON.stringify(searchKeywords));
+                    }
+                }
+                var url = '/tim-viec-lam';
 
-                    $(".close").click(function() {
-                        $("#modal_appl").css("display", "none");
-                    });
-                    $(".cancel_btn").click(function() {
-                        $("#modal_appl").css("display", "none");
-                    });
-                    $(window).click(function(event) {
-                        if ($(event.target).is("#modal_appl")) {
-                            $("#modal_appl").css("display", "none");
-                        }
-                    });
-                    $('.apply_conf_btn').click(function(){
-                        var letter = $('#intro_letter').val();
-                        var news_id = $(this).attr('news_id');
-                        $.ajax({
-                            url: 'http://localhost:3050/api/topcv1s/candidate/ApplyJob',
-                            type: 'POST',
-                            contentType: 'application/json',
-                            headers: {
-                                "Authorization": "Bearer " + getCookie('accessToken')
-                            },
-                            data: JSON.stringify({
-                                id: news_id,
-                                lt: letter
-                            }),
-                            success: function(response) {
-                                console.log(response);
-                                alert('Ứng tuyển thành công');
-                                $('.apply-btn.target').addClass('applied');
-                                $('.apply-btn.target').find('span').text('Đã ứng tuyển');
-                                $('.apply-btn').removeClass('target');
-                                $("#modal_appl").css("display", "none");
-                            },
-                            error: function(error) {
-                                if(error.responseJSON.message){
-                                    alert(error.responseJSON.message);
-                                }
-                                else if (error.responseJSON.error.message){
-                                    alert(error.responseJSON.error.message);
-                                }
-                                else {
-                                    alert('Có lỗi xảy ra, vui lòng thử lại');
-                                }
-                                $("#modal_appl").css("display", "none");
-                            }
-                        });
-                    })
-                    $('.search-btn').click(function() {
-                        var keyword = $('#s_key').val();
-                        var cit_id = $('#cit_id').val();
-                        var exp_id = $('#exp_id').val();
-                        var sal_id = $('#sal_id').val();
-                        if (keyword) {
-                            var searchKeywords = localStorage.getItem('searchKeywords');
-                    
-                            if (searchKeywords) {
-                                searchKeywords = JSON.parse(searchKeywords);
-                                if (!searchKeywords.includes(keyword)) {
-                                    searchKeywords.push(keyword);
-                                    localStorage.setItem('searchKeywords', JSON.stringify(searchKeywords));
-                                }
-                            } else {
-                                searchKeywords = [keyword];
-                                localStorage.setItem('searchKeywords', JSON.stringify(searchKeywords));
-                            }
-                        }
-                        // if (!keyword) {
-                        //     // window.location.href = '/';
-                        // } else {
-                            var url = '/tim-viec-lam';
+                if (keyword && getCategoryIdByName(keyword) && cit_id == 0) {
+                    var convertCat = convertToUrl(keyword);
+                    url += '-' + convertCat;
+                } else if (keyword && findAliasByTag(keyword) && cit_id == 0) {
+                    var convertCat = findAliasByTag(keyword);
+                    url += '-' + convertCat;
+                } else if (keyword && findAliasByTag(keyword) && cit_id != 0) {
+                    var convertCat = convertToUrl(keyword);
+                    var convertCit = convertToUrl(getCityNameById(parseInt(cit_id)));
+                    url += '-' + convertCat + '-tại-' + convertCit;
+                } else if (keyword && getCategoryIdByName(keyword) && cit_id != 0) {
+                    var convertCat = convertToUrl(keyword);
+                    var convertCit = convertToUrl(getCityNameById(parseInt(cit_id)));
+                    url += '-' + convertCat + '-tại-' + convertCit;
+                } else if (!keyword && !getCategoryIdByName(keyword) && cit_id != 0) {
+                    var convertCit = convertToUrl(getCityNameById(parseInt(cit_id)));
+                    url += '-tại-' + convertCit;
+                } else if (keyword && !getCategoryIdByName(keyword) && cit_id != 0) {
+                    var convertCit = convertToUrl(getCityNameById(parseInt(cit_id)));
+                    url += '-tại-' + convertCit + '?name=' + encodeURIComponent(keyword);
+                }
 
-                            if (keyword && getCategoryIdByName(keyword) && cit_id == 0) {
-                                var convertCat = convertToUrl(keyword);
-                                url += '-' + convertCat;
-                            } else if (keyword && findAliasByTag(keyword) && cit_id == 0) {
-                                var convertCat = findAliasByTag(keyword);
-                                url += '-' + convertCat;
-                            }else if (keyword && findAliasByTag(keyword) && cit_id != 0) {
-                                var convertCat = convertToUrl(keyword);
-                                var convertCit = convertToUrl(getCityNameById(parseInt(cit_id)));
-                                url += '-' + convertCat + '-tại-' + convertCit;
-                            }
-                            else if (keyword && getCategoryIdByName(keyword) && cit_id != 0) {
-                                var convertCat = convertToUrl(keyword);
-                                var convertCit = convertToUrl(getCityNameById(parseInt(cit_id)));
-                                url += '-' + convertCat + '-tại-' + convertCit;
-                            } else if (!keyword && !getCategoryIdByName(keyword) && cit_id != 0) {
-                                var convertCit = convertToUrl(getCityNameById(parseInt(cit_id)));
-                                url += '-tại-' + convertCit;
-                            } else if (keyword && !getCategoryIdByName(keyword) && cit_id != 0) {
-                                var convertCit = convertToUrl(getCityNameById(parseInt(cit_id)));
-                                url += '-tại-' + convertCit + '?name=' + encodeURIComponent(keyword);
-                            }
-
-                            var queryParams = [];
-                            if (keyword && !getCategoryIdByName(keyword) && !findAliasByTag(keyword) && cit_id == 0) {
-                                queryParams.push('name=' + keyword);
-                            }
-                            if (exp_id ) {
-                                queryParams.push('exp=' + exp_id);
-                            }
-                            if (sal_id ) {
-                                queryParams.push('salary=' + sal_id);
-                            }
-
-                            if (queryParams.length > 0) {
-                                url += '?' + queryParams.join('&');
-                            }
-
-                            window.location.href = url;
-                        // }
-                    });
-                })
-            </script>
-            
-            
+                var queryParams = [];
+                if (keyword && !getCategoryIdByName(keyword) && !findAliasByTag(keyword) && cit_id == 0) {
+                    queryParams.push('name=' + keyword);
+                }
+                if (exp_id ) {
+                    queryParams.push('exp=' + exp_id);
+                }
+                if (sal_id ) {
+                    queryParams.push('salary=' + sal_id);
+                }
+                if (queryParams.length > 0) {
+                    url += '?' + queryParams.join('&');
+                }
+                window.location.href = url;
+            });
+        })
+    </script>
 </body>
 
 </html>

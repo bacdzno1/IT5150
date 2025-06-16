@@ -4,409 +4,337 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, follow" />
-    <meta name="description" content="Ứng viên <%= dataFromAPI.data.use_name %> - ID: <%= dataFromAPI.data.use_id %> mong muốn ứng tuyển vị trí <%= dataFromAPI.data.use_job_name %>. Xem chi tiết ứng viên <%= dataFromAPI.data.use_name %> tại đây.">
-    <meta name="twitter:card" content="Ứng viên <%= dataFromAPI.data.use_name %> muốn ứng tuyển <%= dataFromAPI.data.use_job_name %>">
-    <meta name="twitter:site" content="TopCv1s">
-    <meta name="twitter:title" content="Ứng viên <%= dataFromAPI.data.use_name %> muốn ứng tuyển <%= dataFromAPI.data.use_job_name %>">
-    <meta name="twitter:description" content="Ứng viên <%= dataFromAPI.data.use_name %> - ID: <%= dataFromAPI.data.use_id %> mong muốn ứng tuyển vị trí <%= dataFromAPI.data.use_job_name %>. Xem chi tiết ứng viên <%= dataFromAPI.data.use_name %> tại đây.">
-    <meta property="og:site_name" content="TopCv1s">
-    <meta property="og:image" content="http://localhost:9020/images/img/icon_head.png">
-    <meta property="og:url" content="http://localhost:9020<%= url %>">
-    <meta property="og:type" content="website">
     <title>Ứng viên <%= dataFromAPI.data.use_name %> muốn ứng tuyển <%= dataFromAPI.data.use_job_name %></title>
     <link rel="icon" href="/images/img/icon_head.png">
-    <link rel="canonical" href="http://localhost:9020<%= url %>">
     <link rel="stylesheet" href="/css/page_css/detail_candi.css" as="style">
     <link rel="stylesheet" href="/css/common.css" as="style">
     <link rel="stylesheet" href="/css/header.css" as="style">
     <link rel="stylesheet" href="/css/search_job.css" as="style">
-    <link rel="preload" href="/css/custom_select2.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="/css/custom_select2.css">
-    </noscript>
-    <!-- <script src="/js/jquery.min.js"></script> -->
-    <script
-    type="application/ld+json">{"@context": "https://schema.org","@type": "ItemPage","url": "http://localhost:9020<%= url %>","mainEntityOfPage": "Trang Tin Tức Việc Làm Số 1 - Tìm Việc, Tuyển Dụng Hiệu Quả, Miễn Phí"}</script>
-    <script
-        type="application/ld+json">{"@context":"https://schema.org","@type":"EmploymentAgency","name":"topcv1s.com","alternateName":"Tìm Việc Nhanh, Tuyển Dụng Hiệu Quả | TopCv1s.com","logo":"http://localhost:9020/images/img/icon_head.png","image":"http://localhost:9020/images/img/icon_head.png","url":"http://localhost:9020"}</script>
-    <script
-        type="application/ld+json">{"@context":"http://schema.org","@type":"WebSite","url":"http://localhost:9020/"}</script>
-    <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "DesPage",
-            "url": "http://localhost:9020<%= url %>",
-            "title": "Ứng viên <%= dataFromAPI.data.use_name %> muốn ứng tuyển <%= dataFromAPI.data.use_job_name %>",
-            "description": "Ứng viên <%= dataFromAPI.data.use_name %> - ID: <%= dataFromAPI.data.use_id %> mong muốn ứng tuyển vị trí <%= dataFromAPI.data.use_job_name %>. Xem chi tiết ứng viên <%= dataFromAPI.data.use_name %> tại đây.",
-            "thumbnail": "http://localhost:9020/images/img/default_logo.jpg"
-        } 
-    </script> 
-    <meta name="google-site-verification" content="lwyGMjMCHXSuJXWOc3iy1MG_Hd6yRBARF5H8NuMxUPg" />
+    <link rel="stylesheet" href="/css/custom_select2.css" as="style">
 </head>
 
 <body>
     <%- include('layouts/header', {}); %>
-        <div id="content" style="padding-top:80px">
-            <? include('../include/search_job.php') ?>
-            <%- include('layouts/search_candi'); %>
-            <div class="candi-content">
-                <div class="container d-flex justify-b">
-                    <div class="candi-cnt">
-                        <div class="candi-head">
-                            <div class="candi-avar">
-                                <img class="rounded-circle outline_main" onerror="this.onerror=null;this.src='/images/img/default_logo.jpg';" width="150" height="150" alt="Avar Ứng viên"
-                                    src="<%= dataFromAPI.data.use_logo %>">
-                            </div>
-                            <div class="candi-info">
-                                <h1 class="candi-name mb-2 fw-400">
-                                    <%= dataFromAPI.data.use_name %>
-                                </h1>
-                                <h2 class="candi-pos fs-5 fw-700 mb-3 color-main">
-                                    <%= dataFromAPI.data.use_job_name? dataFromAPI.data.use_job_name : 'Chưa cập nhật'
-                                        %>
-                                </h2>
-                                <div class="candi-id mb-2 fs-7">
-                                    <span class="fw-700">Mã ứng viên: </span>
-                                    <span>
-                                        <%= dataFromAPI.data.use_id %>
-                                    </span>
-                                </div>
-                                <div class="candi-view">
-                                    <span class="fw-700">Lượt xem: </span>
-                                    <span>
-                                        <%= dataFromAPI.data.use_view_count %>
-                                    </span>
-                                </div>
-                                <%if(dataFromAPI.data.xemTT != true){%>
-                                <button class="candi-more bg-main color-white fw-700 fs-5">
-                                    Thông tin thêm
-                                </button>
-                                <%}%>
-                            </div>
+    <div id="content" style="padding-top:80px">
+        <%- include('layouts/search_candi'); %>
+        <div class="candi-content">
+            <div class="container d-flex justify-b">
+                <div class="candi-cnt">
+                    <div class="candi-head">
+                        <div class="candi-avar">
+                            <img class="rounded-circle outline_main" onerror="this.onerror=null;this.src='/images/img/default_logo.jpg';" width="150" height="150" alt="Avar Ứng viên" src="<%= dataFromAPI.data.use_logo %>">
                         </div>
-                        <div class="candi-detail">
-                            <div class="candi-detail-title fw-700 fs-5">
-                                CHI TIẾT
+                        <div class="candi-info">
+                            <h1 class="candi-name mb-2 fw-400">
+                                <%= dataFromAPI.data.use_name %>
+                            </h1>
+                            <h2 class="candi-pos fs-5 fw-700 mb-3 color-main">
+                                <%= dataFromAPI.data.use_job_name? dataFromAPI.data.use_job_name : 'Chưa cập nhật' %>
+                            </h2>
+                            <div class="candi-id mb-2 fs-7">
+                                <span class="fw-700">Mã ứng viên: </span>
+                                <span><%= dataFromAPI.data.use_id %></span>
                             </div>
-                            <div class="candi-detail-cont d-flex justify-b flex-wr">
-                                <div class="candi-detail-item d-flex gap-3 align-c">
-                                    <img width="23" height="23" alt="Icon Ngành nghề" src="/images/icon/suitcase.svg">
-                                    <h3 class="mb-0 fs-6"><span class="fw-700">Ngành nghề: </span>
-                                        <% if (dataFromAPI.data.use_nganh_nghe.length> 0) { %>
-                                            <% dataFromAPI.data.use_nganh_nghe.forEach(function(item, index) { %>
-                                                <span class="fw-400"><%= findCate(parseInt(item.id)) %></span>
-                                                <% if (index < dataFromAPI.data.use_nganh_nghe.length - 1) { %>, <%
-                                                } %>
-                                            <% }); %>
-                                        <% } else { %>
-                                            <span class="fw-400">Chưa cập nhật</span>
-                                        <% } %>
-                                    </h3>
-                                </div>
-                                <div class="candi-detail-item d-flex gap-3 align-c">
-                                    <img width="22" height="22" alt="Icon Địa điểm" src="/images/icon/building.svg">
-                                    <h3 class="mb-0 fs-6"><span class="fw-700">Nơi mong muốn làm việc: </span>
-                                        <% if (dataFromAPI.data.use_city_job.length> 0) { %>
-                                            <% dataFromAPI.data.use_city_job.forEach(function(item, index) { %>
-                                                <span class="fw-400"><%= findCity(parseInt(item.id)) %></span>
-                                                <% if (index < dataFromAPI.data.use_city_job.length - 1) { %>, <% }
-                                                %>
-                                            <% }); %>
-                                        <% } else { %>
-                                            <span class="fw-400">Chưa cập nhật</span>
-                                        <% } %>
-                                    </h3>
-                                </div>
-                                <div class="candi-detail-item-1 d-flex gap-3 align-c">
-                                    <img width="24" height="24" alt="Icon Mức lương" src="/images/icon/coin.svg">
-                                    <h3 class="mb-0 fs-6"><span class="fw-700">Mức lương mong muốn: </span>
-                                        <span class="fw-400"><%= dataFromAPI.data.salary !=0 ? findRangeMoney(parseInt(dataFromAPI.data.salary))
-                                            : 'Chưa cập nhật' %></span>
-                                    </h3>
-                                </div>
-                                <div class="candi-detail-item-1 d-flex gap-3 align-c">
-                                    <img width="24" height="24" alt="Icon Kinh Nghiệm" src="/images/icon/folder.svg">
-                                    <h3 class="mb-0 fs-6"><span class="fw-700">Kinh nghiệm làm việc: </span><span class="fw-400"><%=findExp(dataFromAPI.data.exp_years)%></span></h3>
-                                </div>
-                                <div class="candi-detail-item d-flex gap-3 align-c">
-                                    <img width="24" height="24" alt="Icon địa chỉ" src="/images/icon/bxs_map.svg">
-                                    <h3 class="mb-0 fs-6"><span class="fw-700">Địa chỉ chi tiết: </span><span class="fw-400"><%=dataFromAPI.data.address%></span></h3>
-                                </div>
+                            <div class="candi-view">
+                                <span class="fw-700">Lượt xem: </span>
+                                <span><%= dataFromAPI.data.use_view_count %></span>
                             </div>
-                            <div class="candi-detail-act color-main fs-5 d-flex gap-3">
-                                <% if (dataFromAPI.data.luuHoSo == true) { %>
-                                    <button class="candi-detail-save" data_id="<%= dataFromAPI.data.use_id %>">
-                                        <!-- <img src="/images/icon/act_save.svg" width="23" height="23" alt="Lưu hồ sơ"> -->
-                                        <svg width="23" height="23" viewBox="0 0 24 24" fill="red"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M11.378 19.0757L11.3773 19.075C8.89974 16.8284 6.88354 14.9968 5.48088 13.2808C4.08372 11.5714 3.34766 10.0379 3.34766 8.39583C3.34766 5.71132 5.44237 3.625 8.11849 3.625C9.63484 3.625 11.0985 4.33348 12.0516 5.44397L12.431 5.88605L12.8104 5.44397C13.7635 4.33348 15.2271 3.625 16.7435 3.625C19.4196 3.625 21.5143 5.71132 21.5143 8.39583C21.5143 10.0379 20.7783 11.5714 19.3811 13.2808C17.9784 14.9968 15.9622 16.8284 13.4847 19.075L13.484 19.0757L12.431 20.0343L11.378 19.0757Z"
-                                                stroke="red" />
-                                        </svg>
-                                        <span>Đã lưu hồ sơ</span>
-                                    </button>
+                            <% if(dataFromAPI.data.xemTT != true){ %>
+                                <button class="candi-more bg-main color-white fw-700 fs-5">Thông tin thêm</button>
+                            <% } %>
+                        </div>
+                    </div>
+                    <div class="candi-detail">
+                        <div class="candi-detail-title fw-700 fs-5">
+                            CHI TIẾT
+                        </div>
+                        <div class="candi-detail-cont d-flex justify-b flex-wr">
+                            <div class="candi-detail-item d-flex gap-3 align-c">
+                                <img width="23" height="23" alt="Icon Ngành nghề" src="/images/icon/suitcase.svg">
+                                <h3 class="mb-0 fs-6"><span class="fw-700">Ngành nghề: </span>
+                                    <% if (dataFromAPI.data.use_nganh_nghe.length> 0) { %>
+                                        <% dataFromAPI.data.use_nganh_nghe.forEach(function(item, index) { %>
+                                            <span class="fw-400"><%= findCate(parseInt(item.id)) %></span>
+                                            <% if (index < dataFromAPI.data.use_nganh_nghe.length - 1) { %>, <% } %>
+                                        <% }); %>
                                     <% } else { %>
-                                        <button class="candi-detail-save" data_id="<%= dataFromAPI.data.use_id %>">
-                                            <img src="/images/icon/act_save.svg" width="23" height="23" alt="Lưu hồ sơ">
-                                            <span>Lưu hồ sơ</span>
-                                        </button>
-                                        <% } %>
-                                        <%if(dataFromAPI.data.xemTT == true){%>
-                                            <button class="candi-detail-print cursor-p" data-pdf="<%=dataFromAPI.data.step2_img ? dataFromAPI.data.step2_img:dataFromAPI.data.img_full%>">
-                                                <img src="/images/icon/act_print.svg" width="24" height="24"
-                                                    alt="In hồ sơ">
-                                                In hồ sơ
-                                            </button>
-                                        <% } %>
-                                            <!-- <button class="candi-detail-email">
-                                                <img src="/images/icon/act_email.svg" width="24" height="24"
-                                                    alt="Gửi mail">
-                                                Gửi mail
-                                            </button>
-                                            <button class="candi-detail-rate">
-                                                <img src="/images/icon/act_rate.svg" width="24" height="24"
-                                                    alt="Đánh giá ứng viên">
-                                                Đánh giá ứng viên
-                                            </button> -->
+                                        <span class="fw-400">Chưa cập nhật</span>
+                                    <% } %>
+                                </h3>
+                            </div>
+                            <div class="candi-detail-item d-flex gap-3 align-c">
+                                <img width="22" height="22" alt="Icon Địa điểm" src="/images/icon/building.svg">
+                                <h3 class="mb-0 fs-6"><span class="fw-700">Nơi mong muốn làm việc: </span>
+                                    <% if (dataFromAPI.data.use_city_job.length> 0) { %>
+                                        <% dataFromAPI.data.use_city_job.forEach(function(item, index) { %>
+                                            <span class="fw-400"><%= findCity(parseInt(item.id)) %></span>
+                                            <% if (index < dataFromAPI.data.use_city_job.length - 1) { %>, <% } %>
+                                        <% }); %>
+                                    <% } else { %>
+                                        <span class="fw-400">Chưa cập nhật</span>
+                                    <% } %>
+                                </h3>
+                            </div>
+                            <div class="candi-detail-item-1 d-flex gap-3 align-c">
+                                <img width="24" height="24" alt="Icon Mức lương" src="/images/icon/coin.svg">
+                                <h3 class="mb-0 fs-6"><span class="fw-700">Mức lương mong muốn: </span>
+                                    <span class="fw-400"><%= dataFromAPI.data.salary !=0 ? findRangeMoney(parseInt(dataFromAPI.data.salary)) : 'Chưa cập nhật' %></span>
+                                </h3>
+                            </div>
+                            <div class="candi-detail-item-1 d-flex gap-3 align-c">
+                                <img width="24" height="24" alt="Icon Kinh Nghiệm" src="/images/icon/folder.svg">
+                                <h3 class="mb-0 fs-6"><span class="fw-700">Kinh nghiệm làm việc: </span><span class="fw-400"><%=findExp(dataFromAPI.data.exp_years)%></span></h3>
+                            </div>
+                            <div class="candi-detail-item d-flex gap-3 align-c">
+                                <img width="24" height="24" alt="Icon địa chỉ" src="/images/icon/bxs_map.svg">
+                                <h3 class="mb-0 fs-6"><span class="fw-700">Địa chỉ chi tiết: </span><span class="fw-400"><%=dataFromAPI.data.address%></span></h3>
                             </div>
                         </div>
-                        <div class="candi-cv">
-                            <div class="candi-cv-title fw-700 fs-5">
-                                THÔNG TIN CV
-                            </div>
-                            <div class="candi-cv-img">
-                                <% if (dataFromAPI.data.img_full) { %>
-                                    <img class="candi-cv-detail w-100" src="<%= dataFromAPI.data.img_full %>" alt="CV ứng viên">
-                                <% } else if (dataFromAPI.data.img) { %>
-                                    <img class="candi-cv-detail w-100" src="<%= dataFromAPI.data.img %>" alt="CV ứng viên">
-                                <% } else if (dataFromAPI.data.step2_img) { %>
-                                    <img class="candi-cv-detail w-100" src="<%= dataFromAPI.data.step2_img %>" alt="CV ứng viên">
-                                <% } else if (dataFromAPI.data.img_demo) { %>
-                                    <img class="candi-cv-detail w-100" src="<%= dataFromAPI.data.img_demo %>" alt="CV ứng viên">
-                                <% } else { %>
-                                    <p class="color-alert mb-0">Ứng viên chưa có cv xin việc </p>
-                                <% } %>
-                            </div>
+                        <div class="candi-detail-act color-main fs-5 d-flex gap-3">
+                            <% if (dataFromAPI.data.luuHoSo == true) { %>
+                                <button class="candi-detail-save" data_id="<%= dataFromAPI.data.use_id %>">
+                                    <svg width="23" height="23" viewBox="0 0 24 24" fill="red" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M11.378 19.0757L11.3773 19.075C8.89974 16.8284 6.88354 14.9968 5.48088 13.2808C4.08372 11.5714 3.34766 10.0379 3.34766 8.39583C3.34766 5.71132 5.44237 3.625 8.11849 3.625C9.63484 3.625 11.0985 4.33348 12.0516 5.44397L12.431 5.88605L12.8104 5.44397C13.7635 4.33348 15.2271 3.625 16.7435 3.625C19.4196 3.625 21.5143 5.71132 21.5143 8.39583C21.5143 10.0379 20.7783 11.5714 19.3811 13.2808C17.9784 14.9968 15.9622 16.8284 13.4847 19.075L13.484 19.0757L12.431 20.0343L11.378 19.0757Z" stroke="red" />
+                                    </svg>
+                                    <span>Đã lưu hồ sơ</span>
+                                </button>
+                            <% } else { %>
+                                <button class="candi-detail-save" data_id="<%= dataFromAPI.data.use_id %>">
+                                    <img src="/images/icon/act_save.svg" width="23" height="23" alt="Lưu hồ sơ">
+                                    <span>Lưu hồ sơ</span>
+                                </button>
+                            <% } %>
+                            <% if(dataFromAPI.data.xemTT == true){ %>
+                                <button class="candi-detail-print cursor-p" data-pdf="<%=dataFromAPI.data.step2_img ? dataFromAPI.data.step2_img:dataFromAPI.data.img_full%>">
+                                    <img src="/images/icon/act_print.svg" width="24" height="24" alt="In hồ sơ">
+                                    In hồ sơ
+                                </button>
+                            <% } %>
                         </div>
                     </div>
-                    <div class="candi-banner">
-                        <img width="441" height="742" src="/images/img/banneruv.png" alt="Banner Ứng Viên">
-                    </div>
-                </div>
-                <div class="container">
-                    <div class="candi-propose">
-                        <div class="candi-propose-title fw-700 fs-5">
-                            ỨNG VIÊN ĐỀ XUẤT
+                    <div class="candi-cv">
+                        <div class="candi-cv-title fw-700 fs-5">
+                            THÔNG TIN CV
                         </div>
-                        <div class="candi-propose-list">
-                            <% if (dataFromAPI.similarUsers && dataFromAPI.similarUsers.length > 0) { 
-                                 const displayedUsers = dataFromAPI.similarUsers.slice(0, 10); %>
-                                <% displayedUsers.forEach(function(item) { %>
-                                <div class="candi-propose-item bg-white d-flex gap-4">
-                                    <div class="candi-propose-avar">
-                                        <a href="<%= convertToUrl(item.use_name) %>-uv-<%= item.use_id %>">
-                                            <img class="rounded-circle outline_main" width="150" height="150" alt="Avar Ứng viên"
-                                                src="<%= item.use_logo %>" onerror="this.onerror=null;this.src='/images/img/default_logo.jpg';">
-                                        </a>
-                                        <!-- <div class="candi-propose-onl color-main">
-                                        </div> -->
-                                    </div>
-                                    <div class="candi-propose-info">
-                                        <div class="candi-propose-pos fw-600">
-                                            <h3 class="mb-0">
-                                                <a href="/<%= convertToUrl(item.use_name) %>-uv-<%= item.use_id %>">
-                                                    <%= item.use_job_name %>
-                                                </a>
-                                            </h3>
-                                        </div>
-                                        <div class="candi-propose-name color-main">
-                                            <a href="/<%= convertToUrl(item.use_name) %>-uv-<%= item.use_id %>">
-                                                <%= item.use_name %>
-                                            </a>
-                                        </div>
-                                        <div class="candi-propose-detail">
-                                            <div class="candi-propose-gener d-flex align-c">
-                                                <img width="20" height="20" src="/images/icon/ion_location-outline.svg"
-                                                    alt="Địa chỉ">
-                                                    <% if (item.use_city_job && item.use_city_job.length > 0) { %>
-                                                        <%= item.use_city_job[0] %>
-                                                    <% } else { %>
-                                                        Chưa cập nhật
-                                                    <% } %>
-                                            </div>
-                                            <div class="candi-propose-gener d-flex align-c">
-                                                <img width="20" height="20" src="/images/icon/pajamas_work.svg"
-                                                    alt="Ngành nghề">
-                                                <%=findExp(item.exp_years)%>
-                                            </div>
-                                            <div class="candi-propose-gener d-flex align-c">
-                                                <img width="20" data-salary="<%=item.salary%>" height="20" src="/images/icon/solar_dollar-linear.svg"
-                                                    alt="Mức lương">
-                                                    <%=item.salary !=0 ? findRangeMoney(parseInt(item.salary)):'Chưa cập nhật' %>
-                                            </div>
-                                            <div class="candi-propose-gener d-flex align-c">
-                                                <!-- <img width="20" height="20" src="/images/icon/carbon_time.svg"
-                                                    alt="Thời gian"> -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <% }); %>
+                        <div class="candi-cv-img">
+                            <% if (dataFromAPI.data.img_full) { %>
+                                <img class="candi-cv-detail w-100" src="<%= dataFromAPI.data.img_full %>" alt="CV ứng viên">
+                            <% } else if (dataFromAPI.data.img) { %>
+                                <img class="candi-cv-detail w-100" src="<%= dataFromAPI.data.img %>" alt="CV ứng viên">
+                            <% } else if (dataFromAPI.data.step2_img) { %>
+                                <img class="candi-cv-detail w-100" src="<%= dataFromAPI.data.step2_img %>" alt="CV ứng viên">
+                            <% } else if (dataFromAPI.data.img_demo) { %>
+                                <img class="candi-cv-detail w-100" src="<%= dataFromAPI.data.img_demo %>" alt="CV ứng viên">
+                            <% } else { %>
+                                <p class="color-alert mb-0">Ứng viên chưa có cv xin việc </p>
                             <% } %>
                         </div>
                     </div>
                 </div>
+                <div class="candi-banner">
+                    <img width="441" height="742" src="/images/img/banneruv.png" alt="Banner Ứng Viên">
+                </div>
             </div>
-        </div>
-        <div class="overlay"></div>
-        <div class="more_info">
-            <div class="d_flex fl_cl g_20">
-                <span>Bạn có muốn dùng <%=dataFromAPI.data.use_authentic==1?'3':'2'%> điểm để xem thông tin chi tiết ứng viên này không</span>
-                <div class="d_flex g_20 jt_ct">
-                    <button class="cf_see_infor" data_id="<%= dataFromAPI.data.use_id %>">Có</button>
-                    <button class="not_cf_see">Không</button>
+            <div class="container">
+                <div class="candi-propose">
+                    <div class="candi-propose-title fw-700 fs-5">
+                        ỨNG VIÊN ĐỀ XUẤT
+                    </div>
+                    <div class="candi-propose-list">
+                        <% if (dataFromAPI.similarUsers && dataFromAPI.similarUsers.length > 0) { 
+                            const displayedUsers = dataFromAPI.similarUsers.slice(0, 10); %>
+                            <% displayedUsers.forEach(function(item) { %>
+                                <div class="candi-propose-item bg-white d-flex gap-4">
+                                    <div class="candi-propose-avar">
+                                        <a href="<%= convertToUrl(item.use_name) %>-uv-<%= item.use_id %>">
+                                            <img class="rounded-circle outline_main" width="150" height="150" alt="Avar Ứng viên" src="<%= item.use_logo %>" onerror="this.onerror=null;this.src='/images/img/default_logo.jpg';">
+                                        </a>
+                                    </div>
+                                    <div class="candi-propose-info">
+                                        <div class="candi-propose-pos fw-600">
+                                            <h3 class="mb-0">
+                                                <a href="/<%= convertToUrl(item.use_name) %>-uv-<%= item.use_id %>"><%= item.use_job_name %></a>
+                                            </h3>
+                                        </div>
+                                        <div class="candi-propose-name color-main">
+                                            <a href="/<%= convertToUrl(item.use_name) %>-uv-<%= item.use_id %>"><%= item.use_name %></a>
+                                        </div>
+                                        <div class="candi-propose-detail">
+                                            <div class="candi-propose-gener d-flex align-c">
+                                                <img width="20" height="20" src="/images/icon/ion_location-outline.svg" alt="Địa chỉ">
+                                                <% if (item.use_city_job && item.use_city_job.length > 0) { %>
+                                                    <%= item.use_city_job[0] %>
+                                                <% } else { %>
+                                                    Chưa cập nhật
+                                                <% } %>
+                                            </div>
+                                            <div class="candi-propose-gener d-flex align-c">
+                                                <img width="20" height="20" src="/images/icon/pajamas_work.svg" alt="Ngành nghề">
+                                                <%= findExp(item.exp_years) %>
+                                            </div>
+                                            <div class="candi-propose-gener d-flex align-c">
+                                                <img width="20" data-salary="<%=item.salary%>" height="20" src="/images/icon/solar_dollar-linear.svg" alt="Mức lương">
+                                                <%=item.salary !=0 ? findRangeMoney(parseInt(item.salary)):'Chưa cập nhật' %>
+                                            </div>
+                                            <div class="candi-propose-gener d-flex align-c"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <% }); %>
+                        <% } %>
+                    </div>
                 </div>
             </div>
         </div>
-        <link rel="stylesheet" href="/css/footer.css" as="style">
-        <%- include('layouts/footer', {}); %>
-        <script src="/js/custom_select.js"></script>
-            <script>
-                $(document).ready(function () {
-                    $('.nav-item').hover(function () {
-                        $(this).children('.nav-dropdown').stop(true, true).fadeIn(300);
-                    }, function () {
-                        $(this).children('.nav-dropdown').stop(true, true).fadeOut(300);
-                    });
-                    $('.candi-more').click(function(){
-                        var accessToken = getCookie('accessToken');
-                        var type_login = getCookie('type')
-                        if (!accessToken || type_login != 1) {
-                            alert('Vui lòng đăng nhập tài khoản nhà tuyển dụng');
-                            $('#login_ntd_modal').show();
-                        }else{
-                            $('.more_info').show();
-                            $('.overlay').show();
-                        }
-                    })
-                    $('.not_cf_see').click(function(){
-                        $('.more_info').hide();
-                        $('.overlay').hide();
-                    })
-                    $('.cf_see_infor').click(function(){
-                        var accessToken = getCookie('accessToken');
-                        var usc_id = getCookie('usc_id');
-                        var dataID = $(this).attr('data_id');
-                        var data = {
-                                iduv: dataID,
-                                idNTD:usc_id
-                            }
-                      
+    </div>
+    <div class="overlay"></div>
+    <div class="more_info">
+        <div class="d_flex fl_cl g_20">
+            <span>Bạn có muốn dùng <%=dataFromAPI.data.use_authentic==1?'3':'2'%> điểm để xem thông tin chi tiết ứng viên này không</span>
+            <div class="d_flex g_20 jt_ct">
+                <button class="cf_see_infor" data_id="<%= dataFromAPI.data.use_id %>">Có</button>
+                <button class="not_cf_see">Không</button>
+            </div>
+        </div>
+    </div>
+    <link rel="stylesheet" href="/css/footer.css" as="style">
+    <%- include('layouts/footer', {}); %>
+    <script src="/js/custom_select.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.nav-item').hover(function () {
+                $(this).children('.nav-dropdown').stop(true, true).fadeIn(300);
+            }, function () {
+                $(this).children('.nav-dropdown').stop(true, true).fadeOut(300);
+            });
+            $('.candi-more').click(function(){
+                var accessToken = getCookie('accessToken');
+                var type_login = getCookie('type')
+                if (!accessToken || type_login != 1) {
+                    alert('Vui lòng đăng nhập tài khoản nhà tuyển dụng');
+                    $('#login_ntd_modal').show();
+                }else{
+                    $('.more_info').show();
+                    $('.overlay').show();
+                }
+            })
+            $('.not_cf_see').click(function(){
+                $('.more_info').hide();
+                $('.overlay').hide();
+            })
+            $('.cf_see_infor').click(function(){
+                var accessToken = getCookie('accessToken');
+                var usc_id = getCookie('usc_id');
+                var dataID = $(this).attr('data_id');
+                var data = {
+                        iduv: dataID,
+                        idNTD:usc_id
+                    }
+                
 
-                        $.ajax({
-                            url: URL_API_NTD+ '/ViewCandidateInformation',
-                            type: 'POST',
-                            headers: {
-                                Authorization: 'Bearer ' + accessToken
-                            },
-                            data: data,
-                            success: function (response) {
-                                console.log(response)
-                                if (response.data) {
-                                        window.location.reload()
-                                } else {
-                                    alert('Error see more information !' + response.message)
+                $.ajax({
+                    url: URL_API_NTD+ '/ViewCandidateInformation',
+                    type: 'POST',
+                    headers: {
+                        Authorization: 'Bearer ' + accessToken
+                    },
+                    data: data,
+                    success: function (response) {
+                        console.log(response)
+                        if (response.data) {
+                                window.location.reload()
+                        } else {
+                            alert('Error see more information !' + response.message)
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(error);
+                        alert('Số điểm còn lại không đủ , vui lòng nạp thêm điểm.')
+                    }
+                })
+            })
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('.candi-detail-print').on('click', function() {
+                var fileUrl = $(this).data('pdf');
+                var fileName = fileUrl.split('/').pop(); 
+                
+                var downloadLink = document.createElement('a');
+                downloadLink.href = fileUrl;
+                downloadLink.download = fileName; 
+
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+
+                document.body.removeChild(downloadLink);
+            });
+            $('.candi-detail-save').click(function () {
+                var button = $(this);
+                var dataID = button.attr('data_id');
+
+                var accessToken = getCookie('accessToken');
+                // console.log(accessToken);
+
+
+                if (!accessToken) {
+                    alert('Vui lý đăng nhập để thực hiện thao tác');
+                    $('#login_ntd_modal').show();
+                }
+                else{
+                    var data = {
+                        id_uv: dataID
+                    }
+                    // console.log(accessToken + '/' + dataID);
+                    $.ajax({
+                        url: 'http://localhost:3050/api/topcv1s/ntd/SaveCandi',
+                        type: 'POST',
+                        headers: {
+                            Authorization: 'Bearer ' + accessToken
+                        },
+                        data: data,
+
+                        success: function (response) {
+                            if (response.data) {
+                                console.log(response);
+                                if(response.data.result_save == 1){
+                                    alert(response.data.message);
+                                    button.prop('disabled', true);
+                                    button.find('span').text('Đã lưu hồ sơ');
+                                    button.find('img').remove();
+                                    button.prepend(`
+                                        <svg width="23" height="23" viewBox="0 0 24 24" fill="red" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M11.378 19.0757L11.3773 19.075C8.89974 16.8284 6.88354 14.9968 5.48088 13.2808C4.08372 11.5714 3.34766 10.0379 3.34766 8.39583C3.34766 5.71132 5.44237 3.625 8.11849 3.625C9.63484 3.625 11.0985 4.33348 12.0516 5.44397L12.431 5.88605L12.8104 5.44397C13.7635 4.33348 15.2271 3.625 16.7435 3.625C19.4196 3.625 21.5143 5.71132 21.5143 8.39583C21.5143 10.0379 20.7783 11.5714 19.3811 13.2808C17.9784 14.9968 15.9622 16.8284 13.4847 19.075L13.484 19.0757L12.431 20.0343L11.378 19.0757Z" stroke="red"/>
+                                        </svg>
+                                    `);
+                                }else{
+                                    alert('Hủy lưu hồ sơ thành công');
+                                    button.find('span').text('Lưu hồ sơ');
+                                    button.find('svg').remove();
+                                    button.prepend(`
+                                        <img src="/images/icon/act_save.svg" width="23" height="23" alt="Save profile">
+                                    `);
                                 }
-                            },
-                            error: function (xhr, status, error) {
-                                console.log(error);
-                                alert('Số điểm còn lại không đủ , vui lòng nạp thêm điểm.')
+                            } else {
+                                alert('Có lỗi khi lưu hồ sơ!' + response.message)
                             }
-                        })
-                    })
-                });
-            </script>
-            <script>
-                $(document).ready(function () {
-                    $('.candi-detail-print').on('click', function() {
-                        var fileUrl = $(this).data('pdf');
-                        var fileName = fileUrl.split('/').pop(); 
-                        
-                        var downloadLink = document.createElement('a');
-                        downloadLink.href = fileUrl;
-                        downloadLink.download = fileName; 
-
-                        document.body.appendChild(downloadLink);
-                        downloadLink.click();
-
-                        document.body.removeChild(downloadLink);
-                    });
-                    $('.candi-detail-save').click(function () {
-                        var button = $(this);
-                        var dataID = button.attr('data_id');
-
-                        var accessToken = getCookie('accessToken');
-                        // console.log(accessToken);
-
-
-                        if (!accessToken) {
-                            alert('Vui lý đăng nhập để thực hiện thao tác');
-                            $('#login_ntd_modal').show();
-                        }
-                        else{
-                            var data = {
-                                id_uv: dataID
-                            }
-                            // console.log(accessToken + '/' + dataID);
-                            $.ajax({
-                                url: 'http://localhost:3050/api/topcv1s/ntd/SaveCandi',
-                                type: 'POST',
-                                headers: {
-                                    Authorization: 'Bearer ' + accessToken
-                                },
-                                data: data,
-
-                                success: function (response) {
-                                    if (response.data) {
-                                        console.log(response);
-                                        if(response.data.result_save == 1){
-                                            alert(response.data.message);
-                                            button.prop('disabled', true);
-                                            button.find('span').text('Đã lưu hồ sơ');
-                                            button.find('img').remove();
-                                            button.prepend(`
-                                                <svg width="23" height="23" viewBox="0 0 24 24" fill="red" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M11.378 19.0757L11.3773 19.075C8.89974 16.8284 6.88354 14.9968 5.48088 13.2808C4.08372 11.5714 3.34766 10.0379 3.34766 8.39583C3.34766 5.71132 5.44237 3.625 8.11849 3.625C9.63484 3.625 11.0985 4.33348 12.0516 5.44397L12.431 5.88605L12.8104 5.44397C13.7635 4.33348 15.2271 3.625 16.7435 3.625C19.4196 3.625 21.5143 5.71132 21.5143 8.39583C21.5143 10.0379 20.7783 11.5714 19.3811 13.2808C17.9784 14.9968 15.9622 16.8284 13.4847 19.075L13.484 19.0757L12.431 20.0343L11.378 19.0757Z" stroke="red"/>
-                                                </svg>
-                                            `);
-                                        }else{
-                                            alert('Hủy lưu hồ sơ thành công');
-                                            button.find('span').text('Lưu hồ sơ');
-                                            button.find('svg').remove();
-                                            button.prepend(`
-                                                <img src="/images/icon/act_save.svg" width="23" height="23" alt="Save profile">
-                                            `);
-                                        }
-                                    } else {
-                                        alert('Có lỗi khi lưu hồ sơ!' + response.message)
-                                    }
-                                },
-                                error: function (xhr, status, error) {
-                                    console.error('Error:', error);
-                                    alert('Có lỗi khi kết nối với server.')
-                                }
-                            })
-                        }
-
-                        function getCookie(name) {
-                            var value = "; " + document.cookie;
-                            var parts = value.split("; " + name + "=");
-                            if (parts.length === 2) return parts.pop().split(";").shift();
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('Error:', error);
+                            alert('Có lỗi khi kết nối với server.')
                         }
                     })
-                });
-            </script>
+                }
+
+                function getCookie(name) {
+                    var value = "; " + document.cookie;
+                    var parts = value.split("; " + name + "=");
+                    if (parts.length === 2) return parts.pop().split(";").shift();
+                }
+            })
+        });
+    </script>
     <script>
         $(document).ready(function() {
             $('.nav-item').hover(function() {
@@ -433,9 +361,6 @@
                     });
         });
     </script>
-    
-    
-
 </body>
 
 </html>

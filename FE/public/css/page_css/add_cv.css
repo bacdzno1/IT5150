@@ -900,22 +900,6 @@ header {
     background-color: transparent;
 }
 
-.modal_down,
-.modal_save {
-    display: none;
-    position: fixed;
-    z-index: 12;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background: #00000099;
-    -webkit-animation-duration: 0.4s;
-    animation-name: fadeIn;
-    animation-duration: 0.4s
-}
-
 .modal_down_cnt,
 .modal_save_cnt {
     height: 100%;

@@ -4,25 +4,16 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-
-    <!-- <meta name="robots" content="noindex, follow" /> -->
-    <meta name="robots" content="index, follow" />
-    <!-- <meta name="google-site-verification" content="lwyGMjMCHXSuJXWOc3iy1MG_Hd6yRBARF5H8NuMxUPg" /> -->
 
     <title>Tạo CV</title>
     <link rel="icon" href="/images/img/icon_head.png">
-    <link rel="preload" href="/css/common.css" as="style">
     <link rel="stylesheet" href="/css/common.css" as="style">
-    <link rel="preload" href="/css/header.css" as="style">
     <link rel="stylesheet" href="/css/header.css" as="style">
     <link rel="stylesheet" href="/css/page_css/add_cv.css" as="style">
     <link rel="stylesheet" href="/css/page_css/cvh.css" as="style">
     <link rel="stylesheet" href="/css/page_css/1.css" as="style">
-    <link rel="preload" href="/css/page_css/taocv_v2.css" as="style">
     <link rel="stylesheet" href="/css/page_css/taocv_v2.css" as="style">
     <link rel="stylesheet" href="/css/page_css/style_header_chung.css" as="style">
-    <!-- <script src="/js/jquery.min.js"></script> -->
     <style>
         .ui-sortable-handle {
             -ms-touch-action: none;
@@ -34,958 +25,608 @@
 
 <body id="body">
     <%- include('layouts/header', {}); %>
-        <link rel="stylesheet" href="/css/page_css/style_cv2.min.css" as="style">
-        <div id="content">
-            <div class="cv-sidebar">
-                <div class="cv-top container">
-                    <div class="cv-top__templ cv-top--item sidenav__target" target_id="side_teml" target_style="1">
-                        <div class="cv-top--title">Mẫu CV</div>
-                        <div class="cv-top--title-mb">Mẫu CV</div>
-                        <div class="cv-top--content">
-                            <img decoding="auto" src="/images/icon/Document-1-Copy.svg" width="32" height="33"
-                                alt="View Cv Icon" />
-                        </div>
-                    </div>
-                    <div class="cv-top__color cv-top--item sidenav__target" target_id="side_color" target_style="2">
-                        <div class="cv-top--title">Đổi màu CV</div>
-                        <div class="cv-top--title-mb">Đổi màu</div>
-                        <div class="cv-top--content">
-                            <div class="cv-top--content__color"></div>
-                        </div>
-                    </div>
-                    <div class="cv-top__langue cv-top--item sidenav__target" target_id="side_langue" target_style="2">
-                        <div class="cv-top--title">Đổi ngôn ngữ CV</div>
-                        <div class="cv-top--title-mb">Ngôn ngữ</div>
-                        <div class="cv-top--content">
-                            <img decoding="auto" src="/images/icon/viet_flag.svg" width="40" height="33"
-                                alt="Laguage Icon" />
-                        </div>
-                    </div>
-                    <div class="cv-top__refer cv-top--item">
-                        <div class="cv-top--title">CV Tham khảo</div>
-                        <div class="cv-top--title-mb">CV Tham khảo</div>
-                        <div class="cv-top--content">
-                            <img decoding="auto" src="/images/icon/Add-Document.svg" width="33" height="33"
-                                alt="Laguage Icon" />
-                        </div>
-                    </div>
-                    <div class="cv-top_act">
-                        <!-- <button class="cv-top_act--item cv-top_act--clone">
-                            <img src="/images/icon/solar_copy-bold.svg" width="20" height="20" alt="Copy Icon" />
-                            Tạo bản sao
-                        </button>
-                        <button class="cv-top_act--item cv-top_act--save">
-                            <img src="/images/icon/ri_save-fill.svg" width="20" height="20" alt="Save Icon" />
-                            Lưu CV
-                        </button> -->
-                        <button class="cv-top_act--item cv-top_act--view">
-                            <img decoding="auto" src="/images/icon/solar-view.svg" width="20" height="21"
-                                alt="View Icon" />
-                            Xem trước
-                        </button>
-                        <button class="cv-top_act--item cv-top_act--down">
-                            <img decoding="auto" src="/images/icon/material-download.svg" width="20" height="18"
-                                alt="Down Icon" />
-                            Tải xuống
-                        </button>
-                        <!-- <button class="show_modal_avar">test show</button> -->
+    <link rel="stylesheet" href="/css/page_css/style_cv2.min.css" as="style">
+    <div id="content">
+        <div class="cv-sidebar">
+            <div class="cv-top container">
+                <div class="cv-top__templ cv-top--item sidenav__target" target_id="side_teml" target_style="1">
+                    <div class="cv-top--title">Mẫu CV</div>
+                    <div class="cv-top--title-mb">Mẫu CV</div>
+                    <div class="cv-top--content">
+                        <img decoding="auto" src="/images/icon/Document-1-Copy.svg" width="32" height="33" alt="View Cv Icon" />
                     </div>
                 </div>
-                <div class="cv-bot">
-                    <div class="cv-bot-cont container">
-                        <div class="cv-bot__layout cv-bot--item sidenav__target" target_id="side_layout"
-                            target_style="2">
-                            <svg width="24" height="24" viewBox="0 0 25 24" fill="none"
+                <div class="cv-top__color cv-top--item sidenav__target" target_id="side_color" target_style="2">
+                    <div class="cv-top--title">Đổi màu CV</div>
+                    <div class="cv-top--title-mb">Đổi màu</div>
+                    <div class="cv-top--content">
+                        <div class="cv-top--content__color"></div>
+                    </div>
+                </div>
+                <div class="cv-top__langue cv-top--item sidenav__target" target_id="side_langue" target_style="2">
+                    <div class="cv-top--title">Đổi ngôn ngữ CV</div>
+                    <div class="cv-top--title-mb">Ngôn ngữ</div>
+                    <div class="cv-top--content">
+                        <img decoding="auto" src="/images/icon/viet_flag.svg" width="40" height="33" alt="Laguage Icon" />
+                    </div>
+                </div>
+                <div class="cv-top__refer cv-top--item">
+                    <div class="cv-top--title">CV Tham khảo</div>
+                    <div class="cv-top--title-mb">CV Tham khảo</div>
+                    <div class="cv-top--content">
+                        <img decoding="auto" src="/images/icon/Add-Document.svg" width="33" height="33" alt="Laguage Icon" />
+                    </div>
+                </div>
+                <div class="cv-top_act">
+                    <button class="cv-top_act--item cv-top_act--view">
+                        <img decoding="auto" src="/images/icon/solar-view.svg" width="20" height="21" alt="View Icon" />
+                        Xem trước
+                    </button>
+                    <button class="cv-top_act--item cv-top_act--down">
+                        <img decoding="auto" src="/images/icon/material-download.svg" width="20" height="18" lt="Down Icon" />
+                        Tải xuống
+                    </button>
+                </div>
+            </div>
+            <div class="cv-bot">
+                <div class="cv-bot-cont container">
+                    <div class="cv-bot__layout cv-bot--item sidenav__target" target_id="side_layout"
+                        target_style="2">
+                        <svg width="24" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M2.34961 4.25C2.34961 3.00736 3.35697 2 4.59961 2H8.76961C10.0123 2 11.0196 3.00736 11.0196 4.25V6.42C11.0196 7.66264 10.0122 8.67 8.76961 8.67H4.59961C3.35697 8.67 2.34961 7.66264 2.34961 6.42V4.25Z"
+                                fill="#333333" />
+                            <path
+                                d="M13.6896 4.25C13.6896 3.00736 14.697 2 15.9396 2H19.4396C20.6823 2 21.6896 3.00736 21.6896 4.25V11.08C21.6896 12.3226 20.6823 13.33 19.4396 13.33H15.9396C14.697 13.33 13.6896 12.3226 13.6896 11.08V4.25Z"
+                                fill="#333333" />
+                            <path
+                                d="M13.6896 18.25C13.6896 17.0074 14.697 16 15.9396 16H19.4396C20.6823 16 21.6896 17.0074 21.6896 18.25V19.75C21.6896 20.9926 20.6823 22 19.4396 22H15.9396C14.697 22 13.6896 20.9926 13.6896 19.75V18.25Z"
+                                fill="#333333" />
+                            <path
+                                d="M2.34961 13.58C2.34961 12.3374 3.35697 11.33 4.59961 11.33H8.76961C10.0123 11.33 11.0196 12.3374 11.0196 13.58V19.75C11.0196 20.9926 10.0122 22 8.76961 22H4.59961C3.35697 22 2.34961 20.9926 2.34961 19.75V13.58Z"
+                                fill="#333333" />
+                        </svg>
+                        <span> Bố cục CV </span>
+                        <img src="/images/icon/Arrow-Down.svg" width="10" height="11" alt="Down Icon" />
+                    </div>
+                    <div class="cv-bot__font cv-bot--item">
+                        <label for="cv_font" class="sr-only">Chọn phông chữ:</label>
+                        <select id="cv_font">
+                            <option value="Roboto">Roboto</option>
+                            <option value="Tahoma">Tahoma</option>
+                            <option value="Arial">Arial</option>
+                            <option value="sun-exta">sun-exta</option>
+                        </select>
+                    </div>
+                    <div class="cv-bot__space cv-bot--item sidenav__target" target_id="side_space" target_style="2">
+                        <img decoding="auto" src="/images/icon/cv_align.svg" width="31" height="26" alt="Space Icon" />
+                        <span> Tối ưu không gian </span>
+                        <img decoding="auto" src="/images/icon/Arrow-Down.svg" width="10" height="11" alt="Down Icon" />
+                    </div>
+                    <div class="cv-bot__style cv-bot--item disabled editor-control-group">
+                    </div>
+                    <div class="cv-bot__align cv-bot--item disabled editor-control-group">
+                        <div class="cv-bot__align--item cv-bot__align--left active editor-control" onMouseDown="preventDefaultAction(event)">
+                            <svg id="align-left-icon" width="37" height="37" viewBox="0 0 37 37" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M2.34961 4.25C2.34961 3.00736 3.35697 2 4.59961 2H8.76961C10.0123 2 11.0196 3.00736 11.0196 4.25V6.42C11.0196 7.66264 10.0122 8.67 8.76961 8.67H4.59961C3.35697 8.67 2.34961 7.66264 2.34961 6.42V4.25Z"
-                                    fill="#333333" />
-                                <path
-                                    d="M13.6896 4.25C13.6896 3.00736 14.697 2 15.9396 2H19.4396C20.6823 2 21.6896 3.00736 21.6896 4.25V11.08C21.6896 12.3226 20.6823 13.33 19.4396 13.33H15.9396C14.697 13.33 13.6896 12.3226 13.6896 11.08V4.25Z"
-                                    fill="#333333" />
-                                <path
-                                    d="M13.6896 18.25C13.6896 17.0074 14.697 16 15.9396 16H19.4396C20.6823 16 21.6896 17.0074 21.6896 18.25V19.75C21.6896 20.9926 20.6823 22 19.4396 22H15.9396C14.697 22 13.6896 20.9926 13.6896 19.75V18.25Z"
-                                    fill="#333333" />
-                                <path
-                                    d="M2.34961 13.58C2.34961 12.3374 3.35697 11.33 4.59961 11.33H8.76961C10.0123 11.33 11.0196 12.3374 11.0196 13.58V19.75C11.0196 20.9926 10.0122 22 8.76961 22H4.59961C3.35697 22 2.34961 20.9926 2.34961 19.75V13.58Z"
-                                    fill="#333333" />
+                                <rect class="rect" x="4.51953" y="10" width="17" height="2" fill="#333333" />
+                                <rect class="rect" x="4.51953" y="15" width="26" height="2" fill="#333333" />
+                                <rect class="rect" x="4.51953" y="20" width="21" height="2" fill="#333333" />
+                                <rect class="rect" x="4.51953" y="25" width="28" height="2" fill="#333333" />
                             </svg>
-                            <span> Bố cục CV </span>
-                            <img src="/images/icon/Arrow-Down.svg" width="10" height="11" alt="Down Icon" />
                         </div>
-                        <div class="cv-bot__font cv-bot--item">
-                            <label for="cv_font" class="sr-only">Chọn phông chữ:</label>
-                            <select id="cv_font">
-                                <option value="Roboto">Roboto</option>
-                                <option value="Tahoma">Tahoma</option>
-                                <option value="Arial">Arial</option>
-                                <option value="sun-exta">sun-exta</option>
-                            </select>
+                        <div class="cv-bot__align--item cv-bot__align--center editor-control" onMouseDown="preventDefaultAction(event)">
+                            <svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect class="rect" x="11.5195" y="10" width="14" height="2" fill="#333333" />
+                                <rect class="rect" x="6.51953" y="15" width="24" height="2" fill="#333333" />
+                                <rect class="rect" x="11.5195" y="20" width="14" height="2" fill="#333333" />
+                                <rect class="rect" x="4.51953" y="25" width="28" height="2" fill="#333333" />
+                            </svg>
                         </div>
-                        <div class="cv-bot__space cv-bot--item sidenav__target" target_id="side_space" target_style="2">
-                            <img decoding="auto" src="/images/icon/cv_align.svg" width="31" height="26"
-                                alt="Space Icon" />
-                            <span> Tối ưu không gian </span>
-                            <img decoding="auto" src="/images/icon/Arrow-Down.svg" width="10" height="11"
-                                alt="Down Icon" />
+                        <div class="cv-bot__align--item cv-bot__align--right editor-control" onMouseDown="preventDefaultAction(event)">
+                            <svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect class="rect" x="11.5195" y="10" width="21" height="2" fill="#333333" />
+                                <rect class="rect" x="6.51953" y="15" width="26" height="2" fill="#333333" />
+                                <rect class="rect" x="10.5195" y="20" width="22" height="2" fill="#333333" />
+                                <rect class="rect" x="4.51953" y="25" width="28" height="2" fill="#333333" />
+                            </svg>
                         </div>
-                        <div class="cv-bot__style cv-bot--item disabled editor-control-group">
-                            <!-- <button class="cv-bot__style--bold cv-bot__style--item editor-control"
-                                onMouseDown="preventDefaultAction(event)">B</button>
-                            <button class="cv-bot__style--italic cv-bot__style--item editor-control"
-                                onMouseDown="preventDefaultAction(event)">I</button>
-                            <button class="cv-bot__style--under cv-bot__style--item editor-control"
-                                onMouseDown="preventDefaultAction(event)">U</button> -->
+                        <div class="cv-bot__align--item cv-bot__align--between editor-control" onMouseDown="preventDefaultAction(event)">
+                            <svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect class="rect" x="4.51953" y="10" width="28" height="2" fill="#333333" />
+                                <rect class="rect" x="4.51953" y="15" width="28" height="2" fill="#333333" />
+                                <rect class="rect" x="4.51953" y="20" width="28" height="2" fill="#333333" />
+                                <rect class="rect" x="4.51953" y="25" width="28" height="2" fill="#333333" />
+                            </svg>
                         </div>
-                        <div class="cv-bot__align cv-bot--item disabled editor-control-group">
-                            <div class="cv-bot__align--item cv-bot__align--left active editor-control"
-                                onMouseDown="preventDefaultAction(event)">
-                                <svg id="align-left-icon" width="37" height="37" viewBox="0 0 37 37" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <rect class="rect" x="4.51953" y="10" width="17" height="2" fill="#333333" />
-                                    <rect class="rect" x="4.51953" y="15" width="26" height="2" fill="#333333" />
-                                    <rect class="rect" x="4.51953" y="20" width="21" height="2" fill="#333333" />
-                                    <rect class="rect" x="4.51953" y="25" width="28" height="2" fill="#333333" />
-                                </svg>
-                            </div>
-                            <div class="cv-bot__align--item cv-bot__align--center editor-control"
-                                onMouseDown="preventDefaultAction(event)">
-                                <svg width="37" height="37" viewBox="0 0 37 37" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <rect class="rect" x="11.5195" y="10" width="14" height="2" fill="#333333" />
-                                    <rect class="rect" x="6.51953" y="15" width="24" height="2" fill="#333333" />
-                                    <rect class="rect" x="11.5195" y="20" width="14" height="2" fill="#333333" />
-                                    <rect class="rect" x="4.51953" y="25" width="28" height="2" fill="#333333" />
-                                </svg>
-                            </div>
-                            <div class="cv-bot__align--item cv-bot__align--right editor-control"
-                                onMouseDown="preventDefaultAction(event)">
-                                <svg width="37" height="37" viewBox="0 0 37 37" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <rect class="rect" x="11.5195" y="10" width="21" height="2" fill="#333333" />
-                                    <rect class="rect" x="6.51953" y="15" width="26" height="2" fill="#333333" />
-                                    <rect class="rect" x="10.5195" y="20" width="22" height="2" fill="#333333" />
-                                    <rect class="rect" x="4.51953" y="25" width="28" height="2" fill="#333333" />
-                                </svg>
-                            </div>
-                            <div class="cv-bot__align--item cv-bot__align--between editor-control"
-                                onMouseDown="preventDefaultAction(event)">
-                                <svg width="37" height="37" viewBox="0 0 37 37" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <rect class="rect" x="4.51953" y="10" width="28" height="2" fill="#333333" />
-                                    <rect class="rect" x="4.51953" y="15" width="28" height="2" fill="#333333" />
-                                    <rect class="rect" x="4.51953" y="20" width="28" height="2" fill="#333333" />
-                                    <rect class="rect" x="4.51953" y="25" width="28" height="2" fill="#333333" />
-                                </svg>
-                            </div>
-                        </div>
-                        <!-- <div class="cv-bot__act--undo cv-bot--item editor-control"
-                            onMouseDown="preventDefaultAction(event);">
-                            <div class=" cv-bot_act--title">Undo</div>
-                            <img decoding="auto" src="/images/icon/undo.svg" alt="Undo">
-                        </div>
-                        <div class="cv-bot__act--redo cv-bot--item editor-control"
-                            onMouseDown="preventDefaultAction(event);">
-                            <div class=" cv-bot_act--title">Redo</div>
-                            <img decoding="auto" src="/images/icon/redo.svg" alt="Redo">
-                        </div> -->
                     </div>
                 </div>
             </div>
-            <div class="cv-content">
-                <div class="cv-sidenav">
-                    <div class="sidenav__cnt" id="side_teml">
-                        <div class="sidenav__cnt__nor">
-                            <div class="sidenav__cnt__tit">Mẫu khác</div>
-                            <div class="sidenav__cnt__list">
-                                <% for (let i=0; i < 47; i++) { %>
-                                    <div class="sidenav__cnt__item" data-id="" data-alias="">
-                                        <div class="sidenav__cnt__item--img">
-                                            <img loading="lazy" class="w-100" src="" alt="Mẫu CV" />
-                                            <div class="sidenav__cnt__item__star active">
-                                                <img class="star_active" width="12.97" height="12.97"
-                                                    src="/images/icon/Star_3_active.svg" />
-                                                <img class="star_notactive" width="12.97" height="12.97"
-                                                    src="/images/icon/Star_3.svg" />
-                                            </div>
+        </div>
+        <div class="cv-content">
+            <div class="cv-sidenav">
+                <div class="sidenav__cnt" id="side_teml">
+                    <div class="sidenav__cnt__nor">
+                        <div class="sidenav__cnt__tit">Mẫu khác</div>
+                        <div class="sidenav__cnt__list">
+                            <% for (let i=0; i < 47; i++) { %>
+                                <div class="sidenav__cnt__item" data-id="" data-alias="">
+                                    <div class="sidenav__cnt__item--img">
+                                        <img loading="lazy" class="w-100" src="" alt="Mẫu CV" />
+                                        <div class="sidenav__cnt__item__star active">
+                                            <img class="star_active" width="12.97" height="12.97" src="/images/icon/Star_3_active.svg" />
+                                            <img class="star_notactive" width="12.97" height="12.97" src="/images/icon/Star_3.svg" />
                                         </div>
-                                        <div class="sidenav__cnt__item--name">CV Đơn giản</div>
                                     </div>
-                                    <% }; %>
+                                    <div class="sidenav__cnt__item--name">CV Đơn giản</div>
+                                </div>
+                            <% }; %>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidenav__cnt" id="side_color">
+                    <div class="sidenav__des">Chọn màu</div>
+                    <div class="sidenav__color--list">
+                        <div class="sidenav__color--item sidenav--item active">
+                            <div class="sidenav__color--circle" data-color=""></div>
+                            <div class="confirm_item">
+                                <img src="/images/icon/confirm_color_icon.svg" width="10" height="10" alt="Confirm Icon" />
+                            </div>
+                        </div>
+                        <div class="sidenav__color--item sidenav--item">
+                            <div class="sidenav__color--circle" data-color=""></div>
+                            <div class="confirm_item">
+                                <img src="/images/icon/confirm_color_icon.svg" width="10" height="10" alt="Confirm Icon" />
+                            </div>
+                        </div>
+                        <div class="sidenav__color--item sidenav--item">
+                            <div class="sidenav__color--circle" data-color=""></div>
+                            <div class="confirm_item">
+                                <img src="/images/icon/confirm_color_icon.svg" width="10" height="10" alt="Confirm Icon" />
                             </div>
                         </div>
                     </div>
-                    <div class="sidenav__cnt" id="side_color">
-                        <div class="sidenav__des">Chọn màu</div>
-                        <div class="sidenav__color--list">
-                            <div class="sidenav__color--item sidenav--item active">
-                                <div class="sidenav__color--circle" data-color=""></div>
-                                <div class="confirm_item">
-                                    <img src="/images/icon/confirm_color_icon.svg" width="10" height="10"
-                                        alt="Confirm Icon" />
-                                </div>
+                </div>
+                <div class="sidenav__cnt" id="side_langue">
+                    <div class="sidenav__lague--list">
+                        <div class="sidenav__lague--item sidenav--item active" data-language="vi">
+                            <img loading="lazy" width="40" height="29" src="/images/icon/viet_flag.svg" alt="Viet Nam Flag" />
+                            <div class="confirm_item">
+                                <img src="/images/icon/confirm_color_icon.svg" width="10" height="10" alt="Confirm Icon" />
                             </div>
-                            <div class="sidenav__color--item sidenav--item">
-                                <div class="sidenav__color--circle" data-color=""></div>
-                                <div class="confirm_item">
-                                    <img src="/images/icon/confirm_color_icon.svg" width="10" height="10"
-                                        alt="Confirm Icon" />
-                                </div>
+                        </div>
+                        <div class="sidenav__lague--item sidenav--item" data-language="kr">
+                            <img loading="lazy" width="40" height="29" src="/images/icon/korea_flag.svg" alt="Korea Flag" />
+                            <div class="confirm_item">
+                                <img src="/images/icon/confirm_color_icon.svg" width="10" height="10" alt="Confirm Icon" />
                             </div>
-                            <div class="sidenav__color--item sidenav--item">
-                                <div class="sidenav__color--circle" data-color=""></div>
-                                <div class="confirm_item">
-                                    <img src="/images/icon/confirm_color_icon.svg" width="10" height="10"
-                                        alt="Confirm Icon" />
-                                </div>
+                        </div>
+                        <div class="sidenav__lague--item sidenav--item" data-language="jp">
+                            <img loading="lazy" width="40" height="29" src="/images/icon/japan_flag.svg" alt="Japan Flag" />
+                            <div class="confirm_item">
+                                <img src="/images/icon/confirm_color_icon.svg" width="10" height="10" alt="Confirm Icon" />
+                            </div>
+                        </div>
+                        <div class="sidenav__lague--item sidenav--item" data-language="en">
+                            <img loading="lazy" width="40" height="29" src="/images/icon/eng_flag.svg" alt="England Flag" />
+                            <div class="confirm_item">
+                                <img src="/images/icon/confirm_color_icon.svg" width="10" height="10" alt="Confirm Icon" />
+                            </div>
+                        </div>
+                        <div class="sidenav__lague--item sidenav--item" data-language="cn">
+                            <img loading="lazy" width="40" height="29" src="/images/icon/china_flag.svg" alt="China Flag" />
+                            <div class="confirm_item">
+                                <img src="/images/icon/confirm_color_icon.svg" width="10" height="10" alt="Confirm Icon" />
                             </div>
                         </div>
                     </div>
-                    <div class="sidenav__cnt" id="side_langue">
-                        <div class="sidenav__lague--list">
-                            <div class="sidenav__lague--item sidenav--item active" data-language="vi">
-                                <img loading="lazy" width="40" height="29" src="/images/icon/viet_flag.svg"
-                                    alt="Viet Nam Flag" />
-                                <div class="confirm_item">
-                                    <img src="/images/icon/confirm_color_icon.svg" width="10" height="10"
-                                        alt="Confirm Icon" />
-                                </div>
-                            </div>
-                            <div class="sidenav__lague--item sidenav--item" data-language="kr">
-                                <img loading="lazy" width="40" height="29" src="/images/icon/korea_flag.svg"
-                                    alt="Korea Flag" />
-                                <div class="confirm_item">
-                                    <img src="/images/icon/confirm_color_icon.svg" width="10" height="10"
-                                        alt="Confirm Icon" />
-                                </div>
-                            </div>
-                            <div class="sidenav__lague--item sidenav--item" data-language="jp">
-                                <img loading="lazy" width="40" height="29" src="/images/icon/japan_flag.svg"
-                                    alt="Japan Flag" />
-                                <div class="confirm_item">
-                                    <img src="/images/icon/confirm_color_icon.svg" width="10" height="10"
-                                        alt="Confirm Icon" />
-                                </div>
-                            </div>
-                            <div class="sidenav__lague--item sidenav--item" data-language="en">
-                                <img loading="lazy" width="40" height="29" src="/images/icon/eng_flag.svg"
-                                    alt="England Flag" />
-                                <div class="confirm_item">
-                                    <img src="/images/icon/confirm_color_icon.svg" width="10" height="10"
-                                        alt="Confirm Icon" />
-                                </div>
-                            </div>
-                            <div class="sidenav__lague--item sidenav--item" data-language="cn">
-                                <img loading="lazy" width="40" height="29" src="/images/icon/china_flag.svg"
-                                    alt="China Flag" />
-                                <div class="confirm_item">
-                                    <img src="/images/icon/confirm_color_icon.svg" width="10" height="10"
-                                        alt="Confirm Icon" />
-                                </div>
-                            </div>
-                        </div>
+                </div>
+                <div class="sidenav__cnt" id="side_layout">
+                    <div class="layout-head bg-white">
+                        <div class="layout-his"></div>
+                        <div class="layout-done close_sidenav">Xong</div>
                     </div>
-                    <div class="sidenav__cnt" id="side_layout">
-                        <div class="layout-head bg-white">
-                            <div class="layout-his">
-                            </div>
-                            <div class="layout-done close_sidenav">Xong</div>
-                        </div>
-                        <div class="layout-body">
-                            <div class="box_sidebar box_themmuccv">
-                                <div class="container_show">
-                                    <div class="content_show_tmuc" id="content_show_tmuc">
-                                        <div class="container_show_tmuc">
-                                            <div class="box_show_mucchuasd">
-                                                <div class="title_mucchuasd">
-                                                    <p class="txt_mucchuasd">Mục chưa sử dụng</p>
-                                                </div>
-                                                <div class="show_mucchuasd">
-                                                    <!-- <div class="mucchuasd muc_chua_sd " id="muc_chua_sd">
-                                                        <img src="/images/icon/ic_cv_warning.svg"
-                                                            class="icon_warning_muc cursor_pt" alt="icon cảnh báo" />
-                                                        <div class="mucchuasd_frame">
-                                                            <p class="txt_frame_mcsd">
-                                                                {item?.name}
-                                                            </p>
-                                                        </div>
-                                                        <img src="/images/icon/ic_cv_plus.svg"
-                                                            class="icon_add_muc cursor_pt" alt="icon thêm mục"
-                                                            data-blockmain="menu" data-blockkey={item?.id} />
-                                                    </div> -->
-                                                </div>
+                    <div class="layout-body">
+                        <div class="box_sidebar box_themmuccv">
+                            <div class="container_show">
+                                <div class="content_show_tmuc" id="content_show_tmuc">
+                                    <div class="container_show_tmuc">
+                                        <div class="box_show_mucchuasd">
+                                            <div class="title_mucchuasd">
+                                                <p class="txt_mucchuasd">Mục chưa sử dụng</p>
                                             </div>
-                                            <div class="box_show_mucdasd">
-                                                <div class="title_mucdasd">
-                                                    <p class="txt_mucdasd">Mục đã sử dụng</p>
-                                                </div>
-                                                <div class="show_mucdasd">
-                                                </div>
+                                            <div class="show_mucchuasd"></div>
+                                        </div>
+                                        <div class="box_show_mucdasd">
+                                            <div class="title_mucdasd">
+                                                <p class="txt_mucdasd">Mục đã sử dụng</p>
                                             </div>
+                                            <div class="show_mucdasd"></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="sidenav__cnt" id="side_space">
-                        <div class="space_title">
-                            Điều chỉnh khoảng cách đề tối ưu không gian CV
-                        </div>
-                        <div class="space_act">
-                            <div class="space_act--item">
-                                <img src="/images/icon/A.svg" width="14" height="12" alt="Cỡ chữ" />
-                                <div class="form_range">
-                                    <div class="minus_range_btn">
-                                        <img src="/images/icon/minus-small.svg" width="20" height="20"
-                                            alt="Minus Small Icon" />
-                                    </div>
-                                    <input class="range_space_input font_size" type="range" min="16" max="18" step="0.1"
-                                        value="17" />
-                                    <div class="plus_range_btn">
-                                        <img src="/images/icon/plus-small.svg" width="20" height="20"
-                                            alt="Plus Small Icon" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="space_act--item">
-                                <img src="/images/icon/T.svg" width="17.5" height="15" alt="Giãn dòng" />
-                                <div class="form_range">
-                                    <div class="minus_range_btn">
-                                        <img src="/images/icon/minus-small.svg" width="20" height="20"
-                                            alt="Minus Small Icon" />
-                                    </div>
-                                    <input class="range_space_input line_height" type="range" min="1.2" max="1.7"
-                                        step="0.05" value="1.45" />
-                                    <div class="plus_range_btn">
-                                        <img src="/images/icon/plus-small.svg" width="20" height="20"
-                                            alt="Plus Small Icon" />
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- <div class="space_act--item">
-                            <img src="/images/icon/Range.svg" width="18" height="18" />
+                </div>
+                <div class="sidenav__cnt" id="side_space">
+                    <div class="space_title">
+                        Điều chỉnh khoảng cách đề tối ưu không gian CV
+                    </div>
+                    <div class="space_act">
+                        <div class="space_act--item">
+                            <img src="/images/icon/A.svg" width="14" height="12" alt="Cỡ chữ" />
                             <div class="form_range">
                                 <div class="minus_range_btn">
-                                    <img src="/images/icon/minus-small.svg" width="20" height="20"
-                                        alt="Minus Small Icon" />
+                                    <img src="/images/icon/minus-small.svg" width="20" height="20" alt="Minus Small Icon" />
                                 </div>
-                                <input class="range_space_input width_height" type="range" min="0" max="100"
-                                    step="10" value="50" />
+                                <input class="range_space_input font_size" type="range" min="16" max="18" step="0.1" value="17" />
                                 <div class="plus_range_btn">
-                                    <img src="/images/icon/plus-small.svg" width="20" height="20"
-                                        alt="Plus Small Icon" />
+                                    <img src="/images/icon/plus-small.svg" width="20" height="20" alt="Plus Small Icon" />
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
+                        <div class="space_act--item">
+                            <img src="/images/icon/T.svg" width="17.5" height="15" alt="Giãn dòng" />
+                            <div class="form_range">
+                                <div class="minus_range_btn">
+                                    <img src="/images/icon/minus-small.svg" width="20" height="20" alt="Minus Small Icon" />
+                                </div>
+                                <input class="range_space_input line_height" type="range" min="1.2" max="1.7" step="0.05" value="1.45" />
+                                <div class="plus_range_btn">
+                                    <img src="/images/icon/plus-small.svg" width="20" height="20" alt="Plus Small Icon" />
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="sidenav__toggle">
-                        <div class="sidenav__toggle__cnt">
-                            <svg width="22.07" height="20.63" viewBox="0 0 24 22" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M1.28639 10.2933L10.6197 0.959994C10.877 0.709909 11.2481 0.616051 11.5933 0.713777C11.9385 0.811502 12.2053 1.08596 12.2933 1.43378C12.3812 1.78159 12.277 2.14991 12.0197 2.39999L4.40639 9.99999H22.0464C22.5987 9.99999 23.0464 10.4477 23.0464 11C23.0464 11.5523 22.5987 12 22.0464 12H4.41972L12.0197 19.6C12.2103 19.7857 12.3178 20.0405 12.3178 20.3067C12.3178 20.5728 12.2103 20.8276 12.0197 21.0133C11.8359 21.2062 11.5794 21.3127 11.3131 21.3067C11.0476 21.3079 10.7929 21.2022 10.6064 21.0133L1.27305 11.68C0.883114 11.2896 0.883114 10.6571 1.27305 10.2667L1.28639 10.2933Z"
-                                    fill="white" />
+                </div>
+                <div class="sidenav__toggle">
+                    <div class="sidenav__toggle__cnt">
+                        <svg width="22.07" height="20.63" viewBox="0 0 24 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M1.28639 10.2933L10.6197 0.959994C10.877 0.709909 11.2481 0.616051 11.5933 0.713777C11.9385 0.811502 12.2053 1.08596 12.2933 1.43378C12.3812 1.78159 12.277 2.14991 12.0197 2.39999L4.40639 9.99999H22.0464C22.5987 9.99999 23.0464 10.4477 23.0464 11C23.0464 11.5523 22.5987 12 22.0464 12H4.41972L12.0197 19.6C12.2103 19.7857 12.3178 20.0405 12.3178 20.3067C12.3178 20.5728 12.2103 20.8276 12.0197 21.0133C11.8359 21.2062 11.5794 21.3127 11.3131 21.3067C11.0476 21.3079 10.7929 21.2022 10.6064 21.0133L1.27305 11.68C0.883114 11.2896 0.883114 10.6571 1.27305 10.2667L1.28639 10.2933Z"
+                                fill="white" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <link id="cv-css" rel="stylesheet" type="text/css">
+            <link id="color-stylesheet" rel="stylesheet" href="">
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet" type="text/css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css" as="style">
+            <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" as="style">
+            <link rel="preload" href="/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+            <link rel="preload" href="/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+            <div class="cv-body " id="m_pagetaocv">
+                <div class="container container_taocv_parent">
+                    <div class="cv-body-content container_taocv">
+                        <div class="container_content_taocv">
+                            <div class="box_content_taocv">
+                                <input type="hidden" id="cvid" name="cvid" value />
+                                <p id="checktext" style='display: none;'></p>
+                                <div class="page_cv"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cv-range">
+                <div class="cv-range-less" id="zoom-out">
+                    <img width="20" height="20" src="/images/icon/minus-small.svg" alt="Minus Icon" />
+                </div>
+                <div class="cv-range-percent">100%</div>
+                <input type="range" class="cv-range-input" min="10" max="150" />
+                <div class="cv-range-more" id="zoom-in">
+                    <img width="20" height="20" src="/images/icon/plus-small.svg" alt="Plus Icon" />
+                </div>
+            </div>
+        </div>
+
+        <div class="modal_view" id="modal_view">
+            <div class="modal-cont-top">
+                <div class="modal-act">
+                    <div class="modal-act-title">
+                        <img src="/images/icon/mdi_eye.svg" width="28" height="28" alt="White Eye Icon" /> Preview mode
+                    </div>
+                    <div class="modal-act-range">
+                        <div class="modal-minus-btn view-btn-minus">
+                            <svg width="20" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6.6499 10L14.9832 10" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <div class="modal-percent-range view-btn-percent">100%</div>
+                        <div class="modal-plus-btn view-btn-plus">
+                            <svg width="20" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10.8166 5.83331V14.1666M6.6499 9.99998H14.9832" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
                         </div>
                     </div>
+                    <button class="modal-act-close">
+                        <img src="/images/icon/close_view_modal.svg" width="28" height="28" alt="Close Modal Icon" />
+                    </button>
                 </div>
-                <link id="cv-css" rel="stylesheet" type="text/css">
-                <link id="color-stylesheet" rel="stylesheet" href="">
-                <!-- <link rel="preload" href="/images/cv/no_avatar_11zon.webp" as="images"> -->
-                </link>
-                <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css"
-                    rel="stylesheet" type="text/css">
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css"
-                    as="style">
-                <link rel="stylesheet"
-                    href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"
-                    as="style">
-                <link rel="preload" href="/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
-                <link rel="preload" href="/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
-                <div class="cv-body " id="m_pagetaocv">
-                    <div class="container container_taocv_parent">
-                        <div class="cv-body-content container_taocv">
-                            <div class="container_content_taocv">
-                                <div class="box_content_taocv">
-                                    <input type="hidden" id="cvid" name="cvid" value />
-                                    <p id="checktext" style='display: none;'>
-                                        bà nguyễn vũ anh linh
-                                        <br />
-                                        giám đốc kinh doanh tại công ty tnhh mốt quốc tế cv365
-                                        <br />
-                                        0987 541 258
-                                    </p>
-                                    <div class="page_cv"></div>
-                                </div>
-                            </div>
-                            <!-- <img src="/images/img/CV_Copywirter-01_1.png" alt="Mẫu CV" /> -->
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cv-range">
-                    <div class="cv-range-less" id="zoom-out">
-                        <img width="20" height="20" src="/images/icon/minus-small.svg" alt="Minus Icon" />
-                    </div>
-                    <div class="cv-range-percent">100%</div>
-                    <input type="range" class="cv-range-input" min="10" max="150" />
-                    <div class="cv-range-more" id="zoom-in">
-                        <img width="20" height="20" src="/images/icon/plus-small.svg" alt="Plus Icon" />
+                <div class="modal-cv">
+                    <div class="cv-view-detail">
+                        <img class="w-100 img_cv" src="" alt="Xem trước CV" />
                     </div>
                 </div>
             </div>
-
-            <div class="modal_view" id="modal_view">
-                <div class="modal-cont-top">
-                    <div class="modal-act">
-                        <div class="modal-act-title">
-                            <img src="/images/icon/mdi_eye.svg" width="28" height="28" alt="White Eye Icon" /> Preview
-                            mode
-                        </div>
-                        <!-- <button class="modal-act-color">
-                            <span> Đổi màu </span>
-                            <div class="modal-act-color--circle"></div>
-                            <div class="modal-act-color--label">
-                                <div class="color-label-list">
-                                    <div class="color-label-item active">
-                                        <span></span>
-                                        <div class="confirm_item">
-                                            <img src="/images/icon/confirm_color_icon.svg" width="10" height="10"
-                                                alt="Confirm Icon" />
-                                        </div>
-                                    </div>
-                                    <div class="color-label-item">
-                                        <span></span>
-                                        <div class="confirm_item">
-                                            <img src="/images/icon/confirm_color_icon.svg" width="10" height="10"
-                                                alt="Confirm Icon" />
-                                        </div>
-                                    </div>
-                                    <div class="color-label-item">
-                                        <span></span>
-                                        <div class="confirm_item">
-                                            <img src="/images/icon/confirm_color_icon.svg" width="10" height="10"
-                                                alt="Confirm Icon" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </button>
-                        <button class="modal-act-down">
-                            <img src="/images/icon/ic_baseline-download.svg" width="28" height="28" alt="White Down Icon" />
-                            Tải xuống
-                        </button> -->
-                        <div class="modal-act-range">
-                            <div class="modal-minus-btn view-btn-minus">
-                                <svg width="20" height="20" viewBox="0 0 21 20" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M6.6499 10L14.9832 10" stroke="white" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </div>
-                            <div class="modal-percent-range view-btn-percent">100%</div>
-                            <div class="modal-plus-btn view-btn-plus">
-                                <svg width="20" height="20" viewBox="0 0 21 20" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M10.8166 5.83331V14.1666M6.6499 9.99998H14.9832" stroke="white"
-                                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </div>
-                        </div>
-                        <button class="modal-act-close">
-                            <img src="/images/icon/close_view_modal.svg" width="28" height="28"
-                                alt="Close Modal Icon" />
-                        </button>
-                    </div>
-                    <div class="modal-cv">
-                        <div class="cv-view-detail">
-                            <img class="w-100 img_cv" src="" alt="Xem trước CV" />
-                        </div>
-                    </div>
+            <div class="modal-view-range-mb">
+                <div class="modal-minus-btn view-btn-minus-mb">
+                    <svg width="20" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5.85254 10.5L14.1859 10.5" stroke="#474747" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
                 </div>
-                <div class="modal-view-range-mb">
-                    <div class="modal-minus-btn view-btn-minus-mb">
-                        <svg width="20" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M5.85254 10.5L14.1859 10.5" stroke="#474747" stroke-width="1.5"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </div>
-                    <div class="modal-percent-range view-btn-percent-mb fs-4">100%</div>
-                    <div class="modal-plus-btn view-btn-plus-mb">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M10 5.83333V14.1667M5.83333 10H14.1667" stroke="#474747" stroke-width="1.5"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </div>
+                <div class="modal-percent-range view-btn-percent-mb fs-4">100%</div>
+                <div class="modal-plus-btn view-btn-plus-mb">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 5.83333V14.1667M5.83333 10H14.1667" stroke="#474747" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
                 </div>
             </div>
-            <!-- <div class="modal_down" id="modal_down">
-            <div class="modal_down_cnt">
-                <div class="modal_down_pop">
-                    <div class="modal_down_head">
-                        <div class="modal_down_tit">Tải CV của bạn</div>
-                        <img class="modal_down_cls" width="20" height="20" src="/images/icon/close_modal_down.svg"
-                            alt="Close Modal Down" />
-                    </div>
-                    <div class="modal_down_body">
-                        <div class="modal_down_act">
-                            <div class="modal_down_file">
-                                <input type="text" placeholder="UNTITLED" />
-                                <span>.pdf</span>
-                            </div>
-                            <button class="modal_down_btn">
-                                <img width="20" height="20" src="/images/icon/modal_down_icon.svg"
-                                    alt="Modal Down Icon" />
-                                Tải xuống
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal_down_access">
-                    <div class="d-flex justify-c align-c gap-4">
-                        <img width="20" height="20" src="/images/icon/modal_success_icon.svg" alt="Success Down Icon" />
-                        Tải xuống thành công
-                    </div>
-                </div>
-            </div>
-        </div> -->
+        </div>
 
-            <div class="modal_save" id="modal_save">
-                <div class="modal_save_cnt">
-                    <div class="modal_save_pop">
-                        <div class="modal_save_head">
-                            <div class="modal_save_tit">Lưu CV của bạn</div>
-                            <img class="modal_save_cls" width="20" height="20" src="/images/icon/close_modal_down.svg"
-                                alt="Close Modal Down" />
+        <div class="modal_refer" id="modal_refer">
+            <div class="modal_refer--body">
+                <div class="modal_refer--left">
+                    <div class="modal_render_head_mb">
+                        <div class="modal_render_head_mb_cnt">
+                            <div class="text-c color-white">Kỹ sư cơ khí</div>
+                            <img class="close_refer_modal" src="/images/icon/close_blue.svg" width="20" height="20" alt="Close Refer" />
                         </div>
-                        <div class="modal_save_body">
-                            <div class="modal_save_act">
-                                <div class="modal_save_file">
-                                    <input type="text" placeholder="UNTITLED" />
-                                    <span>.pdf</span>
-                                </div>
-                                <button class="modal_save_btn">
-                                    <img width="20" height="20" src="/images/icon/modal_down_icon.svg"
-                                        alt="Modal Down Icon" />
-                                    Tải xuống
+                    </div>
+                    <div class="modal_refer_cnt">
+                        <div class="modal_refer_cv">
+                            <img class="w-100 img_cv_refer" loading="lazy" src="" alt="Mẫu CV" />
+                        </div>
+                    </div>
+                    <div class="modal_refer_range--btn">
+                        <div class="modal_refer_use bg-main fs-7 color-white" data-url="">
+                            Dùng CV này
+                        </div>
+                        <div class="modal_refer_range d-flex align-c">
+                            <div class="range_refer_minus">
+                                <img src="/images/icon/shape_minus.svg" width="20" height="20" alt="Minus Icon" />
+                            </div>
+                            <div class="range_refer_percent fs-4">100%</div>
+                            <div class="range_refer_plus">
+                                <img src="/images/icon/shape_plus.svg" width="20" height="20" alt="Plus Icon" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal_refer--right">
+                    <div class="modal_refer--right-mb">
+                        <div class="modal_refer--right-show d-flex flex-dr-c align-c gap-1">
+                            <img src="/images/icon/Arrow-Right-white.svg" width="24" height="24"
+                                alt="Show Modal Refer Icon" />
+                            <span class="color-white">Chọn CV mẫu</span>
+                        </div>
+                        <div class="modal_refer--right-cnt">
+                            <div class="modal_refer--head d-flex justify-b align-c mb-3">
+                                <span class="fs-5"> Mẫu CV tham khảo </span>
+                                <button class="close_refer_modal close_refer_pc">
+                                    <img src="/images/icon/Close_refer.svg" width="24" height="24"
+                                        alt="Close Modal Icon" />
                                 </button>
                             </div>
-                        </div>
-                    </div>
-                    <div class="modal_save_access">
-                        <div class="d-flex justify-c align-c gap-4">
-                            <img width="20" height="20" src="/images/icon/modal_success_icon.svg"
-                                alt="Success Down Icon" />
-                            Lưu thành công
+                            <div class="modal_refer--list">
+                                <% for (let i=0; i < 47; i++) { %>
+                                    <div class="cv_refer--item">
+                                        <input type="radio" name="cv-tham-khao" value="<%= i %>" id="<%= i %>" />
+                                        <label for="<%= i %>" data-img="" data-alias="" data-id="">Kỹ sư cơ khí</label>
+                                    </div>
+                                <% }; %>
+                            </div>
+                            <button class="modal_refer--btn" data-url="">Dùng CV này</button>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="modal_refer" id="modal_refer">
-                <div class="modal_refer--body">
-                    <div class="modal_refer--left">
-                        <div class="modal_render_head_mb">
-                            <div class="modal_render_head_mb_cnt">
-                                <div class="text-c color-white">Kỹ sư cơ khí</div>
-                                <img class="close_refer_modal" src="/images/icon/close_blue.svg" width="20" height="20"
-                                    alt="Close Refer" />
-                            </div>
+        <div class="modal_avar" id="modal_avar">
+            <div class="modal_avar_cnt">
+                <div class="modal_avar_box bg-white">
+                    <input id="avar_input" type="file" style="display: none" />
+                    <div class="modal_avar_head fw-500 text-c">
+                        <div class="modal_avar_restep">
+                            <img src="/images/icon/avar_restep.svg" width="20" height="20" alt="Restep Icon" />
                         </div>
-                        <div class="modal_refer_cnt">
-                            <div class="modal_refer_cv">
-                                <img class="w-100 img_cv_refer" loading="lazy" src="" alt="Mẫu CV" />
-                            </div>
-                        </div>
-                        <div class="modal_refer_range--btn">
-                            <div class="modal_refer_use bg-main fs-7 color-white" data-url="">
-                                Dùng CV này
-                            </div>
-                            <div class="modal_refer_range d-flex align-c">
-                                <div class="range_refer_minus">
-                                    <img src="/images/icon/shape_minus.svg" width="20" height="20" alt="Minus Icon" />
-                                </div>
-                                <div class="range_refer_percent fs-4">100%</div>
-                                <div class="range_refer_plus">
-                                    <img src="/images/icon/shape_plus.svg" width="20" height="20" alt="Plus Icon" />
-                                </div>
-                            </div>
+                        Tải ảnh của bạn lên
+                        <div class="modal_avar_close">
+                            <img src="/images/icon/Close_refer.svg" width="24" height="24" alt="Close Modal Icon" />
                         </div>
                     </div>
-                    <div class="modal_refer--right">
-                        <div class="modal_refer--right-mb">
-                            <div class="modal_refer--right-show d-flex flex-dr-c align-c gap-1">
-                                <img src="/images/icon/Arrow-Right-white.svg" width="24" height="24"
-                                    alt="Show Modal Refer Icon" />
-                                <span class="color-white">Chọn CV mẫu</span>
-                            </div>
-                            <div class="modal_refer--right-cnt">
-                                <div class="modal_refer--head d-flex justify-b align-c mb-3">
-                                    <span class="fs-5"> Mẫu CV tham khảo </span>
-                                    <button class="close_refer_modal close_refer_pc">
-                                        <img src="/images/icon/Close_refer.svg" width="24" height="24"
-                                            alt="Close Modal Icon" />
-                                    </button>
+                    <div class="modal_avar_body">
+                        <div class="modal_avar_step-1 step-item active">
+                            <div class="modal_avar_step-btn">
+                                <div class="modal_avar_img">
+                                    <img loading="lazy" width="37" height="37" src="/images/icon/avarmodal.svg" alt="Avar Show" />
                                 </div>
-                                <div class="modal_refer--list">
-                                    <% for (let i=0; i < 47; i++) { %>
-                                        <div class="cv_refer--item">
-                                            <input type="radio" name="cv-tham-khao" value="<%= i %>" id="<%= i %>" />
-                                            <label for="<%= i %>" data-img="" data-alias="" data-id="">Kỹ sư cơ
-                                                khí</label>
-                                        </div>
-                                        <% }; %>
+                                <div class="modal_avar_mess d-flex flex-dr-c justify-b color-white">
+                                    <span class="fs-7"> Bấm vào đây để chọn ảnh </span>
+                                    <span class="fs-8 fst-italic"> (hoặc tải ảnh lên) </span>
                                 </div>
-                                <button class="modal_refer--btn" data-url="">Dùng CV này</button>
                             </div>
+                        </div>
+                        <div class="modal_avar_step-2 step-item">
+                            <div class="modal_avar_tit d-flex align-c">
+                                <span class="fs-7 color-main fw-500"> Tải ảnh lên </span>
+                                <div class="linebar"></div>
+                            </div>
+                            <div class="modal_avar_upload d-flex gap-3">
+                                <div class="upload_avar_btn">
+                                    <div class="choose_type_upload_avar">
+                                        <img src="/images/icon/uploadimgcv.svg" width="40" height="40" alt="Upload Button" />
+                                    </div>
+                                </div>
+                                <div class="upload_tit d-flex flex-dr-c justify-b">
+                                    <span class="fs-7 fw-500">Tải ảnh lên</span>
+                                    <span class="fs-8 fst-italic">(Ảnh không được quá 5Mb)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal_avar_step-3 step-item">
+                            <div class="edit_upload_avar">
+                                <div id="croppie_container"></div>
+                            </div>
+                            <div class="edit_style d-flex align-c">
+                                <div class="edit_rotate">
+                                    <img width="20" height="20" src="/images/icon/rotate_icon.svg" alt="Rotate Icon" />
+                                </div>
+                                <div class="edit_zoom d-flex">
+                                    <input type="range" class="custom_zoom_avar" />
+                                </div>
+                            </div>
+                            <div class="edit_action d-flex justify-b">
+                                <div class="edit_change_img">Đổi hình khác</div>
+                                <button class="save_crop_button" id="save_cropped_image">Tải lên</button>
+                            </div>
+                            <div id="cropped_result" style="text-align: center; margin-top: 20px"></div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="modal_avar" id="modal_avar">
-                <div class="modal_avar_cnt">
-                    <div class="modal_avar_box bg-white">
-                        <input id="avar_input" type="file" style="display: none" />
-                        <div class="modal_avar_head fw-500 text-c">
-                            <div class="modal_avar_restep">
-                                <img src="/images/icon/avar_restep.svg" width="20" height="20" alt="Restep Icon" />
-                            </div>
-                            Tải ảnh của bạn lên
-                            <div class="modal_avar_close">
-                                <img src="/images/icon/Close_refer.svg" width="24" height="24" alt="Close Modal Icon" />
-                            </div>
-                        </div>
-                        <div class="modal_avar_body">
-                            <div class="modal_avar_step-1 step-item active">
-                                <div class="modal_avar_step-btn">
-                                    <div class="modal_avar_img">
-                                        <img loading="lazy" width="37" height="37" src="/images/icon/avarmodal.svg"
-                                            alt="Avar Show" />
-                                    </div>
-                                    <div class="modal_avar_mess d-flex flex-dr-c justify-b color-white">
-                                        <span class="fs-7"> Bấm vào đây để chọn ảnh </span>
-                                        <span class="fs-8 fst-italic"> (hoặc tải ảnh lên) </span>
-                                    </div>
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
+        <div id="boxRes" class="lightbox" data-select2-id="boxRes" style="display: none;">
+            <div class="box-a">
+                <span class="exit" title="Thoát" onclick="exit()">
+                    ×
+                </span>
+                <div class="r6">
+                    <div class="ir">
+                        <p class="tb">
+                            Bạn cần có tài khoản để lưu thông tin CV, ĐĂNG KÝ NGAY!
+                        </p>
+                        <form id="form_res" novalidate="true" method="post">
+                            <input type="hidden" name="link" defaultValue="https://timviec365.vn/tao-cv-hoa-hoc-sinh-hoc/mau-06" />
+                            <input type="hidden" name="birthday" id="birthday" defaultValue="24/11/1996" />
+                            <div class="row">
+                                <div class="iw5" style="width: 100%;">
+                                    <label style="color: #000;">
+                                        Tài khoản đăng nhập
+                                        <span style="color: red;">*</span>
+                                    </label>
+                                    <input type="text" id="email" defaultValue="" placeholder="Vui lòng nhập email" name="email" />
                                 </div>
                             </div>
-                            <div class="modal_avar_step-2 step-item">
-                                <div class="modal_avar_tit d-flex align-c">
-                                    <span class="fs-7 color-main fw-500"> Tải ảnh lên </span>
-                                    <div class="linebar"></div>
+                            <div class="row">
+                                <div class="iw5">
+                                    <label style="color: #000;">
+                                        Số điện thoại
+                                        <span style="color: red;">*</span>
+                                    </label>
+                                    <input type="text" id="mobile" defaultValue="" placeholder="Vui lòng nhập số điện thoại" name="phoneTK" />
                                 </div>
-                                <div class="modal_avar_upload d-flex gap-3">
-                                    <div class="upload_avar_btn">
-                                        <div class="choose_type_upload_avar">
-                                            <img src="/images/icon/uploadimgcv.svg" width="40" height="40"
-                                                alt="Upload Button" />
-                                        </div>
-                                    </div>
-                                    <div class="upload_tit d-flex flex-dr-c justify-b">
-                                        <span class="fs-7 fw-500">Tải ảnh lên</span>
-                                        <span class="fs-8 fst-italic">(Ảnh không được quá
-                                            5Mb)</span>
-                                    </div>
-                                </div>
-                                <div class="modal_avar_tit d-flex align-c">
-                                    <span class="fs-7 color-main fw-500"> Ảnh của bạn </span>
-                                    <div class="linebar"></div>
-                                </div>
-                                <div class="upload_avar_libra">
-                                    <!-- <div class="avar_libra_item">
-                                        <img loading="lazy"  src="/images/img/avar_libra.png" width="70" height="70" alt="Avar Library" />
-                                    </div> -->
+                                <div class="iw5">
+                                    <label style="color: #000;">
+                                        Họ và tên <span style="color: red;">*</span>
+                                    </label>
+                                    <input type="text" id="name" defaultValue="" placeholder="Họ và tên" name="userName" />
                                 </div>
                             </div>
-                            <div class="modal_avar_step-3 step-item">
-                                <div class="edit_upload_avar">
-                                    <div id="croppie_container"></div>
+                            <div class="row">
+                                <div class="iw5">
+                                    <label style="color: #000;">
+                                        Mật khẩu <span style="color: red;">*</span>
+                                    </label>
+                                    <input type="password" id="password" defaultValue="" placeholder="Vui lòng nhập mật khẩu *" name="password" autocomplete="password" />
                                 </div>
-                                <div class="edit_style d-flex align-c">
-                                    <div class="edit_rotate">
-                                        <img width="20" height="20" src="/images/icon/rotate_icon.svg"
-                                            alt="Rotate Icon" />
-                                    </div>
-                                    <div class="edit_zoom d-flex">
-                                        <input type="range" class="custom_zoom_avar" />
-                                    </div>
+                                <div class="iw5">
+                                    <label style="color: #000">
+                                        Xác nhận lại mật khẩu
+                                        <span style="color: red">*</span>
+                                    </label>
+                                    <input type="password" id="confirm_password" defaultValue="" placeholder="Xác nhận lại mật khẩu *" name="repass" autocomplete="repass" />
                                 </div>
-                                <!-- <div class="edit_filter">
-                                <div class="edit_filter_tit text-c fs-7 fw-500">BỘ LỌC</div>
-                                <div class="edit_filter_list">
-                                    <div class="filter_list">
-                                        <div class="filter_item active" data-target-filter="none">
-                                            <img class="filter_img_pre" />
-                                            <div class="filter_tit_pre">NORMAL</div>
-                                        </div>
-                                        <div class="filter_item" data-target-filter="grayscale(1)">
-                                            <img class="filter_img_pre" style="filter: grayscale(1)" />
-                                            <div class="filter_tit_pre">GRAYSCALE</div>
-                                        </div>
-                                        <div class="filter_item" data-target-filter="sepia(1)">
-                                            <img class="filter_img_pre" style="filter: sepia(1)" />
-                                            <div class="filter_tit_pre">SEPIA</div>
-                                        </div>
-                                        <div class="filter_item" data-target-filter="brightness(0.5)">
-                                            <img class="filter_img_pre" style="filter: brightness(0.5)" />
-                                            <div class="filter_tit_pre">BRIGHTNESS</div>
-                                        </div>
-                                        <div class="filter_item"
-                                            data-target-filter="sepia(0.5) contrast(1.5) brightness(0.9)">
-                                            <img class="filter_img_pre"
-                                                style="filter: sepia(0.5) contrast(1.5) brightness(0.9)" />
-                                            <div class="filter_tit_pre">Brownie</div>
-                                        </div>
-                                        <div class="filter_item"
-                                            data-target-filter="saturate(0.8) brightness(0.9) contrast(1.2) sepia(0.2) hue-rotate(-10deg) grayscale(0.1) noise(0.3)">
-                                            <img class="filter_img_pre" style="
-                          filter: saturate(0.8) brightness(0.9) contrast(1.2)
-                            sepia(0.2) hue-rotate(-10deg) grayscale(0.1)
-                            noise(0.3);
-                        " />
-                                            <div class="filter_tit_pre">Noise</div>
-                                        </div>
-                                        <div class="filter_item"
-                                            data-target-filter="saturate(1.4) brightness(0.9) contrast(1.4) hue-rotate(-10deg)">
-                                            <img class="filter_img_pre" style="
-                          filter: saturate(1.4) brightness(0.9) contrast(1.4)
-                            hue-rotate(-10deg);
-                        " />
-                                            <div class="filter_tit_pre">Kodachrome</div>
-                                        </div>
-                                        <div class="filter_item"
-                                            data-target-filter="saturate(1.2) contrast(1.3) sepia(0.1) hue-rotate(90deg)">
-                                            <img class="filter_img_pre" style="
-                          filter: saturate(1.2) contrast(1.3) sepia(0.1)
-                            hue-rotate(90deg);
-                        " />
-                                            <div class="filter_tit_pre">Technicolor</div>
-                                        </div>
-                                        <div class="filter_item"
-                                            data-target-filter="contrast(0.8) brightness(1.1) sepia(0.2) grayscale(0.1)">
-                                            <img class="filter_img_pre" style="
-                          filter: contrast(0.8) brightness(1.1) sepia(0.2)
-                            grayscale(0.1);
-                        " />
-                                            <div class="filter_tit_pre">Polaroid</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
-                                <div class="edit_action d-flex justify-b">
-                                    <div class="edit_change_img">Đổi hình khác</div>
-                                    <button class="save_crop_button" id="save_cropped_image">Tải
-                                        lên</button>
-                                </div>
-                                <div id="cropped_result" style="text-align: center; margin-top: 20px"></div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                            <div class="row">
+                                <div class="iw5">
+                                    <label style="color: #000">
+                                        Ngành nghề mong muốn
+                                        <span style="color: red">*</span>
+                                    </label>
+                                    <div class="el-select2">
+                                        <select multiple name="candiCateIDCateID" id="cate-dk" style="width: 100%;" data-select2-id="cate-dk" tabIndex="-1" class="select2-hidden-accessible" aria-hidden="true">
+                                            <% if (cateList && cateList.length> 0) { %>
+                                                <% cateList.forEach(function(item) { %>
+                                                    <option value="<%= item.cat_id %>" data-select2-id="">
+                                                        <%= item.cat_name %>
+                                                    </option>
+                                                <% }); %>
+                                            <% } %>
+                                        </select>
+                                    </div>
+                                </div>
 
-            <!-- <link rel="stylesheet" href="/css/page_css/select2.css"> -->
-            <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
-            <div id="boxRes" class="lightbox" data-select2-id="boxRes" style="display: none;">
-                <div class="box-a">
-                    <span class="exit" title="Thoát" onclick="exit()">
-                        ×
-                    </span>
-                    <div class="r6">
-                        <div class="ir">
-                            <p class="tb">
-                                Bạn cần có tài khoản để lưu thông tin CV, ĐĂNG KÝ NGAY!
-                            </p>
-                            <form id="form_res" noValidate={true} method="post">
-                                <input type="hidden" name="link"
-                                    defaultValue="https://timviec365.vn/tao-cv-hoa-hoc-sinh-hoc/mau-06" />
-                                <input type="hidden" name="birthday" id="birthday" defaultValue="24/11/1996" />
-                                <div class="row">
-                                    <div class="iw5" style="width: 100%;">
-                                        <label style="color: #000;">
-                                            Tài khoản đăng nhập
-                                            <span style="color: red;">*</span>
-                                        </label>
-                                        <input type="text" id="email" defaultValue=""
-                                            placeholder="Vui lòng nhập email" name="email" />
+                                <div class="iw5">
+                                    <label style="color: #000">
+                                        Tên công việc <span style="color: red">*</span>
+                                    </label>
+                                    <div>
+                                        <input type="text" defaultValue="" placeholder="Tên công việc *" id="cv_title" name="candiTitle" disabled style='user-select: none; -moz-user-select: none; -webkit-user-select: none; -ms-user-select: none; cursor: not-allowed; background-color: #dee2e6;' />
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="iw5">
-                                        <label style="color: #000;">
-                                            Số điện thoại
-                                            <span style="color: red;">*</span>
-                                        </label>
-                                        <input type="text" id="mobile" defaultValue=""
-                                            placeholder="Vui lòng nhập số điện thoại" name="phoneTK" />
-                                    </div>
-                                    <div class="iw5">
-                                        <label style="color: #000;">
-                                            Họ và tên <span style="color: red;">*</span>
-                                        </label>
-                                        <input type="text" id="name" defaultValue="" placeholder="Họ và tên"
-                                            name="userName" />
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="iw5">
-                                        <label style="color: #000;">
-                                            Mật khẩu <span style="color: red;">*</span>
-                                        </label>
-                                        <input type="password" id="password" defaultValue=""
-                                            placeholder="Vui lòng nhập mật khẩu *" name="password"
-                                            autocomplete="password" />
-                                    </div>
-                                    <div class="iw5">
-                                        <label style="color: #000">
-                                            Xác nhận lại mật khẩu
-                                            <span style="color: red">*</span>
-                                        </label>
-                                        <input type="password" id="confirm_password" defaultValue=""
-                                            placeholder="Xác nhận lại mật khẩu *" name="repass" autocomplete="repass" />
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="iw5">
-                                        <label style="color: #000">
-                                            Ngành nghề mong muốn
-                                            <span style="color: red">*</span>
-                                        </label>
-                                        <div class="el-select2">
-                                            <select multiple name="candiCateIDCateID" id="cate-dk" style="width: 100%;"
-                                                data-select2-id="cate-dk" tabIndex="-1"
-                                                class="select2-hidden-accessible" aria-hidden="true">
-                                                <% if (cateList && cateList.length> 0) { %>
-                                                    <% cateList.forEach(function(item) { %>
-                                                        <option value="<%= item.cat_id %>" data-select2-id="">
-                                                            <%= item.cat_name %>
-                                                        </option>
-                                                    <% }); %>
-                                                <% } %>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="iw5">
-                                        <label style="color: #000">
-                                            Tên công việc <span style="color: red">*</span>
-                                        </label>
-                                        <div>
-                                            <input type="text" defaultValue="" placeholder="Tên công việc *"
-                                                id="cv_title" name="candiTitle" disabled
-                                                style='user-select: none;
-                                            -moz-user-select: none; -webkit-user-select: none; -ms-user-select: none; cursor: not-allowed; background-color: #dee2e6;' />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="iw5">
-                                        <label style="color: #000">
-                                            Nơi làm việc mong muốn
-                                            <span style="color: red">*</span>
-                                        </label>
-                                        <div class="el-select2">
-                                            <select multiple name="candiCityID[]" id="city-selector"
-                                                style="width: 100%;" data-select2-id="city-selector" tabIndex="-1"
-                                                class="select2-hidden-accessible" aria-hidden="true">
-                                                <!-- <option value={city.value}>{city.label}</option> -->
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="iw5">
-                                        <label style="color: #000">
-                                            Quận, huyện mong muốn
-                                            <span style="color: red">*</span>
-                                        </label>
-                                        <div class="el-select2">
-                                            <select multiple name="qh_id" id="district-selector" style="width: 100%;"
-                                                data-select2-id="district-selector" tabIndex="-1"
-                                                class="select2-hidden-accessible" aria-hidden="true">
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <input type="submit" id="dk-btn" class="btn bg-blue" value="Đăng ký" name="dk-btnnn" />
-                            </form>
-                        </div>
-                    </div>
-                    <!-- <div class="r4">
-                        <div class="ir">
-                            <div class="bdn">
-                                <p style="margin-right: 10px;">Bạn đã có tài khoản?</p>
-                                <button id="login_button" onclick="login()">
-                                    Đăng nhập ngay
-                                </button>
                             </div>
-                        </div>
-                    </div> -->
-                    <div class="clr"></div>
+                            <div class="row">
+                                <div class="iw5">
+                                    <label style="color: #000">
+                                        Nơi làm việc mong muốn
+                                        <span style="color: red">*</span>
+                                    </label>
+                                    <div class="el-select2">
+                                        <select multiple name="candiCityID[]" id="city-selector" style="width: 100%;" data-select2-id="city-selector" tabIndex="-1" class="select2-hidden-accessible" aria-hidden="true">
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="iw5">
+                                    <label style="color: #000">
+                                        Quận, huyện mong muốn
+                                        <span style="color: red">*</span>
+                                    </label>
+                                    <div class="el-select2">
+                                        <select multiple name="qh_id" id="district-selector" style="width: 100%;" data-select2-id="district-selector" tabIndex="-1" class="select2-hidden-accessible" aria-hidden="true">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="submit" id="dk-btn" class="btn bg-blue" value="Đăng ký" name="dk-btnnn" />
+                        </form>
+                    </div>
+                </div>
+                <div class="clr"></div>
+            </div>
+        </div>
+        <div id="loadjs"></div>
+        <div class="v-modal" style="z-index: 2009; display: none;"></div>
+        <div tabindex="-1" class="el-message-box__wrapper" style="z-index: 2010; display: none;">
+            <div class="el-message-box">
+                <div class="el-message-box__header">
+                    <div class="el-message-box__title">Thông báo</div>
+                </div>
+                <div class="el-message-box__content">
+                    <div class="el-message-box__status el-icon-warning"></div>
+                    <div class="el-message-box__message" style="margin-left: 50px;"></div>
+                </div>
+                <div class="el-message-box__btns">
+                    <button type="button" onclick="hide()" class="el-button el-button--default">
+                        <span>Hủy bỏ</span>
+                    </button>
                 </div>
             </div>
-            <div id="loadjs"></div>
-            <!-- <link rel="stylesheet" href="/css/login_form.css">
-        <div class="modal_login" id="modal_login" style="display: none;">
-            <div class="cover-modal"></div>
-            <div class="login-form login">
-                <img class="close-button" src="/images/icon/Close_refer.svg" alt="Đóng modal">
-                <div class="img-logo">
-                    <img src="/images/logo/logo.svg" alt="topcv1s">
-                </div>
-                <div class="login-title">Đăng nhập</div>
-                <form action="" id="login-form" method="post">
-                    <div class="alert alert-danger" id="alert-login-failure" role="alert" style="display: none;"></div>
-                    <div class="form-group">
-                        <input class="form-control" type="text" placeholder="Số điện thoại" required="required"
-                            name="phone" autocomplete="username">
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control password" type="password" placeholder="Mật khẩu" required="required"
-                            name="password" autocomplete="current-password">
-                    </div>
-                    <div class="password-action-group">
-                        <div class="form-group toggle-password">
-                            <label class="toggle-password-label">
-                                <input data-target=".password" data-toggle="password" type="checkbox">
-                                Hiển thị mật khẩu
-                            </label>
-                        </div>
-                    </div>
-                    <button class="btn btn-reg" id="login-submit" type="submit">Đăng nhập</button>
-                </form>
-                <div class="sign-up-suggestion">
-                    Chưa có tài khoản?
-                    <a class="sign-up-button" href="/dang-ky-ung-vien">Đăng ký</a>
-                </div>
-            </div>
-        </div> -->
-            <div class="v-modal" style="z-index: 2009; display: none;"></div>
-            <div tabindex="-1" class="el-message-box__wrapper" style="z-index: 2010; display: none;">
-                <div class="el-message-box">
-                    <div class="el-message-box__header">
-                        <div class="el-message-box__title">Thông báo</div>
-                    </div>
-                    <div class="el-message-box__content">
-                        <div class="el-message-box__status el-icon-warning"></div>
-                        <div class="el-message-box__message" style="margin-left: 50px;"></div>
-                    </div>
-                    <div class="el-message-box__btns">
-                        <button type="button" onclick="hide()" class="el-button el-button--default">
-                            <span>Hủy bỏ</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js" defer></script>
-            <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" defer></script>
-            <script src="/js/cv/function.js"></script>
-            <script src="/js/cv/trang-chu-cv.js"></script>
-            <script src="/js/login_form.js" defer></script>
-            
-            
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" defer></script>
+    <script src="/js/cv/function.js"></script>
+    <script src="/js/cv/trang-chu-cv.js"></script>
+    <script src="/js/login_form.js" defer></script>
 </body>
 
 </html>
