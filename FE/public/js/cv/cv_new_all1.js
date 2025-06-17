@@ -18,16 +18,10 @@ function removeVietnameseTonesTime(str) {
   str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U");
   str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y");
   str = str.replace(/Đ/g, "D");
-  // Some system encode vietnamese combining accent as individual utf-8 characters
-  // Một vài bộ encode coi các dấu mũ, dấu chữ như một kí tự riêng biệt nên thêm hai dòng này
   str = str.replace(/\u0300|\u0301|\u0303|\u0309|\u0323/g, ""); // ̀ ́ ̃ ̉ ̣  huyền, sắc, ngã, hỏi, nặng
   str = str.replace(/\u02C6|\u0306|\u031B/g, ""); // ˆ ̆ ̛  Â, Ê, Ă, Ơ, Ư
-  // Remove extra spaces
-  // Bỏ các khoảng trắng liền nhau
   str = str.replace(/ + /g, " ");
   str = str.trim();
-  // Remove punctuations
-  // Bỏ dấu câu, kí tự đặc biệt
   str = str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|,|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|`|{|}|\||\\/g, " ");
   str = str.replace(/tu|nam/g, '');
   str = str.replace('den', '-');
@@ -45,8 +39,6 @@ function check_cv_begin() {
     let show_error = 0
     let name_box = []
     let selector = $('#form-cv .cvo-block [contenteditable="true"]:not(.box-title,.block-title):visible')
-    // selector.removeClass('err_cv_content')
-    // console.log(">>> Check selector: ", selector);
     if (selector.length) {
       selector.each(function () {
         let title = ''
@@ -72,21 +64,8 @@ function check_cv_begin() {
             ) {
               error = 1
             } else {
-              //replaceStr(content_suggest.content));
-              //replaceStr($(this).html()));
             }
           }
-
-          // if ($(this).attr("id") === "cv-profile-birthday") {
-          //   if (
-          //     (replaceStr(content_suggest.content[0].birthday) == replaceStr($(this).html()) && replaceStr(content_suggest.content[0].birthday) != '')
-          //   ) {
-          //     error = 2
-          //   } else {
-          //     //replaceStr(content_suggest.content));
-          //     //replaceStr($(this).html()));
-          //   }
-          // }
 
           if ($(this).attr("id") === "cv-profile-phone") {
             if (
@@ -94,8 +73,6 @@ function check_cv_begin() {
             ) {
               error = 1
             } else {
-              //replaceStr(content_suggest.content));
-              //replaceStr($(this).html()));
             }
           }
 
@@ -105,8 +82,6 @@ function check_cv_begin() {
             ) {
               error = 1
             } else {
-              //replaceStr(content_suggest.content));
-              //replaceStr($(this).html()));
             }
           }
 
@@ -118,7 +93,6 @@ function check_cv_begin() {
               ) {
                 error = 1
               } else {
-                // console.log(replaceStr($(this).html().toLowerCase()))
               }
             })
           }
@@ -130,8 +104,6 @@ function check_cv_begin() {
               ) {
                 error = 1
               } else {
-                //replaceStr(item.content));
-                //replaceStr($(this).html()));
               }
             })
           }
@@ -143,8 +115,6 @@ function check_cv_begin() {
               ) {
                 error = 1
               } else {
-                //replaceStr(item.content));
-                //replaceStr($(this).html()));
               }
             })
           }
@@ -157,8 +127,6 @@ function check_cv_begin() {
               ) {
                 error = 1;
               } else {
-                //replaceStr(item.content));
-                //replaceStr($(this).html()));
               }
             })
           }
@@ -171,7 +139,6 @@ function check_cv_begin() {
               ) {
                 error = 1
               } else {
-                // console.log(replaceStr($(this).html().toLowerCase()))
               }
             })
           }
@@ -183,7 +150,7 @@ function check_cv_begin() {
             }
           }
 
-          if (error == 2){
+          if (error == 2) {
             $(this).addClass('err_cv_content')
           }
         }
@@ -195,8 +162,6 @@ function check_cv_begin() {
 }
 
 function check_cv_content() {
-  //Check thay đổi nội dung với các cv tạo mới
-  // if ($('#issave').val() == 0) {
   let show_error = 0
   let name_box = []
   let selector = $('#form-cv .cvo-block [contenteditable="true"]:not(.box-title,.block-title):visible')
@@ -224,11 +189,8 @@ function check_cv_content() {
             (replaceStr(content_suggest.content.content) == replaceStr($(this).html()) && replaceStr(content_suggest.content.content) != '') ||
             replaceStr($(this).html().toLowerCase()).includes('cv365')
           ) {
-            // console.log('loooix nef')
             error = 1
           } else {
-            //replaceStr(content_suggest.content));
-            //replaceStr($(this).html()));
           }
         }
 
@@ -238,8 +200,6 @@ function check_cv_content() {
           ) {
             error = 1
           } else {
-            //replaceStr(content_suggest.content));
-            //replaceStr($(this).html()));
           }
         }
 
@@ -249,8 +209,6 @@ function check_cv_content() {
           ) {
             error = 1
           } else {
-            //replaceStr(content_suggest.content));
-            //replaceStr($(this).html()));
           }
         }
 
@@ -262,7 +220,6 @@ function check_cv_content() {
             ) {
               error = 1
             } else {
-              // console.log(replaceStr($(this).html().toLowerCase()))
             }
           })
         }
@@ -270,7 +227,6 @@ function check_cv_content() {
         if ($(this).hasClass('exp-content') && $(this).parents('.cvo-block').attr('id') != 'block05') {
           if (!$(`#${content_suggest.id}`).is(':hidden')) {
             content_suggest.content.forEach((item) => {
-              // console.log(">>> Check content", replaceStr($(this).html()));
               if (
                 (replaceStr(item.content) == replaceStr($(this).html()) && replaceStr(item.content) != '') ||
                 replaceStr($(this).html().toLowerCase()).includes('cv365')
@@ -278,8 +234,6 @@ function check_cv_content() {
                 error = 1
                 console.log(error, 'error')
               } else {
-                //replaceStr(item.content));
-                //replaceStr($(this).html()));
               }
             })
           }
@@ -293,8 +247,6 @@ function check_cv_content() {
             ) {
               error = 1
             } else {
-              //replaceStr(item.content));
-              //replaceStr($(this).html()));
             }
           })
         }
@@ -307,8 +259,6 @@ function check_cv_content() {
             ) {
               error = 1
             } else {
-              //replaceStr(item.content));
-              //replaceStr($(this).html()));
             }
           })
         }
@@ -321,33 +271,19 @@ function check_cv_content() {
             ) {
               error = 1
             } else {
-              //replaceStr(item.content));
-              //replaceStr($(this).html()));
             }
           })
         }
 
-        // console.log(error, name_box)
-        // console.log('dfasdfadsfasd')
-        //check tên kỹ năng,
-        // else if ($(this).hasClass('skill-name')) {
-        //    content_suggest);
-        //     content_suggest.content.forEach(item => {
-        //         if (replaceStr(item.name) == replaceStr($(this).html()) && replaceStr(item.name) != '') {
-        //             error = 1;
-        //         }
-        //     });
-        // }
         if (error == 1) {
           $(this).addClass('err_cv_content')
           show_error = 1
           if (name_box.indexOf(title) == -1 && title) {
             name_box.push(title)
-            // console.log(name_box)
           }
         }
 
-        if (error == 2){
+        if (error == 2) {
           $(this).addClass('err_cv_content')
         }
       }
@@ -359,19 +295,16 @@ function check_cv_content() {
   let empty = 0
   $('#form-cv .cvo-block:not(.box-contact) [contenteditable="true"]:visible').each(function () {
     if (!$(this).parents('#block05').length) {
-      //Không check mục thông tin thêm
       if ($(this).text() == '') {
         empty = 1
         if ($(this).parents('.cvo-block').find('.block-title').length) {
           let title = $(this).parents('.cvo-block').find('.block-title').text()
           if (name_box.indexOf(title) == -1 && title) {
-            // console.log('123123')
             name_box.push(title)
           }
         } else if ($(this).parents('.cvo-block').find('.box-title').length) {
           let title = $(this).parents('.cvo-block').find('.box-title').text()
           if (name_box.indexOf(title) == -1 && title) {
-            // console.log('123123')
             name_box.push(title)
           }
         }
@@ -379,17 +312,14 @@ function check_cv_content() {
       }
     }
   })
-  // console.log('show_error', show_error)
   if (empty == 1) {
     show_error = 1
   }
 
-  // Check box kinh nghiệm
   let errTime = '';
   let selectorTimeExp = $('#block02 .experience .exp-date[contenteditable="true"]:visible')
   let forcusTime;
   selectorTimeExp.each(function () {
-    // $(this).removeClass('err_cv_content');
     let errTimeTmp = '';
     let timeInput = removeVietnameseTonesTime($(this).text());
     if (!timeInput.trim()) {
@@ -401,7 +331,6 @@ function check_cv_content() {
         errTimeTmp = 'Thời gian làm việc phải có định dạng năm hoặc tháng/năm. Thời gian kết thúc có thể là "nay", "hiện tại". Thời gian bắt đầu và thời gian kết thúc cách nhau bởi dấu "-" hoặc "đến"'
       } else {
         if (inputArr.length == 2) {
-          //Người dùng nhập dạng ngày tháng
           if (inputArr[0].includes('/')) {
             let arrTimeStart = inputArr[0].split('/');
             if (arrTimeStart.length == 3) {
@@ -460,9 +389,7 @@ function check_cv_content() {
 
   })
 
-  // console.log('show_error', show_error)
   if (show_error == 1 || errTime) {
-    // console.log('34werqwerqw')
     var msg = '';
     msg += name_box.length ? `Bạn chưa sửa các mục: <span style="color:red; text-transform: uppercase">${name_box.join(', ')}</span><br>` : ''
     msg += errTime ? `<span style="color:red">${errTime.toUpperCase()}</span>` : ''
@@ -476,50 +403,12 @@ function check_cv_content() {
     return false
   }
 
-  // console.log('34werqwerqw')
   return true
 }
 
 function render_item_suggest(content) {
   return `<p class="item_suggest">${content}</p>`
 }
-
-// const focusFunc = (e) => {
-// 	console.log('heheheh')
-// 	try {
-// 		$('.suggesting').removeClass('suggesting')
-// 		let box_id
-// 		if ($(this).parents('.block').length) {
-// 			box_id = $(this).parents('.block').attr('id')
-// 		} else if ($(this).parents('.cvo-block').length) {
-// 			box_id = $(this).parents('.cvo-block').attr('id')
-// 		}
-// 		$(`.item_suggest`).removeClass('active')
-// 		$('#hoso-scroll').css('height', $('#page-cv').height())
-// 		$('#hoso-scroll .box_suggest .box_suggest_content').css('max-height', 'calc(100vh - 90px)')
-// 		console.log($(this))
-// 		boxOffset = $(this).offset()
-// 		boxSuggestTop = $(`.item_suggest[data-id="${box_id}"]`)[0].offsetTop
-// 		console.log(boxOffset)
-// 		console.log(boxSuggestTop)
-// 		$('#hoso-scroll .box_suggest .box_suggest_content').animate({ scrollTop: boxSuggestTop - 150 }, 'fast')
-// 		$(`.item_suggest[data-id="${box_id}"]`).addClass('active')
-// 		if ($('.container_sidebar_left').length && !$('.container_sidebar_left').hasClass('rutgon') && $(window).width() > 1200) {
-// 			if (!$('#hdanvietcv').hasClass('active')) {
-// 				let list_hide = $('#hdanvietcv').attr('data-hide')
-// 				list_hide = list_hide ? list_hide : ''
-// 				list_hide = list_hide.split(',')
-// 				if (list_hide.indexOf(box_id) == -1) {
-// 					$('#hdanvietcv').click()
-// 					$('#hdanvietcv').attr('data-active', box_id)
-// 				}
-// 			}
-// 		}
-// 		console.log('done')
-// 	} catch (error) {
-// 		console.log(error)
-// 	}
-// }
 
 $(document)
   .on(
@@ -539,15 +428,7 @@ $(document)
         "max-height",
         "calc(100vh - 90px)"
       );
-      // console.log($(this))
       boxOffset = $(this).offset();
-      // boxSuggestTop = $(`.item_suggest[data-id="${box_id}"]`)[0].offsetTop;
-      // console.log(boxOffset)
-      // console.log(boxSuggestTop)
-      // $("#hoso-scroll .box_suggest .box_suggest_content").animate(
-      //   { scrollTop: boxSuggestTop - 150 },
-      //   "fast"
-      // );
       $(`.item_suggest[data-id="${box_id}"]`).addClass("active");
       if (
         $(".container_sidebar_left").length &&
@@ -564,12 +445,6 @@ $(document)
           }
         }
       }
-      // console.log('done')
-      // focusFunc(e)
-      // return false;
-      // if ($('#page-cv').attr('data-type') == 'classic') {
-      //     $('#hdanvietcv').click();
-      // }
     }
   )
   .on('click', '.cvo-block [contenteditable="true"]', function () {
@@ -580,7 +455,6 @@ $(document)
   })
   .on('input', '.cvo-block:not(.box-contact,.box-skills) [contenteditable="true"]', function () {
     if (!$(this).parents('#block03').length && !$(this).parents('#block05').length) {
-      //Không check mục hoạt động, dự án tham gia, thông tin thêm
       if ($(this).text() == '') {
         $(this).addClass('err_cv_content')
       } else {
@@ -610,36 +484,10 @@ $(document)
       $(this).parents('.item_suggest').addClass('active')
     }
   })
-  // .on('focus', '.box-content,.exp-subtitle, .exp-content,.exp-date,.exp-title', function() {
-  //     let selector = $(this);
-  //     if ($('#page-cv').attr('data-type') == 'mobile') {
-  //         if ($(this).parents('#page-cv').length) {
-  //             $('#page-cv').css('zoom', '1.2');
-  //             setTimeout(function() {
-  //                 selector[0].scrollIntoView({
-  //                     behavior: "smooth", // or "auto" or "instant"
-  //                     block: "center" // or "end"
-  //                 });
-  //             }, 0)
-  //             setTimeout(function() {
-  //                 $('#cvo-toolbar').removeClass('fx');
-  //             }, 300);
-  //         } else {
-  //             $(document).css('zoom', '1');
-  //         }
-  //         return false;
-  //     }
-  // })
   .on('focus', '.box-title,.block-title', function () {
     let selector = $(this)
     if ($('#page-cv').attr('data-type') == 'mobile') {
       $('#page-cv').css('zoom', '1')
-      /* setTimeout(function () {
-        selector[0].scrollIntoView({
-          behavior: 'smooth', // or "auto" or "instant"
-          block: 'center', // or "end"
-        })
-      }, 0) */
       setTimeout(function () {
         $('#cvo-toolbar').removeClass('fx')
       }, 300)
@@ -669,19 +517,15 @@ $(document)
   })
 
 function changeLayoutCv() {
-  // return false;
 
   let layout = detectLayout()
-  // console.log(">>> Check layput: ", layout)
   if (layout.cv_all != '.all') {
     console.log('falseeeee')
     return false
   }
-  // console.log('Phân trang')
   let cv_all = layout.cv_all,
     cv_left = layout.cv_left,
     cv_right = layout.cv_right;
-  //$(`#form-cv #cv-main`).length);
   if (!$("#form-cv .cv_page").length) {
     let htmlTop =
       $("#cv-top")[0] && !$("#cv-top").parents(".all").length
@@ -693,11 +537,10 @@ function changeLayoutCv() {
       htmlContent = $(`#form-cv ${cv_all}`)[0].outerHTML;
     //htmlTop);
     let html = `<div class="cv_page" data-page="1">
-                              ${htmlTop}
-                              ${htmlContent}
-                              ${htmlFooter}
-                          </div>`
-    // $('#cv-top,#form-cv .footer,#form-cv .all').remove()
+        ${htmlTop}
+        ${htmlContent}
+        ${htmlFooter}
+    </div>`
     const pathname = window.location.pathname
 
     $('#form-cv').prepend(html)
@@ -707,30 +550,10 @@ function changeLayoutCv() {
     if (pathname === '/tao-cv-it/mau-02') {
       $('.cv_page > #cv-top').remove()
       $('#form-cv > .page_more').remove()
-      // console.log($('#form-cv > .page_more').length)
       $('#form-cv > #cv-main')[1] ? $('#form-cv > #cv-main')[1].remove() : ''
     }
   }
-  let page = $('.cv_page').length
-  // console.log(">>> Check page: ", page);
   adjustPage(1)
-  // if (window.location.href.includes('/site/xem_cv_nodejs')) {
-  //     // let page = $('.cv_page').attr('data-page')
-  // } else {
-  //     const LIST = ['/tao-cv-thu-vien/mau-09']
-  //     console.log(window.location.pathname)
-  //     if (LIST.includes(window.location.pathname)) {
-  //         // console.log('adjust Page 1', page)
-  //         adjustPage(page)
-  //     } else if (window.location.pathname === '/tao-cv-mau-thiet-ke-sang-tao/cv-xin-viec-td-ionet') {
-  //         // console.log('adjust Page 2', page)
-  //         adjustPage(1)
-  //     } else {
-  //         // console.log('adjust Page 3', page)
-  //         adjustPage(page)
-  //             // deleteBox(window.location.pathname)
-  //     }
-  // }
 }
 
 function detectLayout() {
@@ -753,13 +576,11 @@ function detectLayout() {
       cv_right = '#cv-content'
     }
   }
-  // console.log(cv_all)
   let cv_left_offset = $(cv_left).first().offset(),
     cv_left_height = $(cv_left).first().outerHeight(true),
     cv_right_offset = $(cv_right).first().offset(),
     cv_right_height = $(cv_right).first().outerHeight(true)
   if (cv_left_offset && cv_right_offset) {
-    //Check layout dạng dọc thì không phân trang
     if (cv_left_offset.top < cv_right_offset.top) {
       if (cv_right_offset.top - cv_left_height > 0) {
         cv_all = ''
@@ -770,100 +591,16 @@ function detectLayout() {
       }
     }
   } else {
-    // console.log('test4')
     cv_all = ''
   }
-  // console.log(cv_all)
   let data = {
     cv_all: cv_all,
     cv_left: cv_left,
     cv_right: cv_right,
   }
-  //data);
-  // console.log(data)
   return data
 }
 var height_page = 1122
-
-//Xóa các box thừa
-// function deleteBox(path) {
-//   // console.log('chayj nef', path)
-//   if (
-//     path == '/tao-cv-ky-thuat-ung-dung/mau-11' ||
-//     path == '/tao-cv-ke-toan/mau-14' ||
-//     path == '/tao-cv-my-pham-thoi-trang-trang-suc/mau-12' ||
-//     path == '/tao-cv-thiet-ke-my-thuat/mau-10' ||
-//     path == '/tao-cv-sinh-vien-moi-ra-truong/mau-12'
-//   ) {
-//     //Xóa các box thừa
-//     if ($('div#box07').length > 1) {
-//       for (let i = 1; i < $('div#box07').length; i++) {
-//         $('div#box07')[i] ? $('div#box07')[i].remove() : ''
-//       }
-//     }
-//     if ($('div#box06').length > 1) {
-//       for (let i = 1; i < $('div#box06').length; i++) {
-//         $('div#box06')[i] ? $('div#box06')[i].remove() : ''
-//       }
-//     }
-//     if ($('div#box05').length > 1) {
-//       for (let i = 1; i < $('div#box05').length; i++) {
-//         $('div#box05')[i] ? $('div#box05')[i].remove() : ''
-//       }
-//     }
-//     if ($('div#box04').length > 1) {
-//       for (let i = 1; i < $('div#box04').length; i++) {
-//         $('div#box04')[i] ? $('div#box05')[i].remove() : ''
-//       }
-//     }
-//     if ($('div#box03').length > 1) {
-//       for (let i = 1; i < $('div#box03').length; i++) {
-//         $('div#box03')[i] ? $('div#box03')[i].remove() : ''
-//       }
-//     }
-//     if ($('div#box02').length > 1) {
-//       for (let i = 1; i < $('div#box02').length; i++) {
-//         $('div#box02')[i] ? $('div#box02')[i].remove() : ''
-//       }
-//     }
-//     if ($('div#box01').length > 1) {
-//       for (let i = 1; i < $('div#box01').length; i++) {
-//         $('div#box01')[i] ? $('div#box01')[i].remove() : ''
-//       }
-//     }
-//     if (document.querySelectorAll('#block02').length > 1) {
-//       for (let i = 1; i < document.querySelectorAll('#block02').length; i++) {
-//         document.querySelectorAll('#block02')[i].remove()
-//       }
-//     }
-//     if (document.querySelectorAll('#block01').length > 1) {
-//       for (let i = 1; i < document.querySelectorAll('#block01').length; i++) {
-//         document.querySelectorAll('#block01')[i].remove()
-//       }
-//     }
-//     if (document.querySelectorAll('#block03').length > 1) {
-//       for (let i = 1; i < document.querySelectorAll('#block03').length; i++) {
-//         document.querySelectorAll('#block03')[i].remove()
-//       }
-//     }
-//     if (document.querySelectorAll('#block04').length > 1) {
-//       for (let i = 1; i < document.querySelectorAll('#block04').length; i++) {
-//         document.querySelectorAll('#block04')[i].remove()
-//       }
-//     }
-//     if (document.querySelectorAll('#block05').length > 1) {
-//       for (let i = 1; i < document.querySelectorAll('#block05').length; i++) {
-//         document.querySelectorAll('#block05')[i].remove()
-//       }
-//     }
-//     //ẩn footer thừa màn chỉnh sửa
-//     if (document.querySelectorAll('.footer').length > 1) {
-//       for (let i = 1; i < document.querySelectorAll('.footer').length; i++) {
-//         document.querySelectorAll('.footer')[i].remove()
-//       }
-//     }
-//   }
-// }
 
 function adjustPage(page = 1) {
   if ($('.page_cv').attr('data-nopagi') == 1) {
@@ -877,29 +614,12 @@ function adjustPage(page = 1) {
     const pathname = window.location.pathname
     removeLineHeight()
 
-    // console.log(page, 'page')
     if (pathname !== '/tao-cv-quan-tri-kinh-doanh/mau-15') {
-      // console.log('paginationCv', page)
       paginationCv(page)
     } else {
-      // console.log('paginationCv xxx', page)
       paginationCv(2)
     }
 
-    // adjustLineHeight1()
-    // adjustLineHeightVer2()
-    // adjustLineHeight()
-
-    // adjustLineHeight()
-    //Thêm marginTop  cho các block0x
-    /* for (let index = 1; index <= 5; index++) {
-      if (document.querySelector(`#block0${index}`)) {
-        document.querySelector(`#block0${index}`).style.marginTop = `15px`
-      }
-      console.log('done')
-    } */
-
-    //Thêm watermark
     addWatermark()
   }
 }
@@ -911,13 +631,8 @@ function paginationCv(page) {
       cv_left = layout.cv_left,
       cv_right = layout.cv_right
     if (cv_all != '.all') {
-      // return false;
     }
-    // console.log('cv_all:', cv_all);
-    // console.log('cv_left:', cv_left);
-    // console.log('cv_right:', cv_right);
     cv_all = '.all'
-    // console.log(page)
 
     let page_current = $(`#form-cv .cv_page[data-page="${page}"]`)
     page_current.removeClass('height_page')
@@ -929,7 +644,6 @@ function paginationCv(page) {
       htmlFooter = page_current.find('.footer')[0] ? page_current.find('.footer')[0].outerHTML : '',
       htmlContent = page_current.find(`${cv_all}`)[0] ? page_current.find(`${cv_all}`)[0].outerHTML : ''
 
-    // console.log(page)
     let heightFreeLeft = 0,
       heightFreeRight = 0
     let nextPage = $(`#form-cv .cv_page[data-page="${Number(page) + 1}"]`),
@@ -943,8 +657,6 @@ function paginationCv(page) {
       heightAll = page_current.outerHeight(true)
       nextPage = $(`#form-cv .cv_page[data-page="${Number(page) + 1}"]`)
       prevPage = $(`#form-cv .cv_page[data-page="${Number(page) - 1}"]`)
-      // console.log('Page:', page, heightAll);
-      // console.log(nextPage.length)
       heightTop =
         page_current.find('#cv-top')[0] && !page_current.find('#cv-top').parents(`${cv_all}`).length ?
           page_current.find('#cv-top').outerHeight(true) :
@@ -974,7 +686,6 @@ function paginationCv(page) {
       }
       if (heightFooter && nextPage.length) {
         page_current.find('.footer').remove()
-        // htmlNextPage.push(htmlFooter);
         if (!nextPage.find('.footer').length) {
           nextPage.append(htmlFooter)
         }
@@ -986,7 +697,6 @@ function paginationCv(page) {
         nextPage.find(`${cv_right} .block.cvo-block `).remove('')
         nextPage.find(`${cv_left} #sortable`).html('')
       }
-      //Đẩy nội dung xuống page tiếp theo
       if (heightAll > height_page) {
         page_current.find(`${cv_right}`).hide()
 
@@ -996,7 +706,6 @@ function paginationCv(page) {
           if (page_current.outerHeight(true) > height_page) {
             let html = page_current.find(`${cv_left} .block`).eq(i)[0].outerHTML
             page_current.find(`${cv_left} .block`).eq(i).remove()
-            // htmlBox.push(html);
             nextPage.find(`${cv_left} #sortable`).prepend(html)
           }
         }
@@ -1058,7 +767,6 @@ function paginationCv(page) {
 
       page_current.find(`${cv_left}`).show()
       page_current.find(`${cv_right}`).hide()
-      //Đẩy nội dung từ page sau lên page hiện tại
       heightFreeLeft = height_page - page_current.outerHeight(true)
       if (heightFreeLeft > 0) {
         let boxLength = nextPage.find(`${cv_left} .block`).length
@@ -1068,7 +776,6 @@ function paginationCv(page) {
           if (boxHeight < heightFreeLeft) {
             let html = nextPage.find(`${cv_left} .block`).eq(i)[0].outerHTML
             page_current.find(`${cv_left} #sortable`).append(html)
-            // console.log(html);
             listBoxRemove.push(i)
             heightFreeLeft -= boxHeight
           } else {
@@ -1083,13 +790,11 @@ function paginationCv(page) {
       page_current.find(`${cv_left}`).hide()
       page_current.find(`${cv_right}`).show()
       heightFreeRight = height_page - page_current.outerHeight(true)
-      // console.log(nextPage.length, 'asdsads')
       if (heightFreeRight > 0 && nextPage.length > 0) {
         let blockLength = nextPage.find(`${cv_right} .cvo-block`).length
         let listBlockDelete = []
 
         for (let i = 0; i <= blockLength - 1; i++) {
-          // console.log(i)
           let html = nextPage.find(`${cv_right} .cvo-block`).eq(i)[0] ? nextPage.find(`${cv_right} .cvo-block`).eq(i)[0].outerHTML : i
           let id = nextPage.find(`${cv_right} .cvo-block`).eq(i).attr('id')
           let head = nextPage.find(`${cv_right} .cvo-block`).eq(i).find('.head')[0] ?
@@ -1175,10 +880,6 @@ function paginationCv(page) {
             page_current.find('.footer').remove()
           }
         }
-        // if (Number(page) + 1 == $('cv_page').length) {
-        //     nextPage.remove()
-        //     nextPage = ''
-        // }
       }
 
       page_current.addClass('height_page')
@@ -1215,10 +916,6 @@ function paginationCv(page) {
 
     //Thêm padding để full trang
     heightFooter = page_current.find('.footer')[0] ? page_current.find('.footer').outerHeight(true) : 0
-    // while (!page_current.length && page >= 0) {
-    //   page_current = $(`#form-cv .cv_page[data-page="${Number(page) - 1}"]`)
-    //   page--
-    // }
 
     if (heightFreeLeft > heightFreeRight) {
       page_current.find(`${cv_left}`).css('padding-bottom', heightFreeLeft - 20)
@@ -1253,7 +950,6 @@ function merge_block(block) {
 
 function removeLineHeight() {
   let totalPage = $('.cv_page').length
-  // console.log(totalPage, 'removeLineHeight')
   for (let page = 1; page <= totalPage; page++) {
     $('.cv_page .all').removeAttr('style')
     $('.cv_page .sortable .block:visible').removeAttr('style')
@@ -1285,8 +981,6 @@ function adjustLineHeight() {
     }
     heightFreeLeft -= marginForAll
     heightFreeRight -= marginForAll
-    //`left: ${heightFreeLeft}`);
-    //`right: ${heightFreeRight}`);
     curentPage.find('.all').css('padding-top', marginForAll)
     if (heightFreeLeft < 200) {
       let marginForBox = heightFreeLeft * 0.5
@@ -1301,7 +995,6 @@ function adjustLineHeight() {
       if (pathname == '/tao-cv-my-pham-thoi-trang-trang-suc/mau-12') {
         curentPage.find('.sortable .block .box-content').css('margin-top', '10px')
       } else {
-        // console.log(marginForContent, blockLength)
         curentPage.find('.sortable .block .box-content').css('margin-top', marginForContent / blockLength)
       }
     }
@@ -1313,7 +1006,6 @@ function adjustLineHeight() {
       curentPage.find('.sort_block .cvo-block').css('margin-top', marginForBox / blockLength)
 
       //Thêm margin cho các box con
-
       let contentLength = curentPage.find('.sort_block .cvo-block .ctbx.experience').length
       curentPage.find('.sort_block .cvo-block .ctbx.experience').css('margin-top', marginForContent / contentLength)
     }
@@ -1324,7 +1016,6 @@ function adjustLineHeight() {
 function adjustLineHeight1() {
   let totalPage = $('.cv_page').length
   let lastPage = $(`.cv_page[data-page="${totalPage}"]`)
-  // console.log(totalPage, 'adjustLineHeight1')
   lastPage.find('#cv-content').removeAttr('style')
   lastPage.find('#cv-main').removeAttr('style')
 
@@ -1369,7 +1060,6 @@ function adjustLineHeight1() {
         freeHeightRight += Number(marginBottom)
       })
     }
-    // currentPage.addClass('height_page');
   }
   if (lastPageHeightLeft <= 200 && lastPageHeightRight <= 200 && freeHeightLeft >= lastPageHeightLeft && freeHeightRight >= lastPageHeightRight) {
     let beforeLastPage = $(`.cv_page[data-page="${totalPage - 1}"]`)
@@ -1401,17 +1091,6 @@ function adjustLineHeight1() {
       $(this).css('margin-bottom', marginBottomAdjust)
     })
 
-    // for (let page = 1; page < totalPage; page++) {
-    //     let currentPage = $(`.cv_page[data-page="${page}"]`);
-    //     $('.cv_page .cvo-block:visible').each(function() {
-    //         let marginTop = $(this).css('margin-top').replace('px', '');
-    //         let marginBottom = $(this).css('margin-bottom').replace('px', '');
-    //         let marginTopAdjust = (marginTop / freeHeight) * (freeHeight - lastPageHeight),
-    //             marginBottomAdjust = (marginBottom / freeHeight) * (freeHeight - lastPageHeight);
-    //         $(this).css('margin-top', marginTopAdjust);
-    //         $(this).css('margin-bottom', marginBottomAdjust);
-    //     })
-    // }
   }
   paginationCv(page)
 }
@@ -1419,7 +1098,6 @@ function adjustLineHeight1() {
 function adjustLineHeightVer2() {
   let totalPage = $('.cv_page').length
   let lastPage = $(`.cv_page[data-page="${totalPage}"]`)
-  // console.log(totalPage, 'adjustLineHeight1')
   lastPage.find('#cv-content').removeAttr('style')
   lastPage.find('#cv-main').removeAttr('style')
 
@@ -1463,10 +1141,7 @@ function adjustLineHeightVer2() {
         freeHeightRight += Number(marginTop)
         freeHeightRight += Number(marginBottom)
       })
-      // Lấy danh sách tất cả các phần tử phù hợp với selector
-      // let elm = document.querySelectorAll('#cv-content .cvo-block.ui-sortable-handle')
     }
-    // currentPage.addClass('height_page');
   }
   if (lastPageHeightLeft <= 200 && lastPageHeightRight <= 200 && freeHeightLeft >= lastPageHeightLeft && freeHeightRight >= lastPageHeightRight) {
     let beforeLastPage = $(`.cv_page[data-page="${totalPage - 1}"]`)
@@ -1497,18 +1172,6 @@ function adjustLineHeightVer2() {
       $(this).css('margin-top', marginTopAdjust)
       $(this).css('margin-bottom', marginBottomAdjust)
     })
-
-    // for (let page = 1; page < totalPage; page++) {
-    //     let currentPage = $(`.cv_page[data-page="${page}"]`);
-    //     $('.cv_page .cvo-block:visible').each(function() {
-    //         let marginTop = $(this).css('margin-top').replace('px', '');
-    //         let marginBottom = $(this).css('margin-bottom').replace('px', '');
-    //         let marginTopAdjust = (marginTop / freeHeight) * (freeHeight - lastPageHeight),
-    //             marginBottomAdjust = (marginBottom / freeHeight) * (freeHeight - lastPageHeight);
-    //         $(this).css('margin-top', marginTopAdjust);
-    //         $(this).css('margin-bottom', marginBottomAdjust);
-    //     })
-    // }
   }
   paginationCv(1)
 }
@@ -1587,7 +1250,6 @@ $(document)
       $('.change_background .box_change_bg').hide()
       $('.change_background .box_preview').show()
     } else {
-      unChangeBackgroundCv();
       $('.change_background').hide()
       // window.alert('Bạn chưa chọn ảnh nền')
     }
@@ -1645,11 +1307,9 @@ $(document)
     $('.change_background .box_select_img,.change_background .box_select_img .box_try_ai').show()
   })
   .on('click', '.pop_change_background .box_preview .btn_apply_bg', function () {
-    let url_image = $('.change_background .box_preview').attr('data-img')
     $('.change_background .box_select_img').attr('data-ai', 0)
     $('.change_background .box_select_img .box_try_ai,.change_background .box_select_img').show()
     $('.change_background .box_change_bg,.change_background').hide()
-    changeBackgroundCv(url_image)
   })
   .on('click', '.pop_change_background .upload_file_bg', function () {
     $('#inp_bg_file').click()
@@ -1691,189 +1351,6 @@ $(document)
       })
     }
   })
-
-function changeBackgroundCv(url_image) {
-  if (url_image) {
-    let url_full = `https://storage.timviec365.vn/timviec365${url_image}`
-    $('#form-cv').attr('data-background', url_image)
-    $('#form-cv').css('background', 'unset')
-
-    if ($('#form-cv .cv_page').length) {
-      $('#form-cv .cv_page').css('background', `url(${url_full})`).css('background-size', 'cover').css('background-position', 'center')
-    } else {
-      $('#form-cv').css('background', `url(${url_full})`).css('background-size', 'cover').css('background-position', 'center')
-    }
-    const pathname = window.location.pathname
-
-    if (pathname === '/tao-cv-ky-thuat-ung-dung/mau-11') {
-      $('#form-cv').css('background', `url(${url_full})`).css('background-size', 'cover').css('background-position', 'center')
-    }
-    // remove fake img after update background
-    $('#prof .icoweb').css('color', 'black')
-    $('.fake_img').hide()
-    $('#dm').css('background', 'none')
-
-    // old
-    // $(
-    // 	'#cv-top,.footer,.all,.exp-fake,.cvo-block,.head,#cv-profile-job,#cv-main,#cv-right,#cv-boxtitle,#cv-right h3,#cv-content .head div,#block01 .exp-date,div#prof,.cvo-block .cum,.ski,.tt-box1'
-    // ).css('background', 'none')
-
-    // // new
-
-    // $(
-    // 	'#cv-top,.footer,.all,.exp-fake,.cvo-block,.head,#cv-profile-job,#cv-main,#cv-right,#cv-boxtitle,#cv-right h3,#cv-content .head div,#block01 .exp-date,div#prof,.cvo-block, #cv-top h2'
-    // ).css('background', 'none')
-
-    // new 2 update 23.2.2024
-
-    //Sửa màu text cv sau khi thay đổi background
-    $('.ctbx .skill-name').css('color', '#000')
-    if (
-      pathname === '/tao-cv-khu-che-xuat-khu-cong-nghiep/mau-03' ||
-      pathname === '/tao-cv-tai-chinh/mau-11' ||
-      pathname === '/tao-cv-it/mau-03'
-    ) {
-      $('.box-content, .skill-name , #cv-boxtitle, #blocktitle').css('color', '#000')
-      $('.bar-exp').css('background')
-    } else {
-      $('div#cv-boxtitle,#blocktitle,.box-content,#cv-content .head div,#block01 .exp-date,.exp-content,.exp-subtitle').css('color', '#000')
-    }
-
-    if (
-      pathname === '/tao-cv-bao-hiem/mau-13' ||
-      pathname === '/tao-cv-phat-trien-thi-truong/mau-10' ||
-      pathname === '/tao-cv-it/mau-03'
-    ) {
-      $(
-        '#cv-top,.footer,.all,.exp-fake,.cvo-block,#cv-profile-job,#cv-main,#cv-right,#cv-boxtitle,#cv-right h3,#cv-content h3,#block01 .exp-date,div#prof,.cvo-block, #cv-top h2,.head,.exp-fake'
-      ).css('background', 'none')
-      $('.block-title').css('cssText', 'color: #000 !important')
-    } else {
-      $(
-        '#cv-top,.footer,.all,.exp-fake,.cvo-block,#cv-profile-job,#cv-main,#cv-right,#cv-boxtitle,#cv-right h3,#cv-content h3,#block01 .exp-date,div#prof,.cvo-block, #cv-top h2,#cv-content .head,.anh-ftt,#cvo-experience-blocktitle,.box-01,#box-hvt,#experience-table .ctbx,.cum,.tt-box1,.ski,.ct_bo,#boxtitle,#blocktitle,div#experience-table,.head,.exp-fake,.bg_cv,#cv-content,.box-info,.exp-fake,.icright5,.icright4,.icright3,.icright2,.icright1,.cumicc7,.cumicc6,.cumicc5,.cumicc4,.cumicc3,.cumicc2,.cumicc1'
-      ).css('background', 'none')
-    }
-    if (pathname === '/tao-cv-developer/it-phan-cung-mang-10') {
-      $('#cv-top h1,#cv-top h2').css('color', '#000')
-    }
-    if (pathname === '/tao-cv-truyen-thong/mau-14') {
-      $('.skill-name').css('color', '#000')
-    }
-    if (pathname === '/tao-cv-my-pham-thoi-trang-trang-suc/mau-10' || pathname === '/tao-cv-my-pham-thoi-trang-trang-suc/mau-21') {
-      $('.exp-content,.h3,.cum,.ski').css('border', 'none')
-    }
-    if (pathname === '/tao-cv-my-pham-thoi-trang-trang-suc/mau-12') {
-      $('#cv-content .head div').css('background', 'none')
-    }
-    if (pathname === '/tao-cv-marketing/mau-21' || pathname === '/tao-cv-seo-website/mau-18') {
-      $('.tt-box1,.cum,.ski').css('background', 'none')
-    }
-    if (pathname === '/tao-cv-kinh-doanh/mau-22') {
-      $('.tt-box1,.cum,.ski').css('background', 'none')
-      $('.ifo .chu h2').css('background', '')
-    }
-    if (pathname === '/tao-cv-kinh-doanh/mau-23') {
-      $('#cv-content .cvo-block .head,.cum,.ski').css('background', 'none')
-      $('.ifo .chu h2').css('background', '')
-    }
-
-    if (pathname === '/tao-cv-phat-trien-thi-truong/mau-10' || pathname === '/tao-cv-it/mau-03') {
-      $(
-        '#cv-profile-fullname, #cv-profile-job, #cv-boxtitle, #cv-profile-birthday, #cv-profile-sex, #cv-profile-phone, #cv-profile-email, #cv-profile-address, #cv-profile-face, .fa, .skill-name, #cvo-experience-blocktitle'
-      ).css('color', '#000')
-
-      $('.cvo-block > h3').css('background', '')
-    }
-    if (pathname === '/tao-cv-dien-dien-tu/mau-01' || pathname === '/tao-cv-it/mau-03') {
-      $('#cv-profile-fullname').css('color', '#000')
-      $('#cv-profile-job').css('color', '#000')
-    }
-    if (pathname === '/tao-cv-phat-trien-thi-truong/mau-10') {
-      $('#block02 h3').css('background-color', '#fff0')
-    }
-    if (pathname === '/tao-cv-it/mau-18') {
-      $('.cum,.ski, .tt-box1,#cv-content .head').css('background', 'none')
-    }
-
-    $('#cv-content .head div,#cv-boxtitle').css('border-color', '#000')
-    $('#cv-content .ir .cvo-block').css('color', '#000')
-    $('#cv-content h3').css('color', '#000')
-    $('#cv-content .exp-date').css('color', '#000')
-  }
-}
-
-function unChangeBackgroundCv() {
-  $('#form-cv').removeAttr('data-background')
-  $('#form-cv').removeAttr('style')
-  $('#form-cv .cv_page').removeAttr('style')
-
-  const pathname = window.location.pathname
-  // remove fake img after update background
-  $('#prof .icoweb').removeAttr('style')
-  $('.fake_img').show()
-
-  //Sửa màu text cv sau khi thay đổi background
-  if (
-    pathname === '/tao-cv-khu-che-xuat-khu-cong-nghiep/mau-03' ||
-    pathname === '/tao-cv-tai-chinh/mau-11' ||
-    pathname === '/tao-cv-it/mau-03'
-  ) {
-    $('.box-content, .skill-name , #cv-boxtitle').removeAttr('style')
-    $('.bar-exp').removeAttr('style')
-  } else {
-    $('div#cv-boxtitle,.box-content,#cv-content .head div,#block01 .exp-date').removeAttr('style')
-  }
-
-  if (
-    pathname === '/tao-cv-bao-hiem/mau-13' ||
-    pathname === '/tao-cv-phat-trien-thi-truong/mau-10' ||
-    pathname === '/tao-cv-it/mau-03'
-  ) {
-    $('#cv-top,.footer,.all,.exp-fake,.cvo-block,#cv-profile-job,#cv-main,#cv-right,#cv-boxtitle,#cv-right h3,#block01 .exp-date,div#prof,.cvo-block, #cv-top h2').css('background', 'none')
-    $('.block-title').removeAttr('style')
-  } else {
-    $('#cv-top,.footer,.all,.exp-fake,.cvo-block,#cv-profile-job,#cv-main,#cv-right,#cv-boxtitle,#cv-right h3,#block01 .exp-date,div#prof,.cvo-block, #cv-top h2,#cv-content .head').removeAttr('style')
-  }
-  if (pathname === '/tao-cv-marketing/mau-21') {
-    $('.tt-box1,.cum,.ski').removeAttr('style')
-  }
-  if (pathname === '/tao-cv-kinh-doanh/mau-22') {
-    $('.tt-box1,.cum,.ski').removeAttr('style')
-    $('.ifo .chu h2').removeAttr('style')
-  }
-  if (pathname === '/tao-cv-kinh-doanh/mau-23') {
-    $('#cv-content .cvo-block .head,.cum,.ski').removeAttr('style')
-    $('.ifo .chu h2').removeAttr('style')
-  }
-
-  if (pathname === '/tao-cv-phat-trien-thi-truong/mau-10' || pathname === '/tao-cv-it/mau-03') {
-    $(
-      '#cv-profile-fullname, #cv-profile-job, #cv-boxtitle, #cv-profile-birthday, #cv-profile-sex, #cv-profile-phone, #cv-profile-email, #cv-profile-address, #cv-profile-face, .fa, .skill-name, #cvo-experience-blocktitle'
-    ).removeAttr('style')
-
-    $('.cvo-block > h3').removeAttr('style')
-  }
-  if (pathname === '/tao-cv-dien-dien-tu/mau-01' || pathname === '/tao-cv-it/mau-03') {
-    $('#cv-profile-fullname').removeAttr('style')
-    $('#cv-profile-job').removeAttr('style')
-  }
-  if (pathname === '/tao-cv-phat-trien-thi-truong/mau-10') {
-    $('#block02 h3').removeAttr('style')
-  }
-  if (pathname === '/tao-cv-it/mau-18') {
-    $('.cum,.ski, .tt-box1,#cv-content .head').removeAttr('style')
-  }
-
-  $('#cv-content .head div,#cv-boxtitle').removeAttr('style')
-}
-$(document).ready(function () {
-  let url_image = $('#form-cv').attr('data-background')
-  // changeBackgroundCv(url_image)
-  changeBackgroundCv(url_image)
-  // setTimeout(() => {
-  // 	$('.box-content').trigger('click')
-  // }, 2000)
-})
 
 function unPaginationCV() {
   if ($('#form-cv .cv_page').length) {

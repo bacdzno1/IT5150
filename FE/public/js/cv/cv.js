@@ -49,14 +49,8 @@ function check_tk() {
 
 function login(e) {
 	$('#login_uv_modal').show(),
-		// $('#btn-mb').removeClass('open'),
-		// $('#mn-mb > ul').css('width', '0px'),
-		// $('#btn-shadow').hide(),
-		// $('#boxLos').hide(),
 		$('#boxRes').hide(),
-		// $('.modal').hide(),
 		$('.sign-up-suggestion').hide()
-	// null != e ? $('#boxlink').val(e) : $('#boxlink').val(window.location.href)
 }
 
 function resg() {
@@ -148,7 +142,6 @@ function resg() {
 		success: function (result) {
 			if (result == 'false') {
 				err = '1'
-				// return l = '<div class="v-modal" style="z-index: 2009;"></div><div tabindex="-1" class="el-message-box__wrapper" style="z-index: 2010;">', l += '<div class="el-message-box"><div class="el-message-box__header"><div class="el-message-box__title">Thông báo</div></div><div class="el-message-box__content"><div class="el-message-box__status el-icon-warning"></div><div class="el-message-box__message" style="margin-left: 50px;">', l += "Tài khoản đã tồn tại</div></div>", l += '<div class="el-message-box__btns">', l += '<button type="button" onclick="$(`.btn_login`).addClass(`btn_login_cv`).removeClass(`btn_login`);show_login()" class="el-button el-button--default btn_blue"><span>Đăng nhập</span></button>', l += '<button type="button" onclick="hide()" class="el-button el-button--default"><span>Hủy bỏ</span></button>', $("body").append(l), !1
 			} else {
 				err = '2'
 			}

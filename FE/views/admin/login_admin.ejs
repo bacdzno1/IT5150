@@ -4,18 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, nofollow" />
     <link rel="icon" href="/images/img/icon_head.png">
     <title>Đăng nhập admin</title>
-    <link rel="preload" href="/css/admin/login_admin.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="/css/admin/login_admin.css">
-    </noscript>
-
-    <link rel="preload" href="/css/common.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="/css/common.css">
-    </noscript>
+    <link rel="stylesheet" href="/css/admin/login_admin.css" as="style" >
+    <link rel="stylesheet" href="/css/common.css" as="style" >
     <script src="/js/jquery.min.js"></script>
 </head>
 
@@ -37,7 +29,6 @@
     <script src="/js/jquery.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Kiểm tra cookie isLogin
             var isLogin = getCookie("isLogin");
             var adminToken = getCookie("adminToken");
             if (adminToken) {
