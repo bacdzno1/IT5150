@@ -13,6 +13,7 @@
 cd BE
 npm install
 npm start
+```
 
 ### Bước 2: Chạy Frontend (FE)
 
@@ -22,3 +23,4 @@ Mở một terminal mới hoặc tab mới, sau đó chạy:
 cd BE
 npm install
 npm start
+```
