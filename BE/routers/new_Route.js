@@ -21,50 +21,23 @@ const limiter = rateLimit({
       console.error('Warning: request.ip is missing!')
       return request.socket.remoteAddress
     }
-
     return request.ip.replace(/:\d+[^:]*$/, '')
   }
 })
 
-// Đăng tin
 router.post('/postNew', formdata.parse(), functions.checkToken(1), New.PostNew);
-
-// Danh sách tin NTD đã đăng
 router.post('/listNewNTD', formdata.parse(), functions.checkToken(1), New.ListNewNTD);
-
-// làm mới tin NTD đã đăng
 router.post('/RefreshNew', formdata.parse(), functions.checkToken(1), New.RefreshNew);
-
-// sửa tin
 router.post('/UpdateNew', formdata.parse(), functions.checkToken(1), New.UpdateNew);
-
-// xoá tin
 router.post('/DeleteNew', formdata.parse(), functions.checkToken(1), New.DeleteNew);
-
-// trang chủ
 router.post('/Home', limiter, formdata.parse(), New.Home);
-
-// chi tiết tin
 router.post('/DetailNew', formdata.parse(), New.DetailNew);
-
-// tìm kiếm tin
 router.post('/SearchNew', formdata.parse(), New.SearchNew);
-
-// tìm kiếm ứng viên
 router.post('/SearchCandi', limiter, formdata.parse(), New.SearchCandi);
-
-// tra cứu tag ngành nghề
 router.post('/getTagCate', formdata.parse(), New.getTagCate);
-
-// Việc làm đề xuất 
 router.post('/JobRecommend', formdata.parse(), New.JobRecommend);
-
-// Công ty đề xuất 
 router.post('/getRecommentComp', formdata.parse(), New.getRecommentComp);
-
 router.post('/detailJob_Comp', formdata.parse(), New.detailJob_Comp);
-
-// Lấy chi tiết cv
 router.post('/getCvDetail', formdata.parse(), New.getCvDetail);
 
 export default router;

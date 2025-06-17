@@ -12,17 +12,12 @@ import UserTempNoAuth from '../models/user/UserTempNoAuth.js'
 import UserCompany from "../models/user/UserCompany.js";
 import * as XLSX from 'xlsx';
 
-// hàm khi thành công
 export const success = (res, messsage = '', data = []) => {
 	return res.status(200).json({ data: { result: true, message: messsage, ...data }, error: null });
 };
-
-// hàm thực thi khi thất bại
 export const setError = (res, message, code = 500) => {
 	return res.status(code).json({ result: false, data: null, code, error: { message } });
 };
-
-// hàm call api bằng axios
 export const getDataAxios = async (url, condition, token, timeout = undefined) => {
 	try {
 		let headers = { 'Content-Type': 'multipart/form-data' };
@@ -43,8 +38,6 @@ export const getDataAxios = async (url, condition, token, timeout = undefined) =
 		return null;
 	}
 };
-
-// hàm check token
 export const checkToken = (conditions, type) => {
 	return async (req, res, next) => {
 		const authHeader = req.headers['authorization'];
@@ -56,21 +49,8 @@ export const checkToken = (conditions, type) => {
 			if (err) {
 				return res.status(402).json({ message: 'Invalid token' });
 			};
-			// console.log("Type đầu vào",type)
-
-			// Tạm thời bỏ yêu cầu xác thực tài khoản ứng viên 
-			// console.log('user.data.auth', user.data.auth);
-			// console.log('user.data.auth == 0', user.data.auth == 0);
-			// console.log('type', type);
-			// console.log('user.data.type', user.data.type);
-			// console.log('user.data.type == 2', user.data.type == 2);
 			if (user.data.auth == 0 && !type) {
-				// Nếu là ứng viên mới đăng ký thì không cần xác thực
 				if (user.data.type == 2) {
-					// // console.log('is allow', isAllow)
-					// if (!isAllow) {
-					// 	return setError(res, "Vui lòng xác thực tài khoản", 401);
-					// }
 				} else {
 					return setError(res, "Vui lòng xác thực tài khoản", 401);
 				}
@@ -81,11 +61,9 @@ export const checkToken = (conditions, type) => {
 				return setError(res, "Please log in to your candidate account", 403);
 			}
 			if (user.data.type == 2) {
-				// tài khoản ứng viên
 				req.iduv = user.data.use_id;
 				req.type = 2;
 			} else if (user.data.type == 1) {
-				// tài khoản nhà tuyển dụng
 				req.idNTD = user.data.usc_id;
 				req.type = 1;
 			}
@@ -93,7 +71,6 @@ export const checkToken = (conditions, type) => {
 		});
 	};
 };
-
 export const checkToken2 = (type) => {
 	return async (req, res, next) => {
 		const authHeader = req.headers['authorization'];
@@ -105,12 +82,9 @@ export const checkToken2 = (type) => {
 			if (err) {
 				return res.status(402).json({ message: 'Invalid token' });
 			};
-			// console.log("Type đầu vào",type)
 			if (user.data.auth == 0 && !type) {
-				// Nếu là ứng viên mới đăng ký thì không cần xác thực
 				if (user.data.type == 2) {
 					const isAllow = await checkAllowNoAuth(user.data.use_id, token)
-					// console.log('is allow', isAllow)
 					if (!isAllow) {
 						return setError(res, "Vui lòng xác thực tài khoản", 401);
 					}
@@ -118,17 +92,10 @@ export const checkToken2 = (type) => {
 					return setError(res, "Vui lòng xác thực tài khoản", 401);
 				}
 			}
-			// if (conditions == 1 && user.data.type == 2) {
-			// 	return setError(res, "Vui lòng đăng nhập tài khoản nhà tuyển dụng", 403);
-			// } else if (conditions == 2 && user.data.type == 1) {
-			// 	return setError(res, "Vui lòng đăng nhập tài khoản nhà ứng viên", 403);
-			// }
 			if (user.data.type == 2) {
-				// tài khoản ứng viên
 				req.iduv = user.data.use_id;
 				req.type = 2;
 			} else if (user.data.type == 1) {
-				// tài khoản nhà tuyển dụng
 				req.idNTD = user.data.usc_id;
 				req.type = 1;
 			}
@@ -136,13 +103,12 @@ export const checkToken2 = (type) => {
 		});
 	};
 };
-// hàm tạo token
 export const createToken = async (data, time) => {
 	if (data.use_id) {
 		const result = await Users.findOne({ use_id: data.use_id }, { use_logo: 1, usc_search: 1, use_create_time: 1 }).lean();
 		const date = getDate(result.use_create_time * 1000);
 		if (result) {
-			if(result.use_logo){
+			if (result.use_logo) {
 				data.use_logo = `${process.env.DOMAIN_API}/pictures/${date}/${result.use_logo}`;
 			}
 			data.usc_search = result.usc_search;
@@ -150,39 +116,22 @@ export const createToken = async (data, time) => {
 	}
 	return jwt.sign({ data }, process.env.NODE_SERCET, { expiresIn: time });
 };
-
-// hàm xác thực mật khẩu
-export const verifyPassword = async (inputPassword, hashedPassword) => {
-	const md5Hash = crypto.createHash('md5').update(inputPassword).digest('hex');
-	return md5Hash === hashedPassword;
-};
-
-// hàm tạo mật khẩu md5
 export const createMd5 = (password) => {
 	return crypto.createHash('md5').update(password).digest('hex');
 };
-
-// hàm validate phone
 export const checkPhone = async (phone) => {
 	const phoneNumberRegex = /^(?:\+63|0|\+1)?([1-9][0-9]{8,9})$/;
 	return phoneNumberRegex.test(phone);
 };
-
-// hàm validate email
 export const checkEmail = async (email) => {
-	// eslint-disable-next-line no-useless-escape
 	const gmailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 	return gmailRegex.test(email);
 };
-
-// hàm check password
 export const checkPassWord = (password) => {
 	var passReg = /(?=.*\d)(?=.*[a-zA-Z]).{6,}/;
 	const result = passReg.test(password);
 	return result;
 };
-
-// hàm lấy id lớn nhất
 export const getMaxId = async (model, field) => {
 	let maxId = await model.findOne({}, { [field]: 1, }).sort({ [field]: -1, }).limit(1).lean();
 	if (maxId) {
@@ -190,8 +139,6 @@ export const getMaxId = async (model, field) => {
 	} else maxId = 1;
 	return maxId;
 };
-
-// hàm upload file
 export const uploadFile = async (folder, file, time, allowedExtensions) => {
 	try {
 		const path1 = `./pictures/${folder}/`;
@@ -222,10 +169,7 @@ export const uploadFile = async (folder, file, time, allowedExtensions) => {
 		return false
 	}
 };
-
-// hàm tạo link title
 export const createLinkTilte = (input) => {
-	// eslint-disable-next-line no-useless-escape
 	input = input.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
 	let str = input.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
 	str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
@@ -245,13 +189,9 @@ export const createLinkTilte = (input) => {
 	str = str.replaceAll(' ', '-');
 	return str;
 };
-
-// hàm random số
 export const randomNumber = () => {
 	return Math.floor(Math.random() * 900000) + 100000;
 }
-
-// từ khoá ngành nghề
 export const tuKhoa = [
 	{
 		id: 1, arr: 'kế toán, kiểm toán, kế toán viên, Accountant, Accounting Executive, accounting consultant, junior accountant, Head of Accounting, chief accountant, Genenal Accountant, account receivable, ar accountant, Senior Accountant, Accounting Officer, Accounting Intern, kế toán kho,  trợ lý kiểm toán, kế toán thuế, kế toán tài chính, kế toán nội bộ, kế toán ngân hàng, kế toán doanh nghiệp, kế toán bán hàng, kế toán tiền lương, kế toán trưởng, kế toán tổng hợp, kế toán dịch vụ, kế toán chi phí, kế toán chi tiêu,  kế toán thực tập, thực tập sinh kế toán, kế toán công nợ, kế toán vật tư, kế toán nguyên vật liệu, kế toán doanh thu, kế toán doanh thu nội bộ, kế toán văn phòng, kế toán hành chính, nhân viên hành chính kế toán, kế toán giá thành, kế toán cao cấp, kế toán quản trị, kế toán thanh toán, kế toán chi nhánh, kế toán chứng từ logistics, kế toán chứng từ xây dựng, kế toán xây dựng, kế toán sản xuất, kế toán xuất nhập tồn, kế toán nhà máy, kế toán pháp lý, kiểm toán viên, kiểm toán nhà nước, kế toán thu ngân, kế toán kiểm kê, kế toán hỗ trợ, kế toán dự án, kế toán tài sản, kiểm toán viên, kiểm toán nội bộ, kiểm toán xây dựng, kiểm toán nhà nước, kiểm toán viên cao cấp, trợ lý kiểm toán viên, thủ quỹ, kế toán nhập liệu'
@@ -518,33 +458,6 @@ export const tuKhoa = [
 		id: 10, arr: "nhân viên bán hàng, Nhân Viên Tư Vấn Bán Hàng, Nhân Viên Hỗ Trợ Bán Hàng, chuyên viên tư vấn bán hàng"
 	}
 ];
-
-// hàm gọi api crm khi NTD đăng tin
-export const upNew = async (link, id, title, comid) => {
-	try {
-		const linkk = `https://work247.vn/${link}-${id}`;
-		const arrAPI = {
-			'com_id': comid,
-			'title': title,
-			'link': linkk,
-			'id_new': id
-		};
-		const result = await getDataAxios(`${process.env.API_REGISTER_FAIL_CRM}/api/customer/add_new_3312`,
-			arrAPI, tokenCRM);
-		return result;
-	} catch (error) {
-		return false;
-	}
-};
-
-// hàm gọi api CRM chuyển giỏ khách hàng
-export const editCompanyCRM = async (arrAPI, usc_id) => {
-	const result = await getDataAxios(`${process.env.API_REGISTER_FAIL_CRM}/api/customer/edit/${usc_id}`,
-		arrAPI, tokenCRM);
-	return result;
-};
-
-// hàm render link avatar nhà tuyển dụng 
 export const getAvatarNTD = (time, img) => {
 	try {
 		if (img) {
@@ -556,21 +469,6 @@ export const getAvatarNTD = (time, img) => {
 		return null;
 	}
 };
-
-// hàm render link avatar nhà tuyển dụng 
-export const getAvatarNTD2 = (time, img) => {
-	try {
-		if (img) {
-			const date = getDate(time * 1000);
-			return `${process.env.DOMAIN_API_TIMVIECHAY}/pictures/${date}/${img}`;
-		}
-		return null;
-	} catch (error) {
-		return null;
-	}
-};
-
-// hàm render image NTD 
 export const getImageNTD = (img) => {
 	try {
 		if (img) {
@@ -586,8 +484,6 @@ export const getImageNTD = (img) => {
 		return null;
 	}
 };
-
-// hàm copy file
 export const copyFile = async (linkOld, linkNew, pathNew) => {
 	try {
 		if (pathNew) {
@@ -607,8 +503,6 @@ export const copyFile = async (linkOld, linkNew, pathNew) => {
 	}
 
 };
-
-// hàm xoá file
 export const deleteFile = (file) => {
 	try {
 		const filePath = file;
@@ -626,8 +520,6 @@ export const deleteFile = (file) => {
 		console.log(error.message);
 	}
 };
-
-// Hàm kiểm tra file tồn tại
 export const checkFileExist = (link) => {
 	try {
 		fs.access(link, fs.constants.F_OK, (err) => {
@@ -643,8 +535,6 @@ export const checkFileExist = (link) => {
 		return false
 	}
 }
-
-// Hàm xóa file cũ (dành cho file tạm thời)
 export const deleteOldFiles = async (directory, hour = 24) => {
 	try {
 		fs.readdir(directory, (err, files) => {
@@ -687,24 +577,17 @@ export const deleteOldFiles = async (directory, hour = 24) => {
 		console.log(error.message);
 	}
 }
-
-// Hàm xóa thư mục rỗng (dành cho thư mục tạm thời)
 export const deleteEmptySubfolders = async (dirPath) => {
 	try {
 		if (!fs.existsSync(dirPath)) {
 			console.log(`Directory ${dirPath} does not exist.`);
 			return;
 		}
-
-		// Function to check if a directory is empty
 		function isDirectoryEmpty(dir) {
 			return fs.readdirSync(dir).length === 0;
 		}
-
-		// Function to recursively delete empty subfolders
 		function deleteEmptySubfoldersRecursively(currentDir) {
 			const files = fs.readdirSync(currentDir);
-
 			files.forEach(file => {
 				const filePath = path.join(currentDir, file);
 				if (fs.statSync(filePath).isDirectory()) {
@@ -716,16 +599,11 @@ export const deleteEmptySubfolders = async (dirPath) => {
 				}
 			});
 		}
-
 		deleteEmptySubfoldersRecursively(dirPath);
-
-		console.log('deleteEmptySubfolders', "Done");
 	} catch (error) {
 		console.log(error.message);
 	}
 }
-
-// hàm upload CV
 export const uploadCV = async (folder, file, time, type) => {
 	const path1 = `./upload/${folder}/`;
 	const filePath = `./upload/${folder}/${time}_${file.name}`;
@@ -754,8 +632,6 @@ export const uploadCV = async (folder, file, time, type) => {
 	});
 	return `upload/${folder}/${time}_${file.name}`;
 };
-
-// hàm gọi api axios che thông tin CV
 export const hideInfoCV = async (id, link, UserCvUpload) => {
 	try {
 		// let link = ''
@@ -772,7 +648,7 @@ export const hideInfoCV = async (id, link, UserCvUpload) => {
 		};
 		await axios.request(config)
 			.then(async (response) => {
-				console.log('đây là data trả về',response.data)
+				console.log('đây là data trả về', response.data)
 				const element = response.data[0];
 				if (element && element.link) {
 					await UserCvUpload.findOneAndUpdate({ id_upload: element.id }, {
@@ -782,18 +658,16 @@ export const hideInfoCV = async (id, link, UserCvUpload) => {
 				}
 			})
 			.catch((error) => {
-				console.log('lỗi ảnh rồi :',error.message);
+				console.log('lỗi ảnh rồi :', error.message);
 			});
 
 		return ''
 	} catch (error) {
-		console.log('lỗi gì gì đó :' ,error.message)
+		console.log('lỗi gì gì đó :', error.message)
 		return '';
 	}
 
 };
-
-// hàm random String
 export const randomString = (length) => {
 	var result = '';
 	var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -803,8 +677,6 @@ export const randomString = (length) => {
 	}
 	return result;
 };
-
-// hàm lấy năm tháng ngày chuyển về dạng yyyy/mm/dd
 export const getDate = (date) => {
 	let time;
 	if (date) {
@@ -814,88 +686,6 @@ export const getDate = (date) => {
 	}
 	return time;
 };
-
-// hàm render pdf 
-export const renderPdfFromUrl = async (link, userID, idCV) => {
-	let returnData = false
-	const browser = await puppeteer.launch({
-		headless: 'chrome',
-		args: [
-			'--no-sandbox',
-			'--disabled-setupid-sandbox',
-			'--font-render-hinting=none',
-			'--force-color-profile=srgb',
-			'--disable-web-security',
-			// '--disk-cache-size=0',
-		],
-		// defaultViewport: null,
-		ignoreHTTPSErrors: true,
-	});
-
-	const page = await browser.newPage();
-	try {
-		const session = await page.target().createCDPSession();
-		// const session = await page.createCDPSession();
-		await session.send('DOM.enable');
-		await session.send('CSS.enable');
-		const website_url = link;
-		// Open URL in current page
-		// await page.setViewport({ width: 1920, height: 1080 });
-		await page.goto(website_url, { waitUntil: ['load', 'domcontentloaded', 'networkidle0'] }); // 2s, font hiển thị đúng
-		// await page.reload({ waitUntil: ['load', 'domcontentloaded', 'networkidle0'] });
-		await page.waitForSelector('#loadingDone');
-		// await page.waitForSelector('')
-		await page.emulateMediaType('print');
-		await page.evaluateHandle('document.fonts.ready');
-
-		// Downlaod the PDF
-		const pdf = await page
-			.pdf({
-				margin: {
-					top: '0px',
-					right: '0px',
-					bottom: '0px',
-					left: '0px',
-				},
-				printBackground: true,
-				// preferCSSPageSize: true,
-				// scale: 0.5
-			})
-			.then(function (data) {
-				return data;
-			});
-			// userName = createLinkTilte(userName) != '' ? createLinkTilte(userName) : `ung-vien`;
-			const path1 = `./dowload/cv_pdf/user_${userID}/cvid_${idCV}`;
-		const filePath = `./dowload/cv_pdf/user_${userID}/cvid_${idCV}/${idCV}-topcv1s.pdf`;
-		if (!fs.existsSync(path1)) {
-			fs.mkdirSync(path1, { recursive: true });
-		}
-		fs.writeFile(filePath, pdf, (err) => {
-			if (err) {
-				// return false;
-				returnData = false
-			} else {
-				returnData = true
-			}
-			// console.log('pdf success')
-		});
-	} catch (e) {
-		console.log('renderPdfFromUrl', 'link', link, '\n', e)
-		// return false;
-		returnData = false
-	} finally {
-		if (page) {
-			await page.close()
-		}
-		if (browser) {
-			await browser.close();
-		}
-	}
-
-	return returnData
-};
-
-// hàm render file ảnh
 export const renderImageFromUrl = async (link, path1, filePath) => {
 	let returnData = false
 	const docHeight = () => {
@@ -972,8 +762,6 @@ export const renderImageFromUrl = async (link, path1, filePath) => {
 
 	return returnData
 };
-
-// hàm lấy thời gian giây
 export const getTime = (time) => {
 	let result = 0;
 	if (time) {
@@ -983,54 +771,9 @@ export const getTime = (time) => {
 	}
 	return result;
 };
-
-// hàm gọi api xử lí ứng viên đăng kí lỗi sang CRM
-export const callApiUVError = async (data, id) => {
-	try {
-		data.from = `uv365com`;
-		const result = await getDataAxios(`${process.env.API_REGISTER_FAIL_CRM}/api/customer/edit/${id}`,
-			data, tokenCRM);
-		return result;
-	} catch (error) {
-		return null;
-	}
-};
-
-// hàm gọi api xử lí ứng viên đăng kí lỗi sang CRM
-export const callApiAddUVError = async (data, id) => {
-	try {
-		data.from = `uv365com`;
-		data.link_multi = `https://work247.vn/admin/modules/user/edit_tmp.php?type=tv365com&record_id=${id}`;
-		if (!data.name) data.name = `Chưa cập nhật`;
-		if (!data.address) data.address = `Chưa cập nhật`;
-		data.city = 0;
-		data.district = 0;
-		data.type = 2;
-		data.group = 200;
-		data.status = 12;
-		data.resoure = 3;
-		data.email = '';
-		data.id_cus_from = id;
-
-		const result = await getDataAxios(`${process.env.API_REGISTER_FAIL_CRM}/api/customer/add`,
-			data, tokenCRM);
-		return result;
-	} catch (error) {
-		return null;
-	}
-};
-
-// hàm so sánh thời gian hiện tại
-export const checkDate = (date) => {
-	return (new Date(date).getTime() < new Date().getTime());
-};
-
-// hàm render cv ứng viên đã tạo
 export const getCV = (id, name_cv) => {
 	return `${process.env.DOMAIN_API}/upload/cv_uv/uv_${id}/${name_cv}`;
 };
-
-// hàm lấy token nếu có
 export const getTokenUser = async (req) => {
 	try {
 		if (req.headers && req.headers.authorization) {
@@ -1044,8 +787,6 @@ export const getTokenUser = async (req) => {
 		return null;
 	}
 };
-
-
 export const getTokenJustUser = async (req) => {
 	try {
 		if (req.headers && req.headers.authorization) {
@@ -1059,56 +800,6 @@ export const getTokenJustUser = async (req) => {
 		return null;
 	}
 };
-
-// hàm render pdf 
-export const renderLetterPdfFromUrl = async (link, filePath) => {
-	try {
-		const browser = await puppeteer.launch({
-			headless: 'chrome',
-			args: [
-				'--no-sandbox',
-				'--disabled-setupid-sandbox',
-				'--font-render-hinting=none',
-				'--force-color-profile=srgb',
-				'--disable-web-security',
-			],
-		});
-		const page = await browser.newPage();
-		const session = await page.target().createCDPSession();
-		await session.send('DOM.enable');
-		await session.send('CSS.enable');
-		const website_url = link;
-		// Open URL in current page
-		await page.goto(website_url, { waitUntil: 'networkidle2' }); // 2s, font hiển thị đúng
-		await page.emulateMediaType('screen');
-		await page.evaluateHandle('document.fonts.ready');
-		// Downlaod the PDF
-		const pdf = await page
-			.pdf({
-				margin: {
-					top: '50px',
-					right: '0px',
-					bottom: '0px',
-					left: '0px',
-				},
-				printBackground: true,
-			})
-			.then(function (data) {
-				return data;
-			});
-		await browser.close();
-
-		fs.writeFile(filePath, pdf, (err) => {
-			if (err) {
-				return false;
-			}
-		});
-	} catch (e) {
-		return false;
-	}
-};
-
-// hàm render avatar Ứng viên
 export const getAvatarCandi = (time, use_logo) => {
 	if (use_logo) {
 		const date = getDate(time * 1000);
@@ -1116,88 +807,6 @@ export const getAvatarCandi = (time, use_logo) => {
 	}
 	return '';
 };
-
-// body mail xem ứng viên
-export const bodyMailViewCandidateInformation = (name, namecom, text, lists_job) => {
-	return `<!DOCTYPE html
-	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
- <html xmlns="http://www.w3.org/1999/xhtml">
- 
- <head>
-	 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	 <title>Xác thực đăng ký ứng viên</title>
-	 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	 <meta name="robots" content="noindex,nofollow" />
- </head>
- 
- <body style="width: 100%;background-color: #eeeeee;padding: 0;margin: 0;font-family: Aria Regular,sans-serif;padding-top: 20px;padding-bottom: 20px;color: #000">
-	 <table style="width: 600px;margin: 0 auto;border-collapse: collapse;">
-		 <tr>
-			 <td>
-				 <table width="100%" style="background: #fff;border-collapse: collapse;" cellpadding="0" cellspacing="0">
-					 <tr>
-						 <td style="padding-top:18px;padding-right:20px;text-align: right;">
-							 <img width="135px" height="50px" src="https://work247.vn/images/logo_new_white.png" alt="Tìm việc làm nhanh">
-						 </td>
-					 </tr>
-					 <tr>
-						 <td style="padding: 40px 25px 0;">
-							 <table width="100%" cellpadding="0" cellspacing="0">
-								 <tr>
-									 <td style="padding-bottom:30px">
-										 <i style="color:#04111d;font-weight: 600;font-size: 20px;">Xin chào <span style="color:#2767a5">${name}</span> !!!</i>
-									 </td>
-									 <tr>
-										 <td style="line-height: 22px;font-size: 17px;color:#030f1b;padding-bottom: 30px;">Cám ơn bạn đã tin tưởng <a style="color: #f89700">Work247.vn</a> là cầu nối giúp bạn tìm kiếm công việc mong muốn.</td>
-									 </tr>
-									 <tr>
-										 <td style="line-height: 22px;font-size: 17px;color:#030f1b"><span style="color:#2767a5">Hồ sơ của bạn</span> trên website Work247.vn đã được
-											 ${namecom} xem.
-												 ${text}
-										 </td>
-									 </tr>
-									 ${lists_job}
-							 </table>
-						 </td>
-						 </tr>
-						 <tr style="background-image: url('https://work247.vn/images/fotter_mail.png');background-size: 100% 100%;background-repeat: no-repeat;">
-							 <td style="padding-left: 30px;">
-								 <table width="100%" cellpadding="0" cellspacing="0">
-									 <tr>
-										 <td style="padding-bottom: 10px;font-size: 17px;color:#040f1a;font-weight: 600;">Liên hệ với bộ phận hỗ trợ</td>
-									 </tr>
-									 <tr>
-										 <td style="padding-bottom: 10px;color: #2196f3;font-size:16px;font-weight: 600">
-											 <img width="27px" height="27px" style="vertical-align: middle;" src="https://work247.vn/images/mail_phone.png" alt="Hotline"> 0971.335.869 | 024 36.36.66.99
-										 </td>
-									 </tr>
-									 <tr>
-										 <td style="padding-bottom: 30px;font-size: 17px;color:#040f1a;font-weight: 600;">
-											 Trân trọng!
-										 </td>
-									 </tr>
-								 </table>
-							 </td>
-						 </tr>
-				 </table>
-			 </td>
-			 </tr>
-			 <tr>
-				 <td>
-					 <table width="100%" cellspacing="0" cellpadding="0">
-						 <tr>
-							 <td style="font-weight:600;padding-top: 30px;padding-bottom:10px;text-align: center;font-size: 17px;"><b>Chú ý:</b> Đây là mail tự động không nhận mail phản hồi</td>
-						 </tr>
-					 </table>
-				 </td>
-			 </tr>
-	 </table>
- </body>
- 
- </html>`;
-};
-
-// mức lương
 export const ViewSalary = (params) => {
 	const result = [
 		{ 0: "Chọn mức lương" },
@@ -1214,78 +823,19 @@ export const ViewSalary = (params) => {
 		{ 11: "Trên 100 triệu" }].find((item, key) => key == params);
 	if (result) return result[`${params}`];
 };
-
-// hàm so sánh thời gian
 export const CompareTime = (conditions, fields, from_date, to_date) => {
 	if (from_date) conditions[fields] = { $gt: getTime(from_date) };
 	if (to_date) conditions[fields] = { $lt: getTime(to_date) };
 	if (from_date && to_date) conditions[fields] = { $gt: getTime(from_date), $lt: getTime(to_date) };
 };
-
-export const checkFbToken = () => {
-	return async (req, res, next) => {
-		try {
-			const authHeader = req.headers['authorization'];
-			const token = authHeader && authHeader.split(' ')[1];
-			const key = req.body.key;
-			if (!token) {
-				// return res.status(400).json({ message: 'Missing token' });
-				setError(res, 'Missing token', 400)
-			} else
-				if (!key) {
-					// return setError(res, 'Missing data')
-					setError(res, 'Missing data', 400)
-				} else {
-					const __filename = fileURLToPath(import.meta.url);
-					const __dirname = dirname(__filename);
-					const path = `${__dirname}/fb_keys/${key}.json`;
-					const relativePath = `./fb_keys/${key}.json`
-					// Check file
-					fs.access(path, fs.constants.F_OK | fs.constants.R_OK, async (err) => {
-						if (err) {
-							console.log(err)
-							setError(res, 'Key file không chính xác', 400)
-						} else {
-							const { default: serviceAccount } = await import(relativePath, { assert: { type: 'json' } })
-							admin.initializeApp({
-								credential: admin.credential.cert(serviceAccount)
-							});
-
-							admin.auth().verifyIdToken(token)
-								.then(decodedToken => {
-									req.user = decodedToken; // Attach decoded user information to the request object
-									next();
-									// success(res, 'Test', decodedToken)
-								})
-								.catch(error => {
-									console.log('Error verifying Firebase ID token:', error);
-									setError(res, 'Unauthorized', 400)
-								});
-						}
-					})
-				}
-		} catch (error) {
-			console.log(error.message)
-			setError(res, 'Có lỗi xảy ra', 500)
-		} finally {
-			if (admin.apps.length > 0) {
-				admin.app().delete()
-			}
-		}
-
-	}
-}
-
 export const checkAllowNoAuth = async (use_id) => {
 	try {
 		const userNoAuth = await UserTempNoAuth.findOne({ use_id: use_id }).lean()
 		if (userNoAuth) {
-			// Chỉ cho phép trong ngày hôm đó
 			const create_time = new Date(userNoAuth.createdAt)
 			create_time.setHours(0, 0, 0, 0)
 			const now = new Date()
 			now.setHours(0, 0, 0, 0)
-			// console.log(create_time, now, create_time === now)
 			if (getTime(now) === getTime(create_time)) {
 				return true
 			}
@@ -1295,7 +845,6 @@ export const checkAllowNoAuth = async (use_id) => {
 		return false
 	}
 }
-
 export const uploadVideo = async (folder, file, time) => {
 	const path1 = `./upload/${folder}/`;
 	const filePath = `./upload/${folder}/${time}_${file.name}`;
@@ -1319,7 +868,6 @@ export const uploadVideo = async (folder, file, time) => {
 	});
 	return `upload/${folder}/${time}_${file.name}`;
 }
-
 export const getUserType = async (req) => {
 	try {
 		if (req.headers && req.headers.authorization) {
@@ -1333,31 +881,6 @@ export const getUserType = async (req) => {
 		return null
 	}
 }
-
-export const uploadBlogImg = async (folder, file, time) => {
-	const path1 = `./pictures/${folder}/`;
-	const filePath = `./pictures/${folder}/${time}_${file.name}`;
-	const fileCheck = path.extname(filePath);
-	if (['.jpg', '.png', '.jpeg'].includes(fileCheck.toLocaleLowerCase()) === false) {
-		return false;
-	}
-	if (!fs.existsSync(path1)) {
-		fs.mkdirSync(path1, { recursive: true });
-	}
-	fs.readFile(file.path, (err, data) => {
-		if (err) {
-			console.log(err);
-			return false;
-		}
-		fs.writeFile(filePath, data, (err) => {
-			if (err) {
-				return false;
-			}
-		});
-	});
-	return `${folder}/${time}_${file.name}`;
-}
-
 export const checkAdminToken = () => {
 	return async (req, res, next) => {
 		const authHeader = req.headers['authorization'];
@@ -1379,7 +902,6 @@ export const checkAdminToken = () => {
 		})
 	}
 }
-
 export const safeJSONparse = (jsonStr) => {
 	try {
 		const result = JSON.parse(jsonStr)
@@ -1389,7 +911,6 @@ export const safeJSONparse = (jsonStr) => {
 		return {}
 	}
 }
-
 export const renderPdfFromUrlNew = async (link) => {
 	let returnData = false
 	const browser = await puppeteer.launch({
@@ -1400,31 +921,23 @@ export const renderPdfFromUrlNew = async (link) => {
 			'--font-render-hinting=none',
 			'--force-color-profile=srgb',
 			'--disable-web-security',
-			// '--disk-cache-size=0',
 		],
-		// defaultViewport: null,
 		ignoreHTTPSErrors: true,
 	});
 
 	const page = await browser.newPage();
 	try {
 		const session = await page.target().createCDPSession();
-		// const session = await page.createCDPSession();
 		await session.send('DOM.enable');
 		await session.send('CSS.enable');
 		const website_url = link;
-		// Open URL in current page
-		// await page.setViewport({ width: 1920, height: 1080 });
-		await page.goto(website_url, { waitUntil: ['load', 'domcontentloaded', 'networkidle0'] }); // 2s, font hiển thị đúng
-		// await page.reload({ waitUntil: ['load', 'domcontentloaded', 'networkidle0'] });
+		await page.goto(website_url, { waitUntil: ['load', 'domcontentloaded', 'networkidle0'] });
 		await page.waitForSelector('#loadingDone');
-		// await page.waitForSelector('')
 		await page.emulateMediaType('print');
 		await page.evaluateHandle('document.fonts.ready');
 		function delay(time) {
 			return new Promise(resolve => setTimeout(resolve, time));
 		}
-		//chờ 1,5s cho font chữ tải xong
 		await delay(1500);
 		let pdf = await page
 			.pdf({
@@ -1436,21 +949,11 @@ export const renderPdfFromUrlNew = async (link) => {
 				console.log('đã in xong')
 				return data;
 			});
-		// await browser.close();
-		// return {
-		// 	result: true,
-		// 	file: pdf,
-		// };
 		returnData = {
 			result: true,
 			file: pdf,
 		}
 	} catch (e) {
-		console.log('renderPdfFromUrlNew', 'link', link, '\n', e);
-		// return {
-		// 	result: false,
-		// 	message: e.message,
-		// };
 		returnData = {
 			result: false,
 			message: e.message,
@@ -1463,11 +966,8 @@ export const renderPdfFromUrlNew = async (link) => {
 			await browser.close()
 		}
 	}
-
 	return returnData
 };
-
-// Link title kĩ hơn 
 export const createLinkTilte2 = (str) => {
 	try {
 		if (!str) return "";
@@ -1476,8 +976,6 @@ export const createLinkTilte2 = (str) => {
 		return ""
 	}
 }
-
-// Regex tiếng việt
 export function toLowerCaseNonAccentVietnamese(str) {
 	if (!str) return ""
 	str = str.toLowerCase();
@@ -1488,8 +986,8 @@ export function toLowerCaseNonAccentVietnamese(str) {
 	str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
 	str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
 	str = str.replace(/đ/g, "d");
-	str = str.replace(/\u0300|\u0301|\u0303|\u0309|\u0323/g, ""); // Huyền sắc hỏi ngã nặng 
-	str = str.replace(/\u02C6|\u0306|\u031B/g, ""); // Â, Ê, Ă, Ơ, Ư
+	str = str.replace(/\u0300|\u0301|\u0303|\u0309|\u0323/g, "");
+	str = str.replace(/\u02C6|\u0306|\u031B/g, "");
 	str = str.replace(/-/g, "");
 	return str;
 }
@@ -1508,158 +1006,12 @@ export const allVietnameseRegex = (str) => {
 		return ""
 	}
 }
-
-export const getNewTagFromXlsx = () => {
-	try {
-		const filePath = './services/data_category_city_joblike.xlsx';
-		const fileBuffer = fs.readFileSync(filePath);
-		// Read the Excel file
-		const workbook = XLSX.read(fileBuffer, { type: 'buffer' });
-
-		// Assuming you want to read data from the second sheet
-		const sheetName = workbook.SheetNames[1]; // Index 1 for the second sheet
-
-		const sheet = workbook.Sheets[sheetName];
-
-		// Convert the sheet to JSON object, ignoring the first row (header)
-		const data = XLSX.utils.sheet_to_json(sheet, { header: 1 });
-
-		// Create an array of objects with data from the second and third columns
-		const dataArray = data.slice(1).map((row) => {
-			return {
-				tag: row[1], // Second column
-				job: createLinkTilte2(row[2])  // Third column
-			};
-		});
-		return dataArray;
-
-	} catch (error) {
-		console.log(error.message);
-
-		return []
-	}
-}
-
-export const getCateFromXlsx = () => {
-	try {
-        const filePath = './services/Data_Cate_Philippine.xlsx';
-        const fileBuffer = fs.readFileSync(filePath);
-
-        const workbook = XLSX.read(fileBuffer, { type: 'buffer' });
-        const sheetName = workbook.SheetNames[0]; 
-        const sheet = workbook.Sheets[sheetName];
-
-        const data = XLSX.utils.sheet_to_json(sheet, { header: 1 });
-
-        const dataArray = data.slice(1).map((row) => {
-			return {
-				cat_name_vn: row[4], 
-				cat_alias_vn: createLinkTilte2(row[4]) ,
-				cat_count : row[3],
-				cat_name: row[5] ,
-				cat_alias: createLinkTilte2(row[5]) ,
-			};
-		});
-		return dataArray;
-
-    } catch (error) {
-        console.error(error.message);
-        return [];
-    }
-}
-
-export const getTagCateFromXlsx = () => {
-	try {
-        const filePath = './services/Data_Cate_Philippine.xlsx';
-        const fileBuffer = fs.readFileSync(filePath);
-
-        const workbook = XLSX.read(fileBuffer, { type: 'buffer' });
-        const sheetName = workbook.SheetNames[1];
-        const sheet = workbook.Sheets[sheetName];
-
-        const data = XLSX.utils.sheet_to_json(sheet, { header: 1 });
-
-        const result = [];
-        let currenttag = '';
-
-        data.slice(1).forEach(row => {
-            const tag_cate_id = row[0];
-            const tag_vn = row[1] ? row[1].trim() : '';
-            const tag_name = row[2] ? row[2].trim() : '';
-
-            if (tag_cate_id) {
-                currenttag= tag_cate_id;
-                result.push({
-                    tag_cate_id: currenttag,
-                    tag_vn: [],
-					tag_name :[],
-                });
-            }
-
-            if (tag_vn && tag_name) {
-                const tagObj = result.find(p => p.tag_cate_id === currenttag);
-                tagObj.tag_vn.push(tag_vn);
-                tagObj.tag_name.push(tag_name);
-            }
-        });
-
-        return result;
-
-    } catch (error) {
-        console.error(error.message);
-        return [];
-    }
-}
-
-export const getCityDistrictPhilippinesFromXlsx = () => {
-	try {
-        const filePath = './services/Data_Cate_Philippine.xlsx';
-        const fileBuffer = fs.readFileSync(filePath);
-
-        const workbook = XLSX.read(fileBuffer, { type: 'buffer' });
-        const sheetName = workbook.SheetNames[2];
-        const sheet = workbook.Sheets[sheetName];
-
-        const data = XLSX.utils.sheet_to_json(sheet, { header: 1 });
-
-        const result = [];
-        let currentProvince = '';
-
-        data.slice(1).forEach(row => {
-            const province = row[1];
-            const district = row[2];
-
-            if (province) {
-                currentProvince = province;
-                result.push({
-                    province: currentProvince,
-                    districts: []
-                });
-            }
-
-            if (district) {
-                const provinceObj = result.find(p => p.province === currentProvince);
-                provinceObj.districts.push(district);
-            }
-        });
-
-        return result;
-
-    } catch (error) {
-        console.error(error.message);
-        return [];
-    }
-}
-
 export const checkAlias = async (str, excludeId) => {
 	try {
 		if (!str) {
 			return ''
 		}
-
 		const linkStr = `${createLinkTilte2(str)}`
-		// Check trùng alias với 
-		// Trang cố định 
 		const fix_page = [
 			'dang-nhap',
 			'dang-ky',
@@ -1679,78 +1031,18 @@ export const checkAlias = async (str, excludeId) => {
 			'tin-tuc',
 			'quan-ly-nha-tuyen-dung',
 		]
-
 		const fix_index = fix_page.findIndex((item) => item == linkStr)
 		if (fix_index != -1) {
 			return `${process.env.DOMAIN_API_TIMVIECHAY}/${fix_page[fix_index]}`
 		}
-
 		const fix_page_multi = [
 			'cv-xin-viec',
 			'tim-viec-lam',
 		]
-
 		const fix_index_multi = fix_page_multi.findIndex((item) => item == linkStr || linkStr.startsWith(item))
 		if (fix_index_multi != -1) {
 			return `Link start with ${fix_page_multi[fix_index_multi]}`
 		}
-
-		// page dynamic
-		// tinh thanh, nganh nghe, tag
-		// if (linkStr.startsWith('tim-viec-lam')) {
-		// 	const page_multi = []
-		// 	const nganhngheAlias = await Category.distinct('cat_alias')
-		// 	const tinhThanhAlias = await City.distinct('cit_alias')
-		// 	const tagAlias = getNewTagFromXlsx().map((item) => createLinkTilte2(item.tag))
-
-		// 	for (let i = 0; i < nganhngheAlias.length; i++) {
-		// 		const nganhnghe = nganhngheAlias[i];
-		// 		page_multi.push(`tim-viec-lam-${nganhnghe}`)
-		// 		for (let i = 0; i < tinhThanhAlias.length; i++) {
-		// 			const tinhthanh = tinhThanhAlias[i];
-		// 			page_multi.push(`tim-viec-lam-tai-${nganhnghe}-tai-${tinhthanh}`)
-		// 		}
-		// 	}
-		// 	for (let i = 0; i < tinhThanhAlias.length; i++) {
-		// 		const tinhthanh = tinhThanhAlias[i];
-		// 		page_multi.push(`tim-viec-lam-tai-tai-${tinhthanh}`)
-		// 	}
-		// 	for (let i = 0; i < tagAlias.length; i++) {
-		// 		const tag = tagAlias[i];
-		// 		page_multi.push(`tim-viec-lam-${tag}`)
-		// 		for (let i = 0; i < tinhThanhAlias.length; i++) {
-		// 			const tinhthanh = tinhThanhAlias[i];
-		// 			page_multi.push(`tim-viec-lam-tai-${tag}-tai-${tinhthanh}`)
-		// 		}
-		// 	}
-
-		// 	const page_multi_index = page_multi.findIndex((item) => item == linkStr)
-		// 	if (page_multi_index != -1) {
-		// 		return `${process.env.DOMAIN_API_TIMVIECHAY}/${page_multi[page_multi_index]}`
-		// 	}
-		// }
-
-		// cv
-		// if (linkStr.startsWith('mau-cv-xin-viec')) {
-		// 	const page_multi = []
-		// 	const nganhNgheCvAlias = await NganhCv.distinct('alias')
-		// 	const ngonNguAlias = await LanguageCv.distinct('alias')
-		// 	for (let i = 0; i < nganhNgheCvAlias.length; i++) {
-		// 		const nganhnghe = nganhNgheCvAlias[i];
-		// 		page_multi.push(`mau-cv-xin-viec-${nganhnghe}`)
-		// 	}
-		// 	for (let i = 0; i < ngonNguAlias.length; i++) {
-		// 		const ngonngu = ngonNguAlias[i];
-		// 		page_multi.push(`mau-cv-xin-viec-${ngonngu}`)
-		// 	}
-
-		// 	const page_multi_index = page_multi.findIndex((item) => item == linkStr)
-		// 	if (page_multi_index != -1) {
-		// 		return `${process.env.DOMAIN_API_TIMVIECHAY}/${page_multi[page_multi_index]}`
-		// 	}
-		// }
-
-		// công ty 
 		const checkCom = await UserCompany.findOne({
 			usc_alias: linkStr,
 			...(excludeId && !isNaN(Number(excludeId)) && { usc_id: { $ne: Number(excludeId) } })
@@ -1758,189 +1050,32 @@ export const checkAlias = async (str, excludeId) => {
 		if (checkCom) {
 			return `${process.env.DOMAIN_API_TIMVIECHAY}/${checkCom.usc_alias}`
 		}
-
-		// tin 
 		const endOfStr = linkStr.split('-').filter(item => item.trim() != '').pop()
 		console.log(endOfStr)
 		if (!isNaN(Number(endOfStr))) {
 			return 'news link'
 		}
-
 		return ''
 	} catch (error) {
 		console.log('checkAlias', checkAlias);
 		return ''
 	}
 }
-
-export function getRandomInt(min, max) {
-	min = Math.ceil(min);
-	max = Math.floor(max);
-	return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-export const uploadBlogFile = async (folder, file, time) => {
-	try {
-		const path1 = `./upload/${folder}`;
-		const filePath = `./upload/${folder}/${time}_${file.name}`;
-		const fileCheck = path.extname(filePath);
-		if (['.doc', '.docx', '.pdf', '.xls', '.xlsx', '.txt'].includes(fileCheck.toLocaleLowerCase()) === false) {
-			return false;
-		}
-		if (!fs.existsSync(path1)) {
-			fs.mkdirSync(path1, { recursive: true });
-		}
-		fs.readFile(file.path, (err, data) => {
-			if (err) {
-				console.log(err);
-				return false;
-			}
-			fs.writeFile(filePath, data, (err) => {
-				if (err) {
-					return false;
-				}
-			});
-		});
-		// return `${folder}/${time}_${file.name}`;
-		return `${file.name}`;
-	} catch (error) {
-		console.log(error.message);
-		return false
-	}
-}
-
-// Await without pause
-export function sleep(ms) {
-	return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 /**
  * Xuất dữ liệu kinh nghiệm từ CV của ứng viên
  * @param {String} jsonCV Chuỗi JSON CV 
  */
-export const getUvTimeExp = (jsonCV) => {
-	try {
-		const objectCV = safeJSONparse(jsonCV)
-		let timeExp = 0
-		// console.log('objectCV', objectCV);
-
-		if (JSON.stringify(objectCV) != '{}') {
-
-			// Lấy thông tin 
-			if (objectCV?.experiences && Array.isArray(objectCV?.experiences)) {
-				const exp_index = objectCV.experiences.findIndex((item) => item?.id == 'block02')
-				// console.log('exp_index', exp_index);
-
-				if (exp_index != -1) {
-					const exp_data_array = objectCV.experiences[exp_index]?.content?.content
-					// console.log('exp_data_array', exp_data_array);
-
-					if (exp_data_array && Array.isArray(exp_data_array)) {
-						if (exp_data_array.length > 0) {
-							for (let i = 0; i < exp_data_array.length; i++) {
-								const element = exp_data_array[i];
-								// console.log('element', element);
-								if (element?.date) {
-									timeExp += calculateYearDifference(element.date)
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-
-		return timeExp
-	} catch (error) {
-		console.log('updateUvTimeExpVN', error.message)
-		return 0
-	}
-}
 
 /**
  * Chuyển dữ liệu Thời gian từ String sang Date 
  * @param {string} dateStr Ngày tháng Năm dạng chuỗi 
  * @returns Ngày Tháng Năm dạng Date hoặc false nếu không chuyển được 
  */
-function parseDate(dateStr) {
-	try {
-		const today = new Date();
-		dateStr = dateStr.trim().toLowerCase();
-
-		// Handle special case for "nay"
-		if (dateStr === "nay") {
-			return today;
-		}
-
-		// Normalize date string by replacing - with /
-		dateStr = dateStr.replace(/-/g, "/");
-
-		// Define possible date formats and their parsing logic
-		const dateFormats = [
-			{ regex: /^\d{1,2}\/\d{1,2}\/\d{4}$/, parse: str => new Date(str) },
-			{
-				regex: /^\d{1,2}\/\d{4}$/, parse: str => {
-					const [month, year] = str.split('/');
-					return new Date(year, month - 1);
-				}
-			},
-			{ regex: /^\d{4}$/, parse: str => new Date(str, today.getMonth(), today.getDate()) }
-		];
-
-		for (const { regex, parse } of dateFormats) {
-			if (regex.test(dateStr)) {
-				return parse(dateStr);
-			}
-		}
-
-		// throw new Error(`Unknown date format: ${dateStr}`);
-		return false
-	} catch (error) {
-		console.log('parseDate', error);
-		return false
-	}
-}
-
 /**
  * Tính chêch lệch thời gian theo năm từ chuỗi 
  * @param {string} inputString Chuỗi thời gian đầu cuối (VD: 04/2001 - 05/2024)
  * @returns Chêch lệch theo năm (làm tròn xuống)
  */
-function calculateYearDifference(inputString) {
-	try {
-		const dateParts = inputString.split(/\s*-\s*/);
-		if (dateParts.length !== 2) {
-			// throw new Error("Input should contain exactly two dates separated by '-'");
-			return 0
-		}
-
-		const [startStr, endStr] = dateParts;
-		// console.log('startStr', startStr);
-		// console.log('endStr', endStr);
-
-		const startDate = parseDate(startStr);
-		const endDate = parseDate(endStr);
-
-		if (!startDate || !endDate) {
-			return 0
-		}
-
-		let yearsDifference = endDate.getFullYear() - startDate.getFullYear();
-
-		// Adjust the difference based on the month and day
-		if (endDate.getMonth() < startDate.getMonth() ||
-			(endDate.getMonth() === startDate.getMonth() && endDate.getDate() < startDate.getDate())) {
-			yearsDifference--;
-		}
-
-		return yearsDifference;
-	} catch (error) {
-		console.log('calculateYearDifference', error);
-		return 0
-	}
-
-}
-
 export const array_muc_luong = {
 	0: "Chọn mức lương",
 	1: "Thỏa thuận",
@@ -1955,7 +1090,6 @@ export const array_muc_luong = {
 	10: "Trên 50 triệu",
 	11: "Trên 100 triệu",
 };
-
 export const getMucLuong = (
 	new_money_type,
 	new_money_from,
@@ -1978,7 +1112,6 @@ export const getMucLuong = (
 		return "Chưa cập nhật";
 	}
 };
-
 function formatCurrency(amount) {
 	try {
 		return amount.toLocaleString("vi-VN", {
@@ -1989,31 +1122,6 @@ function formatCurrency(amount) {
 		return "Chưa cập nhật";
 	}
 }
-
-export const getHanNop = (time) => {
-	try {
-		const currentTime = Date.now() / 1000;
-		const inputTime = time;
-		const tg = inputTime - currentTime;
-		if (tg < 0) return "Đã hết hạn";
-		if (tg < 60) {
-			return `Còn ${Math.floor(tg)} giây`;
-		} else if (tg >= 60 && tg < 3600) {
-			return `Còn ${Math.floor(tg / 60)} phút`;
-		} else if (tg >= 3600 && tg < 86400) {
-			return `Còn ${Math.floor(tg / 3600)} giờ`;
-		} else if (tg >= 86400 && tg < 2592000) {
-			return `Còn ${Math.floor(tg / 86400)} ngày`;
-		} else if (tg >= 2592000 && tg < 77760000) {
-			return `Còn ${Math.floor(tg / 2592000)} tháng`;
-		} else if (tg >= 77760000) {
-			return `Còn ${Math.floor(tg / 77760000)} năm`;
-		}
-	} catch (error) {
-		return "Chưa cập nhật";
-	}
-};
-
 const removeVietnameseTonesTime = (str) => {
 	try {
 		if (!str) return ""
@@ -2025,275 +1133,15 @@ const removeVietnameseTonesTime = (str) => {
 		str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
 		str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
 		str = str.replace(/đ/g, "d");
-		str = str.replace(/\u0300|\u0301|\u0303|\u0309|\u0323/g, ""); // Huyền sắc hỏi ngã nặng 
-		str = str.replace(/\u02C6|\u0306|\u031B/g, ""); // Â, Ê, Ă, Ơ, Ư
-		// str = str.replace(/-/g, "");
+		str = str.replace(/\u0300|\u0301|\u0303|\u0309|\u0323/g, "");
+		str = str.replace(/\u02C6|\u0306|\u031B/g, "");
 		return str;
 	} catch (error) {
 		console.log('removeVietnameseTonesTime', error.message)
 	}
 }
-
 /**
  * Lấy số năm kinh nghiệm từ CV 
  * @param {Object} arrHtml Object từ JSON CV 
  * @returns Kinh nghiệm làm việc (theo năm)
  */
-export const getUvTimeExp2 = (arrHtml) => {
-	try {
-		let cvExp = arrHtml.experiences.find((item) => item.id == 'block02' && item.status == '');
-		if (cvExp) {
-			let listExp = cvExp.content.content;
-			// console.log(listExp)
-			if (listExp.length) {
-				let listYearExp = [];
-				for (let itemExp of listExp) {
-					let strTime = removeVietnameseTonesTime(itemExp.date),
-						timeStart = 0,
-						timeEnd = 0
-					if (strTime && strTime.includes('-')) {
-						let arrTime = strTime.split('-');
-						// console.log('arrTime:', arrTime)
-						if (arrTime.length == 2) {
-							let strTimeStart = arrTime[0],
-								strTimeEnd = arrTime[1]
-							if (strTimeStart.includes('/')) {
-								let arrTimeStart = strTimeStart.split('/')
-								if (Number(arrTimeStart[arrTimeStart.length - 1].trim()) && Number(arrTimeStart[arrTimeStart.length - 1].trim()) > new Date().getFullYear() - 50) {
-									timeStart = Number(arrTimeStart[arrTimeStart.length - 1].trim())
-								}
-							} else {
-								if (Number(strTimeStart.trim()) && Number(strTimeStart.trim()) > new Date().getFullYear() - 50) {
-									timeStart = Number(strTimeStart.trim())
-								}
-							}
-
-							if (strTimeEnd.includes('/')) {
-								let arrTimeEnd = strTimeEnd.split('/')
-								if (Number(arrTimeEnd[arrTimeEnd.length - 1].trim()) && Number(arrTimeEnd[arrTimeEnd.length - 1].trim()) > new Date().getFullYear() - 50) {
-									timeEnd = Number(arrTimeEnd[arrTimeEnd.length - 1].trim())
-								}
-							} else {
-								if (Number(strTimeEnd.trim()) && Number(strTimeEnd.trim()) > new Date().getFullYear() - 50) {
-									timeEnd = Number(strTimeEnd.trim())
-								} else if (strTimeEnd.trim().toLowerCase() == 'nay' || strTimeEnd.trim().toLowerCase() == 'hien tai') {
-									timeEnd = new Date().getFullYear()
-								}
-							}
-						}
-					} else {
-						if (Number(strTime) && Number(strTime) > new Date().getFullYear() - 50) {
-							timeStart = timeEnd = Number(strTime);
-						}
-					}
-					if (timeStart && timeEnd) {
-						//Check bỏ phần kinh nghiệm chồng chéo
-						for (let i = timeStart; i <= timeEnd; i++) {
-							if (i != 0 && listYearExp.indexOf(i) == -1) {
-								listYearExp.push(i);
-							}
-						}
-					}
-				}
-				let timeExp = listYearExp.length - 1;
-				// console.log(timeExp);
-				//Cập nhật kinh nghiệm
-				if (timeExp) {
-					return timeExp
-				}
-			}
-		}
-		return 0
-	} catch (error) {
-		console.log('getUvTimeExp2', error);
-		return 0
-	}
-}
-
-// hàm render pdf đến vị trí mới 
-export const renderPdfFromUrlToDir = async (link, path1, filePath) => {
-	let returnData = false
-	const browser = await puppeteer.launch({
-		headless: 'chrome',
-		args: [
-			'--no-sandbox',
-			'--disabled-setupid-sandbox',
-			'--font-render-hinting=none',
-			'--force-color-profile=srgb',
-			'--disable-web-security',
-			// '--disk-cache-size=0',
-		],
-		// defaultViewport: null,
-		ignoreHTTPSErrors: true,
-	});
-
-	const page = await browser.newPage();
-	try {
-		const session = await page.target().createCDPSession();
-		// const session = await page.createCDPSession();
-		await session.send('DOM.enable');
-		await session.send('CSS.enable');
-		const website_url = link;
-		// Open URL in current page
-		// await page.setViewport({ width: 1920, height: 1080 });
-		await page.goto(website_url, { waitUntil: ['load', 'domcontentloaded', 'networkidle0'] }); // 2s, font hiển thị đúng
-		// await page.reload({ waitUntil: ['load', 'domcontentloaded', 'networkidle0'] });
-		await page.waitForSelector('#loadingDone');
-		// await page.waitForSelector('')
-		await page.emulateMediaType('print');
-		await page.evaluateHandle('document.fonts.ready');
-
-		// Downlaod the PDF
-		const pdf = await page
-			.pdf({
-				margin: {
-					top: '0px',
-					right: '0px',
-					bottom: '0px',
-					left: '0px',
-				},
-				printBackground: true,
-				// preferCSSPageSize: true,
-				// scale: 0.5
-			})
-			.then(function (data) {
-				return data;
-			});
-		// await page.close()
-		// await browser.close();
-		// userName = createLinkTilte(userName) != '' ? createLinkTilte(userName) : `ung-vien`;
-		if (!fs.existsSync(path1)) {
-			fs.mkdirSync(path1, { recursive: true });
-		}
-		fs.writeFile(filePath, pdf, (err) => {
-			if (err) {
-				// return false;
-				returnData = false
-			} else {
-				returnData = true
-			}
-			// console.log('pdf success')
-		});
-	} catch (e) {
-		console.log('renderPdfFromUrl', 'link', link, '\n', e)
-		// return false;
-		returnData = false
-	} finally {
-		if (page) {
-			await page.close()
-		}
-		if (browser) {
-			await browser.close()
-		}
-	}
-
-	return returnData
-};
-
-export const checkFetchFile = async (url) => {
-	// try {
-	// 	const res = await fetch(url);
-	// 	let response = await axios.get(url);
-	// 	if (response && response.data) {
-	// 		// console.log("Dữ liệu trả về", response.data);
-	// 		const buff = await res.blob();
-	// 		return buff.type.startsWith('')
-	// 	} else {
-	// 		return false;
-	// 	}
-
-	// } catch (e) {
-	// 	// console.log("checkImage", e);
-	// 	return false;
-	// }
-
-	// New
-	try {
-        const res = await fetch(url);
-        let response = await axios.get(url);
-        if (response && response.data) { 
-            if(Number(response.headers['content-length']) < 2000){
-                return false;
-            }
-            const buff = await res.blob();
-            return buff.type.startsWith('')
-        } else {
-            return false;
-        }
-
-    } catch (e) {
-        // console.log("checkImage", e);
-        return false;
-    }
-}
-
-export const test = async () => {
-	try {
-		
-	} catch (error) {
-		console.log('test', error.message)
-	}
-}
-
-export const randomString2 = (strInput) => {
-	try {
-		let seedStr = uuidv4()
-		if (strInput) {
-			if (Array.isArray(strInput)) {
-				const formattedStrArr = strInput
-					.map((item) => (
-						typeof item === "string" ?
-							item :
-							JSON.stringify(item)
-					))
-					.filter((item) => !!item)
-				seedStr = [seedStr, ...formattedStrArr].join("_")
-			} else if (typeof strInput === "string") {
-				seedStr = `${seedStr}_${strInput}`
-			} else {
-				seedStr = `${seedStr}_${JSON.stringify(strInput)}`
-			}
-		}
-		return createMd5(seedStr)
-	} catch (error) {
-		console.log("🚀 ~ randomString2 ~ error:", error)
-		return randomString(24);
-	}
-}
-
-export const updateTimeTv = async (account) => {
-    try {
-		if(account){
-			// console.log('nick nào',account)
-			const config = {
-				url: "https://api.timviec365.vn/api/getData/update_updateTime",
-				method: 'post',
-				maxBodyLength: Infinity,
-				headers: {
-					"Content-Type": "application/json"
-				},
-				data: {
-					account: account,
-					use_update_time: getTime(),
-				}
-			};
-	
-			let result = true;
-			await axios.request(config)
-				.then((res) => {
-					console.log(res.data)
-					result = res.data.data.data.message;
-					console.log("Update time", result);
-				})
-				.catch((error) => {
-					console.log("🚀 ~ sendOtpApi ~ error:", error?.message);
-				});
-	
-			return result;
-		}
-		return true;
-    } catch (error) {
-        console.log("🚀 ~ sendOtpApi ~ error:", error?.message);
-        return false;
-    }
-};

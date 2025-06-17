@@ -14,93 +14,38 @@ import TblPointCompany from '../models/tbl/TblPointCompany.js';
 import SaveCandidateCv from '../models/save/SaveCandidateCv.js';
 import UserCvUpload from '../models/user/UserCvUpload.js';
 
-// đăng tin
 export const PostNew = async(req, res) => {
     try {
         const idNTD = req.idNTD;
         const tuKhoa = functions.tuKhoa;
         let realCate = [];
-
-        // vị trí đăng tuyển
         const title = req.body.title;
-
-        // cấp bậc
         const capBac = Number(req.body.capBac);
-
-        // ngành nghề 
         const catId = req.body.catId;
-
-        // địa điểm làm việc
         const city = req.body.city;
-
-        // quận huyện làm việc
         const district = req.body.district;
-
-        // địa chỉ chi tiết làm việc
         const address = req.body.address;
-
-        // hình thức làm việc
         const hinhThuc = Number(req.body.hinhThuc);
-
-        // mức lương
         const money = Number(req.body.money);
-
-        // số lượng cần tuyển
         const soLuong = Number(req.body.soLuong);
-
-        // thời gian thử việc (nếu có)
         const thuViec = req.body.thuViec;
-
-        // hoa hồng (nếu có)
         const hoaHong = req.body.hoaHong;
-
-        // mô tả công việc
         const moTa = req.body.moTa;
-
-        // kinh nghiệm
         const exp = Number(req.body.exp);
-
-        // yêu cầu bằng cấp
         const bangCap = Number(req.body.bangCap);
-
-        // giới tính
         const gioiTinh = Number(req.body.gioiTinh);
-
-        // yêu cầu công việc
         const yeuCau = req.body.yeuCau;
-
-        // quyền lợi được hưởng
         const quyenLoi = req.body.quyenLoi;
-
-        // hồ sơ bao gồm
         const hoSo = req.body.hoSo;
-
-        // hạn nộp
         let hanNop = req.body.hanNop;
-
-        // tên người liên hệ
         const userContact = req.body.userContact;
-
-        // địa chỉ liên hệ
         const addressContact = req.body.addressContact;
-
-        // số điện thoại liên hệ
         const phoneContact = req.body.phoneContact;
-
-        // email liên hệ
         const emailContact = req.body.emailContact;
-
-        // console.log('>>> check city: ', city, "district: ", district)
-
-        if (title && capBac && catId && city &&
-            district && address && hinhThuc && money &&
-            soLuong && moTa && (bangCap || bangCap === 0) &&
-            yeuCau && quyenLoi && hoSo && hanNop &&
-            userContact && addressContact && phoneContact && emailContact) {
+        if (title && capBac && catId && city && district && address && hinhThuc && money && soLuong && moTa && (bangCap || bangCap === 0) && yeuCau && quyenLoi && hoSo && hanNop && userContact && addressContact && phoneContact && emailContact) {
             const date = functions.getTime();
             hanNop = functions.getTime(hanNop);
             const checkEmail = await functions.checkEmail(emailContact);
-            //check time 60p
             const currentTimeUnix = Math.floor(Date.now() / 1000);
             const oneHourAgoUnix = currentTimeUnix - 3600;
             const checkTime = await New.exists({
@@ -170,11 +115,8 @@ export const PostNew = async(req, res) => {
                                 'from': 'TopCv1s.com'
                             };
                             await New.create(data);
-
-                            // Dọn dẹp trong tình huống tin tuyển dụng mới trùng tin mới
                             await NewGhimTin.deleteMany({ new_id: new_id })
                             await NopHoSo.deleteMany({ nhs_new_id: new_id })
-
                             return functions.success(res, 'New post successfully', { new_id });
                         }
                         return functions.setError(res, 'This title already exists, please choose a different title', 400);
@@ -190,8 +132,6 @@ export const PostNew = async(req, res) => {
         return functions.setError(res, error.message);
     }
 };
-
-// danh sách tin NTD đã đăng
 export const ListNewNTD = async(req, res) => {
     try {
         const idNTD = req.idNTD;
@@ -199,7 +139,6 @@ export const ListNewNTD = async(req, res) => {
         const pageSize = Number(req.body.pageSize) || 10;
         const skip = (page - 1) * pageSize;
         const limit = pageSize;
-
         const project = {
             _id: 0,
             new_id: 1,
@@ -230,7 +169,6 @@ export const ListNewNTD = async(req, res) => {
             },
             { $project: project }
         ]);
-
         const tongTinPromise = New.countDocuments({ new_user_id: idNTD, new_active: 1 });
         const [data, tongTin] = await Promise.all([
             dataPromise, tongTinPromise
@@ -249,14 +187,11 @@ export const ListNewNTD = async(req, res) => {
             const element = data[i];
             element.soUvTiemNang = dataa[i];
         }
-
         return functions.success(res, 'get data success', { total: tongTin, data });
     } catch (error) {
         return functions.setError(res, error.message);
     }
 };
-
-// promise đếm số ứng viên
 const arrPromiseUV = (new_cat_id, new_city) => {
     const soUngVien = Users.countDocuments({
         $or: [
@@ -266,20 +201,16 @@ const arrPromiseUV = (new_cat_id, new_city) => {
     });
     return soUngVien;
 };
-
-// làm mới tin NTD đã đăng
 export const RefreshNew = async(req, res) => {
     try {
         const idNTD = req.idNTD;
         const idNew = Number(req.body.idNew);
         if (idNew) {
             const check = await New.findOne({ new_user_id: idNTD }, { new_time_refresh: 1, new_update_time: 1 }).sort({ new_time_refresh: -1 }).lean();
-
             if (check) {
                 const checkExists = await New.findOne({ new_id: idNew, new_user_id: idNTD }).lean();
                 if (checkExists) {
                     const time = functions.getTime();
-                    // if (check.new_time_refresh + 3600 < time && check.new_update_time + 3600 < time) {
                     await New.updateMany({ new_user_id: idNTD }, { new_time_refresh: 0 });
                     await New.updateOne({ new_id: idNew }, {
                         $inc: { new_refresh: +1 },
@@ -287,8 +218,6 @@ export const RefreshNew = async(req, res) => {
                         new_time_refresh: time
                     });
                     return functions.success(res, 'Làm mới tin thành công');
-                    // }
-                    // return functions.setError(res, 'Mỗi lần làm mới tin tuyển dụng của bạn phải cách nhau 60 phút, TopCv1s.com hẹn bạn sau 60 phút', 400);
                 }
                 return functions.setError(res, 'Không tìm thấy tin làm mới', 404);
             }
@@ -299,8 +228,6 @@ export const RefreshNew = async(req, res) => {
         return functions.setError(res, error.message);
     }
 };
-
-// sửa tin
 export const UpdateNew = async(req, res) => {
     try {
         const idNTD = req.idNTD;
@@ -460,8 +387,6 @@ export const UpdateNew = async(req, res) => {
         return functions.setError(res, error.message);
     }
 };
-
-// xoá tin
 export const DeleteNew = async(req, res) => {
     try {
         const idNew = Number(req.body.idNew);
@@ -478,10 +403,7 @@ export const DeleteNew = async(req, res) => {
         return functions.setError(res, error.message);
     }
 };
-
-// refresh sitemap
 let last_sitemap_time = 0
-    // trang chủ
 let data_home = {};
 export const Home = async(req, res) => {
     try {
@@ -492,18 +414,14 @@ export const Home = async(req, res) => {
             functions.success(res, 'success', { data: data_home });
         }
         const time = functions.getTime();
-
         const idNewHot = [];
         const idNewCao = [];
         const idCompany = []
         const HotNewGhimTin_Promise = await NewGhimTin.find({ expired: { $gt: time } })
         const UserCompany_Promise = await UserCompany.find()
-
         if (time - last_sitemap_time >= 86400) {
             last_sitemap_time = time
-            // genSitemap()
         }
-
         for (let i = 0; i < HotNewGhimTin_Promise.length; i++) {
             if (HotNewGhimTin_Promise[i].new_hot === 1) {
                 idNewHot.push(HotNewGhimTin_Promise[i].new_id)
@@ -512,12 +430,9 @@ export const Home = async(req, res) => {
                 idNewCao.push(HotNewGhimTin_Promise[i].new_id)
             }
         }
-        console.log('id new',idNewHot)
-
         for (let i = 0; i < UserCompany_Promise.length; i++) {
             idCompany.push(UserCompany_Promise[i].usc_id)
         }
-
         const ViecLamHapDan_Promise = await New.aggregate([{
                 $match: {
                     new_active: 1,
@@ -528,7 +443,6 @@ export const Home = async(req, res) => {
                 }
             },
             { $sort: { new_update_time: -1 } },
-            // { $limit: 72 },
             { $limit: 30 },
             {
                 $lookup: {
@@ -567,7 +481,6 @@ export const Home = async(req, res) => {
                 }
             }
         ]);
-        console.log(">>> Việc làm hấp dẫn: ", ViecLamHapDan_Promise)
         const ViecLamThuongHieu_Promise = await New.aggregate([{
                 $match: {
                     new_active: 1,
@@ -578,7 +491,6 @@ export const Home = async(req, res) => {
                 }
             },
             { $sort: { new_cao: -1, new_update_time: -1 } },
-            // { $limit: 72 },
             { $limit: 30 },
             {
                 $lookup: {
@@ -617,8 +529,6 @@ export const Home = async(req, res) => {
                 }
             }
         ]);
-
-        // Đẩy thêm 15 tin thường lên việc làm hấp dẫn, việc làm lương cao trên trang chủ (sắp xếp theo thời gian cập nhật)
         const TinThuongHapDan_Promise = New.aggregate([{
                 $match: {
                     new_active: 1,
@@ -676,7 +586,6 @@ export const Home = async(req, res) => {
                 }
             }
         ])
-        console.log(">>> Tin thưởng hấp dẫn Promise: ", TinThuongHapDan_Promise)
         const TinThuongThuongHieu_Promise = New.aggregate([{
                 $match: {
                     new_active: 1,
@@ -771,9 +680,7 @@ export const Home = async(req, res) => {
                 $limit: 10
             }
         ]);
-
         const com_promise = UserCompany.distinct("usc_id")
-
         const [
             ViecLamHapDan,
             TinThuongHapDan,
@@ -792,44 +699,33 @@ export const Home = async(req, res) => {
             City.find({}, { cit_id: 1, cit_name: 1 }).lean(),
             com_promise,
         ]);
-
-        console.log(">>> Tin thưởng hấp dẫn: ", TinThuongHapDan)
-
-        //check lưu tin và ứng tuyển
         const iduser = await functions.getTokenJustUser(req, res);
         console.log(iduser)
         if (iduser) {
             const processArray = async (arr) => {
                 const arrPromiseLuuTin = [];
                 const arrPromiseNopHoSo = [];
-        
                 for (let i = 0; i < arr.length; i++) {
                     const element = arr[i];
                     arrPromiseNopHoSo.push(promiseNopHoSo(iduser, element.new_id));
                     arrPromiseLuuTin.push(promiseTblLuuTin(iduser, element.new_id));
                 }
-        
                 const arrNopHoSo = await Promise.all(arrPromiseNopHoSo);
                 const arrLuutin = await Promise.all(arrPromiseLuuTin);
-        
                 for (let i = 0; i < arr.length; i++) {
                     arr[i].checkUngTuyen = arrNopHoSo[i] ? true : false;
                     arr[i].checkLuuTin = arrLuutin[i] ? true : false;
                 }
             };
-
             await processArray(TinThuongHapDan);
             await processArray(ViecLamHapDan);
             await processArray(ViecLamThuongHieu);
             await processArray(TinThuongThuongHieu);
         }
-
         const leng_hapDan = ViecLamHapDan.length;
-        console.log('so viec hap dan:',leng_hapDan)
         for (let i = 0; i < leng_hapDan; i++) {
             const element = ViecLamHapDan[i];
             element.usc_logo = functions.getAvatarNTD(element.usc_create_time, element.usc_logo);
-
             const nameCity = element.new_city.split(',');
             const cityArr = [];
             if (nameCity.length > 0) nameCity.map((itemm) => {
@@ -837,9 +733,7 @@ export const Home = async(req, res) => {
                 if (city) cityArr.push(city.cit_name);
             });
             element.new_city = cityArr;
-
         }
-
         const leng_thuongHieu = ViecLamThuongHieu.length;
         for (let i = 0; i < leng_thuongHieu; i++) {
             const element = ViecLamThuongHieu[i];
@@ -852,7 +746,6 @@ export const Home = async(req, res) => {
             });
             element.new_city = cityArr;
         }
-
         const leng_tinthuonghapdan = TinThuongHapDan.length;
         for (let i = 0; i < leng_tinthuonghapdan; i++) {
             const element = TinThuongHapDan[i];
@@ -865,9 +758,7 @@ export const Home = async(req, res) => {
                 if (city) cityArr.push(city.cit_name);
             });
             element.new_city = cityArr;
-
         }
-
         const leng_tinthuongthuonghieu = TinThuongThuongHieu.length;
         for (let i = 0; i < leng_tinthuongthuonghieu; i++) {
             const element = TinThuongThuongHieu[i];
@@ -880,7 +771,6 @@ export const Home = async(req, res) => {
             });
             element.new_city = cityArr;
         }
-
         const leng_congTyHangDau = CongTyHangDau.length;
         for (let i = 0; i < leng_congTyHangDau; i++) {
             const element = CongTyHangDau[i];
@@ -900,15 +790,12 @@ export const Home = async(req, res) => {
         ];
         const JobNumber = await Promise.all(
             arr.map(item => (
-                // New.countDocuments({ new_cat_id: { $regex: item, $options: 'i' }, new_active: 1, new_han_nop: { $gt: new Date().getTime() / 1000 } })
                 New.countDocuments({ new_cat_id: new RegExp(`(^|,)${item}(,|$)`), new_active: 1, new_han_nop: { $gt: new Date().getTime() / 1000 }, new_user_id: { $in: com } })
             ))
         );
-
         for (let i = 0; i < arr.length; i++) {
             const element = arr[i];
             const hotCateItem = arrHotCate.find(cate => cate._id === element);
-        
             if (hotCateItem) {
                 nganhNgheNoiBat.push({
                     _id: hotCateItem._id,
@@ -918,9 +805,6 @@ export const Home = async(req, res) => {
                 });
             }
         }
-
-        console.log('so viec moi nhat:', ViecLamThuongHieu, TinThuongThuongHieu);
-
         data.ViecLamHapDan = ViecLamHapDan.length < 30 ? [...ViecLamHapDan, ...TinThuongHapDan] : [...ViecLamHapDan];
         data.Attractive_Job = ViecLamHapDan.length < 0 ? [...ViecLamHapDan, ...TinThuongHapDan] : [...ViecLamHapDan];
         data.New_Job = ViecLamThuongHieu.length < 30 ? [...ViecLamThuongHieu, ...TinThuongThuongHieu] : [...ViecLamThuongHieu];
@@ -928,7 +812,6 @@ export const Home = async(req, res) => {
         data.TinThuongHapDan = TinThuongHapDan;
         data.TinThuongThuongHieu = TinThuongThuongHieu;
         data.TopCompany = CongTyHangDau;
-        // data.ViecLamTuyenGap = ViecLamTuyenGap;
         data.JobNumber = JobNumber;
         data.Outstanding_Category = nganhNgheNoiBat;
         data_home = data;
@@ -940,8 +823,6 @@ export const Home = async(req, res) => {
         return functions.setError(res, error.message);
     }
 };
-
-// !chi tiết tin tuyển dụng (Thiếu chuyển dọng nói)
 export const DetailNew = async(req, res) => {
     try {
         const iduser = await functions.getTokenJustUser(req, res);
@@ -1008,22 +889,17 @@ export const DetailNew = async(req, res) => {
                 { $project: item }
             ]);
             const cate_Promise = Category.find({}, { cat_id: 1, cat_name: 1, cat_tags: 1, cat_count: 1, cat_count_vl: 1, cat_ut: 1 }).lean();
-
             const [dataNew, cate, Cityy] = await Promise.all([
                 data_Promise, cate_Promise, City.find({}, { cit_id: 1, cit_name: 1 }).lean()
-
             ]);
             const data = dataNew[0];
             if (data) {
                 const arrCity = data.new_city.split(',');
-
                 const conditions = { new_city: { $in: arrCity }, new_active: 1, new_id: { $ne: id } };
-
                 if (data.new_real_cate.length > 0) {
                     const arrConditionsRealCate = getConditionsRealCate(data.new_real_cate);
                     conditions['$or'] = arrConditionsRealCate;
                 }
-
                 let cateName = '';
                 const arrNganhNghe = [];
                 const arrCate = data.new_cat_id.split(',');
@@ -1034,10 +910,7 @@ export const DetailNew = async(req, res) => {
                         if (result) cateName = result.cat_name;
                     }
                     arrNganhNghe.push(cate.find(item => item.cat_id == element));
-                    // console.log('element', element, 'cate', cate.find(item => item.cat_id == element));
                 }
-
-                // const name_tag = await 
                 const name_tag = await Promise.all(
                     data.new_tag.split(',').map(
                         (item) => {
@@ -1054,8 +927,6 @@ export const DetailNew = async(req, res) => {
                 });
                 data.new_city_id = data.new_city
                 data.new_city = cityArr;
-
-
                 const checkApply_Promise = NopHoSo.findOne({ nhs_new_id: id, nhs_use_id: iduser });
                 const viecLamTuongTu_Promise = New.aggregate([
                     { 
@@ -1092,7 +963,6 @@ export const DetailNew = async(req, res) => {
                 }
                 data.apply = checkApply ? true : false;
                 data.SaveNew = checkSaveNew ? true : false;
-                // data.new_cat_id = cateName;
                 data.usc_logo = functions.getAvatarNTD(data.usc_create_time, data.usc_logo);
                 data.arrNganhNghe = arrNganhNghe;
                 data.cateName = cateName;
@@ -1109,8 +979,6 @@ export const DetailNew = async(req, res) => {
         return functions.setError(res, error.message);
     }
 };
-
-// hàm tạo truy vấn tìm từ khoá liên quan
 const getConditionsRealCate = (arr) => {
     const obj = [];
     for (let i = 0; i < arr.length; i++) {
@@ -1119,8 +987,6 @@ const getConditionsRealCate = (arr) => {
     }
     return obj;
 };
-
-// tìm kiếm tin tuyển dụng
 export const SearchNew = async(req, res) => {
     try {
         let arrIDSearchByAI = [];
@@ -1172,7 +1038,6 @@ export const SearchNew = async(req, res) => {
             new_emailcontact: 1,
             new_mota: 1,
         };
-
         const conditions = {};
         const conditions_ai={};
         if (arrIDSearchByAI.length > 0) {
@@ -1205,7 +1070,6 @@ export const SearchNew = async(req, res) => {
                     {
                         usc_company: { $ne: null }
                     },
-
                 ]
             })
             conditions.new_user_id = { $in: com }
@@ -1239,7 +1103,6 @@ export const SearchNew = async(req, res) => {
                 conditions_ai.$or = [];    
                 conditions_ai.$or.push({ new_tag: tag_id });
                 conditions_ai.$or.push({ new_title: regex });
-
             }
             if (keywords && !tag_id) {
                 const key = keySearch(keywords);
@@ -1256,7 +1119,6 @@ export const SearchNew = async(req, res) => {
             data = await New.aggregate([
                 { $match: conditions },
                 { $sort: { [sortField]: sortOrder } },
-                // { $sort: { new_update_time: -1 } },
                 { $skip: skip },
                 { $limit: limit },
                 {
@@ -1272,26 +1134,20 @@ export const SearchNew = async(req, res) => {
             ]);
             console.log(conditions_ai)
             const totalTinThuong = await New.countDocuments(conditions);
-
             total = totalTinThuong ;
-
         }
         const iduser = await functions.getTokenJustUser(req, res);
         const arrPromiseLuuTin = []
         const arrPromiseNopHoSo = []
-
         const leng_data = data.length;
         for (let i = 0; i < leng_data; i++) {
             const element = data[i];
             element.usc_logo = functions.getAvatarNTD(element.usc_create_time, element.usc_logo);
-            // const cityFind = city.find(item => item.cit_id == element.new_city);
-            // if (cityFind) element.new_city = cityFind.cit_name
             if (iduser) {
                 arrPromiseLuuTin.push(promiseTblLuuTin(iduser, element.new_id))
                 arrPromiseNopHoSo.push(promiseNopHoSo(iduser, element.new_id))
             }
         }
-
         if (iduser) {
             const arrLuuTin = await Promise.all(arrPromiseLuuTin)
             const arrNopHoSo = await Promise.all(arrPromiseNopHoSo)
@@ -1315,8 +1171,6 @@ export const SearchNew = async(req, res) => {
         return functions.setError(res, error.message);
     }
 };
-
-// hàm ren keysearch 
 const keySearch = (keySearch) => {
     let result = keySearch.replaceAll(' - ', '');
     result = result.replaceAll('-', '');
@@ -1328,28 +1182,22 @@ const keySearch = (keySearch) => {
     }
     return result;
 };
-
-// promise call tblLuuTin
 const promiseTblLuuTin = (iduser, new_id) => {
     const query = TblLuuTin.findOne({ id_uv: iduser, id_tin: new_id }, { id: 1 }).lean();
     return query;
 }
-
-// promise call NopHoSo
 const promiseNopHoSo = (iduser, new_id) => {
     const query = NopHoSo.findOne({ nhs_use_id: iduser, nhs_new_id: new_id, type: 1 }, { id: 1 }).lean();
     return query;
 }
-
-// tìm kiếm ứng viên
 export const SearchCandi = async(req, res) => {
     try {
         const page = Number(req.body.page) || 1;
         const pageSize = Number(req.body.pageSize) || 10;
         const skip = (page - 1) * pageSize;
         const limit = pageSize;
-        const catid = req.body.catid; // ngành nghề
-        const city = req.body.city; // tỉnh thành
+        const catid = req.body.catid;
+        const city = req.body.city;
         const district = req.body.district;
         const hinhThuc = Number(req.body.hinhThuc);
         const capBac = Number(req.body.capBac);
@@ -1365,7 +1213,6 @@ export const SearchCandi = async(req, res) => {
         let conditions = {
             usc_search: 1,
         };
-
         if (city) {
             conditionsAI.cv_city_id = Number(city);
             conditions['use_city_job.id'] = city;
@@ -1380,7 +1227,6 @@ export const SearchCandi = async(req, res) => {
             const userIdCv = await SaveCandidateCv.distinct('iduser', {
                 html: new RegExp(key, 'i')
             })
-            // console.log(userIdCv)
             conditions['$or'] = [
                 { use_job_name: new RegExp(functions.allVietnameseRegex(key), 'i') },
                 { use_name: new RegExp(functions.allVietnameseRegex(key), 'i') },
@@ -1392,21 +1238,10 @@ export const SearchCandi = async(req, res) => {
         if (kinhNghiem || kinhNghiem === 0) conditions.exp_years = kinhNghiem;
         if (gioiTinh) conditions.gender = gioiTinh;
         if (district) {
-            // conditions.use_district = district
             conditions['use_district_job.id'] = Number(district)
         };
         if (mucLuong) conditions.salary = mucLuong;
-
         let totalAI = 0;
-        // if (resultAI && resultAI.data && resultAI.data.result == true) {
-        //     arrIdByAI = resultAI.data.list_id.split(',').map(item => Number(item));
-        //     totalAI = resultAI.data.total;
-        // }
-
-        // if (arrIdByAI.length > 0) {
-        //     conditions = {};
-        //     conditions.use_id = { $in: arrIdByAI };
-        // }
         const usersWithCvUpload = await UserCvUpload.distinct('use_id');
         const usersWithSaveCandiCv = await SaveCandidateCv.distinct('iduser');
         const usersWithCv = [...new Set([...usersWithCvUpload, ...usersWithSaveCandiCv])];
@@ -1441,14 +1276,10 @@ export const SearchCandi = async(req, res) => {
             ungVienTheoNganhNghe_promise,
             ungVienTheoTinhThanh_promise,
             City.find({}, { cit_id: 1, cit_name: 1 }).lean()
-
         ]);
         const iduser = await functions.getTokenUser(req, res);
-
         const dataSeo = {};
-
         let showNew = 0;
-
         if (catid && !city) {
             const catName = await Category.findOne({ cate_id: catid }, { cat_name: 1 }).lean();
             const name = catName ? catName.cat_name : "Ứng viên";
@@ -1458,12 +1289,12 @@ export const SearchCandi = async(req, res) => {
             dataSeo.index = `index, follow`;
             dataSeo.textBreak = `Ứng viên ${name}`;
             dataSeo.breakCrumb = `<div class="breakcrumb">
-            <ul>
-                <li><a href="/">Trang chủ</a></li>
-                <li><a href="/ung-vien-tim-viec">Ứng viên</a></li>
-                <li class="active"><span>Ứng viên ' . $catname . '</span></li>
-            </ul>
-        </div>`;
+                <ul>
+                    <li><a href="/">Trang chủ</a></li>
+                    <li><a href="/ung-vien-tim-viec">Ứng viên</a></li>
+                    <li class="active"><span>Ứng viên ' . $catname . '</span></li>
+                </ul>
+            </div>`;
         } else if (!catid && city) {
             const cityName = await City.findOne({ cit_id: city }).lean();
             const name = cityName ? cityName.cit_name : '';
@@ -1472,36 +1303,33 @@ export const SearchCandi = async(req, res) => {
             dataSeo.h1 = `Hồ sơ ứng viên tại ${name} mới nhất`;
             dataSeo.index = `index, follow`;
             dataSeo.breakCrumb = `<div class="breakcrumb">
-            <ul>
-                <li><a href="/">Trang chủ</a></li>
-                <li><a href="/ung-vien-tim-viec">Ứng viên</a></li>
-                <li class="active"><span>Ứng viên ' . $citname . '</span></li>
-            </ul>
-        </div>`;
+                <ul>
+                    <li><a href="/">Trang chủ</a></li>
+                    <li><a href="/ung-vien-tim-viec">Ứng viên</a></li>
+                    <li class="active"><span>Ứng viên ' . $citname . '</span></li>
+                </ul>
+            </div>`;
         } else if (catid && city) {
             const cityName = await City.findOne({ cit_id: city }).lean();
             const catName = await Category.findOne({ cate_id: catid }, { cat_name: 1 }).lean();
             const nameCat = catName ? catName.cat_name : "Ứng viên";
             const nameCity = cityName ? cityName.cit_name : '';
-
             dataSeo.title = `Hồ sơ ứng viên ${nameCat} tại ${nameCity} mới nhất năm ${new Date().getFullYear()}`;
             dataSeo.description = `Hồ sơ ứng viên ${nameCat} mới nhất hot nhất ${new Date().getFullYear()} tại ${nameCity}. Hàng ngàn hồ sơ của ứng viên hấp dẫn phù hợp với nhà tuyển dụng.`;
             dataSeo.h1 = `Hồ sơ ứng viên ${nameCat} tại ${nameCity} mới nhất năm ${new Date().getFullYear()}`;
             dataSeo.index = "noodp,noindex,nofollow";
             dataSeo.textBreak = `Ứng viên ${nameCat}`;
             dataSeo.breakCrumb = `<div class="breakcrumb">
-            <ul>
-                <li><a href="/">Trang chủ</a></li>
-                <li><a href="/ung-vien-tim-viec">Ứng viên</a></li>
-                <li class="active"><span>Ứng viên ' . strtolower($catname) . ' tại ' . $citname . '</span></li>
-            </ul>
-        </div>`;
+                <ul>
+                    <li><a href="/">Trang chủ</a></li>
+                    <li><a href="/ung-vien-tim-viec">Ứng viên</a></li>
+                    <li class="active"><span>Ứng viên ' . strtolower($catname) . ' tại ' . $citname . '</span></li>
+                </ul>
+            </div>`;
         }
-
         const leng_data = data.length;
         const arrPromise = [];
         const arrPromise2 = [];
-
         for (let i = 0; i < leng_data; i++) {
             const element = data[i];
             if (iduser) {
@@ -1516,7 +1344,6 @@ export const SearchCandi = async(req, res) => {
             })
             element.use_city_job = cityArr;
         }
-
         if (arrPromise.length > 0) {
             const dataPointUsed = await Promise.all([...arrPromise, ...arrPromise2]);
             for (let i = 0; i < leng_data; i++) {
@@ -1538,13 +1365,10 @@ export const SearchCandi = async(req, res) => {
         return functions.setError(res, error.message);
     }
 };
-
-// promise call tbl_luuhoso_uv 
 const promiseTblLuuHoSo = (iduser, use_id) => {
     const query = TblLuuHoSoUv.findOne({ id_uv: use_id, id_ntd: iduser }, { id_uv: 1 }).lean();
     return query;
 };
-
 export const getTagCate = async (req, res) => {
     try {
         const { id } = req.body;
@@ -1562,31 +1386,23 @@ export const getTagCate = async (req, res) => {
         return functions.setError(res, error.message);
     }
 };
-
 export const detailJob_Comp = async(req, res) => {
     try {
         const { alias } = req.body
         const currentTime = Math.floor(Date.now() / 1000);
         let type = 0
-
-        // Ưu tiên theo thứ tự này 
         if (alias && typeof alias === 'string') {
-            // Cố lấy id 
             const strId = alias.split('-').filter(part => !!(part.trim())).pop()
             if (!isNaN(Number(strId))) {
                 const id = Number(strId)
                 const checkExistNew = await New.findOne({ new_id: id });
                 if (checkExistNew) {
                     type = 1
-
                     const data = checkExistNew._doc
                     const iduser = await functions.getTokenJustUser(req, res);
                     const arrCity = data.new_city.split(',');
                     const new_cat_id = data.new_cat_id
-                    console.log('tinh thanh',arrCity)
                     const conditions = { new_city: { $in: arrCity },new_cat_id:new_cat_id, new_active: 1, new_id: { $ne: id } };
-                    console.log('conditions:',conditions)
-
                     const item = {
                         usc_company: "$company.usc_company",
                         usc_website: "$company.usc_website",
@@ -1634,7 +1450,6 @@ export const detailJob_Comp = async(req, res) => {
                         new_emailcontact: 1,
                         new_alias: 1,
                     };
-
                     const name_tag = await Promise.all(
                         data.new_tag.split(',').map(
                             (item) => {
@@ -1644,7 +1459,6 @@ export const detailJob_Comp = async(req, res) => {
                         )
                     );
                     data.chiTietCongViec = name_tag.length > 0 ? name_tag.map(item => item ?.tag_name) : []
-
                     const com_promise = UserCompany.findOne({ usc_id: data.new_user_id })
                     const cate_Promise = Category.find({}, { cat_id: 1, cat_name: 1, cat_tags: 1, cat_count: 1, cat_count_vl: 1, cat_ut: 1 }).lean();
                     const checkSaveNew_Promise = TblLuuTin.findOne({ id_tin: id, id_uv: iduser });
@@ -1653,7 +1467,7 @@ export const detailJob_Comp = async(req, res) => {
                         { 
                             $match: {
                                 ...conditions,
-                                new_han_nop: { $gt: currentTime } // Lọc ra những bản ghi có new_han_nop lớn hơn thời gian hiện tại
+                                new_han_nop: { $gt: currentTime }
                             }
                         },
                         { $limit: 3 },
@@ -1668,7 +1482,6 @@ export const detailJob_Comp = async(req, res) => {
                         { $unwind: "$company" },
                         { $project: item }
                     ]);
-
                     const [
                         com,
                         cate,
@@ -1684,7 +1497,6 @@ export const detailJob_Comp = async(req, res) => {
                         checkApply_Promise,
                         viecLamTuongTu_Promise,
                     ])
-
                     data.usc_company = com ?.usc_company
                     data.usc_website = com ?.usc_website
                     data.usc_address = com ?.usc_address
@@ -1699,7 +1511,6 @@ export const detailJob_Comp = async(req, res) => {
                     data.usc_phone = com ?.usc_phone
                     data.usc_name_email = com ?.usc_name_email
                     data.usc_name_phone = com ?.usc_name_phone
-
                     let cateName = '';
                     const arrNganhNghe = [];
                     const arrCate = data.new_cat_id.split(',');
@@ -1714,7 +1525,6 @@ export const detailJob_Comp = async(req, res) => {
                     data.arrNganhNghe = arrNganhNghe;
                     data.cateName = cateName;
                     data.chiTietCongViec.push(cateName)
-
                     const nameCity = data.new_city.split(',');
                     const cityArr = [];
                     if (nameCity.length > 0) nameCity.map((itemm) => {
@@ -1723,7 +1533,6 @@ export const detailJob_Comp = async(req, res) => {
                     });
                     data.new_city_id = data.new_city
                     data.new_city = cityArr;
-
                     const leng_viecLamTuongTu = viecLamTuongTu.length;
                     for (let i = 0; i < leng_viecLamTuongTu; i++) {
                         const element = viecLamTuongTu[i];
@@ -1733,15 +1542,12 @@ export const detailJob_Comp = async(req, res) => {
                         const checkApply = await NopHoSo.findOne({ nhs_new_id: element.new_id, nhs_use_id: iduser });
                         element.checkApply = checkApply ? true : false;
                     }
-
                     data.apply = checkApply ? true : false;
                     data.SaveNew = checkSaveNew ? true : false;
                     data.viecLamTuongTu = viecLamTuongTu;
-
                     return functions.success(res, 'success', { data: data, type: type })
                 }
             }
-
             if (alias) {
                 const data = await UserCompany.findOne({
                     usc_alias: alias
@@ -1769,20 +1575,15 @@ export const detailJob_Comp = async(req, res) => {
                     usc_create_time: 1,
                     usc_logo: 1,
                 }).lean();
-
                 if (data) {
                     type = 2
-
                     if (data ?.DateOfIncorporation && data.DateOfIncorporation != 0) data.DateOfIncorporation = new Date(data.DateOfIncorporation * 1000);
                     data.usc_logo = functions.getAvatarNTD(data.usc_create_time, data.usc_logo);
                     data.image_com = functions.getImageNTD(data.image_com);
                     data.usc_create_time = new Date(data.usc_create_time * 1000);
-
                     const idNTD = data ?.usc_id;
-
                     const point = await TblPointCompany.findOne({ usc_id: idNTD }, { point_usc: 1 }).lean();
                     const endPoint = point ? point.point_usc : 0;
-
                     const dataNewPromise = New.aggregate([
                         { $match: { new_user_id: Number(idNTD), new_active: 1, new_han_nop: { $gt: currentTime } } },
                         { $sort: { new_id: -1 } },
@@ -1819,8 +1620,6 @@ export const detailJob_Comp = async(req, res) => {
                             }
                         }
                     ]).exec();
-
-                    // Bổ sung dữ liệu 
                     let finan_sect = data ?.financial_sector &&
                         Array.isArray(data ?.financial_sector) &&
                         data.financial_sector.length > 0 ?
@@ -1850,7 +1649,6 @@ export const detailJob_Comp = async(req, res) => {
                         },
                         { $sort: { priority: -1 } },
                     ]).exec();
-
                     if (finan_sect && Array.isArray(finan_sect) && finan_sect.length > 0) finan_sect = finan_sect.map(item => Number(item))
                     const sameJob_Promise = New.aggregate([
                         { $match: { new_active: 1, new_user_id: { $ne: Number(idNTD) } } },
@@ -1895,11 +1693,9 @@ export const detailJob_Comp = async(req, res) => {
                         },
                         { $sort: { priority: -1 } },
                     ]).exec();
-
                     const [dataNew, dataSameCom, dataSameJob] = await Promise.all([
                         dataNewPromise, sameCompany_Promise, sameJob_Promise
                     ]);
-
                     const iduser = await functions.getTokenJustUser(req, res);
                     const arrPromiseNopHoSo = []
                     if (iduser) {
@@ -1927,7 +1723,6 @@ export const detailJob_Comp = async(req, res) => {
                     return functions.success(res, 'get data success', { point: endPoint, data, type });
                 }
             }
-
             return functions.setError(res, 'not found', 404)
         }
         return functions.setError(res, 'Missing data', 400)
@@ -1935,12 +1730,9 @@ export const detailJob_Comp = async(req, res) => {
         return functions.setError(res, error.message)
     }
 }
-
 export const getCvDetail= async(req, res) => {
     try {
-        const {
-            alias
-        } = req.body;
+        const { alias } = req.body;
         if (alias && typeof alias === 'string') {
             const strId = alias.split('-').filter(part => !!(part.trim())).pop();
             if (!isNaN(Number(strId))) {
@@ -1986,13 +1778,10 @@ export const getCvDetail= async(req, res) => {
         return functions.setError(res, error.message);
     }
 };
-
-// Việc làm để xuất
 export const JobRecommend = async (req, res) => {
     const id = req.body.id;
     const type = req.body.type;
     const currentTime = Math.floor(Date.now() / 1000);
-
     const getRecommendedJobs = async () => {
         const jobs = await New.aggregate([
             { $match: { new_han_nop: { $gt: currentTime } } },
@@ -2028,7 +1817,6 @@ export const JobRecommend = async (req, res) => {
                 }
             }
         ]);
-
         jobs.forEach(element => {
             if (element.companyDetails && element.companyDetails.usc_logo) {
                 element.companyDetails.usc_logo = functions.getAvatarNTD(element.companyDetails.usc_create_time, element.companyDetails.usc_logo);
@@ -2039,15 +1827,12 @@ export const JobRecommend = async (req, res) => {
                 usc_logo: element.companyDetails.usc_logo || ""
             };
         });
-
         return jobs;
     };
-
     if (!id || id === "") {
         const recommendedJobs = await getRecommendedJobs();
         return functions.success(res, 'thành công', { data: recommendedJobs });
     }
-
     try {
         const user = await Users.findOne({ use_id: id }, {
             address: 1,
@@ -2062,15 +1847,12 @@ export const JobRecommend = async (req, res) => {
             use_district: 1,
             use_city_job: 1,
         }).lean();
-
         if (!user || type === 1) {
             const recommendedJobs = await getRecommendedJobs();
             return functions.success(res, 'thành công', { data: recommendedJobs });
         }
-
         const matchConditions = { new_han_nop: { $gt: currentTime } };
         const addFieldsConditions = [];
-
         if (user.use_job_name) {
             addFieldsConditions.push({
                 $cond: {
@@ -2080,7 +1862,6 @@ export const JobRecommend = async (req, res) => {
                 }
             });
         }
-
         if (user.use_nganh_nghe && user.use_nganh_nghe.length > 0) {
             const useNganhNgheIds = user.use_nganh_nghe.map(item => item.id);
             addFieldsConditions.push({
@@ -2099,7 +1880,6 @@ export const JobRecommend = async (req, res) => {
                 }
             });
         }
-
         if (user.use_city_job && user.use_city_job.length > 0) {
             const useCityJobIds = user.use_city_job.map(item => item.id);
             addFieldsConditions.push({
@@ -2110,7 +1890,6 @@ export const JobRecommend = async (req, res) => {
                 }
             });
         }
-
         const recommendedJobs = await New.aggregate([
             { $match: matchConditions },
             {
@@ -2150,7 +1929,6 @@ export const JobRecommend = async (req, res) => {
                 }
             }
         ]);
-
         recommendedJobs.forEach(element => {
             if (element.companyDetails && element.companyDetails.usc_logo) {
                 element.companyDetails.usc_logo = functions.getAvatarNTD(element.companyDetails.usc_create_time, element.companyDetails.usc_logo);
@@ -2166,13 +1944,11 @@ export const JobRecommend = async (req, res) => {
             const processArray = async (arr) => {
                 const arrPromiseLuuTin = [];
                 const arrPromiseNopHoSo = [];
-        
                 for (let i = 0; i < arr.length; i++) {
                     const element = arr[i];
                     arrPromiseNopHoSo.push(promiseNopHoSo(iduser, element.new_id));
                     arrPromiseLuuTin.push(promiseTblLuuTin(iduser, element.new_id));
                 }
-        
                 const arrNopHoSo = await Promise.all(arrPromiseNopHoSo);
                 const arrLuutin = await Promise.all(arrPromiseLuuTin);
         
@@ -2181,26 +1957,19 @@ export const JobRecommend = async (req, res) => {
                     arr[i].checkLuuTin = arrLuutin[i] ? true : false;
                 }
             };
-
             await processArray(recommendedJobs);
         }
-
         return functions.success(res, 'thành công', { data: recommendedJobs });
-
     } catch (error) {
         console.error(error);
         const recommendedJobs = await getRecommendedJobs();
         return functions.success(res, 'thành công', { data: recommendedJobs });
     }
 };
-
-// Công ty đề xuất
 export const getRecommentComp = async (req, res) => {
     const id = req.body.id;
     const currentTime = Math.floor(Date.now() / 1000);
-
     const comWithNew = await New.distinct('new_user_id', { new_han_nop: { $gte: currentTime } });
-
     const getCompanyWithJobs = async (matchConditions) => {
         const companies = await UserCompany.aggregate([
             {
@@ -2211,80 +1980,61 @@ export const getRecommentComp = async (req, res) => {
             },
             { $limit: 1 }
         ]);
-
         if (companies.length > 0) {
             const company = companies[0];
             if (company.usc_logo) {
                 company.usc_logo = functions.getAvatarNTD(company.usc_create_time, company.usc_logo);
             }
             company.usc_logo = company.usc_logo || "";
-
-            // Lấy tối đa 3 công việc từ công ty đã tìm thấy
             const jobs = await New.find(
                 { new_user_id: company.usc_id, new_han_nop: { $gt: currentTime } },
                 null,
                 { sort: { new_han_nop: 1 }, limit: 3 }
             ).lean();
-
             const iduser = await functions.getTokenJustUser(req, res);
             if (iduser) {
                 const processArray = async (arr) => {
                     const arrPromiseLuuTin = [];
                     const arrPromiseNopHoSo = [];
-            
                     for (let i = 0; i < arr.length; i++) {
                         const element = arr[i];
                         arrPromiseNopHoSo.push(promiseNopHoSo(iduser, element.new_id));
                         arrPromiseLuuTin.push(promiseTblLuuTin(iduser, element.new_id));
                     }
-            
                     const arrNopHoSo = await Promise.all(arrPromiseNopHoSo);
                     const arrLuutin = await Promise.all(arrPromiseLuuTin);
-            
                     for (let i = 0; i < arr.length; i++) {
                         arr[i].checkUngTuyen = arrNopHoSo[i] ? true : false;
                         arr[i].checkLuuTin = arrLuutin[i] ? true : false;
                     }
                 };
-    
                 await processArray(jobs);
             }
-
             company.jobs = jobs;
-
             return company;
         } else {
             return null;
         }
     };
-
     if (!id || id === "") {
         const matchConditions = {};
         const companyWithJobs = await getCompanyWithJobs(matchConditions);
         return functions.success(res, 'thành công', { data: companyWithJobs });
     }
-
     try {
         const user = await Users.findOne({ use_id: id }, { use_city: 1 }).lean();
-
         if (!user || !user.use_city) {
             const matchConditions = {};
             const companyWithJobs = await getCompanyWithJobs(matchConditions);
             return functions.success(res, 'thành công', { data: companyWithJobs });
         }
-
-        // Chuyển đổi use_city thành chuỗi để khớp với usc_city
         const matchConditions = { usc_city: user.use_city.toString() };
         let companyWithJobs = await getCompanyWithJobs(matchConditions);
-
         if (!companyWithJobs) {
-            // Nếu không tìm thấy công ty nào dựa trên use_city, lấy công ty có job và nhiều view nhất
             const fallbackMatchConditions = {};
             companyWithJobs = await getCompanyWithJobs(fallbackMatchConditions);
         }
-
         return functions.success(res, 'thành công', { data: companyWithJobs });
-
     } catch (error) {
         console.error(error);
         const matchConditions = {};

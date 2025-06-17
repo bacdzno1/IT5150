@@ -20,7 +20,6 @@ import TblLuuHoSoUv from '../models/tbl/TblLuuHoSoUv.js';
 import ConfigFireBaseOTP from '../models/user/ConfigFireBaseOTP.js';
 import cron from 'node-cron'
 
-// Thiết lập cron job để reset `count` về 0 vào lúc 00:00 mỗi ngày
 cron.schedule('0 0 * * *', async () => {
     try {
         await ConfigFireBaseOTP.updateMany({}, { $set: { count: 0 } });
@@ -30,7 +29,6 @@ cron.schedule('0 0 * * *', async () => {
     }
 });
 
-// Hàm đăng kí tài khoản nhà tuyển dụng khi vượt qua validate
 const EmployersValidateSuccess = async (data, file) => {
     try {
         const { phoneTK, email, password, nameCompany, city, district, phone } = data;
@@ -53,7 +51,6 @@ const EmployersValidateSuccess = async (data, file) => {
                 }
             } else return false;
         }
-
         const hashedPassword = functions.createMd5(password);
         const alias = functions.createLinkTilte(nameCompany.trim());
         const otp = functions.randomNumber();
@@ -85,7 +82,6 @@ const EmployersValidateSuccess = async (data, file) => {
             'usc_boss': '',
             'financial_sector': [{ id: '' }],
         };
-
         const check = await UserCompany.findOneAndUpdate({ usc_phone_tk: phoneTK }, { usc_id: 1 }).lean();
         if (check) {
             await UserCompany.findOneAndUpdate({ usc_phone_tk: phoneTK }, dataUpdate);
@@ -93,9 +89,7 @@ const EmployersValidateSuccess = async (data, file) => {
             var maxid1 = await functions.getMaxId(UserCompany, 'usc_id');
             dataUpdate.usc_id = maxid1;
             await UserCompany.create(dataUpdate);
-
             let id_up = await functions.getMaxId(TblPointCompany, 'id_up');
-            // Thu dọn nếu tk mới trùng id với tk cũ bị xóa 
             await TblPointCompany.deleteMany({
                 usc_id: maxid1
             })
@@ -106,8 +100,6 @@ const EmployersValidateSuccess = async (data, file) => {
             }
             await NopHoSo.deleteMany({ nhs_com_id: maxid1 })
             await TblLuuHoSoUv.deleteMany({ id_ntd: maxid1 })
-            // Hết thu dọn 
-
             await TblPointCompany.create({
                 id_up,
                 usc_id: maxid1,
@@ -117,15 +109,12 @@ const EmployersValidateSuccess = async (data, file) => {
                 day_end: 0
             });
         }
-
         return true;
     } catch (error) {
         console.log(error.message)
         return false;
     }
 };
-
-// đăng ký nhà tuyển dụng
 export const RegisterEmployers = async (req, res, next) => {
     try {
         const phoneTK = req.body.phoneTK;
@@ -139,20 +128,17 @@ export const RegisterEmployers = async (req, res, next) => {
         const arrMessage = {};
         const email = email_notlower.toLowerCase();
         if (phoneTK && password && rePassword && nameCompany && city) {
-
             const checkNameCom = await UserCompany.findOne({ usc_company: nameCompany }).lean();
             const checkTrung = await UserCompany.findOne({ usc_phone_tk: phoneTK }).lean();
             const checkmail = await UserCompany.findOne({ usc_email: email }).lean();
             const checkPhoneTK = await functions.checkPhone(phoneTK);
             const checkPassWord = functions.checkPassWord(password);
-
             if (!checkPhoneTK) return functions.setError(res, 'Nhập số điện thoại không hợp lệ', 400);
             if (checkNameCom) arrMessage.nameCompany = `Tên công ty đã được đăng ký, vui lòng kiểm tra lại.`;
             if (checkTrung) arrMessage.phoneTK = `Số điện thoại này đã được sử dụng, vui lòng kiểm tra lại.`;
             if (checkmail) arrMessage.phoneTK = `Email này đã được sử dụng, vui lòng kiểm tra lại.`;
             if (password !== rePassword) arrMessage.password = `Nhập password và re-password không khớp.`;
             if (!checkPassWord) arrMessage.password = `Mật khẩu phải ít nhất 6 ký tự, bao gồm có ít nhất 1 chữ và 1 số.`;
-
             if (JSON.stringify(arrMessage) !== '{}') {
                 return functions.setError(res, arrMessage, 400);
             }
@@ -160,20 +146,16 @@ export const RegisterEmployers = async (req, res, next) => {
             if (checkRegister) {
                 const checkInfo = await UserCompany.findOne({ usc_phone_tk: phoneTK }, { usc_id: 1, usc_authentic: 1, usc_email: 1, usc_company: 1, usc_logo: 1 }).lean();
                 const token = await functions.createToken({ usc_id: checkInfo.usc_id, auth: checkInfo.usc_authentic, type: 1 }, '60d');
-
                 return functions.success(res, 'Register successfully', { token, checkInfo });
             }
             return functions.setError(res, 'Some error occurred', 400);
         }
-
         return functions.setError(res, "Missing data", 400);
     } catch (error) {
         console.log(error.message);
         return functions.setError(res, error.message);
     }
 };
-
-// đăng nhập nhà tuyển dụng
 export const Login = async (req, res, next) => {
     try {
         const username = req.body.userName;
@@ -203,7 +185,6 @@ export const Login = async (req, res, next) => {
                 time.setMilliseconds(0);
                 time.setSeconds(0);
                 const data = { token, reFreshToken, user: conditionsToken };
-
                 return functions.success(res, 'Đăng nhập thành công', data);
             }
             return functions.setError(res, 'Tài khoản hoặc mật khẩu không chính xác', 400);
@@ -213,13 +194,10 @@ export const Login = async (req, res, next) => {
         return functions.setError(res, error.message);
     }
 };
-
-// !quên mật khẩu nhà tuyển dụng
 export const EmployersForgotPass = async (req, res, next) => {
     try {
         const username = req.body.phoneTK;
         const phoneTK = username.toLowerCase();
-
         if (phoneTK) {
             const checkExists = await UserCompany.findOne({
                 $or: [
@@ -252,8 +230,6 @@ export const EmployersForgotPass = async (req, res, next) => {
         return functions.setError(res, error.message);
     }
 };
-
-// đổi mật khẩu nhà tuyển dụng
 export const UpdatePasswordEmployers = async (req, res, next) => {
     try {
         const idNTD = req.idNTD;
@@ -309,8 +285,6 @@ export const UpdatePasswordEmployers = async (req, res, next) => {
         return functions.setError(res, error.message);
     }
 };
-
-// lấy thông tin tài khoản
 export const infoNTD = async (req, res, next) => {
     try {
         const idNTD = req.idNTD;
@@ -350,66 +324,27 @@ export const infoNTD = async (req, res, next) => {
         return functions.setError(res, error.message);
     }
 };
-
-// !cập nhật thông tin (Chưa cập nhật nhà tuyển dụng sang các site khác)
 export const UpdateInfoEmployers = async (req, res, next) => {
     try {
         const idNTD = req.idNTD;
-
-        // Tên công ty
         const nameCompany = req.body.nameCompany;
-
-        // Tổng giám đốc
         const usc_boss = req.body.usc_boss;
-
-        // Quy mô công ty
         const quyMo = Number(req.body.quyMo);
-
-        // Số điện thoại cố định
         const phone = req.body.phone;
-
-        // Mã số thuế
         const mst = req.body.mst;
-
-        // Lĩnh vực hoạt động
         const financial_sector = req.body.financial_sector;
-
-        // Ngày thành lập công ty
         const DateOfIncorporation = req.body.DateOfIncorporation;
-
-        // Website
         const website = req.body.website;
-
-        // Thành phố
         const city = req.body.city;
-
-        // Quận huyện
         const district = req.body.district;
-
-        // Địa chỉ
         const address = req.body.address;
-
-        // Giới thiệu về công ty
         const inforCompany = req.body.inforCompany;
-
-        // Image
         const file = req.files;
-
-        // Người liên hệ
         const nameContact = req.body.nameContact;
-
-        // Địa chỉ liên hệ
         const addressContact = req.body.addressContact;
-
-        // Số điện thoại liên hệ
         const phoneContact = req.body.phoneContact;
-
-        // Email liên hệ 
         const emailContact = req.body.emailContact;
-
-        // List link ảnh đã có (gửi lại để kiểm tra xem giữ ảnh nào, xóa ảnh nào)
         const existImage = req.body.existImage;
-
         if (nameCompany && phone && inforCompany && nameContact && addressContact && phoneContact && emailContact) {
             var messageCheck = '';
             const checkNameCom = await UserCompany.findOne({ usc_company: nameCompany, usc_id: { $ne: idNTD } }).lean();
@@ -428,7 +363,6 @@ export const UpdateInfoEmployers = async (req, res, next) => {
                 return functions.setError(res, messageCheck, 400);
             }
             const checkExists = await UserCompany.findOne({ usc_id: idNTD }, { usc_create_time: 1, usc_logo: 1, image_com: 1 }).lean();
-
             console.log('existImage', existImage)
             let exist_image = existImage && typeof existImage === 'string' ? existImage.split(',') : []
             console.log('anh ', exist_image)
@@ -439,7 +373,6 @@ export const UpdateInfoEmployers = async (req, res, next) => {
             let image = exist_image;
             console.log('image', image);
             const time = functions.getTime();
-            // Nếu có ảnh mới 
             if (file && file.Image) {
                 if (Array.isArray(file.Image)) {
                     for (let i = 0; i < file.Image.length; i++) {
@@ -449,8 +382,6 @@ export const UpdateInfoEmployers = async (req, res, next) => {
                         if (!checkUpload) return functions.setError(res, 'Upload thất bại', 400);
                         image.push(`${date}/${checkUpload}`);
                     }
-
-                    // Xóa ảnh cũ
                     const oldImage = checkExists.image_com
                     if (oldImage && typeof oldImage === 'string') {
                         const old_image = oldImage.split(",")
@@ -464,12 +395,9 @@ export const UpdateInfoEmployers = async (req, res, next) => {
                         }
                     }
                     image = image.join(',');
-                    // console.log('image', image);
                     await UserCompany.findOneAndUpdate({ usc_id: idNTD }, { "image_com": image });
                 } else return functions.setError(res, 'Upload thất bại', 400);
             } else if (exist_image) {
-                // console.log('exist_image', exist_image);
-                // Xóa ảnh cũ
                 const oldImage = checkExists.image_com
                 if (oldImage && typeof oldImage === 'string') {
                     const old_image = oldImage.split(",")
@@ -483,7 +411,6 @@ export const UpdateInfoEmployers = async (req, res, next) => {
                 }
                 await UserCompany.findOneAndUpdate({ usc_id: idNTD }, { "image_com": exist_image.join(',') });
             }
-
             if (file && file.Logo) {
                 const date = functions.getDate(checkExists.usc_create_time * 1000);
                 const checkUpload = await functions.uploadFile(`${date}`, file.Logo, time);
@@ -491,12 +418,10 @@ export const UpdateInfoEmployers = async (req, res, next) => {
                 if (!checkUpload) return functions.setError(res, 'Upload logo thất bại', 400);
                 await UserCompany.findOneAndUpdate({ usc_id: idNTD }, { "usc_logo": checkUpload });
             }
-
             const arrFinanSector = [];
             if (Array.isArray(financial_sector) && financial_sector.length > 0) {
                 financial_sector.map(item => arrFinanSector.push({ id: item.trim() }))
             }
-
             const fields = {
                 usc_company: nameCompany.trim(),
                 usc_size: quyMo,
@@ -526,7 +451,6 @@ export const UpdateInfoEmployers = async (req, res, next) => {
         return functions.setError(res, error.message);
     }
 };
-
 export const RegisterCandidate = async (req, res, next) => {
     try {
         const phoneTK = req.body.phoneTK;
@@ -540,7 +464,6 @@ export const RegisterCandidate = async (req, res, next) => {
         const email_notlower = req.body.email;
         const email = email_notlower.toLowerCase();
         const files = req.files;
-
         if (phoneTK && password && rePassword && jobName && nganhNghe && jobCity && name && jobDistrict && email) {
             const checkPhoneTK = await functions.checkPhone(phoneTK);
             const checkPassWord = functions.checkPassWord(password);
@@ -558,15 +481,12 @@ export const RegisterCandidate = async (req, res, next) => {
             if (checkExistsPhone) {
                 return functions.setError(res, "Số điện thoại này đã được sử dụng, vui lòng kiểm tra lại.", 400);
             }
-
-            // Tạo tk 
             const arrCityJob = [];
             const arrNganhNghe = [];
             const arrDistrictJob = [];
             const date = functions.getDate()
             const time = functions.getTime()
             const use_id = await functions.getMaxId(Users, 'use_id');
-
             if (typeof nganhNghe === 'string' && nganhNghe !== "") {
                 nganhNghe.split(',').filter((item) => !isNaN(Number(item.trim()))).map(item => arrNganhNghe.push({ id: item.trim() }))
             }
@@ -576,7 +496,6 @@ export const RegisterCandidate = async (req, res, next) => {
             if (typeof jobDistrict === 'string' && jobDistrict !== "") {
                 jobDistrict.split(',').filter((item) => !isNaN(Number(item.trim()))).map(item => arrDistrictJob.push({ id: item.trim() }))
             }
-
             let logo = ''
             if (files && files.Image) {
                 logo = await functions.uploadFile(`${date}`, files.Image, time, ['.jpg', '.png', '.jpeg', '.gif', '.jfif', '.png'])
@@ -584,7 +503,6 @@ export const RegisterCandidate = async (req, res, next) => {
                     return functions.setError(res, "Ảnh không hợp lệ", 400);
                 }
             }
-
             await Users.create({
                 use_id,
                 use_phone: phoneTK,
@@ -597,18 +515,12 @@ export const RegisterCandidate = async (req, res, next) => {
                 use_create_time: time,
                 use_update_time: time,
                 use_logo: logo,
-                // birthday: new Date(birthday).getTime() / 1000,
-                // exp_years: exp,
                 use_name: name,
                 use_district_job: arrDistrictJob,
                 use_mail: email,
             })
-
-            // Trong trường hợp tk mới trùng id tk cũ bị xóa 
             await candidateCleanUp(use_id)
-
             const Token = await functions.createToken({ use_id, phone: phoneTK, type: 2, auth: 0, userName: name }, '60d');
-
             return functions.success(res, 'Đăng ký thành công', {
                 Token,
                 use_id,
@@ -627,30 +539,20 @@ export const RegisterCandidate = async (req, res, next) => {
         return functions.setError(res, error.message);
     }
 }
-
-// Hàm dọn dẹp nếu ứng viên bị xóa thủ công
 const candidateCleanUp = async (iduv) => {
     try {
         if (iduv && !isNaN(Number(iduv))) {
             const use_id = Number(iduv)
-            // if (!isNaN(use_id)) {
-            // const checkExist = await Users.findOne({ use_id: use_id })
-            // if (checkExist) {
-            // Xóa CV 
             await SaveCandidateCv.deleteMany({ iduser: use_id })
             await UserCvUpload.deleteMany({ use_id: use_id })
             await UserVidUpload.deleteMany({ use_id: use_id })
-            // Xóa hồ sơ ứng tuyển 
             await NopHoSo.deleteMany({ nhs_use_id: use_id })
-            // Xóa ứng viên đã lưu 
             await TblLuuHoSoUv.deleteMany({ id_uv: use_id })
         }
     } catch (error) {
         console.log('candidateCleanUp\n', error);
     }
 }
-
-// Luồng đăng ký đăng tải mới 
 export const CandidateRegisterByUploadCV = async (req, res, next) => {
     try {
         const id = req.iduv
@@ -660,25 +562,17 @@ export const CandidateRegisterByUploadCV = async (req, res, next) => {
         const bangcap = req.body.bangcap;
         let type = req.body.type;
         if (!type) type = 1
-        // console.log('id', id)
-        // console.log('file', file)
-        // console.log('birthday', birthday)
-        // console.log('exp', exp)
-        // console.log('bangcap', bangcap)
         if (file && file.CV && birthday && !isNaN(Number(exp)) && bangcap && id) {
             const checkUser = await Users.findOne({ use_id: id })
             if (checkUser) {
-
                 const time = functions.getTime();
                 const upload = type == 1 ? (await functions.uploadCV(`uv_${id}`, file.CV, time)) : (await functions.uploadVideo(`uv_vid_${id}`, file.CV, time))
-
                 await Users.findOneAndUpdate({ use_id: id }, {
                     $set: {
                         birthday: functions.getTime(new Date(birthday)),
                         exp_years: Number(exp),
                     }
                 })
-
                 let idupload = 0
                 if (type == 1) {
                     const id_upload = await functions.getMaxId(UserCvUpload, 'id_upload');
@@ -709,8 +603,6 @@ export const CandidateRegisterByUploadCV = async (req, res, next) => {
         return functions.setError(res, error.message);
     }
 }
-
-// upload avatarCV
 export const uploadAvatarCV = async (req, res, next) => {
     try {
         let image64 = req.body.image64;
@@ -731,9 +623,7 @@ export const uploadAvatarCV = async (req, res, next) => {
                 fs.mkdirSync("./tmp/", { recursive: true });
             }
             fs.writeFileSync(`./tmp/${fileName}`, fileData);
-
             functions.deleteOldFiles('./tmp/')
-
             return functions.success(res, "Upload thành công", { path: `./tmp/${fileName}`, img: `${process.env.DOMAIN_API}/tmp/${fileName}` });
         }
         return functions.setError(res, "Missing data", 400);
@@ -742,8 +632,6 @@ export const uploadAvatarCV = async (req, res, next) => {
         return functions.setError(res, error.message);
     }
 };
-
-// đăng kí tài khoản ứng viên theo luồng tạo CV trước
 export const CreateCVInOrderToRegister = async (req, res, next) => {
     try {
         const { phone, username, password, jobName, address, ddlv, nganhNghe, dataCVJson, idcv, lang, height_cv, rePassword, district } = req.body;
@@ -781,104 +669,44 @@ export const CreateCVInOrderToRegister = async (req, res, next) => {
                         if (!checkExists) {
                             const time = functions.getTime();
                             const use_id = await functions.getMaxId(Users, 'use_id');
-
                             const idSave = await functions.getMaxId(SaveCandidateCv, 'id');
-
                             const dataCV = JSON.parse(dataCVJson).avatar;
                             const jsonCV = JSON.parse(dataCVJson)
-                            // console.log(dataCV, typeof dataCV)
                             const date = functions.getDate();
                             let linkNew = '';
                             if (dataCV !== "/images/cv/no_avatar.webp") {
                                 const nameFileOld = dataCV.split('/').pop();
                                 linkNew = `./upload/cv_uv/uv_${use_id}/${nameFileOld}`;
                                 logo = `./pictures/${date}/${nameFileOld}`;
-
                                 await functions.copyFile(`./tmp/${nameFileOld}`, linkNew, `./upload/cv_uv/uv_${use_id}`);
                                 await functions.copyFile(`./tmp/${nameFileOld}`, logo, `./pictures/${date}`);
-
                                 jsonCV.avatar = `${process.env.DOMAIN_API}/upload/cv_uv/uv_${use_id}/${nameFileOld}`
                                 logo = nameFileOld;
                                 functions.deleteFile(`./tmp/${nameFileOld}`);
                             }
-                            const new_user = await Users.create({
-                                use_id,
-                                use_phone: phone,
-                                use_mail: email,
-                                use_pass: functions.createMd5(password),
-                                use_time: time,
-                                use_authentic: 1,
-                                use_name: username,
-                                address: address,
-                                use_job_name: jobName,
-                                use_city_job: arrCityJob,
-                                use_nganh_nghe: arrNganhNghe,
-                                use_create_time: time,
-                                use_update_time: time,
-                                use_res: 1,
-                                use_logo: logo,
-                                use_district_job: arrDistrictJob,
-                            });
-                            console.log(new_user)
-
-                            // Trong trường hợp tk mới trùng id tk cũ bị xóa 
                             await candidateCleanUp(use_id)
-
-                            const new_cv = await SaveCandidateCv.create({
-                                id: idSave,
-                                iduser: use_id,
-                                idcv,
-                                lang,
-                                // html: dataCVJson,
-                                html: JSON.stringify(jsonCV),
-                                nameimg: linkNew != '' ? linkNew.replace('.', '..') : null,
-                                status: 2,
-                                createdate: time,
-                                height_cv,
-                                // cv_name,
-                                name_cv_hide: `u_cv_hide_${time}.png`,
-                                name_cv: `u_cv_${time}.png`,
-                            });
-
-                            console.log(new_cv)
-
                             const Token = await functions.createToken({ use_id, phone, type: 2, auth: 0 }, '60d');
-
-                            // Tạm thời chưa cần xác thực
                             await UserTempNoAuth.deleteMany({ use_id: use_id })
                             await UserTempNoAuth.create({
                                 use_id: use_id,
                                 token: Token,
                             })
-
                             const linkHide = `http://localhost:9020/xem-cv-u${use_id}-c${idcv}-t1`;
                             const linkNoHide = `http://localhost:9020/xem-cv-u${use_id}-c${idcv}-t0`;
-
                             functions.renderImageFromUrl(
                                 linkHide,
                                 `./upload/cv_uv/uv_${use_id}`,
                                 `./upload/cv_uv/uv_${use_id}/u_cv_hide_${time}.png`,
                                 use_id
                             );
-
                             functions.renderImageFromUrl(
                                 linkNoHide,
                                 `./upload/cv_uv/uv_${use_id}`,
                                 `./upload/cv_uv/uv_${use_id}/u_cv_${time}.png`,
                                 use_id
                             );
-
                             await SampleCv.findOneAndUpdate({ id: idcv }, { $inc: { download: 1 } })
                             const link = `http://localhost:9020/xem-cv2-u${use_id}-c${idcv}`;
-                            // functions.renderPdfFromUrl(link, use_id, idcv);
-
-                            // functions.renderImageFromUrl(
-                            //     link,
-                            //     `./dowload/cv_pdf/user_${use_id}/cvid_${idcv}`,
-                            //     `./dowload/cv_pdf/user_${use_id}/cvid_${idcv}/${idcv}-topcv1s.png`,
-                            //     use_id
-                            // )
-
                             let base64StringPDF = ""
                             let pdf = await functions.renderPdfFromUrlNew(link)
                             if (pdf.result) {
@@ -886,21 +714,7 @@ export const CreateCVInOrderToRegister = async (req, res, next) => {
                                 buffer = new Buffer.from(buffer, "base64");
                                 base64StringPDF = buffer.toString("base64");
                             }
-
-                            console.log('Dữ liệu API trả về:', {
-                                Token,
-                                use_id,
-                                phone: phone,
-                                type: 2,
-                                auth: 0,
-                                userName: username,
-                                use_logo: functions.getAvatarCandi(time, logo),
-                                usc_search: 1,
-                                base64StringPDF
-                            });
-
-                            return functions.success(res,
-                                'Đăng ký tài khoản thành công',
+                            return functions.success(res, 'Đăng ký tài khoản thành công',
                                 {
                                     Token,
                                     use_id,
@@ -911,16 +725,13 @@ export const CreateCVInOrderToRegister = async (req, res, next) => {
                                     use_logo: functions.getAvatarCandi(time, logo),
                                     usc_search: 1,
                                     base64StringPDF
-                                });
-
+                                }
+                            );
                         }
-
                         return functions.setError(res, "Email này đã được sử dụng, vui lòng kiểm tra lại.", 400);
                     }
-
                     return functions.setError(res, "Mật khẩu nhập lại không chính xác", 400);
                 }
-
                 return functions.setError(res, 'Mật khẩu phải ít nhất 6 ký tự, bao gồm có ít nhất 1 chữ và 1 số.', 400);
             }
             return functions.setError(res, "Nhập đúng định dạng số điện thoại.", 400);
@@ -930,8 +741,6 @@ export const CreateCVInOrderToRegister = async (req, res, next) => {
         return functions.setError(res, error.message);
     }
 };
-
-// đăng nhập ứng viên
 export const LoginCandidate = async (req, res, next) => {
     try {
         const { username, password } = req.body;
@@ -949,10 +758,6 @@ export const LoginCandidate = async (req, res, next) => {
                 await Users.updateOne({ use_id: checkExits.use_id }, {
                     use_update_time: functions.getTime()
                 });
-
-                const updateTV = await functions.updateTimeTv(checkExits.use_phone);
-                console.log(updateTV)
-
                 const data = {
                     use_id: checkExits.use_id,
                     auth: checkExits.use_authentic,
@@ -962,17 +767,9 @@ export const LoginCandidate = async (req, res, next) => {
                     use_mail: checkExits.use_mail,
                     use_logo: functions.getAvatarCandi(checkExits.use_create_time, checkExits.use_logo)
                 };
-                console.log(data);
-                console.log(checkExits.use_logo)
-
-                console.log('1234')
                 const Token = await functions.createToken(data, '60d');
                 const RefreshToken = await functions.createToken(data, '1y');
-
-                // Đã đăng nhập thì phải xác thực nếu chưa
                 await UserTempNoAuth.deleteMany({ use_id: Number(checkExits.use_id) })
-                console.log(data)
-
                 return functions.success(res, "Đăng nhập thành công", { data: { Token, RefreshToken, data } });
             }
             return functions.setError(res, "Tài khoản hoặc mật khẩu không chính xác", 400);
@@ -982,8 +779,6 @@ export const LoginCandidate = async (req, res, next) => {
         return functions.setError(res, error.message);
     }
 };
-
-// quên mật khẩu tài khoản ứng viên
 export const ForgotPassUv = async (req, res, next) => {
     try {
         const user_name = req.body.username;
@@ -1020,14 +815,11 @@ export const ForgotPassUv = async (req, res, next) => {
         return functions.setError(res, error.message);
     }
 };
-
-// đổi mật khẩu ứng viên
 export const changePassUv = async (req, res) => {
     try {
         const iduv = req.iduv;
         const { passowrdOld, password, rePassword, type } = req.body;
         if (type == 1) {
-            // send by otp
             if (password && rePassword) {
                 if (password === rePassword) {
                     const check = functions.checkPassWord(password);
@@ -1036,7 +828,6 @@ export const changePassUv = async (req, res) => {
                             use_pass: functions.createMd5(password)
                         });
                         const result = await Users.findOne({ use_id: iduv }, { use_id: 1, phone: 1, use_authentic: 1 }).lean();
-                        // console.log(result)
                         const conditionsToken = { use_id: result.use_id, phone: result.phone, type: 2, auth: result.use_authentic };
                         const token = await functions.createToken(conditionsToken, '60d');
                         return functions.success(res, 'Đổi mật khẩu thành công', { token });
@@ -1048,7 +839,6 @@ export const changePassUv = async (req, res) => {
             return functions.setError(res, "Missing data", 400);
         }
         if (type == 2) {
-            // người dùng đổi mật khẩu
             if (passowrdOld && password && rePassword) {
                 if (password === rePassword) {
                     const check = functions.checkPassWord(password);
@@ -1076,14 +866,11 @@ export const changePassUv = async (req, res) => {
         return functions.setError(res, error.message);
     }
 };
-
-// đổi mật khẩu ntd
 export const changePassNtd = async (req, res) => {
     try {
         const idNTD = req.idNTD;
         const { passowrdOld, password, rePassword, type } = req.body;
         if (type == 1) {
-            // send by otp
             if (password && rePassword) {
                 if (password === rePassword) {
                     const check = functions.checkPassWord(password);
@@ -1103,7 +890,6 @@ export const changePassNtd = async (req, res) => {
             return functions.setError(res, "Missing data", 400);
         }
         if (type == 2) {
-            // người dùng đổi mật khẩu
             if (passowrdOld && password && rePassword) {
                 if (password === rePassword) {
                     const check = functions.checkPassWord(password);
@@ -1131,7 +917,6 @@ export const changePassNtd = async (req, res) => {
         return functions.setError(res, error.message);
     }
 };
-
 export const GetAuthenticateOtp = async (req, res) => {
     try {
         const username = req.body.username;
@@ -1150,7 +935,6 @@ export const GetAuthenticateOtp = async (req, res) => {
                 const otp = functions.randomNumber();
                 const startDate = new Date(new Date().toISOString().slice(0, 10)).getTime() / 1000;
                 const endDate = startDate + 24 * 60 * 60;
-
                 const checkCountOtp = await HistoryCountOtp.find({
                     user_id: checkExists.use_id,
                     usc_phone: username,
@@ -1160,7 +944,6 @@ export const GetAuthenticateOtp = async (req, res) => {
                         $lte: endDate
                     }
                 }).lean();
-
                 if (checkCountOtp.length < 5) {
                     const id = await functions.getMaxId(HistoryCountOtp, 'id');
                     await HistoryCountOtp.create({
@@ -1174,15 +957,6 @@ export const GetAuthenticateOtp = async (req, res) => {
                     await Users.updateOne({
                         use_mail: username,
                     }, { use_otp: otp });
-                    // Gửi OTP qua email
-                    // const checkSend = await functions.sendMail(
-                    //     `Mã OTP lấy lại mật khẩu tài khoản`,
-                    //     username,
-                    //     checkExists.use_name,
-                    //     otp, 
-                    //     2
-                    // );
-
                     return functions.success(res, 'Hãy xác thực OTP.', { id: checkExists.use_id });
                 } else {
                     return functions.setError(res, "Hết lượt gửi otp trong ngày.", 400);
@@ -1204,7 +978,6 @@ export const GetAuthenticateOtp = async (req, res) => {
                 const otp = functions.randomNumber();
                 const startDate = new Date(new Date().toISOString().slice(0, 10)).getTime() / 1000;
                 const endDate = startDate + 24 * 60 * 60;
-
                 const checkCountOtp = await HistoryCountOtp.find({
                     user_id: checkExists.usc_id,
                     usc_phone: username,
@@ -1214,7 +987,6 @@ export const GetAuthenticateOtp = async (req, res) => {
                         $lte: endDate
                     }
                 }).lean();
-
                 if (checkCountOtp.length < 5) {
                     const id = await functions.getMaxId(HistoryCountOtp, 'id');
                     await HistoryCountOtp.create({
@@ -1228,9 +1000,7 @@ export const GetAuthenticateOtp = async (req, res) => {
                     await UserCompany.updateOne({
                         usc_email: username,
                     }, { usc_otp: otp });
-
                     return functions.success(res, 'Hãy xác thực OTP.', { id: checkExists.usc_id });
-
                 } else {
                     return functions.setError(res, "Hết lượt gửi otp trong ngày.", 400);
                 }
@@ -1241,52 +1011,37 @@ export const GetAuthenticateOtp = async (req, res) => {
         return functions.setError(res, error.message);
     }
 }
-
 export const PreviewCv = async (req, res) => {
     try {
-        // Xóa tất cả nếu đã quá 24 tiếng 
         const oneDayAgo = functions.getTime() - 3600 * 24
         await TblCvPreview.deleteMany({ createdate: { $lt: oneDayAgo } })
-
         const directoryPath = './tmp/previewcv';
         functions.deleteOldFiles(directoryPath, 1)
-
         const {
             idcv,
             dataCVJson,
             lang,
             height_cv,
         } = req.body
-
         if (idcv && dataCVJson) {
             const time = functions.getTime();
             const idSave = await functions.getMaxId(TblCvPreview, 'id');
             const iduser = await functions.getMaxId(TblCvPreview, 'iduser');
-
             const dataCV = JSON.parse(dataCVJson).avatar;
             const jsonCV = JSON.parse(dataCVJson)
-
             let linkNew = '';
-
-            // console.log('jsonCV.avatar before', jsonCV.avatar);
             if (dataCV !== "/images/cv/no_avatar.webp") {
                 const nameFileOld = dataCV.split('/').pop();
                 linkNew = `./tmp/previewcv/upload/cv_uv/uv_${iduser}/${nameFileOld}`;
-
                 const result = functions.checkFileExist(`./tmp/${nameFileOld}`)
                 await functions.copyFile(`./tmp/${nameFileOld}`, linkNew, `./tmp/previewcv/upload/cv_uv/uv_${iduser}`);
-                // console.log('result', result);
-
                 jsonCV.avatar = (result == true) ? `${process.env.DOMAIN_API}/tmp/previewcv/upload/cv_uv/uv_${iduser}/${nameFileOld}` : dataCV
             }
-            // console.log('jsonCV.avatar after', jsonCV.avatar);
-
             await TblCvPreview.create({
                 id: idSave,
                 iduser: iduser,
                 idcv,
                 lang: lang || 1,
-                // html: dataCVJson,
                 html: JSON.stringify(jsonCV),
                 nameimg: linkNew != '' ? linkNew.replace('.', '..') : null,
                 status: 2,
@@ -1296,8 +1051,6 @@ export const PreviewCv = async (req, res) => {
                 name_cv_hide: `u_cv_hide_${time}.png`,
                 name_cv: `u_cv_${time}.png`,
             })
-
-            // puppeteer
             const linkNoHide = `http://localhost:9020/xem-cv3-u${iduser}-c${idcv}`;
             await functions.renderImageFromUrl(
                 linkNoHide,
@@ -1305,9 +1058,7 @@ export const PreviewCv = async (req, res) => {
                 `./tmp/previewcv/upload/cv_uv/uv_${iduser}/u_cv_${time}.png`,
                 iduser
             );
-
             functions.deleteEmptySubfolders(directoryPath)
-
             return functions.success(res, 'Ảnh preview', { data: `${process.env.DOMAIN_API}/tmp/previewcv/upload/cv_uv/uv_${iduser}/u_cv_${time}.png` })
         }
         return functions.setError(res, "Missing data", 400);
@@ -1316,7 +1067,6 @@ export const PreviewCv = async (req, res) => {
         return functions.setError(res, error.message);
     }
 }
-
 export const DetailCVPreview = async (req, res) => {
     try {
         const id = !isNaN(Number(req.body.id)) ? req.body.id : (await functions.getTokenUser(req));
@@ -1340,39 +1090,22 @@ export const DetailCVPreview = async (req, res) => {
                     }
                     data.alias = alias
                     return functions.success(res, 'get data success', { data });
-                } else {
-                    // const result = await SampleCv.findOne({ id: idcv }).lean();
-                    // data.result = result;
-                    // data.type = 0;
-                }
-            } else {
-                // const result = await SampleCv.findOne({ id: idcv }).lean();
-                // data.result = result;
-                // data.type = 0;
-            }
-
-            // console.log('data', data);
-            // return functions.success(res, 'get data success', { data });
-            // return functions.setError(res, 'missing data', 400);
+                } else { }
+            } else { }
         }
         return functions.setError(res, 'missing data', 400);
     } catch (error) {
         return functions.setError(res, error.message);
     }
 }
-
-// Kiểm tra xác thức (khi cần)
-// Lấy lại thông tin (khi cần)
 export const getAccountDetail = async (req, res) => {
     try {
         const {
             id,
             type
         } = req.body
-
         let userId = Number(id) || 0
         let userType = Number(type) || 0
-
         if (req?.headers && req?.headers?.authorization) {
             const token = req.headers.authorization.split(' ')[1];
             const result = jwt.decode(token).data;
@@ -1384,7 +1117,6 @@ export const getAccountDetail = async (req, res) => {
                 userId = Number(result?.usc_id) || 0
             }
         }
-
         if (userId && userType) {
             let returnData = {
                 name: '',
@@ -1393,7 +1125,6 @@ export const getAccountDetail = async (req, res) => {
                 auth: 0,
                 Token: '',
             }
-
             if (userType == 2) {
                 const checkExists = await Users.findOne({ use_id: Number(userId) })
                 if (checkExists) {
@@ -1425,11 +1156,9 @@ export const getAccountDetail = async (req, res) => {
                         use_job_name: checkExists?.use_job_name,
                         Token: Token,
                     }
-
                     return functions.success(res, 'Success', { data: returnData })
                 }
             }
-
             if (userType == 1) {
                 const checkExists = await UserCompany.findOne({ usc_id: Number(userId) })
                 if (checkExists) {
@@ -1448,28 +1177,21 @@ export const getAccountDetail = async (req, res) => {
                         auth: checkExists?.usc_authentic,
                         Token: Token,
                     }
-
                     return functions.success(res, 'Success', { data: returnData })
                 }
             }
-
-            // return functions.success(res, 'Success', { data: returnData })
-
             return functions.setError(res, 'not found', 400);
         }
         return functions.setError(res, 'missing data', 400);
-
     } catch (error) {
         return functions.setError(res, error.message);
     }
 }
-
 export const isPhoneUsedEmployer = async (req, res) => {
     try {
         const {
             phone
         } = req.body
-
         if (phone && (await functions.checkPhone(phone))) {
             const checkExist = await UserCompany.findOne({ usc_phone_tk: phone })
             if (checkExist) {

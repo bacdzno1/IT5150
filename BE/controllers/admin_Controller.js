@@ -24,12 +24,8 @@ export const list = async (req, res) => {
         let condition = {};
         let Table = [];
         let sort = {};
-        // let lookup = {};
         let lookup = [];
-        // let unwind = {};
-        let unwind = []; // Cho phép lookup và unwind nhiều 
-
-        // Lọc conditions
+        let unwind = [];
         if (typeof conditions === 'object' && Object.keys(conditions).length > 0) {
             for (let key in conditions) {
                 if (!conditions[key]) {
@@ -39,11 +35,7 @@ export const list = async (req, res) => {
         } else {
             conditions = {}
         }
-
         if (module) {
-            console.log(">>> module: ", module)
-
-            // ứng viên đăng kí mới
             if (module === 1) {
                 Table = Users;
                 if (conditions?.use_nganh_nghe) {
@@ -60,7 +52,6 @@ export const list = async (req, res) => {
                 if (conditions?.use_phone) { conditions.use_phone = new RegExp(conditions.use_phone, 'i') }
                 functions.CompareTime(condition, 'use_create_time', from, to)
                 sort = { use_id: -1 };
-
                 conditions = { ...condition, ...conditions };
                 subSort = { ...sort, ...subSort };
                 const total_promise = Table.countDocuments(conditions);
@@ -72,13 +63,10 @@ export const list = async (req, res) => {
                     data_promise,
                     total_promise
                 ]);
-
                 return functions.success(res, 'success', {
                     data, total
                 });
             }
-
-            // trạng thái ứng viên NHS
             if (module === 2) {
                 Table = NopHoSo;
                 functions.CompareTime(condition, 'createdAt', from, to)
@@ -87,9 +75,7 @@ export const list = async (req, res) => {
                 const use_name = conditions?.use_name
                 const new_title = conditions?.new_title
                 const usc_company = conditions?.usc_company
-
                 let user_promise = [], new_promise = [], com_promise = []
-                // let userArr = [], newArr = [], comArr = []
                 if (use_name) {
                     user_promise = Users.find({
                         use_name: { $regex: use_name, $options: 'i' }
@@ -130,7 +116,6 @@ export const list = async (req, res) => {
                     delete conditions.usc_company
                     conditions.nhs_com_id = { $in: comArr }
                 }
-
                 lookup = [
                     {
                         "$lookup": {
@@ -175,7 +160,6 @@ export const list = async (req, res) => {
                         }
                     }
                 ]
-
                 unwind = [
                     {
                         $unwind: {
@@ -196,7 +180,6 @@ export const list = async (req, res) => {
                         }
                     }
                 ]
-
                 searchItem = {
                     id: 1,
                     use_name: { $ifNull: ['$user.use_name', 'Chưa cập nhật'] },
@@ -208,8 +191,6 @@ export const list = async (req, res) => {
                     note: 1,
                 }
             }
-
-            // NTD đăng ký 
             if (module === 3) {
                 Table = UserCompany;
                 condition = {
@@ -219,7 +200,6 @@ export const list = async (req, res) => {
                 functions.CompareTime(condition, 'usc_create_time', from, to);
                 sort = { usc_create_time: -1 };
                 const time = functions.getTime();
-
                 if (conditions?.usc_id) {
                     conditions.usc_id = Number(conditions.usc_id);
                 }
@@ -247,12 +227,9 @@ export const list = async (req, res) => {
                 if (conditions?.usc_district) {
                     conditions.usc_district = new RegExp(conditions.usc_district, 'i');
                 }
-
                 conditions = { ...condition, ...conditions };
                 subSort = { ...sort, ...subSort };
-
                 const point_promise = TblPointCompany.find({ point_usc: { $gt: 0 }, day_end: { $gt: time } });
-
                 const ghim_promise = NewGhimTin.aggregate([
                     {
                         $match: {
@@ -287,7 +264,6 @@ export const list = async (req, res) => {
                         }
                     }
                 ]);
-
                 let [
                     point,
                     ghim
@@ -295,12 +271,9 @@ export const list = async (req, res) => {
                     point_promise,
                     ghim_promise,
                 ]);
-
                 point = point.filter((item) => !!item?.usc_id).map((item) => (item.usc_id));
                 ghim = ghim.filter((item) => !!item?.usc_id).map((item) => (item.usc_id));
-
                 let vipArr = ghim.filter(item => point.includes(item));
-
                 let vip = null;
                 vip = conditions?.vip;
                 delete conditions.vip;
@@ -321,9 +294,7 @@ export const list = async (req, res) => {
                         };
                     }
                 }
-
                 const total_promise = Table.countDocuments(conditions);
-
                 const data_promise = Table.aggregate([
                     { $match: conditions },
                     { $sort: subSort },
@@ -337,7 +308,7 @@ export const list = async (req, res) => {
                             as: 'adminDetails'
                         }
                     },
-                    { $unwind: { path: '$adminDetails', preserveNullAndEmptyArrays: true } }, // Unwind the joined array
+                    { $unwind: { path: '$adminDetails', preserveNullAndEmptyArrays: true } },
                     {
                         $project: {
                             usc_id: 1,
@@ -354,32 +325,27 @@ export const list = async (req, res) => {
                             usc_authentic: 1,
                             usc_mst: 1,
                             usc_create_time: 1,
-                            'adminDetails.emp_id': 1, // Include emp_id from AdminUser
+                            'adminDetails.emp_id': 1,
                             emp_id: '$adminDetails.emp_id',
                             usc_alias: 1,
                         }
                     }
                 ]);
-
                 let [
                     data, total
                 ] = await Promise.all([
                     data_promise, total_promise
                 ]);
-
                 if (Array.isArray(data) && Array.isArray(vipArr)) {
                     data.forEach((element) => {
                         element.vip = vipArr.includes(element.usc_id) ? 1 : 0;
                     });
                 }
-
                 return functions.success(res, 'success', {
                     total: total,
                     data
                 });
             }
-
-            // Tin tuyen dung - NTD tự đăng 
             if (module === 4) {
                 Table = New;
                 sort = { new_id: -1 }
@@ -389,14 +355,11 @@ export const list = async (req, res) => {
                 if (conditions?.new_title) conditions.new_title = new RegExp(functions.allVietnameseRegex(conditions.new_title), 'i')
                 if (conditions?.new_cat_id) conditions.new_cat_id = new RegExp(`(^|,)${conditions.new_cat_id}(,|$)`)
                 if (conditions?.new_city) conditions.new_city = new RegExp(`(^|,)${conditions.new_city}(,|$)`)
-
-                // Gioi han theo admin
                 const usc_company = conditions?.usc_company
                 const listComId = await UserCompany.distinct("usc_id", {
                     ...(!checkFullRight(adminID)),
                     ...(!!usc_company && { usc_company: { $regex: functions.allVietnameseRegex(usc_company), $options: 'i' } })
                 })
-
                 if (conditions?.new_user_id) {
                     conditions = {
                         ...conditions,
@@ -405,13 +368,11 @@ export const list = async (req, res) => {
                             { new_user_id: { $in: listComId } }
                         ]
                     }
-
                     delete conditions.new_user_id
                 } else {
                     conditions.new_user_id = { $in: listComId }
                 }
                 delete conditions.usc_company
-
                 const time = functions.getTime();
                 lookup = [
                     {
@@ -444,7 +405,6 @@ export const list = async (req, res) => {
                         }
                     }
                 ]
-
                 unwind = [
                     {
                         $unwind: '$com'
@@ -456,7 +416,6 @@ export const list = async (req, res) => {
                         }
                     },
                 ]
-
                 searchItem = {
                     new_id: 1,
                     new_user_id: 1,
@@ -466,21 +425,16 @@ export const list = async (req, res) => {
                     usc_address: '$com.usc_address',
                     usc_id: '$com.usc_id',
                     new_create_time: 1,
-                    // new_hot: 1,
                     new_hot: { $ifNull: ['$pin.new_hot', 0] },
-                    // new_cao: 1,
                     new_cao: { $ifNull: ['$pin.new_cao', 0] },
                     expired: { $ifNull: ['$pin.expired', 0] },
                     new_cat_id: 1,
                     new_city: 1,
                     new_han_nop: 1,
                 }
-
                 conditions = { ...condition, ...conditions };
                 subSort = { ...sort, ...subSort };
-
                 const total_promise = Table.countDocuments(conditions);
-
                 const data_promise = Table.aggregate([
                     { $match: conditions },
                     { $sort: subSort },
@@ -490,13 +444,11 @@ export const list = async (req, res) => {
                     ...unwind,
                     { $project: searchItem }
                 ]);
-
                 const [
                     data, total
                 ] = await Promise.all([
                     data_promise, total_promise
                 ]);
-
                 let arrUvPromise = []
                 for (let i = 0; i < data.length; i++) {
                     const element = data[i];
@@ -507,13 +459,11 @@ export const list = async (req, res) => {
                     const element = data[i];
                     element.uvCount = arrUv[i];
                 }
-
                 return functions.success(res, 'success', {
                     total: total,
                     data
                 });
             }
-
             conditions = { ...condition, ...conditions };
             subSort = { ...sort, ...subSort };
             if (JSON.stringify(unwind) != '[]') {
@@ -526,7 +476,6 @@ export const list = async (req, res) => {
                     ...unwind,
                     { $project: searchItem }
                 ]);
-
                 const total_promise = Table.aggregate([
                     { $match: conditions },
                     { $sort: subSort },
@@ -548,7 +497,6 @@ export const list = async (req, res) => {
                     data_promise,
                     total_promise
                 ]);
-                // total = data.length;
                 const tong = (total && Array.isArray(total) && total.length > 0 && 'total' in total[0]) ? total[0].total : 0;
                 return functions.success(res, 'success', {
                     total: tong,
@@ -564,17 +512,6 @@ export const list = async (req, res) => {
                     data_promise,
                     total_promise
                 ]);
-                // total = data.length;
-                // for (let i = 0; i < total; i++) {
-                //     const element = data[i];
-                //     if (module === 14) {
-                //         const result = await TblPointCompany.findOne({ usc_id: element.usc_id }).lean();
-                //         if (!result) element.status = 'Chưa VIP';
-                //         else if (result && result.day_end == 0) element.status = 'Chưa VIP';
-                //         else if (result && result.day_end > 0 && functions.getTime() < result.day_end) element.status = 'VIP';
-                //         else element.status = 'Đã từng VIP';
-                //     }
-                // }
                 return functions.success(res, 'success', {
                     total,
                     data
@@ -587,13 +524,10 @@ export const list = async (req, res) => {
         return functions.setError(res, error.message);
     }
 };
-
 const promiseNopHoSo = (new_id) => {
     const query = NopHoSo.countDocuments({ nhs_new_id: new_id })
-    // console.log(query)
     return query
 }
-
 export const Login = async (req, res) => {
     try {
         const { username, password } = req.body;
@@ -607,7 +541,6 @@ export const Login = async (req, res) => {
             if (checkExist) {
                 var isFullModules = checkFullRight(Number(checkExist.adm_id)) ? 1 : 0;
                 var modules = [];
-
                 const data = {
                     ...checkExist,
                     type: 3,
@@ -625,8 +558,6 @@ export const Login = async (req, res) => {
         return functions.setError(res, error.message);
     }
 }
-
-// Ghim tin
 export const PinNew = async (req, res) => {
     try {
         let {
@@ -639,7 +570,6 @@ export const PinNew = async (req, res) => {
             const checkExist = await New.findOne({ new_id: Number(new_id) })
             if (checkExist) {
                 const checkGhim = await NewGhimTin.findOne({ new_id: Number(new_id) })
-
                 expired = new Date(expired).setHours(23, 59, 59)
                 if (checkGhim) {
                     await NewGhimTin.updateOne({ new_id: new_id }, {
@@ -666,19 +596,14 @@ export const PinNew = async (req, res) => {
         return functions.setError(res, error.message)
     }
 }
-
-// Check admin có phải toàn quyền 
 const checkFullRight = (adm_id) => {
     return adm_id === 1
 }
-
-// Lam moi tin
 export const refreshNew = async (req, res) => {
     try {
         const {
             new_id
         } = req.body
-
         if (new_id) {
             const checkExist = await New.findOne({ new_id: Number(new_id) })
             if (checkExist) {
@@ -688,7 +613,6 @@ export const refreshNew = async (req, res) => {
                         new_update_time: time
                     }
                 })
-
                 return functions.success(res, 'Làm mới thành công', { new_id })
             } else {
                 return functions.setError(res, 'not found', 404)

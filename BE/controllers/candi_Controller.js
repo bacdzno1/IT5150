@@ -15,7 +15,6 @@ import City from '../models/city/City.js';
 import UserVidUpload from "../models/user/UserVidUpload.js";
 import UserCompany from "../models/user/UserCompany.js";
 
-// quản lý chung ứng viên
 export const ManageAllCandi = async (req, res) => {
     try {
         const iduv = Number(req.iduv);
@@ -29,7 +28,6 @@ export const ManageAllCandi = async (req, res) => {
         if (checkInfo.use_city_job) {
             checkInfo.use_city_job.map(item => arrCityJob.push(item.id));
         }
-
         const viecLamPhuHopNganhNghe = [];
         for (let i = 0; i < arrNganhNghe.length; i++) {
             const element = arrNganhNghe[i];
@@ -40,22 +38,9 @@ export const ManageAllCandi = async (req, res) => {
             const element = arrCityJob[i];
             viecLamPhuHopCity.push({ new_city: new RegExp(`(^|,)${element}(,|$)`) })
         }
-
         const daUngTuyenPromise = NopHoSo.countDocuments({ nhs_use_id: iduv });
-
-        // const cout_viecLamPhuHopPromise = New.countDocuments({
-        //     // new_cat_id: { $in: arrNganhNghe },
-        //     // new_city: { $in: arrCityJob },
-        //     $and: [
-        //         { $or: viecLamPhuHopNganhNghe },
-        //         { $or: viecLamPhuHopCity },
-        //     ]
-        // });
-
         const mauCvDaTaoPromise = SaveCandidateCv.countDocuments({ iduser: iduv });
-
         const xemHoSo = checkInfo.use_view_count;
-
         const viecLamPhuHopPromise = New.aggregate([
             {
                 $match: {
@@ -96,8 +81,6 @@ export const ManageAllCandi = async (req, res) => {
                 }
             }
         ]);
-
-
         const CvCuaToiPromise = SaveCandidateCv.aggregate([
             { $match: { iduser: iduv } },
             { $sort: { id: -1 } },
@@ -122,10 +105,8 @@ export const ManageAllCandi = async (req, res) => {
                 }
             }
         ]);
-
         const idcv_da_tao = await SaveCandidateCv.distinct('idcv', { iduser: iduv })
         const mauCvDeXuatPromise = SampleCv.find({ id: { $nin: idcv_da_tao } }, { alias: 1, image: 1, name: 1, id: 1 }).sort({ serial: -1, id: -1 }).limit(20).lean();
-
         const [
             daUngTuyen,
             mauCvDaTao,
@@ -146,7 +127,6 @@ export const ManageAllCandi = async (req, res) => {
                 const arrPromiseLuuTin = [];
                 for (let i = 0; i < arr.length; i++) {
                     const element = arr[i];
-
                     arrPromiseLuuTin.push(promiseTblLuuTin(iduv, element.new_id));
                 }
                 const arrLuutin = await Promise.all(arrPromiseLuuTin);
@@ -154,25 +134,20 @@ export const ManageAllCandi = async (req, res) => {
                     arr[i].checkLuuTin = arrLuutin[i] ? true : false;
                 }
             };
-
             await processArray(viecLamPhuHop);
         }
-
         for (let i = 0; i < CvCuaToi.length; i++) {
             const element = CvCuaToi[i];
             element.name_cv = functions.getCV(iduv, element.name_cv);
             element.cvPDF = `${process.env.DOMAIN_API}/dowload/cv_pdf/user_${element.iduser}/cvid_${element.idcv}/${element.idcv}-topcv1s.pdf`;
         }
-
         for (let i = 0; i < mauCvDeXuat.length; i++) {
             const element = mauCvDeXuat[i];
             element.image = `${process.env.DOMAIN_API}/pictures/sample_cv/${element.image}`;
         }
-
         for (let i = 0; i < viecLamPhuHop.length; i++) {
             const element = viecLamPhuHop[i];
             if (element.usc_logo) element.usc_logo = functions.getAvatarNTD(element.usc_create_time, element.usc_logo);
-
             const nameCity = element.new_city.split(',');
             const cityArr = [];
             if (nameCity.length > 0) nameCity.map((itemm) => {
@@ -181,24 +156,19 @@ export const ManageAllCandi = async (req, res) => {
             });
             element.new_city = cityArr;
         }
-        // console.log(viecLamPhuHop)
         data.daUngTuyen = daUngTuyen;
-        // data.cout_viecLamPhuHop = cout_viecLamPhuHop;
         data.cout_viecLamPhuHop = viecLamPhuHop.length;
         data.mauCvDaTao = mauCvDaTao;
         data.xemHoSo = xemHoSo;
         data.viecLamPhuHop = viecLamPhuHop;
         data.mauCvDeXuat = mauCvDeXuat;
         data.CvCuaToi = CvCuaToi;
-
         return functions.success(res, 'get data success', { data });
     } catch (error) {
         console.log(error);
         return functions.setError(res, error.message);
     }
 };
-
-// việc làm đã ứng tuyển
 export const JobApply = async (req, res) => {
     try {
         const iduv = Number(req.iduv);
@@ -206,10 +176,8 @@ export const JobApply = async (req, res) => {
         const pageSize = Number(req.body.pageSize) || 10;
         const skip = (page - 1) * pageSize;
         const limit = pageSize;
-
         const dataCom_promise = UserCompany.distinct('usc_id')
         const dataNew_promise = New.distinct('new_id')
-
         const [
             dataCom,
             dataNew
@@ -217,7 +185,6 @@ export const JobApply = async (req, res) => {
             dataCom_promise,
             dataNew_promise,
         ])
-
         const data = await NopHoSo.aggregate([
             { $match: { nhs_use_id: iduv, nhs_com_id: { $in: dataCom }, nhs_new_id: { $in: dataNew } } },
             { $sort: { nhs_time: -1 } },
@@ -272,8 +239,6 @@ export const JobApply = async (req, res) => {
         return functions.setError(res, error.message);
     }
 };
-
-// việc làm đã lưu
 export const JobDidSave = async (req, res) => {
     try {
         const iduv = Number(req.iduv);
@@ -281,10 +246,8 @@ export const JobDidSave = async (req, res) => {
         const pageSize = Number(req.body.pageSize) || 10;
         const skip = (page - 1) * pageSize;
         const limit = pageSize;
-
         const dataCom = await UserCompany.distinct('usc_id')
         const dataNew = await New.distinct('new_id', { new_user_id: { $in: dataCom } })
-
         const data = await TblLuuTin.aggregate([
             { $match: { id_uv: iduv, id_tin: { $in: dataNew } } },
             { $sort: { id: -1 } },
@@ -337,8 +300,6 @@ export const JobDidSave = async (req, res) => {
         return functions.setError(res, error.message);
     }
 };
-
-// lưu tin và xoá
 export const SaveNew = async (req, res) => {
     try {
         const iduv = req.iduv;
@@ -365,8 +326,6 @@ export const SaveNew = async (req, res) => {
         return functions.setError(res, error.message);
     }
 };
-
-// cho phép tìm kiếm ứng viên
 export const AllowSearchCandi = async (req, res) => {
     try {
         const iduv = req.iduv;
@@ -380,8 +339,6 @@ export const AllowSearchCandi = async (req, res) => {
         return functions.setError(res, error.message);
     }
 };
-
-// làm mới hồ sơ
 export const RefreshProfileCandi = async (req, res) => {
     try {
         const iduv = req.iduv;
@@ -391,8 +348,6 @@ export const RefreshProfileCandi = async (req, res) => {
         return functions.setError(res, error.message);
     }
 };
-
-// CV xin việc
 export const ManageCvCandiDidCreated = async (req, res) => {
     try {
         const iduv = req.iduv;
@@ -426,7 +381,6 @@ export const ManageCvCandiDidCreated = async (req, res) => {
                 }
             },
         ]);
-
         const cvDaLuu = await CvEmotion.aggregate([
             { $match: { type: 1, iduser: iduv } },
             { $sort: { idcv: -1 } },
@@ -449,12 +403,10 @@ export const ManageCvCandiDidCreated = async (req, res) => {
                 }
             },
         ]);
-
         for (let i = 0; i < cvDaLuu.length; i++) {
             const element = cvDaLuu[i];
             element.image = `${process.env.DOMAIN_API}/pictures/sample_cv/${element.image}`;
         }
-
         for (let i = 0; i < cvXinViecCuaToi.length; i++) {
             const element = cvXinViecCuaToi[i];
             // const result = JSON.parse(element.html);
@@ -469,43 +421,29 @@ export const ManageCvCandiDidCreated = async (req, res) => {
         return functions.setError(res, error.message);
     }
 };
-
-// xử lí người dùng tải file cv
 export const DowloadFileCVPDF = async (req, res) => {
     try {
         const iduv = req.params.iduv || -1;
         const id = req.params.id;
-
         const result = await Users.findOne({ use_id: iduv }, { use_name: 1 }).lean();
         const cv = await SaveCandidateCv.findOne({ iduser: iduv, idcv: id }).lean();
         if (result && cv && iduv && id) {
-            // Add lượt tải
             SampleCv.findOneAndUpdate({ id: id }, { $inc: { download: 1 } })
             const link = `http://localhost:9020/xem-cv2-u${iduv}-c${id}`;
-
             let pdf = await functions.renderPdfFromUrlNew(link)
             if (pdf.result) {
                 let buffer = pdf.file
                 buffer = new Buffer.from(buffer, "base64");
                 let base64StringPDF = buffer.toString("base64");
-
-
                 return functions.success(res, "Success", { base64StringPDF })
             }
             return functions.setError(res, 'download failed');
-            // res.setHeader('Content-disposition', 'attachment; filename=test.pdf');
-            // res.setHeader('Content-type', 'application/pdf');
-
-
-            // return res.download(`./dowload/cv_pdf/user_${iduv}/cvid_${id}/${name}.pdf`, `${result.use_name}.pdf`);
         }
         return functions.setError(res, 'download failed');
     } catch (error) {
         return functions.setError(res, 'download failed');
     }
 };
-
-// chi tiết CV 
 export const DetailCV = async (req, res) => {
     try {
         const id = !isNaN(Number(req.body.id)) ? req.body.id : (await functions.getTokenUser(req));
@@ -547,28 +485,16 @@ export const DetailCV = async (req, res) => {
         return functions.setError(res, error.message);
     }
 };
-
-// sửa CV
 export const UpdateInfoCv = async (req, res) => {
     try {
         const { idcv, lang, height_cv, html, cv_title } = req.body;
         if (html) {
             const iduv = req.iduv;
-
             const JsonCV = JSON.parse(html);
-
             JsonCV.name = JsonCV.name.replaceAll('+', ' ');
-            console.log('jsoncv', JsonCV)
-
             const checkExists = await Users.findOne({ use_id: iduv }, { use_create_time: 1, use_logo: 1 }).lean();
-
             const cv_name = await SampleCv.findOne({ id: idcv }).lean();
-
             const time = functions.getTime();
-
-            // Encode name
-            // const nameNoHide = functions.randomString2([`${iduv}`, `${time}`])
-
             const updateSave = {
                 lang,
                 timeedit: functions.getTime(),
@@ -579,7 +505,6 @@ export const UpdateInfoCv = async (req, res) => {
                 html: JSON.stringify(JsonCV),
             };
             const idSave = await functions.getMaxId(SaveCandidateCv, 'id');
-
             const createSave = {
                 id: idSave,
                 iduser: iduv,
@@ -601,35 +526,20 @@ export const UpdateInfoCv = async (req, res) => {
             };
             if (JsonCV.avatar !== "/images/cv/no_avatar.webp" && !JsonCV.avatar.startsWith("http://localhost:3050/pictures")) {
                 const date = functions.getDate(checkExists.use_create_time * 1000);
-
                 const nameFileOld = JsonCV.avatar.split('/').pop();
-
                 const logoCV = `./upload/cv_uv/uv_${iduv}/${nameFileOld}`;
-
                 const avatar = `./pictures/${date}/${nameFileOld}`;
-
                 JsonCV.avatar = `http://localhost:3050/upload/cv_uv/uv_${iduv}/${nameFileOld}`;
-
                 const linkTmp = `./tmp/${nameFileOld}`;
-
                 const html_new = JSON.stringify(JsonCV);
-
                 await functions.copyFile(linkTmp, logoCV, `./upload/cv_uv/uv_${iduv}`);
-
                 await functions.copyFile(linkTmp, avatar, `./pictures/${date}`);
-
                 functions.deleteFile(linkTmp);
-
                 updateUsers.use_logo = nameFileOld;
-
                 updateSave.nameimg = logoCV;
-
                 createSave.nameimg = logoCV;
-
                 updateSave.html = html_new;
-
                 createSave.html = html_new;
-
                 if (checkExists.use_logo && checkExists.use_logo !== '') {
                     const path = `./pictures/${date}/${checkExists.use_logo}`;
                     functions.deleteFile(path);
@@ -637,27 +547,13 @@ export const UpdateInfoCv = async (req, res) => {
             }
             const checkSaveExists = await SaveCandidateCv.findOne({ iduser: iduv, idcv }, { name_cv_hide: 1, name_cv: 1, nameimg: 1 }).lean();
             if (checkSaveExists) {
-
                 const path = `./upload/cv_uv/uv_${iduv}/${checkSaveExists.name_cv}`;
-
                 const pathHide = `./upload/cv_uv/uv_${iduv}/${checkSaveExists.name_cv_hide}`;
-
-                // const pathLogo = checkSaveExists.nameimg;
-                // console.log(pathLogo)
-
-                // pathLogo && functions.deleteFile(pathLogo);
-
                 functions.deleteFile(path);
-
                 functions.deleteFile(pathHide);
-
             }
-
-
             const linkHide = `http://localhost:9020/xem-cv-u${iduv}-c${idcv}-t1`;
-
             const linkNoHide = `http://localhost:9020/xem-cv-u${iduv}-c${idcv}-t0`;
-            // await Promise.all([
             functions.renderImageFromUrl(
                 linkHide,
                 `./upload/cv_uv/uv_${iduv}`,
@@ -668,34 +564,24 @@ export const UpdateInfoCv = async (req, res) => {
                     `./upload/cv_uv/uv_${iduv}`,
                     `./upload/cv_uv/uv_${iduv}/u_cv_${time}.png`,
                     iduv),
-                // ]);
                 await SampleCv.findOneAndUpdate({ id: idcv }, { $inc: { download: 1 } })
             const link = `http://localhost:9020/xem-cv2-u${iduv}-c${idcv}`;
-
-            // functions.renderPdfFromUrl(link, iduv, idcv);
-
             await Users.findOneAndUpdate({ use_id: iduv }, updateUsers);
-
             if (checkSaveExists) {
                 await SaveCandidateCv.findOneAndUpdate({ iduser: iduv, idcv }, updateSave);
             }
             else await SaveCandidateCv.create(createSave);
-
             let base64StringPDF = ""
             let pdf = await functions.renderPdfFromUrlNew(link)
-            // console.log(">>> Check pdf: ", pdf);
             if (pdf.result) {
                 let buffer = pdf.file
                 buffer = new Buffer.from(buffer, "base64");
                 base64StringPDF = buffer.toString("base64");
             }
-
             return functions.success(res, 'Success', {
                 use_id: iduv,
                 base64StringPDF
             });
-
-
         }
         return functions.setError(res, "missing data", 400);
     } catch (error) {
@@ -703,8 +589,6 @@ export const UpdateInfoCv = async (req, res) => {
         return functions.setError(res, error.message);
     }
 };
-
-// xoá cv
 export const CandiDeleteCV = async (req, res) => {
     try {
         const idcv = req.body.idcv;
@@ -721,7 +605,6 @@ export const CandiDeleteCV = async (req, res) => {
                 functions.deleteFile(pathLogoCV);
                 functions.deleteFile(pathCvImage);
                 functions.deleteFile(pathCvHideImage);
-
                 return functions.success(res, 'success');
             }
             return functions.setError(res, 'CV Not found', 400);
@@ -731,46 +614,6 @@ export const CandiDeleteCV = async (req, res) => {
         return functions.setError(res, error.message);
     }
 };
-
-// xử lí người dùng tải file thư xin việc
-export const DowloadFileLetterPDF = async (req, res) => {
-    try {
-        const iduv = req.params.iduv || -1;
-        const id = req.params.id;
-        const result = await Users.findOne({ use_id: iduv }, { use_name: 1 }).lean();
-        if (result && iduv && id) {
-            const link = `https://work247.vn/xem-thu-u${iduv}-c${id}`;
-            const time = functions.getTime();
-            const path = `./tmp/dowload/file_${time}`;
-            functions.renderLetterPdfFromUrl(link, path);
-            return res.download(`./tmp/dowload/file_${time}`, `${result.use_name}.pdf`);
-        }
-        return functions.setError(res, 'download failed');
-    } catch (error) {
-        return functions.setError(res, 'download failed');
-    }
-};
-
-// xử lí người dùng tải file thư xin việc
-export const DowloadFileJobPDF = async (req, res) => {
-    try {
-        const iduv = req.params.iduv || -1;
-        const id = req.params.id;
-        const result = await Users.findOne({ use_id: iduv }, { use_name: 1 }).lean();
-        if (result && iduv && id) {
-            const link = `https://work247.vn/xem-don-u${iduv}-c${id}`;
-            const time = functions.getTime();
-            const path = `./tmp/dowload/file_${time}`;
-            functions.renderLetterPdfFromUrl(link, path);
-            return res.download(`./tmp/dowload/file_${time}`, `${result.use_name}.pdf`);
-        }
-        return functions.setError(res, 'download failed');
-    } catch (error) {
-        return functions.setError(res, 'download failed');
-    }
-};
-
-// lưu, xoá CV
 export const SaveCV = async (req, res) => {
     try {
         const { id } = req.body;
@@ -794,13 +637,10 @@ export const SaveCV = async (req, res) => {
         return functions.setError(res, error.message);
     }
 };
-
-// chi tiết ứng viên
 export const DetailCandi = async (req, res) => {
     try {
         const id = Number(req.body.id);
         const Cityy = await City.find({}, { cit_id: 1, cit_name: 1 }).lean();
-
         if (id) {
             const data = await Users.findOne({ use_id: id }, {
                 use_name: 1,
@@ -826,45 +666,34 @@ export const DetailCandi = async (req, res) => {
                 use_district_job: 1,
                 use_authentic: 1,
             }).lean();
-
             if (data) {
                 data.xemTT = false;
                 data.luuHoSo = false;
-
                 const iduser = await functions.getTokenUser(req, res);
                 const userType = await functions.getUserType(req, res);
-
                 if (iduser) {
                     const luuHoSo = await TblLuuHoSoUv.findOne({ id_ntd: iduser, id_uv: id }).lean();
-
                     if (luuHoSo) {
                         data.luuHoSo = true;
                     }
-
                     if (userType === 1) {
                         const checkNopHoSo = await NopHoSo.findOne({ nhs_com_id: iduser, nhs_use_id: id }).lean();
-
                         if (checkNopHoSo) {
                             data.xemTT = true;
                         }
                     }
                 }
-
                 if (data.use_nganh_nghe.length > 0) {
                     const job = await Category.find({}, { cat_id: 1, cat_name: 1 }).lean();
-
                     for (let i = 0; i < data.use_nganh_nghe.length; i++) {
                         const element = data.use_nganh_nghe[i];
                         const jobName = job.find(itemm => itemm.cat_id == element.id);
-
                         if (jobName) {
                             element.jobName = jobName.cat_name;
                         }
                     }
                 }
-
                 const resultCvUpload = await UserCvUpload.findOne({ use_id: id }, { link: 1, link_scan: 1 }).lean();
-
                 if (resultCvUpload) {
                     data.arr_type = '<div class="item"><a class="" data-id="cv_step_2">tệp đính kèm</a></div>';
                     data.arr_body = 'step_2';
@@ -872,26 +701,19 @@ export const DetailCandi = async (req, res) => {
                     data.step2_img = `${process.env.DOMAIN_API}/${resultCvUpload.link}`;
                     data.img_demo = resultCvUpload.link_scan ? `https://anhhidecv.timviec365.vn:9000/${resultCvUpload.link_scan}` : `/images/cv_step_2.png`;
                 }
-
                 const resultSaveCandiCv = await SaveCandidateCv.findOne({ iduser: id }, { name_cv: 1, name_cv_hide: 1, id: 1 })
                     .sort({ timeedit:-1,createdate: -1 }).lean();
-
                 if (resultSaveCandiCv) {
                     data.arr_type = '<div class="item"><a class="" data-id="cv_step_3">cv xin việc</a></div>';
                     data.arr_body = 'step_3';
                     data.img = `${process.env.DOMAIN_API}/upload/cv_uv/uv_${id}/${resultSaveCandiCv.name_cv_hide}`;
                     data.img_full = `${process.env.DOMAIN_API}/upload/cv_uv/uv_${id}/${resultSaveCandiCv.name_cv}`;
                 }
-
                 const resultVideoUpload = await UserVidUpload.findOne({ use_id: id }, { link: 1 }).lean();
-
                 if (resultVideoUpload) {
                     data.video_link = `${process.env.DOMAIN_API}/${resultVideoUpload.link}`;
                 }
-
                 data.use_logo = functions.getAvatarCandi(data.use_create_time, data.use_logo);
-
-                // Hide sensitive data if not authorized
                 if (!iduser || !data.xemTT) {
                     data.use_mail = '';
                     data.use_phone = '';
@@ -899,11 +721,9 @@ export const DetailCandi = async (req, res) => {
                     data.step2_img = '';
                     data.img_full = '';
                 }
-
                 if (userType === 1) {
                     await Users.updateOne({ use_id: id }, { $inc: { use_view_count: +1 } });
                 }
-
                 const nganhNgheIds = data.use_nganh_nghe.map(nganh => nganh.id);
                 const similarUsers = await Users.aggregate([
                     {
@@ -967,68 +787,32 @@ export const DetailCandi = async (req, res) => {
                     },
                     { $limit: 10 }
                 ]).exec();
-                // const similarUsers = await Users.find({
-                //     use_id: { $ne: id },
-                //     $or: [
-                //         { use_job_name: data.use_job_name },
-                //         { use_nganh_nghe: { $elemMatch: { id: { $in: nganhNgheIds } } } }
-                //     ]
-                // }, {
-                //     use_name: 1,
-                //     use_id: 1,
-                //     cit_name: 1,
-                //     cat_name: 1,
-                //     use_job_name: 1,
-                //     exp_years: 1,
-                //     salary: 1,
-                //     use_view_count: 1,
-                //     gender: 1,
-                //     use_create_time: 1,
-                //     use_logo: 1,
-                //     use_nganh_nghe: 1,
-                //     use_city: 1,
-                //     use_district: 1,
-                //     use_city_job: 1,
-                //     use_update_time: 1,
-                //     use_hocvan: 1,
-                //     use_district_job: 1,
-                // }).limit(10).lean();
-
                 for (let i = 0; i < similarUsers.length; i++) {
                     const element = similarUsers[i];
                     element.use_logo = functions.getAvatarCandi(element.use_create_time, element.use_logo);
                     const nameCity = element.use_city_job;
                     const cityArr = [];
-
                     if (nameCity.length > 0) {
                         nameCity.forEach(itemm => {
                             const city = Cityy.find(item => item.cit_id == itemm.id);
                             if (city) cityArr.push(city.cit_name);
                         });
                     }
-
                     element.use_city_job = cityArr;
                 }
-
                 return functions.success(res, 'Success', { data, similarUsers });
             }
-
             return functions.setError(res, 'not found', 404);
         }
-
         return functions.setError(res, 'missing data', 400);
     } catch (error) {
         return functions.setError(res, error.message);
     }
 };
-
-// ứng tuyển
 export const ApplyJob = async (req, res) => {
     try {
         const { id, lt } = req.body;
         const iduv = req.iduv;
-
-        // Cần phải check xác thực 
         const checkUser = await Users.findOne({ use_id: iduv })
         if (checkUser) {
             const auth = checkUser?.use_authentic || 1
@@ -1038,21 +822,17 @@ export const ApplyJob = async (req, res) => {
         } else {
             return functions.setError(res, 'Candidate does not exist', 404)
         }
-
         const checkExist = await NopHoSo.findOne({ nhs_use_id: iduv, nhs_new_id: id }).lean();
         if (checkExist) {
-            // await NopHoSo.findOneAndDelete({ nhs_use_id: iduv, nhs_new_id: id })
             const nhs_com_id = await New.findOne({ new_id: id }, { new_user_id: 1 }).lean()
             if (nhs_com_id) {
                 const conditions = {
-                    // id: _id,
                     nhs_use_id: iduv,
                     nhs_com_id: nhs_com_id.new_user_id,
                     nhs_new_id: id,
                     nhs_time: new Date().getTime() / 1000,
                     letter: lt || "",
                 };
-                // await NopHoSo.create(conditions);
                 await NopHoSo.findOneAndUpdate({ id: checkExist.id }, conditions)
                 return functions.success(res, 'success', { type: checkExist ? 0 : 1 })
             }
@@ -1075,13 +855,10 @@ export const ApplyJob = async (req, res) => {
             }
             return functions.setError(res, 'not found New', 404)
         }
-        // return functions.success(res, 'success', { type: checkExist ? 0 : 1 })
     } catch (error) {
         return functions.setError(res, error.message);
     }
 }
-
-// hủy ứng tuyển
 export const UnApplyJob = async (req, res) => {
     try {
         const { id } = req.body;
@@ -1096,13 +873,10 @@ export const UnApplyJob = async (req, res) => {
         return functions.setError(res, error.message);
     }
 }
-
 const promiseTblLuuTin = (iduser, new_id) => {
     const query = TblLuuTin.findOne({ id_uv: iduser, id_tin: new_id }, { id: 1 }).lean();
     return query;
 }
-
-// Lấy thông tin phục vụ livechat (dùng hàm riêng tối ưu tốc độ)
 export const takeInforCan = async (req, res, next) => {
     let cate = "", city = ""
     try {

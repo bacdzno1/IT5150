@@ -13,7 +13,6 @@ router.post('/getLangCv', CV.getLangCv);
 router.post('/getNganhCv', CV.getNganhCv);
 router.post('/in4CV', formdata.parse(), CV.in4CV);
 router.post('/ListSampleCV', formdata.parse(), CV.ListSampleCV);
-
 router.use('/static', express.static(dir))
 router.use(express.static(dir))
 

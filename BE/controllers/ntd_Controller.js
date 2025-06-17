@@ -9,28 +9,22 @@ import Users from '../models/user/Users.js';
 import UserCompany from '../models/user/UserCompany.js';
 import City from '../models/city/City.js';
 
-// quản lý chung 
 export const ManageAll = async (req, res, next) => {
     try {
         const idNTD = req.idNTD;
         const data = {};
         const time = functions.getTime();
         const tinconhanPromise = New.countDocuments({ new_user_id: idNTD, new_active: 1, new_han_nop: { $gt: time } });
-
         const tinsaphethanPromise = New.countDocuments({
             new_user_id: idNTD,
             new_active: 1,
             new_han_nop: { $gt: time, $lt: time + 3 * 24 * 60 * 60 }
         });
-
         const tinhethanPromise = New.countDocuments({
             new_user_id: idNTD,
             new_active: 1,
             new_han_nop: { $lt: time }
         });
-
-        // const date = new Date(new Date().toISOString().slice(0, 10)).getTime();
-        // const endDate = date + 24 * 60 * 60;
         const date = functions.getTime((new Date()).setHours(0, 0, 0, 0));
         const endDate = functions.getTime((new Date()).setHours(23, 59, 59, 0))
         const tindangtrongngayPromise = New.countDocuments({
@@ -41,7 +35,6 @@ export const ManageAll = async (req, res, next) => {
                 $lt: endDate
             }
         });
-
         const tinlammoiPromise = New.countDocuments({
             new_user_id: idNTD,
             new_active: 1,
@@ -63,7 +56,6 @@ export const ManageAll = async (req, res, next) => {
                 }
             }
         ]);
-
         const hoSoMoiPromise = NopHoSo.aggregate([
             { $match: { nhs_com_id: idNTD } },
             { $sort: { nhs_time: -1 } },
@@ -97,10 +89,8 @@ export const ManageAll = async (req, res, next) => {
                 }
             }
         ]);
-
         const hoSoUtPromise = NopHoSo.countDocuments({ nhs_com_id: idNTD });
         const chuyenVienGuiUvPromise = NopHoSo.countDocuments({ nhs_com_id: idNTD, type: 2 });
-
         const [tinconhan, tinsaphethan, tinhethan, tindangtrongngay, tinlammoi, tinGanDay, hoSoMoi, hoSoUt, hoSoDiemLoc, chuyenVienGuiUv] = await Promise.all([
             tinconhanPromise, tinsaphethanPromise, tinhethanPromise, tindangtrongngayPromise,
             tinlammoiPromise, tinGanDayPromise, hoSoMoiPromise, hoSoUtPromise, chuyenVienGuiUvPromise
@@ -144,8 +134,6 @@ export const ManageAll = async (req, res, next) => {
         return functions.setError(res, error.message);
     }
 };
-
-// promise đếm số ứng viên
 const arrPromiseUV = (new_cat_id, new_city) => {
     const soUngVien = Users.countDocuments({
         $or: [
@@ -155,16 +143,12 @@ const arrPromiseUV = (new_cat_id, new_city) => {
     });
     return soUngVien;
 };
-
-// promise đếm ứng viên nộp hồ sơ
 const ungvien = (new_id, type) => {
     const conditions = { nhs_new_id: new_id };
     if (type) conditions.type = type;
     const result = NopHoSo.countDocuments(conditions);
     return result;
 };
-
-// cập nhật hẹn phỏng vấn
 export const UpdateTimeInterview = async (req, res) => {
     try {
         const { year, month, day, id } = req.body;
@@ -179,8 +163,6 @@ export const UpdateTimeInterview = async (req, res) => {
         return functions.setError(res, error.message);
     }
 };
-
-// cập nhật ghi chú
 export const UpdateNoteInterview = async (req, res) => {
     try {
         const { note, id } = req.body;
@@ -194,8 +176,6 @@ export const UpdateNoteInterview = async (req, res) => {
         return functions.setError(res, error.message);
     }
 };
-
-// cập nhật kết quả
 export const UpdateResultInterview = async (req, res) => {
     try {
         const { result, id } = req.body;
@@ -209,8 +189,6 @@ export const UpdateResultInterview = async (req, res) => {
         return functions.setError(res, error.message);
     }
 };
-
-// Xoá hồ sơ ứng tuyển
 export const DeleteCandidateApply = async (req, res) => {
     try {
         const idNTD = req.idNTD;
@@ -225,8 +203,6 @@ export const DeleteCandidateApply = async (req, res) => {
         return functions.setError(res, error.message);
     }
 };
-
-// ứng viên đến ứng tuyển
 export const CandidatesComeToApply = async (req, res) => {
     try {
         const idNTD = req.idNTD;
@@ -280,18 +256,9 @@ export const CandidatesComeToApply = async (req, res) => {
             { $match: conditions2 },
         ]);
         const total = await NopHoSo.countDocuments(conditions);
-
         const titleFilter = await NopHoSo.aggregate([
             { $match: conditions },
             { $sort: { id: -1 } },
-            // {
-            //     $lookup: {
-            //         from: "Users",
-            //         localField: "nhs_use_id",
-            //         foreignField: "use_id",
-            //         as: "ungvien"
-            //     }
-            // },
             {
                 $lookup: {
                     from: "Work247_New",
@@ -300,20 +267,11 @@ export const CandidatesComeToApply = async (req, res) => {
                     as: "new"
                 }
             },
-            // { $unwind: "$ungvien" },
             { $unwind: "$new" },
             {
                 $project: {
-                    // use_name: "$ungvien.use_name",
-                    // use_id: "$ungvien.use_id",
                     new_id: "$new.new_id",
                     new_title: "$new.new_title",
-                    // new_alias: "$new.new_alias",
-                    // date_interview: 1,
-                    // id: 1,
-                    // result: 1,
-                    // nhs_time: 1,
-                    // date_interview: 1
                 }
             }
         ]);
@@ -322,8 +280,6 @@ export const CandidatesComeToApply = async (req, res) => {
         return functions.setError(res, error.message);
     }
 };
-
-// hồ sơ ứng viên đã lưu
 export const CandiDidSave = async (req, res) => {
     try {
         const idNTD = req.idNTD;
@@ -356,13 +312,10 @@ export const CandiDidSave = async (req, res) => {
         ]);
         const total = await TblLuuHoSoUv.countDocuments({ id_ntd: idNTD });
         return functions.success(res, 'success', { total, data });
-
     } catch (error) {
         return functions.setError(res, error.message);
     }
 };
-
-// xoá hồ sơ ứng viên đã lưu
 export const DeleteCandiDidSave = async (req, res) => {
     try {
         const { id_hoso } = req.body;
@@ -377,8 +330,6 @@ export const DeleteCandiDidSave = async (req, res) => {
         return functions.setError(res, error.message);
     }
 };
-
-//Lưu hồ sơ ứng viên 
 export const SaveCandi = async (req, res) => {
     try {
         const idNTD = req.idNTD;
@@ -406,23 +357,15 @@ export const SaveCandi = async (req, res) => {
         return functions.setError(res, error.message);
     }
 }
-
-// xem thông tin ứng viên
 export const ViewCandidateInformation = async (req, res) => {
     try {
         const idNTD = req.idNTD;
         const iduv = req.body.iduv || -1;
-        // console.log(idNTD, iduv)
         const time = functions.getTime()
         const checkPoint = await TblPointCompany.findOne({ usc_id: idNTD, day_end: { $gte: time } }).lean();
-        // console.log(checkPoint)
         const checkMailUv = await Users.findOne({ use_id: iduv }, { use_mail: 1, use_name: 1, use_city_job: 1, use_nganh_nghe: 1, use_authentic: 1 }).lean();
         if (checkMailUv) {
-
-            // Nếu đã xác thực => 3 điểm
-            // Chưa xác thực => 2 điểm 
             const requiredPoint = checkMailUv?.use_authentic == 1 ? 3 : 2
-
             if (checkPoint && checkPoint.point_usc > requiredPoint) {
                 await TblPointCompany.findOneAndUpdate({ usc_id: idNTD }, { $inc: { point_usc: -requiredPoint } });
                 if (checkMailUv.use_mail && checkMailUv.use_mail != '') {
@@ -517,7 +460,6 @@ export const ViewCandidateInformation = async (req, res) => {
         return functions.setError(res, error.message);
     }
 };
-
 export const PointCpn = async (req,res,next) => {
     const idNTD = req.idNTD;
     const query = await TblPointCompany.findOne({usc_id:idNTD},{point:1,point_usc:1,day_end:1}).lean();

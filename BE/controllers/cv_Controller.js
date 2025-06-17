@@ -1,8 +1,6 @@
  
 import "dotenv/config";
 import * as functions from '../services/functions.js';
-import * as puppeteer from 'puppeteer'
-import fs from 'fs'
 import SampleCv from '../models/sample/SampleCv.js';
 import LanguageCv from "../models/language/LanguageCv.js";
 import NganhCv from "../models/NganhCv.js";
@@ -11,23 +9,19 @@ import CvEmotion from '../models/CvEmotion.js';
 export const getLangCv = async (req, res) => {
     try {
         const data = await LanguageCv.find({}).sort({ id: 1 })
-
         return functions.success(res, 'Ngôn ngữ CV', { data })
     } catch (error) {
         return functions.setError(res, error.message);
     }
 }
-
 export const getNganhCv = async (req, res) => {
     try {
         const data = await NganhCv.find({}).sort({ id: 1 })
-
         return functions.success(res, 'Ngành CV', { data })
     } catch (error) {
         return functions.setError(res, error.message);
     }
 }
-
 export const in4CV = async (req, res) => {
     try {
         const {
@@ -47,9 +41,6 @@ export const in4CV = async (req, res) => {
                     html_cn: functions.safeJSONparse(checkExist?.htmlcss_cn),
                     html_kr: functions.safeJSONparse(checkExist?.htmlcss_kr),
                 }
-                // console.log(data, typeof data.html_vi)
-                console.log(data.html_en)
-
                 return functions.success(res, 'in4CV', { data })
             }
             return functions.setError(res, 'not found', 404)
@@ -59,17 +50,11 @@ export const in4CV = async (req, res) => {
         return functions.setError(res, error.message);
     }
 }
-
 export const ListSampleCV = async (req, res) => {
     try {
-        // const page = req.body.page;
-        // const pageSize = req.body.pageSize;
-        // const skip = (page - 1) * pageSize;
-        // const limit = pageSize;
         const sortOption = req.body.sortOption;
         const idlang = req.body.idlang;
         const idnganh = req.body.idnganh;
-
         const conditions = {
             ...(idlang && { idlang: new RegExp(`(^|,)${idlang}(,|$)`) }),
             ...(idnganh && { idnganh: new RegExp(`(^|,)${idnganh}(,|$)`) })
@@ -78,7 +63,6 @@ export const ListSampleCV = async (req, res) => {
             ...((!sortOption || sortOption === "1") && { timecreated: -1 }),
             ...(sortOption === "2" && { download: -1 })
         }
-
         const data = await SampleCv.find(conditions).sort(sort)
         const iduser = await functions.getTokenJustUser(req, res);
         if (iduser) {
@@ -114,13 +98,11 @@ export const ListSampleCV = async (req, res) => {
             element.image3 = `${process.env.DOMAIN_API_CV}/pictures/sample_cv/${element.image3}`
             element.cover_image = `${process.env.DOMAIN_API_CV}/pictures/sample_cv/${element.cover_image}`
         }
-
         return functions.success(res, 'Mẫu CV', { data, total, idnganh, idlang })
     } catch (error) {
         return functions.setError(res, error.message);
     }
 }
-
 export const ListSampleCVNew = async (req, res) => {
     try {
         const page = req.body.page || 1;
@@ -130,7 +112,6 @@ export const ListSampleCVNew = async (req, res) => {
         const sortOption = req.body.sortOption;
         const idlang = req.body.idlang;
         const idnganh = req.body.idnganh;
-
         const conditions = {
             ...(idlang && { idlang: new RegExp(`(^|,)${idlang}(,|$)`) }),
             ...(idnganh && { idnganh: new RegExp(`(^|,)${idnganh}(,|$)`) })
@@ -139,7 +120,6 @@ export const ListSampleCVNew = async (req, res) => {
             ...((!sortOption || sortOption === "1") && { timecreated: -1 }),
             ...(sortOption === "2" && { download: -1 })
         }
-
         const data = await SampleCv.find(conditions).sort(sort).skip(skip).limit(limit)
         const total = await SampleCv.countDocuments(conditions)
         for (let i = 0; i < data.length; i++) {
@@ -149,7 +129,6 @@ export const ListSampleCVNew = async (req, res) => {
             element.image3 = `${process.env.DOMAIN_API}/pictures/sample_cv/${element.image3}`
             element.cover_image = `${process.env.DOMAIN_API}/pictures/sample_cv/${element.cover_image}`
         }
-
         return functions.success(res, 'Mẫu CV', { data, total })
     } catch (error) {
         return functions.setError(res, error.message);
