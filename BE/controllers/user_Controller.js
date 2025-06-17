@@ -1175,7 +1175,6 @@ export const GetAuthenticateOtp = async (req, res) => {
                         use_mail: username,
                     }, { use_otp: otp });
                     // Gửi OTP qua email
-                    functions.SendOtpMail(username, otp)
                     // const checkSend = await functions.sendMail(
                     //     `Mã OTP lấy lại mật khẩu tài khoản`,
                     //     username,
@@ -1229,15 +1228,6 @@ export const GetAuthenticateOtp = async (req, res) => {
                     await UserCompany.updateOne({
                         usc_email: username,
                     }, { usc_otp: otp });
-                    // Gửi OTP qua email
-                    functions.SendOtpMail(username, otp)
-                    // const checkSend = await functions.sendMail(
-                    //     `Mã OTP lấy lại mật khẩu tài khoản`,
-                    //     username,
-                    //     checkExists.usc_company,
-                    //     otp, 
-                    //     3
-                    // );
 
                     return functions.success(res, 'Hãy xác thực OTP.', { id: checkExists.usc_id });
 

@@ -250,41 +250,6 @@ export const createLinkTilte = (input) => {
 export const randomNumber = () => {
 	return Math.floor(Math.random() * 900000) + 100000;
 }
-//ham gửi mail mới
-export const SendOtpMail = async(email, otp) => {
-	try {
-			const subject = `Topcv1s.com - Verify OTP`
-			const bodyStr = `Your account verify otp is: ${otp}`
-			const body = Buffer.from(bodyStr, "utf-8").toString("base64");
-
-			await SendmailNew(email, subject, body)
-	} catch (error) {
-			console.log("🚀 ~ SendOtpMail ~ error:", error?.message)
-	}
-}
-export const SendmailNew = async (email, subject, mailContent) => {
-    try {
-        const payload = {
-            email,    
-            subject,    
-            mailContent, 
-            domain :'TOPCV1S.COM'    
-        };
-
-        const response = await axios.post('http://210.245.108.202:3024/api/timviec/candidate/site_vt/sendMail', payload);
-
-        if (response.data && response.data.success) {
-            console.log('Email sent successfully:', response.data);
-            return true;
-        } else {
-            console.log('Failed to send email:', response.data);
-            return false;
-        }
-    } catch (e) {
-        console.log('Error sending email:', e);
-        return false;
-    }
-};
 
 // từ khoá ngành nghề
 export const tuKhoa = [
@@ -583,10 +548,6 @@ export const editCompanyCRM = async (arrAPI, usc_id) => {
 export const getAvatarNTD = (time, img) => {
 	try {
 		if (img) {
-			// const year = new Date(time).getFullYear();
-			// const month = new Date(time).getMonth() + 1;
-			// const date = new Date(time).getDate();
-			// return `${process.env.DOMAIN_API}/pictures/${year}/${month}/${date}/${img}`;
 			const date = getDate(time * 1000);
 			return `${process.env.DOMAIN_API}/pictures/${date}/${img}`;
 		}
@@ -600,10 +561,6 @@ export const getAvatarNTD = (time, img) => {
 export const getAvatarNTD2 = (time, img) => {
 	try {
 		if (img) {
-			// const year = new Date(time).getFullYear();
-			// const month = new Date(time).getMonth() + 1;
-			// const date = new Date(time).getDate();
-			// return `${process.env.DOMAIN_API}/pictures/${year}/${month}/${date}/${img}`;
 			const date = getDate(time * 1000);
 			return `${process.env.DOMAIN_API_TIMVIECHAY}/pictures/${date}/${img}`;
 		}
@@ -625,63 +582,6 @@ export const getImageNTD = (img) => {
 			return arr;
 		}
 		return null;
-	} catch (error) {
-		return null;
-	}
-};
-
-// hàm gọi api axios
-export const callAPI = async (api, data) => {
-	try {
-		for (let i = 0; i < api.length; i++) {
-			await getDataAxios(`${api[i]}`, data);
-		}
-	} catch (error) {
-		return null;
-	}
-};
-
-// hàm gửi opt sms
-export const sendOtpSMS = async (phone, otp) => {
-	try {
-		const data = JSON.stringify({
-			"ApiKey": "B4AC997EA37B66E821AA87556E98A6",
-			"Content": `TIMVIEC365 bạn đã lấy lại MK tại https://timviec365.vn/ mã OTP:${otp}`,
-			"Phone": `${phone}`,
-			"SecretKey": "80A7A1845725B74E5766A5BFB0B167",
-			"IsUnicode": "1",
-			"Brandname": "TIMVIEC365",
-			"SmsType": "2"
-		});
-		const config = {
-			method: 'post',
-			maxBodyLength: Infinity,
-			url: 'http://rest.esms.vn/MainService.svc/json/SendMultipleMessage_V4_post_json/',
-			headers: {
-				'Content-Type': 'application/json',
-				'Cookie': 'ASP.NET_SessionId=ymrgrfikgqbknj2z51bjx4ts'
-			},
-			data: data
-		};
-
-		await axios.request(config)
-			.then((response) => {
-				console.log(JSON.stringify(response.data));
-			})
-			.catch((error) => {
-				console.log(error.message);
-			});
-	} catch (error) {
-		return null;
-	}
-};
-
-// hàm gọi api lưu thông tin khách hàng
-export const callApiAddCrm = async (data) => {
-	try {
-		const result = await getDataAxios(`${process.env.API_REGISTER_FAIL_CRM}/api/customer/add`,
-			data, tokenCRM);
-		return result;
 	} catch (error) {
 		return null;
 	}
