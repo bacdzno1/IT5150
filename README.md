@@ -9,6 +9,7 @@
 
 ### Bước 1: Chạy Backend (BE)
 
+``` bash
 cd BE
 npm install
 npm start
@@ -17,6 +18,7 @@ npm start
 
 Mở một terminal mới hoặc tab mới, sau đó chạy:
 
+```bash
 cd BE
 npm install
 npm start
