@@ -4,35 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, follow" />
-    <meta name="google-site-verification" content="lwyGMjMCHXSuJXWOc3iy1MG_Hd6yRBARF5H8NuMxUPg" />
-
     <title>Quản lý việc làm ứng tuyển</title>
     <link rel="icon" href="/images/img/default_logo.jpg">
-    <link rel="canonical" href="http://localhost:9020<%= url %>">
-    <link rel="preload" href="/css/uv/manajobapp_uv.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="/css/uv/manajobapp_uv.css">
-    </noscript>
-
-    <link rel="preload" href="/css/common.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="/css/common.css">
-    </noscript>
-
-    <link rel="preload" href="/css/leftnav_uv.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="/css/leftnav_uv.css">
-    </noscript>
-    <link rel="preload" href="/css/header_uv.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="/css/header_uv.css">
-    </noscript>
-
-    <link rel="preload" href="/css/footer.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="/css/footer.css">
-    </noscript>
+    <link rel="stylesheet" href="/css/uv/manajobapp_uv.css" as="style" >
+    <link rel="stylesheet" href="/css/common.css" as="style" >
+    <link rel="stylesheet" href="/css/leftnav_uv.css" as="style" >
+    <link rel="stylesheet" href="/css/header_uv.css" as="style" >
+    <link rel="stylesheet" href="/css/footer.css" as="style" >
     <script src="/js/jquery.min.js"></script>
 </head>
 
@@ -67,50 +45,24 @@
                         <table id="apply_tbl">
                             <thead>
                                 <tr>
-                                    <th>
-                                        STT
-                                    </th>
-                                    <th>
-                                        Vị trí công việc
-                                    </th>
-                                    <th>
-                                        Công ty
-                                    </th>
-                                    <th>
-                                        Hạn nộp hồ sơ
-                                    </th>
-                                    <th>
-                                        Ngày nộp hồ sơ
-                                    </th>
-                                    <th>
-                                        Trạng thái
-                                    </th>
-                                    <th>
-                                        Xóa
-                                    </th>
+                                    <th>STT</th>
+                                    <th>Vị trí công việc</th>
+                                    <th>Công ty</th>
+                                    <th>Hạn nộp hồ sơ</th>
+                                    <th>Ngày nộp hồ sơ</th>
+                                    <th>Trạng thái</th>
+                                    <th>Xóa</th>
                                 </tr>
                             </thead>
-                            <tbody>
-
-                            </tbody>
+                            <tbody></tbody>
                         </table>
                     </div>
                     <div class="cnt-paginate d-flex justify-c flex-wr align-c">
-                        <div class="pagi_pre_all">
-                            << </div>
-                                <div class="pagi_pre">
-                                    < </div>
-                                    <div class="pagi_list">
-
-                                    </div>
-                                        <div class="pagi_next">
-                                            >
-                                        </div>
-                                        <div class="pagi_next_all">
-                                            >>
-                                        </div>
-                                </div>
-                        </div>
+                        <div class="pagi_pre_all"> << </div>
+                        <div class="pagi_pre"> < </div>
+                        <div class="pagi_list"></div>
+                        <div class="pagi_next"> > </div>
+                        <div class="pagi_next_all"> >> </div>
                     </div>
                 </div>
             </div>
@@ -178,13 +130,10 @@
                                 if (dataCache[currentPage - 1]) { 
                                     const itemIndex = currentPage - 1;
                                     dataCache[itemIndex] = dataCache[itemIndex].filter(item => item.new_id !== parseInt(news_id));
-    
                                     if (dataCache[itemIndex].length < itemsPerPage && currentPage > 1) {
                                         currentPage--; 
                                     }
-    
                                     renderPage(currentPage);
-    
                                     renderPagination();
                                     updateLayout();
                                 }
@@ -207,10 +156,10 @@
                         url: "http://localhost:3050/api/topcv1s/candidate/JobApply",
                         type: "POST",
                         headers: { "Authorization": "Bearer " + getCookie('accessToken') },
-                        data: { page: page, pageSize: itemsPerPage }, // Chỉ lấy dữ liệu cho trang hiện tại
+                        data: { page: page, pageSize: itemsPerPage },
                         success: function (response) {
                             if (response.data.result) {
-                                dataCache[page - 1] = response.data.data; // Lưu trữ dữ liệu cho trang hiện tại
+                                dataCache[page - 1] = response.data.data;
                                 totalPages = Math.ceil(response.data.total / itemsPerPage);
                                 renderPagination();
                                 renderPage(page);
@@ -228,7 +177,6 @@
     
             function renderPagination() {
                 let paginationHtml = '';
-    
                 if (totalPages <= 7) {
                     for (let i = 1; i <= totalPages; i++) {
                         paginationHtml += `<a href="#" class="page-link pagi_page${i === currentPage ? ' active' : ''}" data-page="${i}">${i}</a> `;
@@ -261,7 +209,6 @@
                         paginationHtml += `<a href="#" class="page-link pagi_page" data-page="${totalPages}">${totalPages}</a> `;
                     }
                 }
-    
                 $('.pagi_list').html(paginationHtml);
                 if (currentPage === 1) {
                     $('.pagi_pre').addClass('disabled');
@@ -270,7 +217,6 @@
                     $('.pagi_pre').removeClass('disabled');
                     $('.pagi_pre_all').removeClass('disabled');
                 }
-    
                 if (currentPage === totalPages) {
                     $('.pagi_next').addClass('disabled');
                     $('.pagi_next_all').addClass('disabled');
@@ -312,14 +258,12 @@
                 e.preventDefault();
                 currentPage = $(this).data('page');
                 window.history.replaceState({ page: currentPage }, '', window.location.pathname);
-    
                 if (dataCache[currentPage - 1]) {
                     renderPage(currentPage);
                     updateLayout();
                 } else {
                     loadJobApplications(currentPage);
                 }
-    
                 renderPagination();
             });
     
@@ -338,30 +282,24 @@
                         currentPage--;
                     }
                 }
-    
                 if (dataCache[currentPage - 1]) {
                     renderPage(currentPage);
                     updateLayout();
                 } else {
                     loadJobApplications(currentPage);
                 }
-    
                 renderPagination();
             });
-    
             loadJobApplications(1);
-    
             function getCookie(name) {
                 const value = `; ${document.cookie}`;
                 const parts = value.split(`; ${name}=`);
                 if (parts.length === 2) return parts.pop().split(';').shift();
             }
-    
             function convertTimestampToDate(timestamp) {
                 const date = new Date(timestamp * 1000);
                 return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
             }
-    
             function getStatus(status) {
                 const listStatus = {
                     0: "Chưa đánh giá",
@@ -372,8 +310,6 @@
             }
         });
     </script>
-    
-    
 </body>
 
 </html>

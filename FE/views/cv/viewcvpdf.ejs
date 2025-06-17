@@ -1,15 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="/images/logo/logo.ico" type="image/x-icon">
     <title></title>
     <script src="/js/jquery.min.js"></script>
-    </link>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet"
-        type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="/css/common.css" />
     <link rel="stylesheet" href="/css/page_css/add_cv.css" />
     <link rel="stylesheet" href="/css/page_css/cvh.css">
@@ -19,7 +15,6 @@
     <link id="color-stylesheet" rel="stylesheet" href="">
     <link rel="stylesheet" href="/css/page_css/cv_detail.css">
 </head>
-
 <body>
     <div class="cv-content">
         <div class="cv-body-content">
@@ -31,7 +26,6 @@
             </div>
         </div>
     </div>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="/js/cv/function.js"></script>
     <script>
@@ -45,7 +39,6 @@
             var id = Number(match[1]);
             var idcv = Number(match[2]);
             $('title').text(`http://localhost:9020/xem-cv2-u${id}-c${idcv}`)
-
             $.ajax({
                 url: "http://localhost:3050/api/topcv1s/candidate/DetailCV",
                 type: "POST",
@@ -58,7 +51,6 @@
                     const fontSize = JSON.parse(in4CVSsr?.html).css.font_size;
                     const fontSpacing = JSON.parse(in4CVSsr?.html).css.font_spacing;
                     const filter = JSON.parse(in4CVSsr?.html).css.filter
-
                     if (JSON.parse(in4CVSsr.html)?.lang === "1") {
                         lang = 'vi'
                     } else if (JSON.parse(in4CVSsr.html)?.lang === "2") {
@@ -78,24 +70,15 @@
                             $('.page_cv').html(data);
                             $("#cvo-profile-avatar").addClass('show_modal_avar')
                             appendScript()
-                            // CSS
                             $('#cv-css').attr('href', `http://localhost:3050/api/topcv1s/CV/upload/cv/${alias}/css/cv.css`);
-
-                            // Màu
                             $('#color-stylesheet').attr("href", `http://localhost:3050/api/topcv1s/CV/upload/cv/${alias}/css/colors/${color}.css`);
-
-
                             const handleChangeLang = (lang) => {
                                 if (in4CVSsr && in4CVSsr?.html) {
                                     return JSON.parse(in4CVSsr?.html)
                                 }
                             };
-
                             handleSetData(handleChangeLang(lang))
-
                             $('#cvo-profile-avatar').css('filter', filter)
-
-                            // Font
                             $('[contenteditable="true"]').css('font-family', font)
                             $('#form-cv [contenteditable="true"]').css('line-height', fontSpacing);
                             $('#form-cv, #cv-content h3').css('font-size', parseFloat(fontSize) + "px");
@@ -107,7 +90,6 @@
                         }
                     });
                 },
-
                 error: function (xhr, status, error) {
                     console.error('Error:', error);
                 }
@@ -115,5 +97,4 @@
         })
     </script>
 </body>
-
 </html>

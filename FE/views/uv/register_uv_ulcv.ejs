@@ -4,30 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, follow" />
-    <meta name="google-site-verification" content="lwyGMjMCHXSuJXWOc3iy1MG_Hd6yRBARF5H8NuMxUPg" />
-
-    <title>Document</title>
+    <title>Tải CV lên</title>
     <link rel="canonical" href="http://localhost:9020<%= url %>">
-    <link rel="preload" href="/css/uv/register_uv_ulcv.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="/css/uv/register_uv_ulcv.css">
-    </noscript>
-
-    <link rel="preload" href="/css/common.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="/css/common.css">
-    </noscript>
-
-    <link rel="preload" href="/css/header.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="/css/header.css">
-    </noscript>
-
-    <link rel="preload" href="/css/footer.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="/css/footer.css">
-    </noscript>
+    <link rel="stylesheet" href="/css/uv/register_uv_ulcv.css" as="style" >
+    <link rel="stylesheet" href="/css/common.css" as="style" >
+    <link rel="stylesheet" href="/css/header.css" as="style" >
+    <link rel="stylesheet" href="/css/footer.css" as="style" >
     <script src="/js/jquery.min.js"></script>
 </head>
 
@@ -98,7 +80,6 @@
             $('.regis_tyned').text(fileName);
         });
        $(document).ready(function() { 
-        //Đăng ký ứng viên bước 2
             $('#registerUploadCV').click( function () {
                 let user_birthday = $('#user_birthday').val();
                 let user_exp = $('#user_exp').val();
@@ -146,7 +127,6 @@
                 formData.append('iduv', iduv);
                 formData.append('type', type);
                 console.log(formData);
-                // Gọi API upload CV
                 $.ajax({
                     url: "http://localhost:3050/api/topcv1s/user/CandidateRegisterByUploadCV",
                     type: "POST",
@@ -173,15 +153,12 @@
                 });
             });
         });
-        //Lấy cookie
         function getCookie(name) {
             const value = `; ${document.cookie}`;
             const parts = value.split(`; ${name}=`);
             if (parts.length === 2) return parts.pop().split(';').shift();
         }
     </script>
-    
-    
 </body>
 
 </html>

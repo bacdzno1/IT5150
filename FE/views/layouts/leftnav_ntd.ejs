@@ -1,21 +1,16 @@
 <div class="lnav bg-main">
     <div class="lnav-top">
         <div class="lnav-site d-flex justify-c">
-            <a href="/">
-                <img width="148" height="60" src="/images/logo/logoManager.svg" alt="Logo Site">
-            </a>
+            <a href="/"><img width="148" height="60" src="/images/logo/logoManager.svg" alt="Logo Site"></a>
         </div>
         <div class="lnav-comp d-flex align-c flex-dr-c">
-            <img class="lnav-comp-logo rounded-circle"
-                onerror="this.onerror=null;this.src='/images/img/default_logo.jpg';" width="80" height="80"
-                alt="Logo Company" id="usc_logo">
+            <img class="lnav-comp-logo rounded-circle" onerror="this.onerror=null;this.src='/images/img/default_logo.jpg';" width="80" height="80" alt="Logo Company" id="usc_logo">
             <div class="color-white fs-5 fw-700 text-c" id="usc_company"></div>
         </div>
     </div>
     <div class="lnav-bot fw-500 color-white">
         <div class="lnav-item">
-            <a class="lnav-link <%= currentUrl === '/ntd/quan-ly-nha-tuyen-dung' ? 'active' : '' %>"
-                href="/ntd/quan-ly-nha-tuyen-dung">
+            <a class="lnav-link <%= currentUrl === '/ntd/quan-ly-nha-tuyen-dung' ? 'active' : '' %>" href="/ntd/quan-ly-nha-tuyen-dung">
                 <img src="/images/icon/mana_all.svg" width="25" height="22" alt="Manager All Icon">
                 Quản lý chung
             </a>
@@ -27,14 +22,8 @@
             </div>
             <div class="lnav-list">
                 <div class="d-flex flex-dr-c">
-                    <a class="lnav-list-link <%= currentUrl === '/ntd/dang-tin-tuyen-dung' ? 'active' : '' %>"
-                        href="/ntd/dang-tin-tuyen-dung">
-                        Đăng tin mới
-                    </a>
-                    <a class="lnav-list-link <%= currentUrl === '/ntd/quan-ly-tin-dang' ? 'active' : '' %>"
-                        href="/ntd/quan-ly-tin-dang">
-                        Tin đã đăng
-                    </a>
+                    <a class="lnav-list-link <%= currentUrl === '/ntd/dang-tin-tuyen-dung' ? 'active' : '' %>" href="/ntd/dang-tin-tuyen-dung">Đăng tin mới</a>
+                    <a class="lnav-list-link <%= currentUrl === '/ntd/quan-ly-tin-dang' ? 'active' : '' %>" href="/ntd/quan-ly-tin-dang">Tin đã đăng</a>
                 </div>
             </div>
         </div>
@@ -45,14 +34,8 @@
             </div>
             <div class="lnav-list">
                 <div class="d-flex flex-dr-c">
-                    <a class="lnav-list-link <%= currentUrl === '/ntd/quan-ly-ung-vien-ung-tuyen' ? 'active' : '' %>"
-                        href="/ntd/quan-ly-ung-vien-ung-tuyen">
-                        Ứng viên đến ứng tuyển
-                    </a>
-                    <a class="lnav-list-link <%= currentUrl === '/ntd/quan-ly-ung-vien-da-luu' ? 'active' : '' %>"
-                        href="/ntd/quan-ly-ung-vien-da-luu">
-                        Hồ sơ ứng viên đã lưu
-                    </a>
+                    <a class="lnav-list-link <%= currentUrl === '/ntd/quan-ly-ung-vien-ung-tuyen' ? 'active' : '' %>" href="/ntd/quan-ly-ung-vien-ung-tuyen">Ứng viên đến ứng tuyển</a>
+                    <a class="lnav-list-link <%= currentUrl === '/ntd/quan-ly-ung-vien-da-luu' ? 'active' : '' %>" href="/ntd/quan-ly-ung-vien-da-luu">Hồ sơ ứng viên đã lưu</a>
                 </div>
             </div>
         </div>
@@ -63,14 +46,8 @@
             </div>
             <div class="lnav-list">
                 <div class="d-flex flex-dr-c">
-                    <a class="lnav-list-link <%= currentUrl === '/ntd/cap-nhat-thong-tin-cong-ty' ? 'active' : '' %>"
-                        href="/ntd/cap-nhat-thong-tin-cong-ty">
-                        Cập nhật thông tin
-                    </a>
-                    <a class="lnav-list-link <%= currentUrl === '/ntd/doi-mat-khau-nha-tuyen-dung' ? 'active' : '' %>"
-                        href="/ntd/doi-mat-khau-nha-tuyen-dung">
-                        Đổi mật khẩu
-                    </a>
+                    <a class="lnav-list-link <%= currentUrl === '/ntd/cap-nhat-thong-tin-cong-ty' ? 'active' : '' %>" href="/ntd/cap-nhat-thong-tin-cong-ty">Cập nhật thông tin</a>
+                    <a class="lnav-list-link <%= currentUrl === '/ntd/doi-mat-khau-nha-tuyen-dung' ? 'active' : '' %>" href="/ntd/doi-mat-khau-nha-tuyen-dung">Đổi mật khẩu</a>
                 </div>
             </div>
         </div>
@@ -81,7 +58,6 @@
     $(document).ready(function () {
         $('.lnav-tog').click(function () {
             var lnavList = $(this).next('.lnav-list');
-            // lnavList.slideToggle();
             lnavList.slideToggle(400, function () {
                 if (lnavList.is(':visible')) {
                     $('.lnav.bg-main').animate({
@@ -91,8 +67,6 @@
             });
         });
     });
-
-    
     $(document).ready(function () {
         const lnavItemActive = $('.lnav-list-link.active')
         if (lnavItemActive) {
@@ -100,80 +74,16 @@
             parent.slideToggle();
         }
     })
-
-    // $(document).ready(function() {
-    //     $('.lnav-link').click(function(event) {
-    //         var parentItem = $(this).closest('.lnav-item');
-    //         $('.lnav-item').not(parentItem).removeClass('active');
-    //         $('.lnav-list').not(parentItem.find('.lnav-list')).removeClass('active').slideUp();
-    //         parentItem.addClass('active');
-    //         parentItem.find('.lnav-list').addClass('active').slideDown();
-    //     });
-    //     $('.lnav-tog').click(function(event) {
-    //         event.preventDefault();
-    //         var parentItem = $(this).closest('.lnav-item');
-    //         toggleMenu($(this));
-    //     });
-
-    //     function toggleMenu(element) {
-    //         var isActive = element.next('.lnav-list').hasClass('active');
-    //         $('.lnav-list').removeClass('active').slideUp();
-    //         if (!isActive) {
-    //             element.next('.lnav-list').addClass('active').slideDown();
-    //         }
-    //     }
-    //     $('.lnav-item .lnav-list').click(function(event) {
-    //         event.stopPropagation();
-    //     });
-    //     var currentUrl = window.location.pathname;
-    //     $('.lnav-item .lnav-list-link').each(function() {
-    //         if ($(this).attr('href') === currentUrl) {
-    //             $(this).addClass('active');
-    //             $(this).closest('.lnav-list').addClass('active').slideDown();
-    //             $(this).closest('.lnav-item').addClass('active');
-    //         }
-    //     });
-    // });
-    // </script>
-//
-<script>
-    //     $(document).ready(function() {
-    //         let logo = getCookie('logo');
-    //         let usc_company = getCookie('usc_company');
-    //         $("#usc_company").text(usc_company);
-    //         function isValidImageUrl(url, callback) {
-    //             var img = new Image();
-    //             img.onload = function() { callback(true); };
-    //             img.onerror = function() { callback(false); };
-    //             img.src = url;
-    //         }
-    //         if (logo) {
-    //             isValidImageUrl(logo, function(isValid) {
-    //                 if (isValid) {
-    //                     $('#usc_logo').attr('src', logo);
-    //                 }
-    //             });
-    //         }
-    //     });
-    //     function getCookie(name) {
-    //         const value = `; ${document.cookie}`;
-    //         const parts = value.split(`; ${name}=`);
-    //         if (parts.length === 2) return parts.pop().split(';').shift();
-    //     }
-    // </script>
+</script>
 <script>
     $(document).ready(function () {
         $('#dangTinMoiLink').on('click', function (event) {
-            event.preventDefault(); // Ngăn chặn hành vi mặc định của liên kết
-
-            // Thêm hiệu ứng fade out
+            event.preventDefault();
             $('body').fadeOut(500, function () {
-                window.location.href = '/ntd/dang-tin-tuyen-dung'; // Chuyển hướng đến trang "Đăng tin mới"
+                window.location.href = '/ntd/dang-tin-tuyen-dung';
             });
             $('body').addClass('fade-in');
         });
     });
-
-
 </script>
 <script src="/js/leftnav_ntd.js"></script>

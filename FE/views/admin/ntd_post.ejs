@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/images/img/default_logo.jpg">
     <title>Danh sách tin đã đăng</title>
-    <link rel="stylesheet" href="/css/admin/ntd_post.css" as="style" >
-    <link rel="stylesheet" href="/css/common.css" as="style" >
-    <link rel="stylesheet" href="/css/admin/leftnav_admin.css" as="style" >
+    <link rel="stylesheet" href="/css/admin/ntd_post.css" as="style">
+    <link rel="stylesheet" href="/css/common.css" as="style">
+    <link rel="stylesheet" href="/css/admin/leftnav_admin.css" as="style">
 </head>
+
 <body>
     <div class="cnt">
         <div class="cnt-left" id="leftNav">
@@ -28,7 +29,7 @@
                             <option value="<%= cateList[i].cat_id %>">
                                 <%= cateList[i].cat_name %>
                             </option>
-                        <% } %>
+                            <% } %>
                     </select>
                     <select class="input-info" id="new_city">
                         <option value="" selected>Chọn tỉnh thành</option>
@@ -36,7 +37,7 @@
                             <option value="<%= listCities[i].cit_id %>">
                                 <%= listCities[i].cit_name %>
                             </option>
-                        <% } %>
+                            <% } %>
                     </select>
                     <input class="input-info" id="from" type="date" placeholder="Từ">
                     <input class="input-info" id="to" type="date" placeholder="Đến">
@@ -65,17 +66,13 @@
                                 <th>Ghim</th>
                             </tr>
                         </thead>
-                        <tbody id="ntdPostNews">
-                        </tbody>
+                        <tbody id="ntdPostNews"></tbody>
                     </table>
                 </div>
                 <div class="loading-box" style="display: none;">
-                    <div class="loading-img">
-                        <img src="/images/icon/Rolling.svg">            
-                    </div>
+                    <div class="loading-img"><img src="/images/icon/Rolling.svg"> </div>
                 </div>
-                <div class="cnt-mag-paginate d-flex justify-c flex-wr pt-2">
-                </div>
+                <div class="cnt-mag-paginate d-flex justify-c flex-wr pt-2"></div>
             </div>
         </div>
         <div class="box-ghim-tin">
@@ -105,7 +102,6 @@
         const parts = value.split(`; ${name}=`);
         if (parts.length === 2) return parts.pop().split(';').shift();
     }
-
     function formatDate(dateString) {
         var date = new Date(dateString * 1000);
         var day = String(date.getDate()).padStart(2, '0');
@@ -113,7 +109,6 @@
         var year = date.getFullYear();
         return `${day}/${month}/${year}`;
     }
-
     function formatDateTime(date, startOfDay = true) {
         const pad = (num) => String(num).padStart(2, '0');
         const day = pad(date.getDate());
@@ -144,7 +139,6 @@
             const month = date.getUTCMonth() + 1; // Tháng trong JavaScript bắt đầu từ 0
             const year = date.getUTCFullYear();
             const formattedDate = `${day}/${month}/${year}`;
-            
             return formattedDate;
         }
         var totalNews;
@@ -153,7 +147,6 @@
         $(".btn-search").click(function () {
             renderTable(1);
         });
-        //
         function renderTable(page) {
             let conditions = {};
             let new_id = $('#new_id').val();
@@ -189,7 +182,6 @@
             if (toDate) {
                 to = formatDateTime(new Date(toDate), false);
             }
-
             $.ajax({
                 url: "http://localhost:3050/api/topcv1s/admin/list",
                 type: "POST",
@@ -202,10 +194,10 @@
                     pageSize: pageSize,
                     module: 4,
                     conditions: conditions,
-                    from: from, 
+                    from: from,
                     to: to
                 }),
-                beforeSend: function() {
+                beforeSend: function () {
                     $('.loading-box').show();
                 },
                 success: function (response) {
@@ -224,20 +216,20 @@
                             var slugNews = convertToSlug(newItem.new_title);
                             var time_expired = newItem.expired ? convertEpochToDate(newItem.expired) : "-";
                             let row = `<tr>
-                                        <td>${index + 1}</td>
-                                        <td>${newItem.new_id}</td>
-                                        <td>${newItem.new_user_id}</td>
-                                        <td><b><a href="${slugNews}-${newItem.new_id}" target="_blank">${newItem.new_title}</a></b></td>
-                                        <td><b><a href="${slugCompany}" target="_blank">${newItem.usc_company}</a></b></td>
-                                        <td>${newItem.usc_phone_tk}</td>
-                                        <td>${newItem.usc_address}</td>
-                                        <td>${dateCreated}</td>
-                                        <td>${newItem.uvCount}</td>
-                                        <td>${newItem.new_hot == 0 ? '<img src="/images/icon/checkx.svg" width="15" height="15" alt="Check Icon">' : '<img src="/images/icon/check.svg" width="15" height="15" alt="Check Icon">'}</td>
-                                        <td>${newItem.new_cao == 0 ? '<img src="/images/icon/checkx.svg" width="15" height="15" alt="Check Icon">' : '<img src="/images/icon/check.svg" width="15" height="15" alt="Check Icon">'}</td>
-                                        <td>${time_expired}</td>
-                                        <td><img class="ghim-icon" src="/images/icon/plusicon.svg" width="15" height="15" alt="Check Icon" data-id="${newItem.new_id}"></td>
-                                    </tr>`;
+                                <td>${index + 1}</td>
+                                <td>${newItem.new_id}</td>
+                                <td>${newItem.new_user_id}</td>
+                                <td><b><a href="${slugNews}-${newItem.new_id}" target="_blank">${newItem.new_title}</a></b></td>
+                                <td><b><a href="${slugCompany}" target="_blank">${newItem.usc_company}</a></b></td>
+                                <td>${newItem.usc_phone_tk}</td>
+                                <td>${newItem.usc_address}</td>
+                                <td>${dateCreated}</td>
+                                <td>${newItem.uvCount}</td>
+                                <td>${newItem.new_hot == 0 ? '<img src="/images/icon/checkx.svg" width="15" height="15" alt="Check Icon">' : '<img src="/images/icon/check.svg" width="15" height="15" alt="Check Icon">'}</td>
+                                <td>${newItem.new_cao == 0 ? '<img src="/images/icon/checkx.svg" width="15" height="15" alt="Check Icon">' : '<img src="/images/icon/check.svg" width="15" height="15" alt="Check Icon">'}</td>
+                                <td>${time_expired}</td>
+                                <td><img class="ghim-icon" src="/images/icon/plusicon.svg" width="15" height="15" alt="Check Icon" data-id="${newItem.new_id}"></td>
+                            </tr>`;
                             tableBody.append(row);
                         });
                         Paginate(totalPage, page);
@@ -249,8 +241,7 @@
                             logout();
                         }
                         let response = JSON.parse(xhr.responseText);
-                        let errorMessage = response.message || "Unknown error"; 
-
+                        let errorMessage = response.message || "Unknown error";
                         alert(errorMessage);
                         console.log('Error message:', errorMessage);
                     } catch (e) {
@@ -258,12 +249,11 @@
                         console.log('Parsing error:', e);
                     }
                 },
-                complete: function() {
+                complete: function () {
                     $('.loading-box').hide();
                 }
             });
         }
-        //Phân trang
         function Paginate(totalPage, currentPage) {
             $('.cnt-mag-paginate').empty();
             $('.cnt-mag-paginate').append('<div class="pagi_pre_all"><<</div>');
@@ -335,7 +325,6 @@
                 Paginate(totalPage, totalPage);
             });
         }
-        // Khởi tạo trang đầu tiên và tổng số trang
         $.ajax({
             url: "http://localhost:3050/api/topcv1s/admin/list",
             type: "POST",
@@ -360,8 +349,7 @@
                         logout();
                     }
                     let response = JSON.parse(xhr.responseText);
-                    let errorMessage = response.message || "Unknown error"; 
-
+                    let errorMessage = response.message || "Unknown error";
                     alert(errorMessage);
                     console.log('Error message:', errorMessage);
                 } catch (e) {
@@ -370,7 +358,6 @@
                 }
             },
         });
-        //
         function convertToSlug(text) {
             return text.toLowerCase()
                 .normalize('NFD')
@@ -382,44 +369,37 @@
     })
 </script>
 <script>;
-    $(document).ready(function() {
+    $(document).ready(function () {
         var dataId;
         var box_hot = 0;
         var box_cao = 0;
         var today = new Date().toISOString().split('T')[0];
         $('#dateGhim').attr('min', today);
-
-        $(document).mouseup(function(e) {
+        $(document).mouseup(function (e) {
             var ghimContainer = $(".box-ghim-tin div");
             if (!ghimContainer.is(e.target) && ghimContainer.has(e.target).length === 0) {
                 $('.box-ghim-tin').fadeOut();
             }
         });
-
-        $(document).on('click', '.ghim-icon', function() {
+        $(document).on('click', '.ghim-icon', function () {
             $('.box-ghim-tin').fadeIn();
             dataId = $(this).data("id");
         });
-
-        $('#updateGhim').click(function(){
-            event.preventDefault(); 
+        $('#updateGhim').click(function () {
+            event.preventDefault();
             console.log(dataId);
             var dateGhim = $('#dateGhim').val();
-            if(dateGhim){
-                
-            }
-            else{
+            if (dateGhim) {
+            } else {
                 alert('Vui lòng chọn hạn');
             }
-            if ($('#box_hot').is(":checked"))
-            {
+            if ($('#box_hot').is(":checked")) {
                 box_hot = 1;
             }
-            if ($('#box_cao').is(":checked"))
-            {
+            if ($('#box_cao').is(":checked")) {
                 box_cao = 1;
             }
-            if(dataId && dataId != "" && dateGhim){
+            if (dataId && dataId != "" && dateGhim) {
                 console.log(box_hot);
                 console.log(box_cao);
                 $.ajax({
@@ -428,7 +408,7 @@
                     headers: {
                         "Authorization": "Bearer " + getCookie('adminToken')
                     },
-                    data:{
+                    data: {
                         new_id: dataId,
                         new_hot: box_hot,
                         new_cao: box_cao,
@@ -443,13 +423,13 @@
                     },
                 });
             }
-            else{
+            else {
                 alert("Có lỗi xảy ra");
             }
-            hideGhim();  
+            hideGhim();
         });
-        function hideGhim(){
-            dataId = ""; 
+        function hideGhim() {
+            dataId = "";
             $('.box-ghim-tin').fadeOut();
         }
     });

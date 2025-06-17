@@ -4,47 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="index, follow" />
-    <meta name="google-site-verification" content="lwyGMjMCHXSuJXWOc3iy1MG_Hd6yRBARF5H8NuMxUPg" />
-
-    <meta name="description" content="Cập nhật danh sách ứng viên mới nhất, nhận ứng viên chất lượng, xem hồ sơ ứng viên miễn phí ngay sau đăng nhập. Điều tuyệt vời này xảy ra khi bạn là nhà tuyển dụng của TopCv1s. Rất nhiều tiện ích và dịch vụ hấp dẫn tích hợp tại đây để hỗ trợ tài khoản nhà tuyển dụng nhanh chóng tuyển dụng hiệu quả.">
-    <meta name="twitter:card" content="Cập Nhật Ứng Viên Chất Lượng - Đăng Nhập Ngay">
-    <meta name="twitter:site" content="TopCv1s">
-    <meta name="twitter:title" content="Cập Nhật Ứng Viên Chất Lượng - Đăng Nhập Ngay">
-    <meta name="twitter:description" content="Cập nhật danh sách ứng viên mới nhất, nhận ứng viên chất lượng, xem hồ sơ ứng viên miễn phí ngay sau đăng nhập. Điều tuyệt vời này xảy ra khi bạn là nhà tuyển dụng của TopCv1s. Rất nhiều tiện ích và dịch vụ hấp dẫn tích hợp tại đây để hỗ trợ tài khoản nhà tuyển dụng nhanh chóng tuyển dụng hiệu quả."/>
-    <meta property="og:site_name" content="TopCv1s">
-    <meta property="og:image" content="http://localhost:9020/images/img/default_logo.jpg">
-    <meta property="og:url" content="http://localhost:9020<%= url %>">
-    <meta property="og:type" content="website">
     <title>Cập Nhật Ứng Viên Chất Lượng - Đăng Nhập Ngay</title>
     <link rel="icon" href="/images/img/default_logo.jpg">
-    <link rel="canonical" href="http://localhost:9020<%= url %>">
-    <link rel="preload" href="/css/ntd/login_ntd.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="/css/ntd/login_ntd.css">
-    </noscript>
-
-    <link rel="preload" href="/css/common.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="/css/common.css">
-    </noscript>
-
-    <link rel="preload" href="/css/header.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="/css/header.css">
-    </noscript>
-
-    <link rel="preload" href="/css/footer.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="/css/footer.css">
-    </noscript>
+    <link rel="stylesheet" href="/css/ntd/login_ntd.css" as="style" >
+    <link rel="stylesheet" href="/css/common.css" as="style" >
+    <link rel="stylesheet" href="/css/header.css" as="style" >
+    <link rel="stylesheet" href="/css/footer.css" as="style" >
     <script src="/js/jquery.min.js"></script>
-    <script
-    type="application/ld+json">{"@context": "https://schema.org","@type": "ItemPage","url": ""http://localhost:9020<%= url %>","mainEntityOfPage": "Trang Tin Tức Việc Làm Số 1 - Tìm Việc, Tuyển Dụng Hiệu Quả, Miễn Phí"}</script>
-    <script
-        type="application/ld+json">{"@context":"https://schema.org","@type":"EmploymentAgency","name":"topcv1s.com","alternateName":"Tìm Việc Nhanh, Tuyển Dụng Hiệu Quả | TopCv1s.com","logo":"http://localhost:9020/images/img/default_logo.jpg","image":"http://localhost:9020/images/img/default_logo.jpg","url":"http://localhost:9020"}</script>
-    <script
-        type="application/ld+json">{"@context":"http://schema.org","@type":"WebSite","url":"http://localhost:9020/"}</script>
 </head>
 
 <body>
@@ -100,24 +66,20 @@
             $('#user_phone').on('input', function(e) {
                 var currentValue = $(this).val();
                 if (currentValue.includes(' ')) {
-                    $(this).val(currentValue.replace(/\s/g, ''));  // Loại bỏ tất cả khoảng trắng
+                    $(this).val(currentValue.replace(/\s/g, ''));
                 }
             });
-
-            // Ngăn nhập khoảng trắng vào trường nhập mật khẩu
             $('#user_pass').on('input', function(e) {
                 var currentValue = $(this).val();
                 if (currentValue.includes(' ')) {
-                    $(this).val(currentValue.replace(/\s/g, ''));  // Loại bỏ tất cả khoảng trắng
+                    $(this).val(currentValue.replace(/\s/g, ''));
                 }
             });
-
             $('#user_phone, #user_pass').on('keydown', function(event) {
                 if (event.which === 13) {
                     validateAndLogin();
                 }
             });
-        
             $('.btn_login').on('click', function() {
                 validateAndLogin();
             });
@@ -158,11 +120,9 @@
                         document.cookie= `phone=${response.data.user.phone}; max-age=3600; path=/`;
                         document.cookie= `auth=${response.data.user.auth}; max-age=3600; path=/`;
                         document.cookie= `type=${response.data.user.type}; max-age=3600; path=/`;
-                        // document.cookie= `usc_company=${response.data.user.usc_company}; max-age=3600; path=/`;
                         document.cookie= `logo=${response.data.user.logo}; max-age=3600; path=/`;
                         setCookie("usc_name",response.data.user.usc_name,1);
                         setCookie("usc_company",response.data.user.usc_company,1);
-                        // document.cookie= `usc_name=${response.data.user.usc_name}; max-age=3600; path=/`;
                         document.cookie= `usc_name_add=${response.data.user.usc_name_add}; max-age=3600; path=/`;
                         document.cookie= `usc_name_phone=${response.data.user.usc_name_phone}; max-age=3600; path=/`;
                         document.cookie= `usc_email=${response.data.user.usc_email}; max-age=3600; path=/`;
@@ -180,11 +140,7 @@
                 });
             }
         });
-        
-        
-        </script>
-        
-        
+    </script>
 </body>
 
 </html>

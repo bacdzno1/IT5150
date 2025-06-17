@@ -16,9 +16,7 @@
             <img width="26.25" height="30.62" alt="Notify Icon" src="/images/icon/notify_icon.svg">
         </div>
         <div class="nhead-rig-logm">
-            <a href="/">
-                <img src="/images/img/logomobile.svg" width="100" height="40" alt="Logo Mobile">
-            </a>
+            <a href="/"><img src="/images/img/logomobile.svg" width="100" height="40" alt="Logo Mobile"></a>
         </div>
         <div class="nhead-rig-togm">
             <img src="/images/icon/eva_menu-outline.svg" width="40" height="40" alt="Nav Btn Mobile">
@@ -34,26 +32,19 @@
         <div class="menu-mb-close">
             <img width="30" height="30" src="/images/icon/closemenumb.svg" alt="Close Icon">
         </div>
-        <a href="/">
-            <img width="100" height="40" src="/images/img/logomobile2.svg" alt="Logo Menu Mobile">
-        </a>
+        <a href="/"><img width="100" height="40" src="/images/img/logomobile2.svg" alt="Logo Menu Mobile"></a>
         <div class="/images/icon/notimenumb.svg.svg">
             <img src="/images/icon/notimenumb.svg" width="50" height="50" alt="Notify Icon">
         </div>
     </div>
     <div class="menu-mb-body d-flex flex-dr-c">
         <div class="menu-mb-comp d-flex align-c bg-white">
-            <img class="menu-mb-complog rounded-circle outline_main"
-                onerror="this.onerror=null;this.src='/images/img/default_logo.jpg';" width="80" height="80"
-                alt="Comp Logo">
+            <img class="menu-mb-complog rounded-circle outline_main" onerror="this.onerror=null;this.src='/images/img/default_logo.jpg';" width="80" height="80"  alt="Comp Logo">
             <div class="menu-mb-compinf fw-700 fs-5">
-                <div class="menu-mb-compna mb-2">
-                    Công ty Cổ phần OMEGA
-                </div>
+                <div class="menu-mb-compna mb-2">Công ty Cổ phần OMEGA</div>
                 <div class="menu-mb-comppo">
                     <span class="color-main">Điểm mất phí lọc hồ sơ: </span><span class="color-alert point_mb">0</span>
                 </div>
-
             </div>
         </div>
         <div class="menu-mb-item">
@@ -69,12 +60,8 @@
             </div>
             <div class="menu-mb-clist">
                 <div class="d-flex flex-dr-c gap-3">
-                    <a class="menu-mb-citem" href="/ntd/dang-tin-tuyen-dung">
-                        Đăng tin mới
-                    </a>
-                    <a class="menu-mb-citem" href="/ntd/quan-ly-tin-dang">
-                        Tin đã đăng
-                    </a>
+                    <a class="menu-mb-citem" href="/ntd/dang-tin-tuyen-dung">Đăng tin mới</a>
+                    <a class="menu-mb-citem" href="/ntd/quan-ly-tin-dang">Tin đã đăng</a>
                 </div>
             </div>
         </div>
@@ -85,12 +72,8 @@
             </div>
             <div class="menu-mb-clist">
                 <div class="d-flex flex-dr-c gap-3">
-                    <a class="menu-mb-citem" href="/ntd/quan-ly-ung-vien-ung-tuyen">
-                        Ứng viên đến ứng tuyển
-                    </a>
-                    <a class="menu-mb-citem" href="/ntd/quan-ly-ung-vien-da-luu">
-                        Hồ sơ ứng viên đã lưu
-                    </a>
+                    <a class="menu-mb-citem" href="/ntd/quan-ly-ung-vien-ung-tuyen">Ứng viên đến ứng tuyển</a>
+                    <a class="menu-mb-citem" href="/ntd/quan-ly-ung-vien-da-luu">Hồ sơ ứng viên đã lưu</a>
                 </div>
             </div>
         </div>
@@ -101,12 +84,8 @@
             </div>
             <div class="menu-mb-clist">
                 <div class="d-flex flex-dr-c gap-3">
-                    <a class="menu-mb-citem" href="/ntd/cap-nhat-thong-tin-cong-ty">
-                        Cập nhật thông tin
-                    </a>
-                    <a class="menu-mb-citem" href="/ntd/doi-mat-khau-nha-tuyen-dung">
-                        Đổi mật khẩu
-                    </a>
+                    <a class="menu-mb-citem" href="/ntd/cap-nhat-thong-tin-cong-ty">Cập nhật thông tin</a>
+                    <a class="menu-mb-citem" href="/ntd/doi-mat-khau-nha-tuyen-dung">Đổi mật khẩu</a>
                 </div>
             </div>
         </div>
@@ -129,9 +108,7 @@
     else {
         $('.menu-mb-compna').text("Chưa cập nhật");
     }
-
     $('.menu-mb-complog').attr("src", logo);
-
     $.ajax({
         url: URL_API_NTD + "/PointCpn",
         type: "POST",
@@ -148,11 +125,9 @@
             console.error('Error:', error);
         }
     });
-
     function deleteCookie(name) {
         document.cookie = name + '=; Max-Age=0; path=/;';
     }
-
     function logout() {
         deleteCookie('accessToken');
         deleteCookie('refreshToken');

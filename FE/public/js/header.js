@@ -31,7 +31,6 @@ $(document).ready(function () {
     $(".nav-act").removeClass("active");
     var windowWidth = $(window).width();
     if (accessToken && accessToken !== "") {
-        // console.log('test')
         $(".nav-btn").hide();
         if (type && type == 1) {
             var styleMenu = windowWidth <= 1024 ? ".drop-empl" : ".emp_info";
@@ -40,6 +39,7 @@ $(document).ready(function () {
             let useralias = convertToAlias(userName);
             let id = getCookie("usc_id");
             $(".drop-defaul").hide();
+            $(".dropdown-toggle").addClass("nav-only-candi")
             $(".nav-only-candi").closest(".nav-item").remove();
             $(styleMenu).addClass("active");
             $(styleMenu + " .info-name").text(userName);
@@ -119,6 +119,7 @@ $(document).ready(function () {
         }
     } else {
         $(".nav-only-candi").closest(".nav-item").remove();
+        $(".nav-only-company").closest(".nav-item").remove();
         $(".nav-btn").addClass("active");
     }
 });

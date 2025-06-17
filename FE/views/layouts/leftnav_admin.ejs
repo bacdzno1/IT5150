@@ -1,27 +1,27 @@
 <div class="left-nav-admin">
     <div class="left-nav-title fs-5 text-c">DANH MỤC QUẢN TRỊ</div>
     <div class="left-nav-content">
-        <% if (locals.module_menu && locals.module_menu.length > 0) { %>
-            <% locals.module_menu.forEach(module => { %>
+        <% if (locals.module_menu && locals.module_menu.length> 0) { %>
+            <% locals.module_menu.forEach(module=> { %>
                 <div class="left-nav-item">
                     <div class="left-nav-tog fs-5">
-                        <img class="icon-minus" src="/images/icon/minus.svg" width="15" height="15" alt="Check Icon"> 
+                        <img class="icon-minus" src="/images/icon/minus.svg" width="15" height="15" alt="Check Icon">
                         <img class="icon-plus" src="/images/icon/plus.svg" width="15" height="15" alt="Check Icon">
                         <%= module.module_name %>
                     </div>
                     <div class="left-nav-list">
                         <div class="d-flex flex-dr-c">
-                            <% module.list_url.forEach(url => { %>
+                            <% module.list_url.forEach(url=> { %>
                                 <a class="left-nav-link" href="<%= url.alias %>">
                                     <img src="/images/icon/tg.svg" width="15" height="15" alt="Icon">
                                     <%= url.name %>
                                 </a>
-                            <% }); %>
+                                <% }); %>
                         </div>
                     </div>
                 </div>
-            <% }); %>
-        <% } %>
+                <% }); %>
+                    <% } %>
     </div>
     <div class="logout-button fs-5" onclick="logout()">
         ĐĂNG XUẤT
@@ -29,37 +29,34 @@
 </div>
 <script src="/js/jquery.min.js"></script>
 <script>
-   $(document).ready(function() {
-    $(".left-nav-tog").click(function() {
-        var $list = $(this).next(".left-nav-list");
-        $list.toggleClass("active");
-        $(this).find(".icon-plus").toggle();
-        $(this).find(".icon-minus").toggle();
+    $(document).ready(function () {
+        $(".left-nav-tog").click(function () {
+            var $list = $(this).next(".left-nav-list");
+            $list.toggleClass("active");
+            $(this).find(".icon-plus").toggle();
+            $(this).find(".icon-minus").toggle();
+        });
     });
-});
+    function deleteCookie(name) {
+        document.cookie = name + '=; Max-Age=0; path=/;';
+    }
+    function logout() {
+        deleteCookie('adminToken');
+        deleteCookie('adminRefToken');
+        deleteCookie('adm_id');
+        deleteCookie('typeadmin');
+        deleteCookie('isLogin');
+        window.location.href = '/admin';
+    }
+    $(document).ready(function () {
+        var currentUrl = window.location.pathname;
 
-function deleteCookie(name) {
-    document.cookie = name + '=; Max-Age=0; path=/;';
-}
-function logout() {
-    deleteCookie('adminToken');
-    deleteCookie('adminRefToken');
-    deleteCookie('adm_id');
-    deleteCookie('typeadmin');
-    deleteCookie('isLogin');
-    window.location.href = '/admin';
-}
-$(document).ready(function() {
-    var currentUrl = window.location.pathname;
-
-    $('a.left-nav-link').each(function() {
-        var href = $(this).attr('href');
-
-        if (currentUrl === href) {
-            $(this).addClass('active');
-        }
+        $('a.left-nav-link').each(function () {
+            var href = $(this).attr('href');
+            if (currentUrl === href) {
+                $(this).addClass('active');
+            }
+        });
+        $('a.left-nav-link.active').closest('.left-nav-list').addClass('active');
     });
-    $('a.left-nav-link.active').closest('.left-nav-list').addClass('active');
-});
-
 </script>

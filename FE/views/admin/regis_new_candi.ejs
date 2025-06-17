@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/images/img/default_logo.jpg">
     <title>Danh sách ứng viên</title>
-    <link rel="stylesheet" href="/css/admin/regis_new_candi.css" as="style" >
-    <link rel="stylesheet" href="/css/common.css" as="style" >
-    <link rel="stylesheet" href="/css/admin/leftnav_admin.css" as="style" >
+    <link rel="stylesheet" href="/css/admin/regis_new_candi.css" as="style">
+    <link rel="stylesheet" href="/css/common.css" as="style">
+    <link rel="stylesheet" href="/css/admin/leftnav_admin.css" as="style">
 </head>
+
 <body>
     <div class="cnt">
         <div class="cnt-left" id="leftNav">
@@ -29,7 +30,7 @@
                             <option value="<%= cateList[i].cat_id %>">
                                 <%= cateList[i].cat_name %>
                             </option>
-                        <% } %>
+                            <% } %>
                     </select>
                     <select class="input-info" id="use_city">
                         <option value="" selected>Chọn tỉnh thành</option>
@@ -37,7 +38,7 @@
                             <option value="<%= listCities[i].cit_id %>">
                                 <%= listCities[i].cit_name %>
                             </option>
-                        <% } %>
+                            <% } %>
                     </select>
                     <input class="input-info" id="from" type="date" placeholder="Từ">
                     <input class="input-info" id="to" type="date" placeholder="Đến">
@@ -62,18 +63,13 @@
                                 <th>Cho phép NTD tìm kiếm</th>
                             </tr>
                         </thead>
-                        <tbody id="newRegisteredCandi">
-
-                        </tbody>
+                        <tbody id="newRegisteredCandi"></tbody>
                     </table>
                 </div>
                 <div class="loading-box" style="display: none;">
-                    <div class="loading-img">
-                        <img src="/images/icon/Rolling.svg">            
-                    </div>
+                    <div class="loading-img"><img src="/images/icon/Rolling.svg"></div>
                 </div>
-                <div class="cnt-mag-paginate d-flex justify-c flex-wr pt-2">
-                </div>
+                <div class="cnt-mag-paginate d-flex justify-c flex-wr pt-2"></div>
             </div>
         </div>
     </div>
@@ -85,7 +81,6 @@
         const parts = value.split(`; ${name}=`);
         if (parts.length === 2) return parts.pop().split(';').shift();
     }
-
     function formatDate(dateString) {
         var date = new Date(dateString * 1000);
         var day = String(date.getDate()).padStart(2, '0');
@@ -95,15 +90,13 @@
     }
     function formatDateTime(date, startOfDay = true) {
         const pad = (num, size = 2) => String(num).padStart(size, '0');
-
         if (startOfDay) {
-            date.setHours(0, 0, 0, 0); 
+            date.setHours(0, 0, 0, 0);
             date.setHours(date.getHours() - 7);
         } else {
             date.setHours(23, 59, 59, 999);
             date.setHours(date.getHours() - 7);
         }
-
         const day = pad(date.getDate());
         const month = pad(date.getMonth() + 1);
         const year = date.getFullYear();
@@ -111,7 +104,6 @@
         const minute = pad(date.getMinutes());
         const second = pad(date.getSeconds());
         const millisecond = pad(date.getMilliseconds(), 3);
-        
         return `${year}-${month}-${day}T${hour}:${minute}:${second}.${millisecond}`;
     }
     function deleteCookie(name) {
@@ -132,44 +124,43 @@
         $(".btn-search").click(function () {
             renderTable(1);
         });
-        if(getCookie('adminToken')){
+        if (getCookie('adminToken')) {
             $.ajax({
-            url: "http://localhost:3050/api/topcv1s/admin/list",
-            type: "POST",
-            headers: {
-                "Authorization": "Bearer " + getCookie('adminToken')
-            },
-            data: { page: 1, pageSize: pageSize, module: 2},
-            success: function (response) {
-                if (response.data.result == true) {
-                    totalCandis = response.data.total;
-                    totalPage = Math.ceil(totalCandis / pageSize);
-                    Paginate(totalPage, 1);
-                    renderTable(1);
-                }
-            },
-            error: function (xhr, status, error) {
-                try {
-                    if (xhr.status === 402) {
-                        logout();
+                url: "http://localhost:3050/api/topcv1s/admin/list",
+                type: "POST",
+                headers: {
+                    "Authorization": "Bearer " + getCookie('adminToken')
+                },
+                data: { page: 1, pageSize: pageSize, module: 2 },
+                success: function (response) {
+                    if (response.data.result == true) {
+                        totalCandis = response.data.total;
+                        totalPage = Math.ceil(totalCandis / pageSize);
+                        Paginate(totalPage, 1);
+                        renderTable(1);
                     }
-                    let response = JSON.parse(xhr.responseText);
-                    let errorMessage = response.message || "Unknown error"; 
+                },
+                error: function (xhr, status, error) {
+                    try {
+                        if (xhr.status === 402) {
+                            logout();
+                        }
+                        let response = JSON.parse(xhr.responseText);
+                        let errorMessage = response.message || "Unknown error";
 
-                    alert(errorMessage);
-                    console.log(getCookie('adminToken'));
-                    console.log('Error message:', errorMessage);
-                } catch (e) {
-                    alert("An error occurred while processing the error message.");
-                    console.log('Parsing error:', e);
-                    console.log(getCookie('adminToken'));
-                }
-            },
-        });
-        }
-        else{
+                        alert(errorMessage);
+                        console.log(getCookie('adminToken'));
+                        console.log('Error message:', errorMessage);
+                    } catch (e) {
+                        alert("An error occurred while processing the error message.");
+                        console.log('Parsing error:', e);
+                        console.log(getCookie('adminToken'));
+                    }
+                },
+            });
+        } else {
             alert('Vui lòng đăng nhập lại');
-            window.location.href="/admin"
+            window.location.href = "/admin"
         }
         function renderTable(page) {
             let conditions = {};
@@ -210,8 +201,6 @@
             if (toDate) {
                 to = formatDateTime(new Date(toDate), false);
             }
-
-
             $.ajax({
                 url: "http://localhost:3050/api/topcv1s/admin/list",
                 type: "POST",
@@ -224,10 +213,10 @@
                     pageSize: pageSize,
                     module: 1,
                     conditions: conditions,
-                    from: from, 
+                    from: from,
                     to: to
                 }),
-                beforeSend: function() {
+                beforeSend: function () {
                     console.log(from);
                     console.log(to);
                     $('.loading-box').show();
@@ -247,17 +236,17 @@
                             var slug = convertToSlug(candidate.use_name);
                             let rowIndex = start + index + 1;
                             let row = `<tr>
-                                        <td>${rowIndex}</td>
-                                        <td>${candidate.use_id}</td>
-                                        <td><b><a href="${slug}-uv-${candidate.use_id}" target="_blank"> ${candidate.use_name}</a></b></td>
-                                        <td>${candidate.use_mail}</td>
-                                        <td style="display:none">${candidate.use_phone}</td>
-                                        <td style="">${candidate.use_phone ? candidate.use_phone : candidate.use_phone ? candidate.use_phone : "Chưa cập nhật"}</td>
-                                        <td>${candidate.use_job_name}</td>
-                                        <td>${dateRegis}</td>
-                                        <td>${candidate.use_authentic == 0 ? '<img src="/images/icon/checkx.svg" width="15" height="15" alt="X Icon">' : '<img src="/images/icon/check.svg" width="15" height="15" alt="Save Job Icon">'}</td>
-                                        <td>${candidate.usc_search == 0 ? '<img src="/images/icon/checkx.svg" width="15" height="15" alt="X Icon">' : '<img src="/images/icon/check.svg" width="15" height="15" alt="Save Job Icon">'}</td>
-                                    </tr>`;
+                                <td>${rowIndex}</td>
+                                <td>${candidate.use_id}</td>
+                                <td><b><a href="${slug}-uv-${candidate.use_id}" target="_blank"> ${candidate.use_name}</a></b></td>
+                                <td>${candidate.use_mail}</td>
+                                <td style="display:none">${candidate.use_phone}</td>
+                                <td style="">${candidate.use_phone ? candidate.use_phone : candidate.use_phone ? candidate.use_phone : "Chưa cập nhật"}</td>
+                                <td>${candidate.use_job_name}</td>
+                                <td>${dateRegis}</td>
+                                <td>${candidate.use_authentic == 0 ? '<img src="/images/icon/checkx.svg" width="15" height="15" alt="X Icon">' : '<img src="/images/icon/check.svg" width="15" height="15" alt="Save Job Icon">'}</td>
+                                <td>${candidate.usc_search == 0 ? '<img src="/images/icon/checkx.svg" width="15" height="15" alt="X Icon">' : '<img src="/images/icon/check.svg" width="15" height="15" alt="Save Job Icon">'}</td>
+                            </tr>`;
                             tableBody.append(row);
                         });
                         Paginate(totalPage, page);
@@ -269,7 +258,7 @@
                             logout();
                         }
                         let response = JSON.parse(xhr.responseText);
-                        let errorMessage = response.message || "Unknown error"; 
+                        let errorMessage = response.message || "Unknown error";
 
                         alert(errorMessage);
                         console.log('Error message:', errorMessage);
@@ -278,12 +267,11 @@
                         console.log('Parsing error:', e);
                     }
                 },
-                complete: function() {
+                complete: function () {
                     $('.loading-box').hide();
                 }
             });
         }
-
         function Paginate(totalPage, currentPage) {
             $('.cnt-mag-paginate').empty();
             $('.cnt-mag-paginate').append('<div class="pagi_pre_all"><<</div>');
@@ -355,8 +343,6 @@
                 Paginate(totalPage, totalPage);
             });
         }
-        // Khởi tạo trang đầu tiên và tổng số trang
-
         function convertToSlug(text) {
             return text.toLowerCase()
                 .normalize('NFD')

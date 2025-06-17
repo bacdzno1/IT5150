@@ -1,8 +1,5 @@
-// functions
-const functions = require('../services/functions');
 const function_new = require('../function/function_new');
 const data_get = require('../function/data');
-const apiController = require('./apicontroller');
 const { checkDeadline, findCity, checkElapsedTime, findCompSize, getTimeRemain, getMucLuong, convertTimestamp, findExp, findEdu, findTypeWork, findGender, findCate, cateList, city_array, findLevel, convertTimestampDetail, listCities, getMucLuong2, findCateNewsById
 } = require('../function/function_new');
 const { listQuanhuyen } = require('../function/functions');
@@ -11,13 +8,11 @@ const axios = require('axios');
 exports.index = async (req, res) => {
     const url = req.url;
     data_tags = data_get.data_tags;
-    // console.log(req.params);
     var listCities = function_new.listCities;
     var userType = req.userType;
     let data = {
         test: 'data test'
     }
-    // trả về view 
     return res.render('home', { url, listCities, userType, data_tags });
 }
 exports.cvpage = async (req, res) => {
@@ -25,15 +20,13 @@ exports.cvpage = async (req, res) => {
     const accessToken = req.cookies.accessToken;
     const response = await axios.post('http://localhost:3050/api/topcv1s/CV/ListSampleCV', {
         idnganh: 0
-    },
-        {
-            headers: {
-                Authorization: `Bearer ${accessToken}`
-            }
-        });
+    }, {
+        headers: {
+            Authorization: `Bearer ${accessToken}`
+        }
+    });
     cvList = response.data.data.data
     blog = response.data.data.blog
-    // console.log(req.params)
     let data = {
         test: 'data test'
     }
@@ -41,7 +34,6 @@ exports.cvpage = async (req, res) => {
 }
 exports.forgotpassword = async (req, res) => {
     const url = req.url;
-    // console.log(req.params)
     let data = {
         test: 'data test'
     }
@@ -49,16 +41,13 @@ exports.forgotpassword = async (req, res) => {
 }
 exports.forgotpasswordemp = async (req, res) => {
     const url = req.url;
-    // console.log(req.params)
     let data = {
         test: 'data test'
     }
     return res.render('forgotpass_page_emp', { url });
 }
-
 exports.login_page = async (req, res) => {
     const url = req.url;
-    // console.log(req.params)
     let data = {
         test: 'data test'
     }
@@ -66,7 +55,6 @@ exports.login_page = async (req, res) => {
 }
 exports.regis_page = async (req, res) => {
     const url = req.url;
-    // console.log(req.params)
     let data = {
         test: 'data test'
     }
@@ -102,8 +90,6 @@ exports.candi_page = async (req, res) => {
 }
 exports.candi_detail = async (req, res) => {
     const url = req.url;
-    const slugAndDataId = req.params[0] + '-uv-' + req.params[1];
-    const slug = req.params[0];
     const dataId = req.params[1];
     var listCities = function_new.listCities;
     var findCity = function_new.findCity;
@@ -113,14 +99,8 @@ exports.candi_detail = async (req, res) => {
     var listRangeMoney = function_new.listRangeMoney;
     var name = ''
     var city = ''
-
     try {
         const token = req.cookies.accessToken;
-
-        // if(!token) {
-        //     return res.status(403).send('Token is required');
-        // }
-
         const response = await axios.post('http://localhost:3050/api/topcv1s/candidate/DetailCandi', {
             id: dataId
         }, {
@@ -128,12 +108,8 @@ exports.candi_detail = async (req, res) => {
                 Authorization: 'Bearer ' + token
             }
         });
-
         const dataFromAPI = response.data.data;
-        // var checksave= response.xemtt
-
         return res.render('candi_detail', { listCities, name, city, dataFromAPI, findCity, findExp, findTypeWork, findCate, listRangeMoney, token, convertToUrl, findRangeMoney, url });
-
     } catch (error) {
         console.error('Error fetching data from API:', error);
         return res.status(500).send('Error fetching data:');
@@ -151,8 +127,6 @@ exports.job_after_search = async (req, res) => {
     var findDistrict = function_new.findDistrict;
     var findCate = function_new.findCate;
     var findTagByalias = function_new.findTagByalias
-    var toLowerCaseString = function_new.toLowerCaseString
-    var capitalizeFirstLetter = function_new.capitalizeFirstLetter
     var type = req.cookies.type ? req.cookies.type : 1;
     var id = req.cookies.use_id ? req.cookies.use_id : 0;
     const job_recommend = await axios.post('http://localhost:3050/api/topcv1s/new/JobRecommend', {
@@ -166,13 +140,7 @@ exports.job_after_search = async (req, res) => {
     if (category) {
         var categoryId = function_new.getCategoryIdByUrl(category);
         if (!categoryId) {
-            var tag = findTagByalias(category);
-            var cat_uppercase = capitalizeFirstLetter(findTagByalias(category));
-            var cat_lowcase = toLowerCaseString(findTagByalias(category));
-        }
-        else {
-            var cat_uppercase = capitalizeFirstLetter(findCate(categoryId));
-            var cat_lowcase = toLowerCaseString(findCate(categoryId));
+            tag = findTagByalias(category);
         }
 
     }
@@ -229,12 +197,10 @@ exports.alias = async (req, res) => {
                 Authorization: `Bearer ${accessToken}`
             }
         });
-
         const dataFromAPI = response.data.data;
         let dataToRender;
         let view;
         let functions;
-
         if (typeof dataFromAPI.type === 'number' && [1, 2].includes(dataFromAPI.type)) {
             switch (dataFromAPI.type) {
                 case 1:
@@ -251,11 +217,8 @@ exports.alias = async (req, res) => {
                     const previousPage = req.headers.referer || '/'; // Nếu không có trang trước đó, quay về trang chủ '/'
                     res.redirect(previousPage);
             }
-        } else {
-            // return res.status(404).send('Invalid or missing data type in API response');
         }
         if (dataToRender?.type == 1) {
-            // check new url, redirect 301
             const url = req.originalUrl
             const alias = dataToRender?.data?.new_alias
             const id = dataToRender?.data?.new_id
@@ -263,20 +226,15 @@ exports.alias = async (req, res) => {
                 return res.redirect(301, `/${alias}-${id}`)
             }
         }
-
         return res.render(view, { dataToRender, findCity, checkDeadline, checkElapsedTime, findCompSize, getMucLuong, convertTimestamp, findExp, findEdu, findTypeWork, findGender, findCate, convertTimestampDetail, findLevel, accessToken, url, city_array, getMucLuong2, findCateNewsById, capitalizeFirstLetter });
-
     } catch (error) {
-        // console.error('Error fetching data from API:', error);
-        // return res.status(500).send('Error fetching data');
-        const previousPage = req.headers.referer || '/'; // Nếu không có trang trước đó, quay về trang chủ '/'
+        const previousPage = req.headers.referer || '/';
         res.redirect(previousPage);
     }
 }
 
 exports.comp_detail = async (req, res) => {
     const url = req.url;
-    // console.log(req.params)
     let data = {
         test: 'data test'
     }
@@ -298,8 +256,7 @@ exports.cv_sel = async (req, res) => {
         title = `Bộ sưu tập mẫu CV online ${data_cv.name} đẹp, tạo và tải miễn phí`;
         h1tit = `Danh sách mẫu CV online ${data_cv.name} đẹp, hỗ trợ tạo 5 ngôn ngữ`;
         return res.render('cv_page_selection', { url, slug, data_cv, response, capitalizeFirstLetter, des, title, h1tit });
-    }
-    else if (findLangCV(slug) && findLangCV(slug) != '') {
+    } else if (findLangCV(slug) && findLangCV(slug) != '') {
         data_cv = findLangCV(slug);
         const response = await axios.post('http://localhost:3050/api/topcv1s/CV/ListSampleCV', {
             idlang: data_cv.id
@@ -308,8 +265,7 @@ exports.cv_sel = async (req, res) => {
         title = ` Tổng hợp mẫu CV ${data_cv.name} Ấn tượng nhất`;
         h1tit = `Danh sách mẫu CV ${data_cv.name} ấn tượng, tải về miễn phí`;
         return res.render('cv_page_selection', { url, slug, data_cv, response, capitalizeFirstLetter, des, title, h1tit });
-    }
-    else {
+    } else {
         const previousPage = req.headers.referer || '/';
         res.redirect(previousPage);
     }
@@ -318,17 +274,13 @@ exports.add_cv = async (req, res) => {
     const url = req.url;
     var cateList = function_new.cateList;
     const parts = url.split('/');
-
     const alias = parts[parts.length - 1];
     try {
         const response = await axios.post('http://localhost:3050/api/topcv1s/new/getCvDetail', {
             alias: alias
         });
-
         const dataFromAPI = response.data.data;
-
         return res.render('add_cv', { dataFromAPI, url, cateList });
-
     } catch (error) {
         console.log('add_cv', 'Error fetching data from API:', error?.message);
         return res.status(500).send('Error fetching data');
@@ -336,17 +288,13 @@ exports.add_cv = async (req, res) => {
 };
 exports.newsdetail = async (req, res) => {
     const url = req.url;
-    // console.log(req.params)
     let data = {
         test: 'data test'
     }
     return res.render('news_detail', { url });
 }
-
-//ntd
 exports.login_employ = async (req, res) => {
     const url = req.url;
-    // console.log(req.params)
     let data = {
         test: 'data test'
     }
@@ -354,7 +302,6 @@ exports.login_employ = async (req, res) => {
 }
 exports.regis_employ = async (req, res) => {
     const url = req.url;
-    // console.log(req.params)
     let data = {
         test: 'data test'
     }
@@ -362,7 +309,6 @@ exports.regis_employ = async (req, res) => {
 }
 exports.managemphome = async (req, res) => {
     const url = req.url;
-    // console.log(req.params)
     let data = {
         test: 'data test'
     }
@@ -370,7 +316,6 @@ exports.managemphome = async (req, res) => {
 }
 exports.managcanapply = async (req, res) => {
     const url = req.url;
-    // console.log(req.params)
     let data = {
         test: 'data test'
     }
@@ -378,7 +323,6 @@ exports.managcanapply = async (req, res) => {
 }
 exports.managcansave = async (req, res) => {
     const url = req.url;
-    // console.log(req.params)
     let data = {
         test: 'data test'
     }
@@ -386,7 +330,6 @@ exports.managcansave = async (req, res) => {
 }
 exports.managlistpost = async (req, res) => {
     const url = req.url;
-    // console.log(req.params)
     let data = {
         test: 'data test'
     }
@@ -417,7 +360,6 @@ exports.editpost = async (req, res) => {
 }
 exports.managinfo = async (req, res) => {
     const url = req.url;
-    // console.log(req.params)
     var cateList = function_new.cateList;
     var listSizeCompany = function_new.listSizeCompany;
     var listCities = function_new.listCities;
@@ -429,7 +371,6 @@ exports.managinfo = async (req, res) => {
 }
 exports.managrepass = async (req, res) => {
     const url = req.url;
-    // console.log(req.params)
     let data = {
         test: 'data test'
     }
@@ -442,7 +383,6 @@ exports.managrepassuv = async (req, res) => {
 }
 exports.managuppost = async (req, res) => {
     const url = req.url;
-    // console.log(req.params)
     var levelList = function_new.levelList;
     var cateList = function_new.cateList;
     var listTypeWork = function_new.listTypeWork;
@@ -457,11 +397,8 @@ exports.managuppost = async (req, res) => {
     }
     return res.render('ntd/post_job_ntd', { data, levelList, cateList, listTypeWork, listRangeMoney, listSizeExp, listEdu, genderList, listCities, findDistrict, url });
 }
-
-//uv
 exports.login_candi = async (req, res) => {
     const url = req.url;
-    // console.log(req.params)
     let data = {
         test: 'data test'
     }
@@ -469,7 +406,6 @@ exports.login_candi = async (req, res) => {
 }
 exports.regis_candi = async (req, res) => {
     const url = req.url;
-    // console.log(req.params)
     var data_check = 1
     res.locals.data_check = data_check;
     let data = {
@@ -479,7 +415,6 @@ exports.regis_candi = async (req, res) => {
 }
 exports.regis_candi_cv = async (req, res) => {
     const url = req.url;
-    // console.log(req.params)
     let data = {
         test: 'data test'
     }
@@ -496,11 +431,8 @@ exports.managcanhome = async (req, res) => {
                 Authorization: `Bearer ${accessToken}`
             }
         });
-
         const dataFromAPI = response.data.data;
-
         return res.render('uv/manahome_uv', { dataFromAPI, getMucLuong, url });
-
     } catch (error) {
         console.error('Error fetching data from API:', error);
         return res.status(500).send('Error fetching data:');
@@ -508,7 +440,6 @@ exports.managcanhome = async (req, res) => {
 }
 exports.managjobapply = async (req, res) => {
     const url = req.url;
-    // console.log(req.params)
     let data = {
         test: 'data test'
     }
@@ -516,7 +447,6 @@ exports.managjobapply = async (req, res) => {
 }
 exports.managjobsave = async (req, res) => {
     const url = req.url;
-    // console.log(req.params)
     let data = {
         test: 'data test'
     }
@@ -545,7 +475,6 @@ exports.managcv = async (req, res) => {
         }
     }
 };
-// cv
 exports.viewcvpng = async (req, res) => {
     const url = req.url;
     const { iduv, idcv, type } = req.params;
@@ -572,8 +501,6 @@ exports.viewcvpreview = async (req, res) => {
         return res.render('cv/viewcvpreview', { url });
     }
 }
-// layouts
-
 exports.lysearch = async (req, res) => {
     try {
         const listCities = function_new.listCities || [];
@@ -584,49 +511,37 @@ exports.lysearch = async (req, res) => {
         return res.status(500).send('Lỗi Máy chủ Nội bộ');
     }
 }
-
-//admin
 exports.login_admin = async (req, res) => {
-    // console.log(req.params)
     let data = {
         test: 'data test'
     }
     return res.render('admin/login_admin', { data });
 }
-
 exports.regis_new_candi = async (req, res) => {
-    // console.log(req.params)
     let data = {
         test: 'data test'
     }
     return res.render('admin/regis_new_candi', { listCities, cateList });
 }
-
 exports.regis_new_ntd = async (req, res) => {
-    // console.log(req.params)
     let data = {
         test: 'data test'
     }
     return res.render('admin/regis_new_ntd', { listCities, city_array });
 }
-
 exports.ntd_post = async (req, res) => {
-    // console.log(req.params)
     let data = {
         test: 'data test'
     }
-
     return res.render('admin/ntd_post', { listCities, cateList });
 }
 exports.admin_user_nhs_status = async (req, res) => {
-    // console.log(req.params)
     let data = {
         test: 'data test'
     }
     return res.render('admin/candi_status_NHS', { data });
 }
 exports.admin_not_permission = async (req, res) => {
-    // console.log(req.params);
     let data = {
         test: 'data test'
     }

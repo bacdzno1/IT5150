@@ -4,34 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, follow" />
-    <meta name="google-site-verification" content="lwyGMjMCHXSuJXWOc3iy1MG_Hd6yRBARF5H8NuMxUPg" />
-
-    <title>Document</title>
+    <title>Danh sách tin tuyển dụng đã đăng</title>
     <link rel="canonical" href="http://localhost:9020<%= url %>">
-    <link rel="preload" href="/css/ntd/manapost_ntd.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="/css/ntd/manapost_ntd.css">
-    </noscript>
-
-    <link rel="preload" href="/css/common.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="/css/common.css">
-    </noscript>
-
-    <link rel="preload" href="/css/leftnav_ntd.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="/css/leftnav_ntd.css">
-    </noscript>
-    <link rel="preload" href="/css/header_ntd.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="/css/header_ntd.css">
-    </noscript>
-
-    <link rel="preload" href="/css/footer.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="/css/footer.css">
-    </noscript>
+    <link rel="stylesheet" href="/css/ntd/manapost_ntd.css" as="style" >
+    <link rel="stylesheet" href="/css/common.css" as="style" >
+    <link rel="stylesheet" href="/css/leftnav_ntd.css" as="style" >
+    <link rel="stylesheet" href="/css/header_ntd.css" as="style" >
+    <link rel="stylesheet" href="/css/footer.css" as="style" >
     <script src="/js/jquery.min.js"></script>
 </head>
 
@@ -70,9 +49,7 @@
                     </div>
                 </div>
                 <div class="cnt-mag">
-                    <div class="cnt-count-job fw-600 fs-4">
-                        <!-- Tổng số tin tuyển dụng:  -->
-                    </div>
+                    <div class="cnt-count-job fw-600 fs-4"> </div>
                     <div class="cnt-boost d-flex">
                         <button class="fw-700 color-white fs-4"><img width="80" height="80" src="/images/icon/boosticonblue.svg" alt="Boost Icon">Tăng tốc tuyển dụng</button>
                     </div>
@@ -80,38 +57,21 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th width="5%">
-                                        STT
-                                    </th>
-                                    <th width="20%">
-                                        Vị trí tuyển dụng
-                                    </th>
-                                    <th width="13%" colspan="2">
-                                        Thống kê
-                                    </th>
-                                    <th width="7%">
-                                        Trạng thái
-                                    </th>
-                                    <th width="9%">
-                                        Hạn nộp
-                                    </th>
-                                    <th width="17%">
-                                        Dịch vụ tuyển dụng
-                                    </th>
-                                    <th width="8%">
-                                        Hành động
-                                    </th>
+                                    <th width="5%">STT</th>
+                                    <th width="20%">Vị trí tuyển dụng</th>
+                                    <th width="13%" colspan="2">Thống kê</th>
+                                    <th width="7%">Trạng thái</th>
+                                    <th width="9%">Hạn nộp</th>
+                                    <th width="17%">Dịch vụ tuyển dụng</th>
+                                    <th width="8%">Hành động</th>
                                 </tr>
                             </thead>
-                            <tbody id="newsTableBody">
-                            </tbody>
+                            <tbody id="newsTableBody"></tbody>
                         </table>
                     </div>
-                    <div class="cnt-mag-paginate d-flex justify-c flex-wr">
-                    </div>
+                    <div class="cnt-mag-paginate d-flex justify-c flex-wr"></div>
                 </div>
             </div>
-
         </div>
     </div>
     <%- include('../layouts/footer', {}); %>
@@ -126,7 +86,6 @@
                 var scrollTop = $(window).scrollTop();
                 var windowHeight = $(window).height();
                 var leftNavHeight = $leftNav.outerHeight(true);
-    
                 if (scrollTop + leftNavHeight > rightContentBottom) {
                     $leftNav.css({
                         position: 'absolute',
@@ -157,29 +116,11 @@
         });
     </script>
     <script>
-        // $(document).ready(function() {
-        //     $('.lnav-list-link.active').closest('.lnav-list').addClass('active').slideDown();
-    
-        //     $('.lnav-tog').click(function() {
-        //         var lnavList = $(this).next('.lnav-list');
-        //         console.log(lnavList.find('.lnav-list-link.active').length > 0);
-        //         var hasActiveLink = lnavList.find('.lnav-list-link.active').length > 0;
-    
-        //         if (!hasActiveLink) {
-        //             lnavList.addClass('active').slideDown();
-        //         } else {
-        //             lnavList.removeClass('active').slideUp();
-        //         }
-        //     });
-        // });
-    </script>
-    <script>
         function getCookie(name) {
             const value = `; ${document.cookie}`;
             const parts = value.split(`; ${name}=`);
             if (parts.length === 2) return parts.pop().split(';').shift();
         }
-    
         function formatDate(dateString) {
             var date = new Date(dateString);
             var day = String(date.getDate()).padStart(2, '0');
@@ -187,7 +128,6 @@
             var year = date.getFullYear();
             return `${day}/${month}/${year}`;
         }
-    
         function formatTime(dateString) {
             var date = new Date(dateString);
             var hours = String(date.getHours()).padStart(2, '0');
@@ -195,7 +135,6 @@
             var seconds = String(date.getSeconds()).padStart(2, '0');
             return `${hours}:${minutes}:${seconds}`;
         }
-    
         function deleteNew(newId, soLuongNHS) {
             if (soLuongNHS > 0) {
                 alert("Tin tuyển dụng này đã có ứng viên ứng tuyển. Bạn không thể xóa.");
@@ -232,7 +171,6 @@
                 return;
             }
         }
-    
         function editNew(new_alias, new_id, soLuongNHS) {
             if (soLuongNHS > 0) {
                 alert("Tin tuyển dụng này đã có ứng viên ứng tuyển. Bạn không thể chỉnh sửa, vui lòng tạo tin mới.");
@@ -242,12 +180,10 @@
             const url = `/ntd/sua-tin-tuyen-dung/${new_alias}-${new_id}`;
             window.location.href = url;
         }
-    
         $(document).ready(function() {
         var totalNews;
         var totalPage;
         var pageSize = 10;
-        
         function renderTable(page) {
             $.ajax({
                 url: "http://localhost:3050/api/topcv1s/new/listNewNTD",
@@ -269,35 +205,36 @@
                             let timeUpdate = formatTime(news.new_update_time);
                             let deadline = formatDate(news.new_han_nop);
                             let hannop = new Date(news.new_han_nop).getTime()
-                            let row = `<tr class="fw-600">
-                                            <td>${start + index + 1}</td>
-                                            <td>
-                                                <div class="d-flex flex-dr-c gap-2">
-                                                    <a class="color-main" href="/${news.new_alias}-${news.new_id}">${news.new_title}</a>
-                                                    <span class="fw-500">Cập nhật lúc: ${timeUpdate} ngày ${dateUpdate}</span>
-                                                    <span class="fw-500 fst-italic cs-color-success">(Số lượng ứng viên tiềm năng: ${news.soUvTiemNang})</span>
-                                                </div>
-                                            </td>
-                                            <td>${news.new_view_count} Lượt xem</td>
-                                            <td class="color-main">${news.soLuongNHS} Ứng tuyển</td>
-                                            <td>${hannop < timenow ? 'Tin hết hạn' : 'Tin đã được đăng'}</td>
-                                            <td>${deadline}</td>
-                                            <td>
-                                                <div class="d-flex flex-dr-c align-c cs-gap-10px">
-                                                    <button class="refresh color-white fw-600">Làm mới tin</button>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex cs-gap-10px justify-c">
-                                                    <div>
-                                                        <img alt="Edit Icon" src="/images/icon/edit_icon.svg" width="20" height="20" onclick="editNew('${news.new_alias}', ${news.new_id}, ${news.soLuongNHS})">
-                                                    </div>
-                                                    <div>
-                                                        <img alt="Remove Icon" src="/images/icon/remove_icon.svg" width="18" height="23" onclick="deleteNew(${news.new_id}, ${news.soLuongNHS})">
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>`;
+                            let row = `
+                                <tr class="fw-600">
+                                    <td>${start + index + 1}</td>
+                                    <td>
+                                        <div class="d-flex flex-dr-c gap-2">
+                                            <a class="color-main" href="/${news.new_alias}-${news.new_id}">${news.new_title}</a>
+                                            <span class="fw-500">Cập nhật lúc: ${timeUpdate} ngày ${dateUpdate}</span>
+                                            <span class="fw-500 fst-italic cs-color-success">(Số lượng ứng viên tiềm năng: ${news.soUvTiemNang})</span>
+                                        </div>
+                                    </td>
+                                    <td>${news.new_view_count} Lượt xem</td>
+                                    <td class="color-main">${news.soLuongNHS} Ứng tuyển</td>
+                                    <td>${hannop < timenow ? 'Tin hết hạn' : 'Tin đã được đăng'}</td>
+                                    <td>${deadline}</td>
+                                    <td>
+                                        <div class="d-flex flex-dr-c align-c cs-gap-10px">
+                                            <button class="refresh color-white fw-600">Làm mới tin</button>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex cs-gap-10px justify-c">
+                                            <div>
+                                                <img alt="Edit Icon" src="/images/icon/edit_icon.svg" width="20" height="20" onclick="editNew('${news.new_alias}', ${news.new_id}, ${news.soLuongNHS})">
+                                            </div>
+                                            <div>
+                                                <img alt="Remove Icon" src="/images/icon/remove_icon.svg" width="18" height="23" onclick="deleteNew(${news.new_id}, ${news.soLuongNHS})">
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>`;
                             tableBody.append(row);
                         });
                     }
@@ -313,7 +250,6 @@
                 }
             });
         }
-        // Phân trang tin đã đăng
         function Paginate(totalPage, currentPage) {
             $('.cnt-mag-paginate').empty();
             $('.cnt-mag-paginate').append('<div class="pagi_pre_all"><<</div>');
@@ -332,14 +268,12 @@
                 startPage = currentPage - 2;
                 endPage = currentPage + 2;
             }
-    
             if (startPage > 1) {
                 $('.cnt-mag-paginate').append('<div class="pagi_page">1</div>');
                 if (startPage > 2) {
                     $('.cnt-mag-paginate').append('<div class="pagi_page">...</div>');
                 }
             }
-    
             for (let i = startPage; i <= endPage; i++) {
                 if (i === currentPage) {
                     $('.cnt-mag-paginate').append('<div class="pagi_page active">' + i + '</div>');
@@ -347,17 +281,14 @@
                     $('.cnt-mag-paginate').append('<div class="pagi_page">' + i + '</div>');
                 }
             }
-    
             if (endPage < totalPage) {
                 if (endPage < totalPage - 1) {
                     $('.cnt-mag-paginate').append('<div class="pagi_page">...</div>');
                 }
                 $('.cnt-mag-paginate').append('<div class="pagi_page">' + totalPage + '</div>');
             }
-    
             $('.cnt-mag-paginate').append('<div class="pagi_next">></div>');
             $('.cnt-mag-paginate').append('<div class="pagi_next_all">>></div>');
-    
             $('.pagi_page').click(function() {
                 if (!$(this).hasClass('active') && !$(this).text().includes('...')) {
                     $('html, body').animate({
@@ -370,7 +301,6 @@
                     Paginate(totalPage, selectedPage);
                 }
             });
-    
             $('.pagi_pre').click(function() {
                 if (currentPage > 1) {
                     let prevPage = currentPage - 1;
@@ -378,7 +308,6 @@
                     Paginate(totalPage, prevPage);
                 }
             });
-    
             $('.pagi_next').click(function() {
                 if (currentPage < totalPage) {
                     let nextPage = currentPage + 1;
@@ -386,7 +315,6 @@
                     Paginate(totalPage, nextPage);
                 }
             });
-    
             $('.pagi_pre_all').click(function() {
                 renderTable(1);
                 Paginate(totalPage, 1);
@@ -397,7 +325,6 @@
                 Paginate(totalPage, totalPage);
             });
         }
-        // Khởi tạo trang đầu tiên và tổng số trang
         $.ajax({
             url: "http://localhost:3050/api/topcv1s/new/listNewNTD",
             type: "POST",
@@ -425,10 +352,7 @@
             }
         });
     });
-    
     </script>
-    
-    
 </body>
 
 </html>

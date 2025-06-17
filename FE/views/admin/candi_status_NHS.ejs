@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/images/img/default_logo.jpg">
     <title>Danh sách ứng viên</title>
     <link rel="stylesheet" href="/css/admin/regis_new_candi.css" as="style" >
     <link rel="stylesheet" href="/css/common.css" as="style" >
@@ -41,18 +40,13 @@
                                 <th>Việc làm</th>
                             </tr>
                         </thead>
-                        <tbody id="newRegisteredCandi">
-
-                        </tbody>
+                        <tbody id="newRegisteredCandi"></tbody>
                     </table>
                 </div>
                 <div class="loading-box" style="display: none;">
-                    <div class="loading-img">
-                        <img src="/images/icon/Rolling.svg">            
-                    </div>
+                    <div class="loading-img"><img src="/images/icon/Rolling.svg">  </div>
                 </div>
-                <div class="cnt-mag-paginate d-flex justify-c flex-wr pt-2">
-                </div>
+                <div class="cnt-mag-paginate d-flex justify-c flex-wr pt-2"></div>
             </div>
         </div>
     </div>
@@ -64,7 +58,6 @@
         const parts = value.split(`; ${name}=`);
         if (parts.length === 2) return parts.pop().split(';').shift();
     }
-
     function formatDate(dateString) {
         var date = new Date(dateString * 1000);
         var day = String(date.getDate()).padStart(2, '0');
@@ -72,7 +65,6 @@
         var year = date.getFullYear();
         return `${day}/${month}/${year}`;
     }
-    
     function formatDateTime(date, startOfDay = true) {
         const pad = (num) => String(num).padStart(2, '0');
         const day = pad(date.getDate());
@@ -86,7 +78,6 @@
     }
     function formatTimestamp(isoString) {
         var date = new Date(isoString);
-
         var hours = String(date.getUTCHours()).padStart(2, '0');
         var minutes = String(date.getUTCMinutes()).padStart(2, '0');
         var seconds = String(date.getUTCSeconds()).padStart(2, '0');
@@ -94,7 +85,6 @@
         var month = String(date.getUTCMonth() + 1).padStart(2, '0');
         var year = date.getUTCFullYear();
         var formattedTime = `${hours}:${minutes}:${seconds} ${day}/${month}/${year}`;
-
         return formattedTime;
     }
     function deleteCookie(name) {
@@ -177,8 +167,6 @@
             if (toDate) {
                 to = formatDateTime(new Date(toDate), false);
             }
-
-
             $.ajax({
                 url: "http://localhost:3050/api/topcv1s/admin/list",
                 type: "POST",
@@ -240,7 +228,6 @@
                 }
             });
         }
-
         function Paginate(totalPage, currentPage) {
             $('.cnt-mag-paginate').empty();
             $('.cnt-mag-paginate').append('<div class="pagi_pre_all"><<</div>');
@@ -312,7 +299,6 @@
                 Paginate(totalPage, totalPage);
             });
         }
-
         function convertToSlug(text) {
             return text.toLowerCase()
                 .normalize('NFD')

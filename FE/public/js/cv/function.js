@@ -1154,7 +1154,6 @@ const appendScript = () => {
     false
   );
 
-  // appendScript("/js/cv/select2.js", false);
   appendScript("/js/cv/select2.min.js", false);
   appendScript("/js/cv/jquery.validate.min.js", false);
   appendScript("/js/cv/cv.js", false);

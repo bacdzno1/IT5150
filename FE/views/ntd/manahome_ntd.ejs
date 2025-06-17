@@ -4,34 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, follow" />
-    <meta name="google-site-verification" content="lwyGMjMCHXSuJXWOc3iy1MG_Hd6yRBARF5H8NuMxUPg" />
-
     <title>Quản lý chung nhà tuyển dụng</title>
-    <link rel="canonical" href="http://localhost:9020<%= url %>">
-    <link rel="preload" href="/css/ntd/manahome_ntd.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="/css/ntd/manahome_ntd.css">
-    </noscript>
-
-    <link rel="preload" href="/css/common.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="/css/common.css">
-    </noscript>
-
-    <link rel="preload" href="/css/leftnav_ntd.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="/css/leftnav_ntd.css">
-    </noscript>
-    <link rel="preload" href="/css/header_ntd.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="/css/header_ntd.css">
-    </noscript>
-
-    <link rel="preload" href="/css/footer.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="/css/footer.css">
-    </noscript>
+    <link rel="stylesheet" href="/css/ntd/manahome_ntd.css" as="style" >
+    <link rel="stylesheet" href="/css/common.css" as="style" >
+    <link rel="stylesheet" href="/css/leftnav_ntd.css" as="style" >
+    <link rel="stylesheet" href="/css/header_ntd.css" as="style" >
+    <link rel="stylesheet" href="/css/footer.css" as="style" >
     <script src="/js/jquery.min.js"></script>
 </head>
 
@@ -92,14 +70,10 @@
                             <div class="cnt-statt-cvap bg-white">
                                 <div class="cnt-statt-cvap-gen d-flex justify-b">
                                     <div class="left">
-                                        <div class="mb-12px fs-5 fw-600 tit">
-                                            Hồ sơ ứng tuyển
-                                        </div>
+                                        <div class="mb-12px fs-5 fw-600 tit">Hồ sơ ứng tuyển</div>
                                         <img width="56" height="58.56" src="/images/icon/cv-fil.svg" alt="CV ứng tuyển Icon">
                                     </div>
-                                    <div class="right fw-600" id="hoSoUt">
-                                        0
-                                    </div>
+                                    <div class="right fw-600" id="hoSoUt">0</div>
                                 </div>
                             </div>
                         </div>
@@ -109,7 +83,6 @@
                                 TĂNG TỐC TUYỂN DỤNG
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <div class="cnt-rate bg-white d-flex align-c flex-dr-c">
@@ -125,27 +98,12 @@
                     <div class="cnt-job-table">
                         <table>
                             <tr>
-                                <th>
-                                    STT
-                                </th>
-                                <th>
-                                    Vị trí tuyển dụng
-                                </th>
-                                <th>
-                                    Gói dịch vụ
-                                </th>
-                                <th>
-                                    Lượt xem
-                                </th>
-                                <th>
-                                    Ứng tuyển
-                                </th>
-                                <th>
-                                    Chuyên viên gửi UV
-                                </th>
-                                <!-- <th>
-                                    Quản lý
-                                </th> -->
+                                <th>STT</th>
+                                <th>Vị trí tuyển dụng</th>
+                                <th>Gói dịch vụ</th>
+                                <th>Lượt xem</th>
+                                <th>Ứng tuyển</th>
+                                <th>Chuyên viên gửi UV</th>
                             </tr>
                         </table>
                     </div>
@@ -157,18 +115,9 @@
                     <div class="cnt-cv-table">
                         <table>
                             <tr>
-                                <th>
-                                    STT
-                                </th>
-                                <th>
-                                    Ứng viên
-                                </th>
-                                <th>
-                                    Vị trí tuyển dụng
-                                </th>
-                                <!-- <th>
-                                    Quản lý
-                                </th> -->
+                                <th>STT</th>
+                                <th>Ứng viên</th>
+                                <th>Vị trí tuyển dụng</th>
                             </tr>
                         </table>
                     </div>
@@ -188,12 +137,10 @@
                 var scrollTop = $(window).scrollTop();
                 var windowHeight = $(window).height();
                 var leftNavHeight = $leftNav.outerHeight(true);
-                
                 if (scrollTop + leftNavHeight > rightContentBottom) {
                     $leftNav.css({
                         position: 'absolute',
                         top: (rightContentHeight - leftNavHeight) + 'px',
-                        // overflow: 'auto'
                     });
                 } else {
                     $leftNav.css({
@@ -220,9 +167,6 @@
         });
     </script>
     <script>
-    
-    </script>
-    <script>
         function getCookie(name) {
             const value = `; ${document.cookie}`;
             const parts = value.split(`; ${name}=`);
@@ -247,7 +191,6 @@
             },
             success: function(response) {
                 if (response.data.result === true) {
-                    // Lấy dữ liệu từ response
                     let hoSoUt = response.data.data.hoSoUt;
                     let hoSoDiemLoc = response.data.data.hoSoDiemLoc;
                     let chuyenVienGuiUv = response.data.data.chuyenVienGuiUv;
@@ -258,8 +201,6 @@
                     let tinlammoi = response.data.data.tinlammoi;
                     let tinsaphethan = response.data.data.tinsaphethan;
                     let hoSoMoi = response.data.data.hoSoMoi;
-    
-                    // Cập nhật các phần tử trong DOM
                     $("#tinconhan").text(tinconhan);
                     $("#tinsaphethan").text(tinsaphethan);
                     $("#tinhethan").text(tinhethan);
@@ -268,7 +209,6 @@
                     $("#hoSoUt").text(hoSoUt);
                     $("#hoSoDiemLoc").text(hoSoDiemLoc);
                     $("#chuyenVienGuiUv").text(chuyenVienGuiUv);
-    
                     $(".cnt-job-table table tr:not(:first)").remove();
                     $.each(tinGanDay, function(index, job) {
                         let row = `<tr>
@@ -281,7 +221,6 @@
                         </tr>`;
                         $(".cnt-job-table table").append(row);
                     });
-    
                     $(".cnt-cv-table table tr:not(:first)").remove();
                     $.each(hoSoMoi, function(index, job) {
                         let user_alias = convertToAlias(job.use_name);
@@ -300,8 +239,6 @@
             });
         });
     </script>
-    
-    
 </body>
 
 </html>

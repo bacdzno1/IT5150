@@ -30,7 +30,6 @@ const hardcodedUrls = [
     '/quan-ly-viec-ung-tuyen',
     '/quan-ly-viec-da-luu'
 ];
-
 const checkHardcodedRoutes = (req, res, next) => {
     const requestedUrl = req.path;
 
@@ -46,8 +45,6 @@ const checkHardcodedRoutes = (req, res, next) => {
                 break;
         }
     }
-
     next();
 };
-
 module.exports = checkHardcodedRoutes;

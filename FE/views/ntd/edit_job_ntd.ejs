@@ -4,38 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, follow" />
-    <meta name="google-site-verification" content="lwyGMjMCHXSuJXWOc3iy1MG_Hd6yRBARF5H8NuMxUPg" />
-
-    <title>Document</title>
-    <link rel="canonical" href="http://localhost:9020<%= url %>">
-    <link rel="preload" href="/css/ntd/post_job_ntd.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="/css/ntd/post_job_ntd.css">
-    </noscript>
-
-    <link rel="preload" href="/css/common.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="/css/common.css">
-    </noscript>
-
-    <link rel="preload" href="/css/leftnav_ntd.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="/css/leftnav_ntd.css">
-    </noscript>
-    <link rel="preload" href="/css/header_ntd.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="/css/header_ntd.css">
-    </noscript>
-
-    <link rel="preload" href="/css/footer.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="/css/footer.css">
-    </noscript>
-    <link rel="preload" href="/css/custom_select2.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="/css/custom_select2.css">
-    </noscript>
+    <title>Cập nhật tin tuyển dụng</title>
+    <link rel="stylesheet" href="/css/ntd/post_job_ntd.css" as="style" >
+    <link rel="stylesheet" href="/css/common.css" as="style" >
+    <link rel="stylesheet" href="/css/leftnav_ntd.css" as="style" >
+    <link rel="stylesheet" href="/css/header_ntd.css" as="style" >
+    <link rel="stylesheet" href="/css/footer.css" as="style" >
+    <link rel="stylesheet" href="/css/custom_select2.css" as="style" >
     <script src="/js/jquery.min.js"></script>
 </head>
 
@@ -106,7 +81,7 @@
                                         <% if (levelList && levelList.length > 0) { %>
                                             <% levelList.forEach(function(item, index) { %>
                                                 <% for (const key in item) { %>
-                                                    <option value="<%= key %>" <%= post.new_cap_bac == key ? 'selected': '' %>><%= item[key] %></option>
+                                                    <option value="<%= key %>" <%= post.new_cap_bac == key ? 'selected': '' %> ><%= item[key] %></option>
                                                 <% } %>
                                             <% }); %>
                                         <% } %>
@@ -120,19 +95,11 @@
                                         <option></option>
                                         <% if (cateList && cateList.length > 0) { %>
                                             <% cateList.forEach(function(item) { %>
-                                                <option value="<%= item.cat_id %>" <%= post.new_cat_id == item.cat_id ? 'selected': '' %>><%= item.cat_name %></option>
+                                                <option value="<%= item.cat_id %>" <%= post.new_cat_id == item.cat_id ? 'selected': '' %> ><%= item.cat_name %></option>
                                             <% }); %>
                                         <% }  %>
                                     </select>
                                 </div>
-                                <!-- <div class="cnt-linp mb-20px">
-                                    <label for="tag_job">
-                                        Tag Ngành nghề <span class="color-alert">*</span>
-                                    </label>
-                                    <select id="tag_cate" name="tag_cate" multiple="multiple">
-                                        <option></option>
-                                    </select>
-                                </div> -->
                                 <div class="cnt-linp mb-20px">
                                     <label for="city_job">
                                         Tỉnh thành làm việc <span class="color-alert">*</span>
@@ -141,7 +108,7 @@
                                         <option></option>
                                         <% if (listCities && listCities.length > 0) { %>
                                             <% listCities.forEach(function(item) { %>
-                                                <option value="<%= item.cit_id %>" <%= post.new_city_id == item.cit_id ? 'selected': '' %>><%= item.cit_name %></option>
+                                                <option value="<%= item.cit_id %>" <%= post.new_city_id == item.cit_id ? 'selected': '' %> ><%= item.cit_name %></option>
                                             <% }); %>
                                         <% }  %>
                                     </select>
@@ -171,7 +138,7 @@
                                         <% if (listTypeWork && listTypeWork.length > 0) { %>
                                             <% listTypeWork.forEach(function(item, index) { %>
                                                 <% for (const key in item) { %>
-                                                    <option value="<%= key %>" <%= post.new_city_id == key ? 'selected': '' %>><%= item[key] %></option>
+                                                    <option value="<%= key %>" <%= post.new_city_id == key ? 'selected': '' %> ><%= item[key] %></option>
                                                 <% } %>
                                             <% }); %>
                                         <% } %>
@@ -186,7 +153,7 @@
                                         <% if (listRangeMoney && listRangeMoney.length > 0) { %>
                                             <% listRangeMoney.forEach(function(item, index) { %>
                                                 <% for (const key in item) { %>
-                                                    <option value="<%= key %>" <%= post.new_money == key ? 'selected': '' %>><%= item[key] %></option>
+                                                    <option value="<%= key %>" <%= post.new_money == key ? 'selected': '' %> ><%= item[key] %></option>
                                                 <% } %>
                                             <% }); %>
                                         <% } %>
@@ -262,7 +229,6 @@
                                         </label>
                                         <select id="edu_id">
                                             <option></option>
-                                            
                                             <% if (listEdu && listEdu.length > 0) { %>
                                                 <% listEdu.forEach(function(item, index) { %>
                                                     <% for (const key in item) { %>
@@ -333,20 +299,15 @@
                                     - Hộ khẩu, chứng minh nhân dân và giấy khám sức khoẻ.
                                     - Các bằng cấp có liên quan."><%=post.new_ho_so%></textarea>
                                 </div>
-
                                 <div class="cnt-linp">
                                     <label for="deadline_cv">
                                         Hạn nộp <span class="color-alert">*</span>
                                     </label>
                                     <div class="cnt_input">
-                                        <input id="deadline_cv" type="date" placeholder="dd/mm/yyyy" 
-                                        value="<%= new Date(post.new_han_nop * 1000).toISOString().slice(0, 10) %>" 
-                                        min="<%= new Date().toISOString().slice(0, 10) %>">
+                                        <input id="deadline_cv" type="date" placeholder="dd/mm/yyyy"  value="<%= new Date(post.new_han_nop * 1000).toISOString().slice(0, 10) %>" min="<%= new Date().toISOString().slice(0, 10) %>">
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
                         <div class="cnt-item">
                             <div class="cnt-tit fw-700 color-main">
@@ -402,301 +363,259 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
     <%- include('../layouts/footer', {}); %>
     <script src="/js/custom_select.js"></script>
-<script>
-    $(document).ready(function() {
-        $(window).scroll(function() {
-            var $leftNav = $('.lnav');
-            var $rightContent = $('#rightContent');
-            var rightContentHeight = $rightContent.outerHeight(true);
-            var rightContentOffsetTop = $rightContent.offset().top;
-            var rightContentBottom = rightContentOffsetTop + rightContentHeight;
-            var scrollTop = $(window).scrollTop();
-            var windowHeight = $(window).height();
-            var leftNavHeight = $leftNav.outerHeight(true);
-
-            if (scrollTop + leftNavHeight > rightContentBottom) {
-                $leftNav.css({
-                    position: 'absolute',
-                    top: (rightContentHeight - leftNavHeight) + 'px'
-                });
-            } else {
-                $leftNav.css({
-                    position: 'fixed',
-                    top: '0'
+    <script>
+        $(document).ready(function() {
+            $(window).scroll(function() {
+                var $leftNav = $('.lnav');
+                var $rightContent = $('#rightContent');
+                var rightContentHeight = $rightContent.outerHeight(true);
+                var rightContentOffsetTop = $rightContent.offset().top;
+                var rightContentBottom = rightContentOffsetTop + rightContentHeight;
+                var scrollTop = $(window).scrollTop();
+                var windowHeight = $(window).height();
+                var leftNavHeight = $leftNav.outerHeight(true);
+                if (scrollTop + leftNavHeight > rightContentBottom) {
+                    $leftNav.css({
+                        position: 'absolute',
+                        top: (rightContentHeight - leftNavHeight) + 'px'
+                    });
+                } else {
+                    $leftNav.css({
+                        position: 'fixed',
+                        top: '0'
+                    });
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.nhead-rig-togm').click(function() {
+                $('#mobileMenu').slideDown(300);
+            });
+            $('.menu-mb-close').click(function() {
+                $('#mobileMenu').slideUp(300);
+            });
+        });
+        $(document).ready(function() {
+            $(".tog-mb").click(function() {
+                $(this).next(".menu-mb-clist").slideToggle();
+            });
+        });
+        $(document).ready(function() {
+            $('#level_id').CustomSelect({
+                placeholder: 'Cấp bậc mong muốn',
+                searchPlaceholder: 'Tìm kiếm...'
+            });
+            $('#level_id').trigger('change')
+            $('#edu_req').CustomSelect({
+                placeholder: 'Select an option',
+                searchPlaceholder: 'Tìm kiếm...'
+            });
+            $('#edu_req').trigger('change')
+            $('#cat_id').CustomSelect({
+                placeholder: 'Chọn ngành nghề',
+                searchPlaceholder: 'Tìm kiếm...'
+            });
+            $('#cat_id').trigger('change')
+            $('#typew_id').CustomSelect({
+                placeholder: 'Chọn hình thức làm việc',
+                searchPlaceholder: 'Tìm kiếm...'
+            });
+            $('#typew_id').trigger('change')
+            $('#monyr_id').CustomSelect({
+                placeholder: 'Chọn mức lương',
+                searchPlaceholder: 'Tìm kiếm...'
+            });
+            $('#monyr_id').trigger('change')
+            $('#exp_id').CustomSelect({
+                placeholder: 'Chọn kinh nghiệm',
+                searchPlaceholder: 'Tìm kiếm...'
+            });
+            $('#exp_id').trigger('change')
+            $('#edu_id').CustomSelect({
+                placeholder: 'Chọn bằng cấp',
+                searchPlaceholder: 'Tìm kiếm...'
+            });
+            $('#edu_id').trigger('change')
+            $('#gen_id').CustomSelect({
+                placeholder: 'Chọn giới tính',
+                searchPlaceholder: 'Tìm kiếm...'
+            });
+            $('#gen_id').trigger('change')
+            $('#city_job').CustomSelect({
+                placeholder: 'Chọn tỉnh thành',
+                searchPlaceholder: 'Tìm kiếm...'
+            });
+            $('#city_job').trigger('change')
+            $('#distric_job').CustomSelect({
+                placeholder: 'Chọn quận / huyện',
+                searchPlaceholder: 'Tìm kiếm...'
+            });
+            var post = JSON.parse('<%- JSON.stringify(post) %>');
+            function loadDistricts(cityId, selectedDistrictId) {
+                $.ajax({
+                    url: '/api/getDistrict',
+                    method: 'POST',
+                    data: { id: cityId },
+                    success: function(response) {
+                        if (response.district.length > 0) {
+                            $('#distric_job').empty();
+                            response.district.forEach(function(city) {
+                                $('#distric_job').append('<option value="' + city.cit_id + '">' + city.cit_name + '</option>');
+                            });
+                            if (selectedDistrictId) {
+                                $('#distric_job').val(selectedDistrictId);
+                            }
+                            $('#distric_job').trigger('update');
+                        }
+                    },
+                    error: function(err) {
+                        console.error('Error:', err);
+                    }
                 });
             }
-        });
-    });
-</script>
-<script>
-    $(document).ready(function() {
-        $('.nhead-rig-togm').click(function() {
-            $('#mobileMenu').slideDown(300);
-        });
-        $('.menu-mb-close').click(function() {
-            $('#mobileMenu').slideUp(300);
-        });
-    });
-    $(document).ready(function() {
-        $(".tog-mb").click(function() {
-            $(this).next(".menu-mb-clist").slideToggle();
-        });
-    });
-    $(document).ready(function() {
-        $('#level_id').CustomSelect({
-            placeholder: 'Cấp bậc mong muốn',
-            searchPlaceholder: 'Tìm kiếm...'
-        });
-        $('#level_id').trigger('change')
-        $('#edu_req').CustomSelect({
-            placeholder: 'Select an option',
-            searchPlaceholder: 'Tìm kiếm...'
-        });
-        $('#edu_req').trigger('change')
-        $('#cat_id').CustomSelect({
-            placeholder: 'Chọn ngành nghề',
-            searchPlaceholder: 'Tìm kiếm...'
-        });
-        $('#cat_id').trigger('change')
-        // $('#tag_cate').CustomSelect({
-        //     placeholder: 'Chọn tag ngành nghề',
-        //     searchPlaceholder: 'Tìm kiếm...'
-        // });
-        // $('#tag_cate').trigger('change')
-        $('#typew_id').CustomSelect({
-            placeholder: 'Chọn hình thức làm việc',
-            searchPlaceholder: 'Tìm kiếm...'
-        });
-        $('#typew_id').trigger('change')
-        $('#monyr_id').CustomSelect({
-            placeholder: 'Chọn mức lương',
-            searchPlaceholder: 'Tìm kiếm...'
-        });
-        $('#monyr_id').trigger('change')
-        $('#exp_id').CustomSelect({
-            placeholder: 'Chọn kinh nghiệm',
-            searchPlaceholder: 'Tìm kiếm...'
-        });
-        $('#exp_id').trigger('change')
-        $('#edu_id').CustomSelect({
-            placeholder: 'Chọn bằng cấp',
-            searchPlaceholder: 'Tìm kiếm...'
-        });
-        $('#edu_id').trigger('change')
-        $('#gen_id').CustomSelect({
-            placeholder: 'Chọn giới tính',
-            searchPlaceholder: 'Tìm kiếm...'
-        });
-        $('#gen_id').trigger('change')
-        $('#city_job').CustomSelect({
-            placeholder: 'Chọn tỉnh thành',
-            searchPlaceholder: 'Tìm kiếm...'
-        });
-        $('#city_job').trigger('change')
-        $('#distric_job').CustomSelect({
-            placeholder: 'Chọn quận / huyện',
-            searchPlaceholder: 'Tìm kiếm...'
-        });
-
-        var post = JSON.parse('<%- JSON.stringify(post) %>');
-        
-        function loadDistricts(cityId, selectedDistrictId) {
-            $.ajax({
-                url: '/api/getDistrict',
-                method: 'POST',
-                data: { id: cityId },
-                success: function(response) {
-                    if (response.district.length > 0) {
-                        $('#distric_job').empty();
-                        response.district.forEach(function(city) {
-                            $('#distric_job').append('<option value="' + city.cit_id + '">' + city.cit_name + '</option>');
-                        });
-                        if (selectedDistrictId) {
-                            $('#distric_job').val(selectedDistrictId);
+            if (post.new_city_id) {
+                $('#city_job').val(post.new_city_id);
+                loadDistricts(post.new_city_id, post.new_qh_id);
+            }
+            $('#city_job').change(function() {
+                var cityId = parseInt($(this).val());
+                loadDistricts(cityId, null);
+            });
+            function getCookie(name) {
+                var value = "; " + document.cookie;
+                var parts = value.split("; " + name + "=");
+                if (parts.length === 2) return parts.pop().split(";").shift();
+            }
+            $('.cnt-post').click(function() {
+                var post_job = $('#post_job').val();
+                var level_id = $('#level_id').val();
+                var cat_id = $('#cat_id').val();
+                var tag_cate = $('#tag_cate').val();
+                var city_job = $('#city_job').val();
+                var distric_job = $('#distric_job').val();
+                var loc_job = $('#loc_job').val();
+                var typew_id = $('#typew_id').val();
+                var monyr_id = $('#monyr_id').val();
+                var nbpos_job = $('#nbpos_job').val();
+                var trial_job = $('#trial_job').val();
+                var comis_job = $('#comis_job').val();
+                var des_job = $('#des_job').val();
+                var exp_id = $('#exp_id').val();
+                var edu_id = $('#edu_id').val();
+                var gen_id = $('#gen_id').val();
+                var job_req = $('#job_req').val();
+                var bene_job = $('#bene_job').val();
+                var required_cv = $('#required_cv').val();
+                var deadline_cv = $('#deadline_cv').val();
+                var contact_per = $('#contact_per').val();
+                var contact_loc = $('#contact_loc').val();
+                var contact_phone = $('#contact_phone').val();
+                var contact_email = $('#contact_email').val();
+                var idNew = $('.cnt-post').val();
+                if(!post_job) {
+                    alert("Chưa nhập vị trí đăng tuyển"); return;
+                } else if(!level_id) {
+                    alert("Chưa chọn cấp bậc"); return;
+                } else if(!cat_id) {
+                    alert("Chưa chọn ngành nghề"); return;
+                } else if(!city_job) {
+                    alert("Chưa chọn tỉnh thành làm việc"); return;
+                } else if(!distric_job) {
+                    alert("Chưa chọn quận huyện làm việc"); return;
+                } else if(!loc_job) {
+                    alert("Chưa nhập địa chỉ chi tiết làm việc"); return;
+                } else if(!typew_id) {
+                    alert("Chưa chọn hình thức làm việc"); return;
+                } else if(!monyr_id) {
+                    alert("Chưa chọn mức lương"); return;
+                } else if(!nbpos_job || !Number.isInteger(parseInt(nbpos_job)) || parseInt(nbpos_job) <= 0) {
+                    alert("Chưa chọn số lượng cần tuyển hoặc số lượng không hợp lệ"); return;
+                } else if(!des_job) {
+                    alert("Chưa nhập mô tả công việc"); return;
+                } else if(!exp_id) {
+                    alert("Chưa chọn kinh nghiệm"); return;
+                } else if(!edu_id) {
+                    alert("Chưa chọn yêu cầu bằng cấp"); return;
+                } else if(!gen_id) {
+                    alert("Chưa chọn giới tính"); return;
+                } else if(!job_req) {
+                    alert("Chưa nhập yêu cầu công việc"); return;
+                } else if(!bene_job) {
+                    alert("Chưa nhập quyền lợi được hưởng"); return;
+                } else if(!required_cv) {
+                    alert("Chưa nhập hồ sơ bao gồm"); return;
+                } else if(!contact_per) {
+                    alert("Chưa nhập tên người liên hệ"); return;
+                } else if(!contact_loc) {
+                    alert("Chưa nhập địa chỉ liên hệ"); return;
+                } else if(!contact_phone) {
+                    alert("Chưa nhập số điện thoại liên hệ"); return;
+                } else if(!contact_email) {
+                    alert("Chưa nhập email liên hệ"); return;
+                }  
+                $.ajax({
+                    url: 'http://localhost:3050/api/topcv1s/new/UpdateNew',
+                    headers: {
+                        Authorization: 'Bearer ' + getCookie('accessToken')
+                    },
+                    method: 'POST',
+                    data: {
+                        title: post_job,
+                        capBac: parseInt(level_id),
+                        catId: parseInt(cat_id),
+                        tag: parseInt(tag_cate),
+                        city: parseInt(city_job),
+                        district: parseInt(distric_job),
+                        address: loc_job,
+                        hinhThuc: parseInt(typew_id),
+                        money: parseInt(monyr_id),
+                        soLuong: parseInt(nbpos_job),
+                        thuViec: trial_job,
+                        hoaHong: comis_job,
+                        moTa: des_job,
+                        exp: parseInt(exp_id),
+                        bangCap: parseInt(edu_id),
+                        gioiTinh: parseInt(gen_id),
+                        yeuCau: job_req,
+                        quyenLoi: bene_job,
+                        hoSo: required_cv,
+                        hanNop: deadline_cv,
+                        userContact: contact_per,
+                        addressContact: contact_loc,
+                        phoneContact: contact_phone,
+                        emailContact: contact_email,
+                        idNew: idNew,
+                    },
+                    success: function(response) {
+                        alert('Cập nhật tin thành công');
+                        window.location.href="/ntd/quan-ly-tin-dang";
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error('AJAX Error:', textStatus, errorThrown);
+                        $(".post-conf").css("display", "none");
+                        var response = jqXHR.responseJSON;
+                        if (response && response.error) {
+                            alert('Cập nhật tin thất bại: '+ response.error.message);
+                        } else {
+                            alert('Có lỗi xảy ra');
                         }
-                        $('#distric_job').trigger('update');
+                    },
+                    complete: function() {
+                        $btn.prop('disabled', false);
                     }
-                },
-                error: function(err) {
-                    console.error('Error:', err);
-                }
-            });
-        }
-
-        // function loadTagsCate(cateId, selectedTagId) {
-        //     $.ajax({
-        //         url: '/api/getTagCate',
-        //         method: 'POST',
-        //         data: { id: cateId },
-        //         success: function(response) {
-        //             if (response.tag.length > 0) {
-        //                 $('#tag_cate').empty();
-        //                 response.tag.forEach(function(tag) {
-        //                     $('#tag_cate').append('<option value="' + tag.tag_id + '">' + tag.tag_name + '</option>');
-        //                 });
-        //                 if (selectedTagId) {
-        //                     $('#tag_cate').val(selectedTagId)
-        //                 }
-
-        //                 $('#tag_cate').trigger('update'); 
-        //             }
-        //         },
-        //         error: function(err) {
-        //             console.error('Error:', err);
-        //         }
-        //     });
-        // }
-
-        if (post.new_city_id) {
-            $('#city_job').val(post.new_city_id);
-            loadDistricts(post.new_city_id, post.new_qh_id);
-        }
-
-        $('#city_job').change(function() {
-            var cityId = parseInt($(this).val());
-            loadDistricts(cityId, null);
-        });
-        
-        function getCookie(name) {
-            var value = "; " + document.cookie;
-            var parts = value.split("; " + name + "=");
-            if (parts.length === 2) return parts.pop().split(";").shift();
-        }
-
-        $('.cnt-post').click(function() {
-            var post_job = $('#post_job').val();
-            var level_id = $('#level_id').val();
-            var cat_id = $('#cat_id').val();
-            var tag_cate = $('#tag_cate').val();
-            var city_job = $('#city_job').val();
-            var distric_job = $('#distric_job').val();
-            var loc_job = $('#loc_job').val();
-            var typew_id = $('#typew_id').val();
-            var monyr_id = $('#monyr_id').val();
-            var nbpos_job = $('#nbpos_job').val();
-            var trial_job = $('#trial_job').val();
-            var comis_job = $('#comis_job').val();
-            var des_job = $('#des_job').val();
-            var exp_id = $('#exp_id').val();
-            var edu_id = $('#edu_id').val();
-            var gen_id = $('#gen_id').val();
-            var job_req = $('#job_req').val();
-            var bene_job = $('#bene_job').val();
-            var required_cv = $('#required_cv').val();
-            var deadline_cv = $('#deadline_cv').val();
-            var contact_per = $('#contact_per').val();
-            var contact_loc = $('#contact_loc').val();
-            var contact_phone = $('#contact_phone').val();
-            var contact_email = $('#contact_email').val();
-            var idNew = $('.cnt-post').val();
-            if(!post_job) {
-                alert("Chưa nhập vị trí đăng tuyển"); return;
-            } else if(!level_id) {
-                alert("Chưa chọn cấp bậc"); return;
-            } else if(!cat_id) {
-                alert("Chưa chọn ngành nghề"); return;
-            // } else if(!tag_cate) {
-            //     alert("Chưa chọn tag ngành nghề"); return;
-            } else if(!city_job) {
-                alert("Chưa chọn tỉnh thành làm việc"); return;
-            } else if(!distric_job) {
-                alert("Chưa chọn quận huyện làm việc"); return;
-            } else if(!loc_job) {
-                alert("Chưa nhập địa chỉ chi tiết làm việc"); return;
-            } else if(!typew_id) {
-                alert("Chưa chọn hình thức làm việc"); return;
-            } else if(!monyr_id) {
-                alert("Chưa chọn mức lương"); return;
-            } else if(!nbpos_job || !Number.isInteger(parseInt(nbpos_job)) || parseInt(nbpos_job) <= 0) {
-                alert("Chưa chọn số lượng cần tuyển hoặc số lượng không hợp lệ"); return;
-            } else if(!des_job) {
-                alert("Chưa nhập mô tả công việc"); return;
-            } else if(!exp_id) {
-                alert("Chưa chọn kinh nghiệm"); return;
-            } else if(!edu_id) {
-                alert("Chưa chọn yêu cầu bằng cấp"); return;
-            } else if(!gen_id) {
-                alert("Chưa chọn giới tính"); return;
-            } else if(!job_req) {
-                alert("Chưa nhập yêu cầu công việc"); return;
-            } else if(!bene_job) {
-                alert("Chưa nhập quyền lợi được hưởng"); return;
-            } else if(!required_cv) {
-                alert("Chưa nhập hồ sơ bao gồm"); return;
-            } else if(!contact_per) {
-                alert("Chưa nhập tên người liên hệ"); return;
-            } else if(!contact_loc) {
-                alert("Chưa nhập địa chỉ liên hệ"); return;
-            } else if(!contact_phone) {
-                alert("Chưa nhập số điện thoại liên hệ"); return;
-            } else if(!contact_email) {
-                alert("Chưa nhập email liên hệ"); return;
-            }  
-            $.ajax({
-                url: 'http://localhost:3050/api/topcv1s/new/UpdateNew',
-                headers: {
-                    Authorization: 'Bearer ' + getCookie('accessToken')
-                },
-                method: 'POST',
-                data: {
-                    title: post_job,
-                    capBac: parseInt(level_id),
-                    catId: parseInt(cat_id),
-                    tag: parseInt(tag_cate),
-                    city: parseInt(city_job),
-                    district: parseInt(distric_job),
-                    address: loc_job,
-                    hinhThuc: parseInt(typew_id),
-                    money: parseInt(monyr_id),
-                    soLuong: parseInt(nbpos_job),
-                    thuViec: trial_job,
-                    hoaHong: comis_job,
-                    moTa: des_job,
-                    exp: parseInt(exp_id),
-                    bangCap: parseInt(edu_id),
-                    gioiTinh: parseInt(gen_id),
-                    yeuCau: job_req,
-                    quyenLoi: bene_job,
-                    hoSo: required_cv,
-                    hanNop: deadline_cv,
-                    userContact: contact_per,
-                    addressContact: contact_loc,
-                    phoneContact: contact_phone,
-                    emailContact: contact_email,
-                    idNew: idNew,
-                },
-                success: function(response) {
-                    alert('Cập nhật tin thành công');
-                    window.location.href="/ntd/quan-ly-tin-dang";
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.error('AJAX Error:', textStatus, errorThrown);
-                    $(".post-conf").css("display", "none");
-                    var response = jqXHR.responseJSON;
-                    if (response && response.error) {
-                        alert('Cập nhật tin thất bại: '+ response.error.message);
-                    } else {
-                        alert('Có lỗi xảy ra');
-                    }
-                },
-                complete: function() {
-                    $btn.prop('disabled', false);
-                }
+                });
             });
         });
-    });
-
-    function cancelUpdate() {
-        window.history.back();
-    }
-</script>
-
-
+        function cancelUpdate() {
+            window.history.back();
+        }
+    </script>
 </body>
 
 </html>
