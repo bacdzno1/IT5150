@@ -789,7 +789,7 @@ export const CreateCVInOrderToRegister = async (req, res, next) => {
                             // console.log(dataCV, typeof dataCV)
                             const date = functions.getDate();
                             let linkNew = '';
-                            if (dataCV !== "/images/cv/no_avatar.jpg") {
+                            if (dataCV !== "/images/cv/no_avatar.webp") {
                                 const nameFileOld = dataCV.split('/').pop();
                                 linkNew = `./upload/cv_uv/uv_${use_id}/${nameFileOld}`;
                                 logo = `./pictures/${date}/${nameFileOld}`;
@@ -1269,7 +1269,7 @@ export const PreviewCv = async (req, res) => {
             let linkNew = '';
 
             // console.log('jsonCV.avatar before', jsonCV.avatar);
-            if (dataCV !== "/images/cv/no_avatar.jpg") {
+            if (dataCV !== "/images/cv/no_avatar.webp") {
                 const nameFileOld = dataCV.split('/').pop();
                 linkNew = `./tmp/previewcv/upload/cv_uv/uv_${iduser}/${nameFileOld}`;
 

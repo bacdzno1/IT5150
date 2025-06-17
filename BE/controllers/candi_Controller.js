@@ -599,7 +599,7 @@ export const UpdateInfoCv = async (req, res) => {
                 use_name: JsonCV.name,
                 use_job_name: cv_title,
             };
-            if (JsonCV.avatar !== "/images/cv/no_avatar.jpg" && !JsonCV.avatar.startsWith("http://localhost:3050/pictures")) {
+            if (JsonCV.avatar !== "/images/cv/no_avatar.webp" && !JsonCV.avatar.startsWith("http://localhost:3050/pictures")) {
                 const date = functions.getDate(checkExists.use_create_time * 1000);
 
                 const nameFileOld = JsonCV.avatar.split('/').pop();

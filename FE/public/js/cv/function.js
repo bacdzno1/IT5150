@@ -218,31 +218,31 @@ const handleSetData = async (html, hide, lang, idlang) => {
   // document
   //   .getElementById('cvo-profile-avatar')
   //   ?.setAttribute('src',
-  //     html?.avatar?.includes('no_avatar') ?  `/images/cv/no_avatar.jpg` : html?.avatar);
+  //     html?.avatar?.includes('no_avatar') ?  `/images/cv/no_avatar.webp` : html?.avatar);
   const avatarElement = document.getElementById('cvo-profile-avatar');
 
   if (isLogin === "true") {
     if (userLogo) {
-      avatarElement?.setAttribute('src', userLogo ? decodeURIComponent(userLogo) : html?.avatar?.includes('no_avatar') ? '/images/cv/no_avatar_11zon.webp' : html?.avatar);
+      avatarElement?.setAttribute('src', userLogo ? decodeURIComponent(userLogo) : html?.avatar?.includes('no_avatar') ? '/images/cv/no_avatar.webp' : html?.avatar);
       avatarElement?.addEventListener('error', function () {
         this.onerror = null; 
-        this.src = '/images/cv/no_avatar.jpg';
+        this.src = '/images/cv/no_avatar.webp';
       });
     } else {
-      const avatarSrc = html?.avatar?.includes('no_avatar') ? '/images/cv/no_avatar_11zon.webp' : html?.avatar;
+      const avatarSrc = html?.avatar?.includes('no_avatar') ? '/images/cv/no_avatar.webp' : html?.avatar;
       avatarElement?.setAttribute('src', avatarSrc);
       avatarElement?.addEventListener('error', function () {
         this.onerror = null; 
-        this.src = '/images/cv/no_avatar.jpg';
+        this.src = '/images/cv/no_avatar.webp';
       });
     }
 
   } else {
-    const avatarSrc = html?.avatar?.includes('no_avatar') ? '/images/cv/no_avatar_11zon.webp' : html?.avatar;
+    const avatarSrc = html?.avatar?.includes('no_avatar') ? '/images/cv/no_avatar.webp' : html?.avatar;
     avatarElement?.setAttribute('src', avatarSrc);
     avatarElement?.addEventListener('error', function () {
       this.onerror = null; 
-      this.src = '/images/cv/no_avatar.jpg';
+      this.src = '/images/cv/no_avatar.webp';
     });
   }
 
@@ -607,29 +607,29 @@ const handleSetDataNew = async (html, hide, lang, idlang) => {
   // document
   //   .getElementById('cvo-profile-avatar')
   //   ?.setAttribute('src',
-  //     html?.avatar?.includes('no_avatar') ? `/images/cv/no_avatar.jpg` : html?.avatar)
+  //     html?.avatar?.includes('no_avatar') ? `/images/cv/no_avatar.webp` : html?.avatar)
   const avatarElement = document.getElementById('cvo-profile-avatar');
   if (isLogin === "true") {
     if (userLogo) {
       avatarElement?.setAttribute('src', decodeURIComponent(userLogo));
       avatarElement?.addEventListener('error', function () {
         this.onerror = null; 
-        this.src = '/images/cv/no_avatar.jpg';
+        this.src = '/images/cv/no_avatar.webp';
       });
     } else {
-      const avatarSrc = html?.avatar?.includes('no_avatar') ? '/images/cv/no_avatar.jpg' : html?.avatar;
+      const avatarSrc = html?.avatar?.includes('no_avatar') ? '/images/cv/no_avatar.webp' : html?.avatar;
       avatarElement?.setAttribute('src', avatarSrc);
       avatarElement?.addEventListener('error', function () {
         this.onerror = null; 
-        this.src = '/images/cv/no_avatar.jpg';
+        this.src = '/images/cv/no_avatar.webp';
       });
     }
   } else {
-    const avatarSrc = html?.avatar?.includes('no_avatar') ? '/images/cv/no_avatar.jpg' : html?.avatar;
+    const avatarSrc = html?.avatar?.includes('no_avatar') ? '/images/cv/no_avatar.webp' : html?.avatar;
     avatarElement?.setAttribute('src', avatarSrc);
     avatarElement?.addEventListener('error', function () {
       this.onerror = null; 
-      this.src = '/images/cv/no_avatar.jpg';
+      this.src = '/images/cv/no_avatar.webp';
     });
   }
 

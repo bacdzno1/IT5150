@@ -1167,7 +1167,7 @@ $(document).ready(function () {
           var selectedAlias = $(this).siblings('label').attr('data-alias');
           var selectedId = $(this).siblings('label').attr('data-id');
           var text = $(this).siblings('label').text();
-          $('.modal_refer_cv img').attr('src', selectedLabel || '/images/img/CV_Copywirter-01_1.png');
+          $('.modal_refer_cv img').attr('src', selectedLabel || '/images/img/CV_Copywirter.png');
           $('.modal_render_head_mb_cnt div').text(text)
           $('input[type="radio"][name="cv-tham-khao"]').not(this).prop('checked', false);
           $(this).prop('checked', true);

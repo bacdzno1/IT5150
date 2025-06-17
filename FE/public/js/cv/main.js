@@ -454,7 +454,7 @@ $(function () {
 
   // // $(document).on('click', '#imageEditorWraper_AI .choose_image_style .update_examp', function (e) {
   // // 	$image.cropper('destroy').cropper(options)
-  // // 	// $('#imageEditorWraper .img-edit-preview img').attr('src','images/no_avatar.jpg');
+  // // 	// $('#imageEditorWraper .img-edit-preview img').attr('src','images/no_avatar.webp');
   // // 	$('.imageEditor').hide()
   // // 	$('.editorChooseImage').show()
   // // 	$('#imageEditorWraper').show()

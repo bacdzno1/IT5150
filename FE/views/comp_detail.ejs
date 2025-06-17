@@ -27,7 +27,7 @@
             <div id="comp-1" class=" comp-container">
                 <div class="comp-header">
                     <div class="cover">
-                        <img onerror="this.onerror=null;this.src='/images/img/default_logo-min_11zon.webp';" src="<%= dataToRender.data.usc_logo %>" alt="<%= dataToRender.data.usc_company %>" loading="eager" class="profile-picture">
+                        <img onerror="this.onerror=null;this.src='/images/img/default_logo.webp';" src="<%= dataToRender.data.usc_logo %>" alt="<%= dataToRender.data.usc_company %>" loading="eager" class="profile-picture">
                     </div>
                     <div class="profile-details">
                         <h1 class="profile-name fw-700">Công ty <%= dataToRender.data.usc_company %> và thông tin tuyển dụng <%= dataToRender.data.usc_company %> - TOPCV1S</h1>
@@ -132,7 +132,7 @@
                                 <% if (dataToRender.data.news && dataToRender.data.news.length > 0) { %>
                                     <% dataToRender.data.news.forEach(function(item) { %>
                                         <div class="recuit-unit">
-                                            <img class="rounded-circle outline_main logo_comp_job" onerror="this.onerror=null;this.src='/images/img/default_logo-min_11zon.webp';" src="<%= item.usc_logo %>" alt="<%= item.usc_company %>" loading="lazy" width="117px" height="117px">
+                                            <img class="rounded-circle outline_main logo_comp_job" onerror="this.onerror=null;this.src='/images/img/default_logo.webp';" src="<%= item.usc_logo %>" alt="<%= item.usc_company %>" loading="lazy" width="117px" height="117px">
                                             <div class="recuit-unit-info">
                                                 <div class="d-flex justify-b recuit-unit-top">
                                                     <div class="recuit-unit-tit">
@@ -178,7 +178,7 @@
                                     <% dataToRender.data.sameCom.forEach(function(item) { %>
                                         <div class="other-unit">
                                             <div class="other-unit-img">
-                                                <img class="rounded-circle outline_main" onerror="this.onerror=null;this.src='/images/img/default_logo-min_11zon.webp';" alt="<%= item.usc_company %>" src="<%= item.usc_logo %>" loading="lazy" width="132px" height="132px">
+                                                <img class="rounded-circle outline_main" onerror="this.onerror=null;this.src='/images/img/default_logo.webp';" alt="<%= item.usc_company %>" src="<%= item.usc_logo %>" loading="lazy" width="132px" height="132px">
                                             </div>
                                             <div class="other-unit-info">
                                                 <a class="fs-5 fw-700" href="/<%= item.usc_alias %>"><%= item.usc_company %></a>
