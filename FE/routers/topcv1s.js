@@ -38,7 +38,6 @@ router.get(['/tim-viec-lam', '/tim-viec-lam-tai-:city', '/tim-viec-lam-:category
 router.get('/cv-xin-viec-:slug', site.cv_sel);
 
 router.get('/tao-cv/:slug', site.add_cv);
-router.get('/otp', site.otp);
 router.get('/quen-mat-khau', site.forgotpassword);
 router.get('/quen-mat-khau-nha-tuyen-dung', site.forgotpasswordemp);
 // router.get('/chi-tiet-bai-viet', site.newsdetail);

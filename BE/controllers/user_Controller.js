@@ -1,4 +1,4 @@
- 
+
 import * as functions from '../services/functions.js';
 import * as fs from 'node:fs';
 import UserCompany from '../models/user/UserCompany.js';
@@ -77,9 +77,8 @@ const EmployersValidateSuccess = async (data, file) => {
             'usc_district': district,
             'usc_create_time': time,
             'usc_update_time': time,
-            'usc_mail': email,
             'usc_mst': "",
-            'usc_authentic': '0',
+            'usc_authentic': '1',
             'usc_otp': otp,
             'usc_company_info': '',
             'image_com': image.join(','),
@@ -232,80 +231,18 @@ export const EmployersForgotPass = async (req, res, next) => {
                 usc_phone: 1, usc_city: 1, usc_district: 1, usc_address: 1
             }).lean();
             if (checkExists) {
-                const otp = functions.randomNumber();
-                if (phoneTK.includes('@')) {
-                    const startDate = new Date(new Date().toISOString().slice(0, 10)).getTime() / 1000;
-                    const endDate = startDate + 24 * 60 * 60;
-
-                    const checkCountOtp = await HistoryCountOtp.find({
-                        user_id: checkExists.usc_id,
-                        usc_phone: phoneTK,  // Thay đổi thành email
-                        type: 2, // Loại gửi OTP qua email
-                        create_time: {
-                            $gte: startDate,
-                            $lte: endDate
-                        }
-                    }).lean();
-
-                    if (checkCountOtp.length < 5) {
-                        const id = await functions.getMaxId(HistoryCountOtp, 'id');
-                        await HistoryCountOtp.create({
-                            id,
-                            user_id: checkExists.usc_id,
-                            usc_phone: phoneTK,  // Lưu email thay vì số điện thoại
-                            send_otp: otp,
-                            create_time: functions.getTime(),
-                            type: 2  // Loại gửi OTP qua email
-                        });
-
-                        await UserCompany.updateOne({
-                            usc_email: phoneTK,
-                        }, { usc_otp: otp });
-
-                        // Gửi OTP qua email
-                        functions.SendOtpMail(phoneTK, otp)
-                        // const checkSend = await functions.sendMail(
-                        //     `Mã OTP lấy lại mật khẩu tài khoản`,
-                        //     phoneTK,
-                        //     checkExists.usc_company,
-                        //     otp, 
-                        //     4
-                        // );
-
-                        return functions.success(res, 'Hãy xác thực OTP.', { id: checkExists.usc_id });
+                const id = checkExists.usc_id;
+                let check = '';
+                if (id) {
+                    check = await UserCompany.findOne({ usc_id: id }).lean();
+                    if (check) {
+                        delete check.password
+                        const conditionsToken = { auth: 1, type: 1, check };
+                        conditionsToken.usc_id = id
+                        const token = await functions.createToken(conditionsToken, '60d');
+                        return functions.success(res, 'Xác nhận tài khoản hợp lệ. Vui lòng nhập mật khẩu mới', { token, data: check, id });
                     }
-                    return functions.setError(res, "Hết lượt gửi otp trong ngày.", 400);
-                } else {
-                    const startDate = new Date(new Date().toISOString().slice(0, 10)).getTime() / 1000;
-                    const endDate = startDate + 24 * 60 * 60;
-
-                    const checkCountOtp = await HistoryCountOtp.find({
-                        user_id: checkExists.usc_id,
-                        usc_phone: phoneTK,
-                        type: 0,
-                        create_time: {
-                            $gte: startDate,
-                            $lte: endDate
-                        }
-                    });
-
-                    if (checkCountOtp.length < 5) {
-                        const id = await functions.getMaxId(HistoryCountOtp, 'id');
-                        await HistoryCountOtp.create({
-                            id,
-                            user_id: checkExists.usc_id,
-                            usc_phone: phoneTK,
-                            send_otp: otp,
-                            create_time: functions.getTime(),
-                            type: 0
-                        });
-                        await UserCompany.updateOne({
-                            usc_phone_tk: phoneTK,
-                        }, { usc_otp: otp });
-                        functions.sendOtpSMS(phoneTK, otp);
-                        return functions.success(res, "Hãy xác thực OTP.", { id: checkExists.usc_id });
-                    }
-                    return functions.setError(res, 'Đã hết lượt gửi otp trong ngày', 400);
+                    return functions.setError(res, "Tài khoản không tồn tại, vui lòng kiểm tra lại.", 400);
                 }
             }
             return functions.setError(res, 'Tài khoản không tồn tại, vui lòng kiểm tra lại.', 400);
@@ -653,7 +590,7 @@ export const RegisterCandidate = async (req, res, next) => {
                 use_phone: phoneTK,
                 use_pass: functions.createMd5(password),
                 use_time: time,
-                use_authentic: 0,
+                use_authentic: 1,
                 use_job_name: jobName,
                 use_city_job: arrCityJob,
                 use_nganh_nghe: arrNganhNghe,
@@ -825,11 +762,11 @@ export const CreateCVInOrderToRegister = async (req, res, next) => {
                         const checkExistsEmail = await Users.findOne({ use_mail: email }, { use_phone: 1 }).lean();
                         const checkExistsPhone = await Users.findOne({ use_phone: phone }, { use_phone: 1 }).lean();
                         if (checkExistsEmail) {
-            
+
                             return functions.setError(res, "Email này đã được sử dụng, vui lòng kiểm tra lại.", 400);
                         }
                         if (checkExistsPhone) {
-            
+
                             return functions.setError(res, "Số điện thoại này đã được sử dụng, vui lòng kiểm tra lại.", 400);
                         }
                         const checkExists = await Users.findOne({
@@ -870,7 +807,7 @@ export const CreateCVInOrderToRegister = async (req, res, next) => {
                                 use_mail: email,
                                 use_pass: functions.createMd5(password),
                                 use_time: time,
-                                use_authentic: 0,
+                                use_authentic: 1,
                                 use_name: username,
                                 address: address,
                                 use_job_name: jobName,
@@ -977,10 +914,10 @@ export const CreateCVInOrderToRegister = async (req, res, next) => {
                                 });
 
                         }
-        
+
                         return functions.setError(res, "Email này đã được sử dụng, vui lòng kiểm tra lại.", 400);
                     }
-    
+
                     return functions.setError(res, "Mật khẩu nhập lại không chính xác", 400);
                 }
 
@@ -1059,83 +996,21 @@ export const ForgotPassUv = async (req, res, next) => {
                 ],
             }, { use_id: 1, use_pass: 1, use_name: 1 }).lean();
             if (checkExists) {
-                await Users.updateOne({ use_id: checkExists.use_id }, {
+                const id = checkExists.use_id;
+                await Users.updateOne({ use_id: id }, {
                     use_update_time: functions.getTime()
                 });
-                const otp = functions.randomNumber();
-                if (username.includes('@')) {
-                    const startDate = new Date(new Date().toISOString().slice(0, 10)).getTime() / 1000;
-                    const endDate = startDate + 24 * 60 * 60;
-
-                    const checkCountOtp = await HistoryCountOtp.find({
-                        user_id: checkExists.use_id,
-                        usc_phone: username,  // Thay đổi thành email
-                        type: 1, // Loại gửi OTP qua email
-                        create_time: {
-                            $gte: startDate,
-                            $lte: endDate
-                        }
-                    }).lean();
-
-                    if (checkCountOtp.length < 5) {
-                        const id = await functions.getMaxId(HistoryCountOtp, 'id');
-                        await HistoryCountOtp.create({
-                            id,
-                            user_id: checkExists.use_id,
-                            usc_phone: username,  // Lưu email thay vì số điện thoại
-                            send_otp: otp,
-                            create_time: functions.getTime(),
-                            type: 1  // Loại gửi OTP qua email
-                        });
-
-                        await Users.updateOne({
-                            use_mail: username,
-                        }, { use_otp: otp });
-
-                        // Gửi OTP qua email
-                        functions.SendOtpMail(username, otp)
-                        // const checkSend = await functions.sendMail(
-                        //     `Mã OTP lấy lại mật khẩu tài khoản`,
-                        //     username,
-                        //     checkExists.use_name,
-                        //     otp, 
-                        //     1
-                        // );
-
-                        return functions.success(res, 'Hãy xác thực OTP.', { id: checkExists.use_id });
+                let check = '';
+                if (id) {
+                    check = await Users.findOne({ use_id: id }).lean();
+                    if (check) {
+                        delete check.password
+                        const conditionsToken = { auth: 1, type: 2, check };
+                        conditionsToken.use_id = id
+                        const token = await functions.createToken(conditionsToken, '60d');
+                        return functions.success(res, 'Xác nhận tài khoản hợp lệ. Vui lòng nhập mật khẩu mới', { token, data: check, id });
                     }
-                    return functions.setError(res, "Hết lượt gửi otp trong ngày.", 400);
-
-                } else {
-                    const startDate = new Date(new Date().toISOString().slice(0, 10)).getTime() / 1000;
-                    const endDate = startDate + 24 * 60 * 60;
-
-                    const checkCountOtp = await HistoryCountOtp.find({
-                        user_id: checkExists.use_id,
-                        usc_phone: username,
-                        type: 0,
-                        create_time: {
-                            $gte: startDate,
-                            $lte: endDate
-                        }
-                    }).lean();
-                    if (checkCountOtp.length < 5) {
-                        const id = await functions.getMaxId(HistoryCountOtp, 'id');
-                        await HistoryCountOtp.create({
-                            id,
-                            user_id: checkExists.use_id,
-                            usc_phone: username,
-                            send_otp: otp,
-                            create_time: functions.getTime(),
-                            type: 0
-                        });
-                        await Users.updateOne({
-                            use_phone: username,
-                        }, { use_otp: otp });
-                        functions.sendOtpSMS(username, otp);
-                        return functions.success(res, "Hãy xác thực OTP.", { id: checkExists.use_id });
-                    }
-                    return functions.setError(res, "Hết lượt gửi otp trong ngày.", 400);
+                    return functions.setError(res, "Tài khoản không tồn tại, vui lòng kiểm tra lại.", 400);
                 }
             }
             return functions.setError(res, 'Không tìm thấy tài khoản', 404);
@@ -1146,44 +1021,6 @@ export const ForgotPassUv = async (req, res, next) => {
     }
 };
 
-// xác nhận otp UV
-export const ConfirmOTP = async (req, res, next) => {
-    try {
-        const otp = Number(req.body.otp);
-        const id = Number(req.body.id);
-        const type = Number(req.body.type);
-        let check = '';
-        if (id && otp && type) {
-            if (type === 1) {
-                check = await Users.findOne({ use_id: id, use_otp: otp }).lean();
-            } else {
-                check = await UserCompany.findOne({ usc_id: id, usc_otp: otp }).lean();
-            }
-            if (check) {
-                // Cập nhật lại tk và gửi token
-                if (type === 1) {
-                    await Users.updateOne({ use_id: id }, { use_authentic: 1 });
-                    check = await Users.findOne({ use_id: id, use_otp: otp }).lean();
-                } else {
-                    await UserCompany.updateOne({ usc_id: id }, { usc_authentic: 1 });
-                    check = await UserCompany.findOne({ usc_id: id, usc_otp: otp }).lean();
-                }
-
-                delete check.password
-                const conditionsToken = { auth: 1, type: type == 1 ? 2 : 1, check };
-                if (type === 1) conditionsToken.use_id = id;
-                else conditionsToken.usc_id = id
-                const token = await functions.createToken(conditionsToken, '60d');
-                return functions.success(res, 'Xác nhận otp hợp lệ', { token, data: check });
-            }
-            return functions.setError(res, "OTP không đúng, vui lòng kiểm tra lại", 400);
-        }
-        return functions.setError(res, "Missing data", 400);
-    } catch (error) {
-        console.log(error.message)
-        return functions.setError(res, error.message);
-    }
-};
 // đổi mật khẩu ứng viên
 export const changePassUv = async (req, res) => {
     try {

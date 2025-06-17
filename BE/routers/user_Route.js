@@ -36,9 +36,6 @@ router.post('/LoginCandidate', formdata.parse(), user.LoginCandidate);
 // quên mật khẩu tài khoản ứng viên
 router.post('/ForgotPassUv', formdata.parse(), user.ForgotPassUv);
 
-// xác nhận otp NTD
-router.post('/ConfirmOTP', formdata.parse(), user.ConfirmOTP);
-
 // đổi mật khẩu ứng viên
 router.post('/changePassUv', formdata.parse(), functions.checkToken(3, 'auth'), user.changePassUv);
 

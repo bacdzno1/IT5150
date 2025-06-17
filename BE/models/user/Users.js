@@ -20,7 +20,7 @@ const Users = new mongoose.Schema({
     },
     use_authentic: {
         type: Number,
-        default: 0
+        default: 1
     },
     use_otp: {
         type: Number,

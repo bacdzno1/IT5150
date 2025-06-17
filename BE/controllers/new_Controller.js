@@ -1570,7 +1570,6 @@ export const detailJob_Comp = async(req, res) => {
         let type = 0
 
         // Ưu tiên theo thứ tự này 
-
         if (alias && typeof alias === 'string') {
             // Cố lấy id 
             const strId = alias.split('-').filter(part => !!(part.trim())).pop()
@@ -1581,9 +1580,7 @@ export const detailJob_Comp = async(req, res) => {
                     type = 1
 
                     const data = checkExistNew._doc
-
                     const iduser = await functions.getTokenJustUser(req, res);
-
                     const arrCity = data.new_city.split(',');
                     const new_cat_id = data.new_cat_id
                     console.log('tinh thanh',arrCity)
@@ -1702,7 +1699,6 @@ export const detailJob_Comp = async(req, res) => {
                     data.usc_phone = com ?.usc_phone
                     data.usc_name_email = com ?.usc_name_email
                     data.usc_name_phone = com ?.usc_name_phone
-                        // console.log('data after', data);
 
                     let cateName = '';
                     const arrNganhNghe = [];
@@ -1714,7 +1710,6 @@ export const detailJob_Comp = async(req, res) => {
                             if (result) cateName = result.cat_name;
                         }
                         arrNganhNghe.push(cate.find(item => item.cat_id == element));
-                        // console.log('element', element, 'cate', cate.find(item => item.cat_id == element));
                     }
                     data.arrNganhNghe = arrNganhNghe;
                     data.cateName = cateName;
@@ -1747,11 +1742,8 @@ export const detailJob_Comp = async(req, res) => {
                 }
             }
 
-            // NTD
-            // Tìm theo alias 
             if (alias) {
                 const data = await UserCompany.findOne({
-                    // usc_id: idNTD
                     usc_alias: alias
                 }, {
                     usc_id: 1,
@@ -1791,8 +1783,6 @@ export const detailJob_Comp = async(req, res) => {
                     const point = await TblPointCompany.findOne({ usc_id: idNTD }, { point_usc: 1 }).lean();
                     const endPoint = point ? point.point_usc : 0;
 
-                    // Lấy thêm danh sách tin tuyển dụng
-                    // console.log(idNTD, typeof idNTD)
                     const dataNewPromise = New.aggregate([
                         { $match: { new_user_id: Number(idNTD), new_active: 1, new_han_nop: { $gt: currentTime } } },
                         { $sort: { new_id: -1 } },
@@ -1818,13 +1808,14 @@ export const detailJob_Comp = async(req, res) => {
                                 new_create_time: 1,
                                 new_update_time: 1,
                                 usc_create_time: "$company.usc_create_time",
-                                // usc_logo: "$company.usc_logo",
                                 usc_logo: data.usc_logo,
                                 usc_company: "$company.usc_company",
                                 new_title: 1,
+                                new_nganh: 1,
                                 usc_alias: "$company.usc_alias",
                                 new_han_nop: 1,
-                                new_alias: 1
+                                new_alias: 1,
+                                is_login: 1
                             }
                         }
                     ]).exec();
@@ -1834,7 +1825,6 @@ export const detailJob_Comp = async(req, res) => {
                         Array.isArray(data ?.financial_sector) &&
                         data.financial_sector.length > 0 ?
                         data.financial_sector.map(item => `${item.id}`) : []
-                        // let conditions = finan_sect.length > 0 ? { 'financial_sector.id': { $in: finan_sect }, usc_id: { $ne: Number(idNTD) } } : { usc_id: { $ne: Number(idNTD) } }
                     const sameCompany_Promise = UserCompany.aggregate([
                         { $match: { usc_id: { $ne: Number(idNTD) } } },
                         { $sort: { usc_id: -1 } },
@@ -1889,17 +1879,18 @@ export const detailJob_Comp = async(req, res) => {
                                 new_update_time: 1,
                                 usc_create_time: "$company.usc_create_time",
                                 usc_logo: "$company.usc_logo",
-                                // usc_logo: data.usc_logo,
                                 usc_company: "$company.usc_company",
                                 new_title: 1,
+                                new_nganh: 1,
                                 usc_alias: "$company.usc_alias",
                                 new_han_nop: 1,
-                                new_alias: 1
+                                new_alias: 1,
+                                is_login: 1,
                             }
                         },
                         {
                             $addFields: {
-                                priority: { $cond: { if: { $in: [ finan_sect] }, then: 1, else: 0 } }
+                                priority: { $cond: { if: { $in: ["$new_nganh", finan_sect] }, then: 1, else: 0 } }
                             }
                         },
                         { $sort: { priority: -1 } },
@@ -1908,33 +1899,6 @@ export const detailJob_Comp = async(req, res) => {
                     const [dataNew, dataSameCom, dataSameJob] = await Promise.all([
                         dataNewPromise, sameCompany_Promise, sameJob_Promise
                     ]);
-
-                    // let dataSameCom2 = [], dataSameJob2 = []
-                    // if (dataSameCom.length < 5) {
-                    //     const sameCompany_Promise2 = UserCompany.aggregate([
-                    //         { $match: { usc_id: { $ne: Number(idNTD) } } },
-                    //         { $sort: { usc_id: -1 } },
-                    //         { $limit: 10 },
-                    //         {
-                    //             $project: {
-                    //                 usc_id: 1,
-                    //                 usc_company: 1,
-                    //                 usc_name: 1,
-                    //                 usc_alias: 1,
-                    //                 usc_size: 1,
-                    //                 usc_address: 1,
-                    //                 usc_company_info: 1,
-                    //                 usc_create_time: 1,
-                    //                 usc_logo: 1,
-                    //                 financial_sector: 1,
-                    //             }
-                    //         }
-                    //     ]).exec();
-
-                    //     const [result] = await Promise.all([])
-                    // }
-                    // const dataNew = await New.find({new_user_id: idNTD, new_active: 1}, {}).sort({ new_id: -1 })
-                    // console.log(dataNewPromise, dataNew)
 
                     const iduser = await functions.getTokenJustUser(req, res);
                     const arrPromiseNopHoSo = []

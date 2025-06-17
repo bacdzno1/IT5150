@@ -1031,7 +1031,7 @@ export const ApplyJob = async (req, res) => {
         // Cần phải check xác thực 
         const checkUser = await Users.findOne({ use_id: iduv })
         if (checkUser) {
-            const auth = checkUser?.use_authentic || 0
+            const auth = checkUser?.use_authentic || 1
             if (auth == 0) {
                 return functions.setError(res, 'Action requires account verification', 401)
             }

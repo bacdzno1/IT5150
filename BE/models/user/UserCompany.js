@@ -98,7 +98,7 @@ const UserCompany = new mongoose.Schema({
     },
     usc_authentic: {
         type: Number,
-        default: 0
+        default: 1
     },
     usc_otp: {
         type: Number,

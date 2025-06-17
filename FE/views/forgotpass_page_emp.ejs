@@ -40,15 +40,6 @@
                     <div class="title_attend">
                         Mời bạn nhập <strong>Email</strong> đã đăng ký tài khoản trên <span class="color-main fw-700"><a target="_blank" href="http://localhost:9020">topcv1s.com</a></span>
                     </div>
-                    <p class="notice" style="display: none;">(Mã OTP được TopCv1s gửi về <%= "email của bạn" %>: <span class="blue" style="color: #00b14f;"></span>)</p>
-                    <div class="otp_"></div>
-                    <div id="otp_box" class="box_confirm" style="display: none;">
-                        <input id="otp_input" type="text" maxlength="6" style="background: repeating-linear-gradient(90deg, #4C5BD4 0, #4C5BD4 1ch, transparent 0, transparent 1.8ch) 0 100%/10ch 2px no-repeat; font: 6ch 'Droid Sans Mono', Consolas, monospace; padding: 0; border: none; width: 280px; margin: 0 auto 24px auto; letter-spacing: 0.8ch; outline: 0;" />
-                        <span id="otp_error" class="text_error"></span>
-                        <button id="verify_otp" class="btn_confirm" type="button">Xác nhận</button>
-                        <div id="otp_countdown" style="text-align: center;"></div>
-                        <button id="resend_otp" class="refesh_otp" type="button" disabled style="cursor: not-allowed;">Gửi lại</button>
-                    </div>
                     <div class="forgot-act" id="send_otp_box">
                         <div class="forgot-btn" id="send_otp">
                             LẤY LẠI MẬT KHẨU
@@ -63,12 +54,8 @@
             </div>
         </div>
     </div>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://cdn.rawgit.com/hilios/jQuery.countdown/2.2.0/dist/jquery.countdown.min.js"></script>
 
     <script>
-        // let fbKey;
         let isWaiting = false;
         $(document).ready(function () {
             if (getCookie('auth') == "1") {
@@ -76,39 +63,27 @@
                 return;
             }
 
-            const handleWait = () => {
-                const countdown = new Date().getTime() + 0.5 * 60 * 1000;
-                isWaiting = true;
-                $('#otp_countdown').countdown(countdown, function (event) {
-                    $(this).html(event.strftime('Chưa nhận được OTP? Hãy gửi lại sau: %M:%S'));
-                    $('#resend_otp').prop('disabled', true).css("cursor", "not-allowed");
-                }).on('finish.countdown', function () {
-                    isWaiting = false;
-                    $('#resend_otp').prop('disabled', false);
-                });
-            };
-
-            const handleVerify = async () => {
-                const otp = $('#otp_input').val();
-                if (otp) {
-                    const forgotid = getCookie('forgotId')
-                    console.log(">>> Forgot id: ", forgotid)
-
+            $('#send_otp').click(function () {
+                var account = $('#account_forgot').val();
+                $('.blue').text(account)
+                if (account) {
                     $.ajax({
-                        url: 'http://localhost:3050/api/topcv1s/user/ConfirmOTP',
-                        type: 'POST',
+                        method: "POST",
+                        url: "http://localhost:3050/api/topcv1s/user/EmployersForgotPass",
                         data: {
-                            otp: otp,
-                            id: forgotid,
-                            type: 2
+                            phoneTK: account
                         },
-                        // dataType: "JSON",
-                        success: function (data) {
-                            if (data.data.result) {
-                                alert(data.data.message);
-                                document.cookie = `forgotToken=${data.data.token}; path=/`;
-                                $('#otp_box').remove();
-                                $('#captcha').remove();
+                        success: function (response) {
+                            if (response.data && response.data.result) {
+                                alert("Yêu cầu đặt lại mật khẩu đã được gửi thành công!");
+                                document.cookie = `forgotToken=${response.data.token}; path=/`;
+                                document.cookie = `emailForgot=${account}; path=/`;
+                                document.cookie = `cookieForgetPass=1; path=/`;
+                                document.cookie = `typeForgot=1; path=/`;
+                                document.cookie = `forgotId=${response.data.id}; path=/`;
+                                $('.form-account').hide();
+                                $('.title_attend').hide();
+                                $('#send_otp_box').hide();
                                 var html = `
                                     <div class="item-newpass">
                                         <div class="label-newpass">
@@ -181,44 +156,6 @@
                                         inputField.attr('type', 'password');
                                     }
                                 });
-
-                            } else {
-                                alert("Lỗi vui lòng thử lại");
-                                window.location.reload();
-                            }
-                        }
-                    });
-                } else {
-                    alert("Vui lòng nhập mã OTP")
-                    return;
-                }
-            };
-            $('#send_otp, #resend_otp').click(function () {
-                var account = $('#account_forgot').val();
-                $('.blue').text(account)
-                if (account) {
-                    $.ajax({
-                        method: "POST",
-                        url: "http://localhost:3050/api/topcv1s/user/EmployersForgotPass",
-                        data: {
-                            phoneTK: account
-                        },
-                        success: function (response) {
-                            if (response.data && response.data.result) {
-                                console.log(">>> response data: ", response);
-                                alert("Yêu cầu đặt lại mật khẩu đã được gửi thành công!");
-                                // document.cookie = `phoneForgot=${account}; path=/`;
-                                document.cookie = `emailForgot=${account}; path=/`;
-                                document.cookie = `cookieForgetPass=1; path=/`;
-                                document.cookie = `typeForgot=1; path=/`;
-                                document.cookie = `forgotId=${response.data.id}; path=/`;
-                                $('.form-account').hide();
-                                $('.title_attend').hide();
-                                // handleSend();
-                                $('#send_otp_box').hide();
-                                $('#otp_box').show();
-                                $('.notice').show();
-                                handleWait();
                             } else {
                                 alert("Có lỗi xảy ra: " + ("Vui lòng thử lại sau."));
                             }
@@ -233,8 +170,6 @@
                     alert("Vui lòng nhập số điện thoại đã đăng ký");
                 }
             })
-
-            $('#verify_otp').on('click', handleVerify);
 
             function getPhoneNumberFromCookies() {
                 if (getCookie('phoneForgot')) {

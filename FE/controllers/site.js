@@ -39,14 +39,6 @@ exports.cvpage = async (req, res) => {
     }
     return res.render('cv_page', { url, blog, cvList });
 }
-exports.otp = async (req, res) => {
-    const url = req.url;
-    // console.log(req.params)
-    let data = {
-        test: 'data test'
-    }
-    return res.render('otp_page', { url });
-}
 exports.forgotpassword = async (req, res) => {
     const url = req.url;
     // console.log(req.params)
