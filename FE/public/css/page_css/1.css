@@ -122,19 +122,6 @@
 	z-index: 0;
 }
 
-.paging-arrow {
-	position: relative;
-}
-
-.paging-arrow::before {
-	content: '';
-	position: absolute;
-	height: 19px;
-	left: -31px;
-	width: 26px;
-	background-image: url(https://timviec365.vn/images/s_page.gif);
-}
-
 #liveChatContainer {
 	display: none;
 }

@@ -574,21 +574,6 @@ img[cvo-form-field][type="image"]:hover {
   border-bottom: 1px dashed #1fbc89;
 }
 
-.paging-arrow {
-  width: 52px;
-  height: 20px;
-  background-color: #02b5e1;
-  color: #fff;
-  font-size: 12px;
-  line-height: 20px;
-  text-align: center;
-  margin-left: -54px;
-  margin-bottom: -10px;
-  cursor: default;
-  transition: all 0.3s ease;
-  border-radius: 3px;
-}
-
 .select2-container {
   font-size: 12px;
 }

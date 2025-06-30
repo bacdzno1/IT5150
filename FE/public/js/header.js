@@ -112,10 +112,6 @@ $(document).ready(function () {
             socketScript.integrity = "sha384-OoIbkvzsFFQAG88r+IqMAjyOtYDPGO0cqK5HF5Uosdy/zUEGySeAzytENMDynREd"
             socketScript.crossOrigin = "anonymous"
             document.body.appendChild(socketScript)
-            // livechat
-            const liveChatScript = document.createElement("script")
-            liveChatScript.src = "/js/livechat/checkcandidate.js"
-            document.body.appendChild(liveChatScript)
         }
     } else {
         $(".nav-only-candi").closest(".nav-item").remove();
