@@ -644,49 +644,12 @@ export const Home = async(req, res) => {
                 }
             }
         ])
-        const CongTyHangDau_Promise = await New.aggregate([
-            {
-                $group: {
-                    _id: '$new_user_id',
-                    totalPosts: { $sum: 1 }
-                }
-            },
-            {
-                $lookup: {
-                    from: 'UserCompany',
-                    localField: '_id',
-                    foreignField: "usc_id",
-                    as: 'companyInfo'
-                }
-            },
-            {
-                $unwind:  '$companyInfo'
-            },
-            {
-                $project: {
-                    usc_id: '$companyInfo.usc_id',
-                    usc_company: '$companyInfo.usc_company',
-                    usc_alias: '$companyInfo.usc_alias',
-                    usc_logo: '$companyInfo.usc_logo',
-                    usc_create_time: '$companyInfo.usc_create_time',
-                    usc_city: '$companyInfo.usc_city',
-                    totalPosts: '$totalPosts'
-                }
-            },
-            {
-                $sort: { totalPosts: -1 }
-            },
-            {
-                $limit: 10
-            }
-        ]);
         const com_promise = UserCompany.distinct("usc_id")
         const [
             ViecLamHapDan,
             TinThuongHapDan,
             ViecLamThuongHieu,
             TinThuongThuongHieu,
-            CongTyHangDau,
             Cityy,
             com
         ] =
@@ -695,7 +658,6 @@ export const Home = async(req, res) => {
             TinThuongHapDan_Promise,
             ViecLamThuongHieu_Promise,
             TinThuongThuongHieu_Promise,
-            CongTyHangDau_Promise,
             City.find({}, { cit_id: 1, cit_name: 1 }).lean(),
             com_promise,
         ]);
@@ -771,11 +733,6 @@ export const Home = async(req, res) => {
             });
             element.new_city = cityArr;
         }
-        const leng_congTyHangDau = CongTyHangDau.length;
-        for (let i = 0; i < leng_congTyHangDau; i++) {
-            const element = CongTyHangDau[i];
-            element.usc_logo = functions.getAvatarNTD(element.usc_create_time, element.usc_logo);
-        }
         let nganhNgheNoiBat = []
         const arr = ['47', '35', '1', '30', '40', '3', '33', '45'];
         const arrHotCate = [
@@ -811,7 +768,6 @@ export const Home = async(req, res) => {
         data.ViecLamThuongHieu = ViecLamThuongHieu.length < 30 ? [...ViecLamThuongHieu, ...TinThuongThuongHieu] : [...ViecLamThuongHieu];
         data.TinThuongHapDan = TinThuongHapDan;
         data.TinThuongThuongHieu = TinThuongThuongHieu;
-        data.TopCompany = CongTyHangDau;
         data.JobNumber = JobNumber;
         data.Outstanding_Category = nganhNgheNoiBat;
         data_home = data;

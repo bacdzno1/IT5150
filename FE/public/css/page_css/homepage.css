@@ -244,38 +244,9 @@
     gap: 8px;
     align-items: center;
 }
-.top-emp, .hot-caarer, .handbook{
+.hot-caarer, .handbook{
     padding-top: 40px;
 }
-
-.top-emp .emp-list{
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-    margin-bottom: 30px;
-}
-.top-emp .emp-item{
-    box-shadow: 3px 4px 5px 0px #00000040;
-    padding: 18px 21.5px 21px 21.5px;
-    border-radius: 10px;
-}
-
-.top-emp .emp-avar{
-    object-fit: none;
-}
-
-.top-emp .emp-name{
-    font-size: 15px;
-    color: #2D3E5D;
-}
-
-.top-emp .emp-folw{
-    color: #2D3E5DE6;
-    background-color: #ECECEC;
-    border-radius: 5px;
-    padding: 6.5px 13.5px;
-}
-
 .caarer-list{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -491,9 +462,6 @@
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
-    .top-emp .emp-list{
-        grid-template-columns: repeat(2, 1fr);
-    }
     .hb-item{
         width: calc(50% - 30px);
     }
@@ -501,9 +469,6 @@
 @media only screen and (max-width:768px){
     .jobs-item .jobs-qview {
         max-width: 380px;
-    }
-    .top-emp .emp-list{
-        grid-template-columns: repeat(1, 1fr);
     }
     .fil-cont{
         max-width: 300px;

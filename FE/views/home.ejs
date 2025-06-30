@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +12,6 @@
     <link rel="stylesheet" href="/css/search_job.css">
     <link rel="stylesheet" href="/css/custom_select2.css">
 </head>
-
 <body id="body">
     <%- include('layouts/header', {}); %>
     <div id="content" style="padding-top:80px">
@@ -98,7 +96,6 @@
                             <img src="/images/icon/Chevron-Right.svg" width="24" height="24" alt="Next Icon Filter">
                         </div>
                     </div>
-
                 </div>
                 <p class="ins fs-6 d-flex align-c gap-1">
                     <img src="/images/icon/instructicon.svg" width="19" height="19" alt="Instruct Icon">
@@ -230,24 +227,6 @@
                         <div class="next-nav rounded-circle bg-white d-flex justify-c">
                             <img src="/images/icon/Chevron-Right.svg" loading="lazy" width="24" height="24" alt="Next Icon Filter">
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="top-emp bg-white">
-            <h2 class="title fw-700 color-main text-c">
-                CÁC CÔNG TY TUYỂN DỤNG HÀNG ĐẦU
-            </h2>
-            <div class="container top-emp-content">
-                <div class="emp-list list-slide"></div>
-                <div class="act-nav d-flex align-c justify-c">
-                    <div class="pre-nav rounded-circle bg-white d-flex justify-c">
-                        <img src="/images/icon/Chevron-Left.svg" loading="lazy" width="24" height="24" alt="Prev Icon Filter">
-                    </div>
-                    <div class="page-nav text-c fs-5 fw-600">
-                    </div>
-                    <div class="next-nav rounded-circle bg-white d-flex justify-c">
-                        <img src="/images/icon/Chevron-Right.svg" loading="lazy" width="24" height="24" alt="Next Icon Filter">
                     </div>
                 </div>
             </div>
@@ -489,19 +468,15 @@
                 const totalWidth = totalItems * fullItemWidth - gap;
                 const maxScroll = totalWidth - visibleWidth;
                 let currentScroll = 0;
-
                 function updatePosition() {
                     $filList.css('transform', `translateX(-${currentScroll}px)`);
                 }
-
                 function updateButtons() {
                     $prevBtn.toggleClass('disabled', currentScroll === 0);
                     $nextBtn.toggleClass('disabled', currentScroll >= maxScroll);
                 }
-
                 updateButtons();
             }
-
             filter('.hot-job');
             filter('.new-job');
         });
@@ -513,10 +488,8 @@
             var scrollSpeed = 0;
             var momentumInterval;
             var scroll_able;
-
             var isMoving = false;
             var moveTimeout;
-
             function startDragging(e, $element) {
                 isDown = true;
                 isMoving = false;
@@ -527,7 +500,6 @@
                 clearInterval(momentumInterval);
                 scroll_able = $element;
             }
-
             function stopDragging() {
                 if (!isDown) return;
                 isDown = false;
@@ -536,7 +508,6 @@
                     momentumScroll();
                 }
             }
-
             function drag(e) {
                 if (!isDown) return;
                 e.preventDefault();
@@ -550,7 +521,6 @@
                     isMoving = false;
                 }, 100);
             }
-
             function momentumScroll() {
                 inertia = (scrollSpeed > 0 ? 15 : -15);
                 momentumInterval = setInterval(function () {
@@ -562,30 +532,23 @@
                     inertia *= 0.95;
                 }, 20);
             }
-
             $('.scroll_able').on('mousedown', function (e) {
                 startDragging(e, $(this));
             });
-
             $(document).on('mouseup', stopDragging);
             $(document).on('mousemove', drag);
             $('.scroll_able').on('mouseleave', stopDragging);
-
             $('.scroll_able').on('touchstart', function (e) {
-            
                 startDragging(e, $(this));
             });
-
             $('.scroll_able').on('touchend', stopDragging);
             $('.scroll_able').on('touchmove', drag);
-
             $('.pre-btn').on('click', function () {
                 var $scroll_able = $(this).siblings('.fil-cont').find('.scroll_able:visible');
                 $scroll_able.animate({
                     scrollLeft: $scroll_able.scrollLeft() - 150
                 }, 300);
             });
-
             $('.next-btn').on('click', function () {
                 var $scroll_able = $(this).siblings('.fil-cont').find('.scroll_able:visible');
                 $scroll_able.animate({
@@ -593,34 +556,27 @@
                 }, 300);
             });
         });
-
-
         $(document).ready(function () {
             $('.jobs-compa').each(function () {
                 var tooltipText = $(this).attr('data-tooltip');
                 var $tooltipContent = $('<div class="tooltip-content"></div>').text(tooltipText);
                 $(this).append($tooltipContent);
-
                 $(this).on('mouseenter', function () {
                     $tooltipContent.css('opacity', 1);
                 });
-
                 $(this).on('mouseleave', function () {
                     $tooltipContent.css('opacity', 0);
                 });
             });
         });
-
         function paginateJobs(jobListSelector, itemsPerPage) {
             const $jobList = $(jobListSelector + ' .list-slide');
             const $prevNav = $(jobListSelector + ' .pre-nav');
             const $nextNav = $(jobListSelector + ' .next-nav');
             const $pageNav = $(jobListSelector + ' .page-nav');
-
             const $items = $jobList.find('.slide-item');
             let currentPage = 1;
             const totalPages = Math.ceil($items.length / itemsPerPage);
-
             function showPage(page) {
                 const start = (page - 1) * itemsPerPage;
                 const end = start + itemsPerPage;
@@ -630,7 +586,6 @@
                 }
                 toggleNavButtons();
             }
-
             function toggleNavButtons() {
                 if (totalPages <= 1) {
                     $prevNav.addClass('hidden');
@@ -640,14 +595,12 @@
                     $nextNav.removeClass('hidden');
                 }
             }
-
             $prevNav.off('click').on('click', function () {
                 if (currentPage > 1) {
                     currentPage--;
                     showPage(currentPage);
                 }
             });
-
             $nextNav.off('click').on('click', function () {
                 if (currentPage < totalPages) {
                     currentPage++;
@@ -657,41 +610,6 @@
             showPage(currentPage);
             toggleNavButtons();
         }
-
-        $(document).ready(function () {
-            function setupPagination() {
-                if ($(window).width() < 1024) {
-                    paginateJobs('.top-emp', 2);
-                } else if ($(window).width() < 768) {
-                    paginateJobs('.top-emp', 1);
-                } else {
-                    paginateJobs('.top-emp', 4);
-                }
-                if ($(window).width() > 1024) {
-                    paginateJobs('.top-emp', 4);
-                    paginateJobs('.hot-caarer', 8);
-                } else if ($(window).width() > 576) {
-                    paginateJobs('.hot-caarer', 4);
-                    paginateJobs('.top-emp', 2);
-                } else {
-                    paginateJobs('.top-emp', 1);
-                    paginateJobs('.hot-caarer', 2);
-                }
-            }
-
-            if ($(window).width() > 480) {
-                setupPagination();
-            }else{
-                let hasSet = false; 
-                $(window).on('scroll', function() {
-                    if (!hasSet) { 
-                        hasSet = true;
-                        setupPagination();
-                    }
-                });
-            }
-            $(window).resize(setupPagination);
-        });
     </script>
     <script src="/js/custom_select.js"></script>
     <script type="module" src="/js/home.js"></script>
@@ -699,11 +617,9 @@
         function checkRegister() {
             try {
                 var typeRegister = getCookie('topcv1s_typeRegister');
-                // var phoneCookie = getCookie(cookiePhone);
                 var phoneCookie = getCookie('use_phone' || 'phone'); 
                 if (typeRegister && phoneCookie) {
                     var phone = '+84' + String(phoneCookie.slice(1));
-
                     if (typeRegister === 'dangkycv') {
                         var script = `dataLayer.push({
                             'event': 'dangkycv',
@@ -712,8 +628,6 @@
                         addScriptJs(script);
                         Cookies.remove('topcv1s_typeRegister');
                     }
-
-                    // NTD đăng ký 
                     if (typeRegister === 'dangkyntd') {
                         var script = `dataLayer.push({
                             'event': 'dangkyntd',
@@ -722,8 +636,6 @@
                         addScriptJs(script);
                         Cookies.remove('topcv1s_typeRegister');
                     }
-
-                    // Các luồng đăng ký ứng viên còn lại 
                     if (typeRegister === 'dangkyuv') {
                         var script = `dataLayer.push({
                             'event': 'dangkyuv',
@@ -739,5 +651,4 @@
         }
     </script>
 </body>
-
 </html>

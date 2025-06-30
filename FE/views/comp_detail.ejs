@@ -16,7 +16,6 @@
 
 <body>
     <%- include('layouts/header', {}); %>
-
     <div id="content">
         <div class="container">
             <div class="navigation container">
@@ -30,7 +29,7 @@
                         <img onerror="this.onerror=null;this.src='/images/img/default_logo.webp';" src="<%= dataToRender.data.usc_logo %>" alt="<%= dataToRender.data.usc_company %>" loading="eager" class="profile-picture">
                     </div>
                     <div class="profile-details">
-                        <h1 class="profile-name fw-700">Công ty <%= dataToRender.data.usc_company %> và thông tin tuyển dụng <%= dataToRender.data.usc_company %> - TOPCV1S</h1>
+                        <h1 class="profile-name fw-700"><%= dataToRender.data.usc_company %> - TOPCV1S</h1>
                         <span class="profile-contact">
                             <div class="links">
                                 <div class="d-flex gap-1 pt-1">
