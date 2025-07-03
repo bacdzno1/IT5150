@@ -26,14 +26,6 @@
     gap: 20px;
 }
 
-.mb-20px {
-    margin-bottom: 20px;
-}
-
-.mb-12px {
-    margin-bottom: 12px;
-}
-
 .cnt-ban {
     background: linear-gradient(90deg, #00b14f 6.45%, #4298A0 35.33%, #01BBCC 64.21%, #00b14f 93.09%);
     padding: 26px 33.5px;
@@ -46,7 +38,6 @@
 }
 
 .cnt-right {
-    /* height: 100vh; */
     margin-left: 343px;
 }
 
@@ -75,10 +66,6 @@
     background-color: #ffffff;
     padding: 12px 10px;
     text-align: center;
-}
-
-.cs-gap-10px {
-    gap: 10px;
 }
 
 .cnt-mag-paginate {
@@ -141,12 +128,6 @@
     cursor: pointer;
     border: none;
     border-radius: 4px;
-}
-
-.can_status {
-    padding-right: 13px;
-    border: none;
-    outline: none;
 }
 
 .remove_can {
@@ -256,10 +237,6 @@
     width: 100%;
 }
 
-.d_flex {
-    display: flex;
-}
-
 .fl_cl {
     flex-direction: column;
     gap: 10px;
@@ -301,7 +278,6 @@
 }
 
 @media only screen and (max-width: 1366px) {
-
     .cnt-top,
     .cnt-mag {
         margin: 0 23px 20px 23px;

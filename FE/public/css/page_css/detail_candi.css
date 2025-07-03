@@ -194,9 +194,6 @@
     padding:20px;
     font-family: 'Roboto';
 }
-.d_flex{
-    display: flex;
-}
 .fl_cl{
     flex-direction: column;
 }
