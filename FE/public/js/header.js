@@ -70,7 +70,6 @@ $(document).ready(function () {
         } else if (type && type == 2) {
             var styleMenu = windowWidth <= 1024 ? ".drop-candi" : ".candi_info";
             let userLogo = getCookieNew("use_logo");
-            // let userName = getCookie("userName");
             let userName = getCookieNew("userName");
             let useralias = convertToAlias(userName);
             let userPhoneTk = getCookie("use_phone");

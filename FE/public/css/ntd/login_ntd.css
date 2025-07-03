@@ -1,37 +1,39 @@
-p{
+p {
     margin: 0;
 }
 
-#content{
+#content {
     background-color: #F1F1F1;
     font-family: Roboto;
 }
-.login-content{
+
+.login-content {
     padding-top: 20vh;
     padding-bottom: 20vh;
     margin: 0 30px;
 }
 
-.right-content{
+.right-content {
     display: flex;
     flex-direction: column;
     border-radius: 6px;
 }
 
-.right-content .right-top{
+.right-content .right-top {
     padding: 16px 0px 16px 0px;
     border-bottom: 1px solid #989898
 }
 
-.left-content, .right-content{
+.left-content,
+.right-content {
     flex: 0 0 calc(50% - 100px);
 }
 
-.right-form{
+.right-form {
     padding: 40px 33px 24px 33px;
 }
 
-.right-form input{
+.right-form input {
     width: 100%;
     color: #92A3BC;
     border: none;
@@ -42,21 +44,22 @@ p{
     border: none;
 }
 
-.right-form input::placeholder{
+.right-form input::placeholder {
     color: #92A3BC;
 }
 
-.right-form .pass-input{
+.right-form .pass-input {
     margin-top: 32px;
 }
 
-.right-form .phone-input, .right-form .pass-input{
+.right-form .phone-input,
+.right-form .pass-input {
     margin-left: 28px;
     margin-right: 28px;
     margin-bottom: 32px;
 }
 
-.right-form .form-item:first-child{
+.right-form .form-item:first-child {
     border-bottom: 1px solid #989898;
 }
 
@@ -77,21 +80,24 @@ p{
     right: -30px;
 }
 
-.right-act button{
+.right-act button {
     width: calc(100% + 60px);
     margin-left: -30px;
     padding: 16px 0px 16px 0px;
-    border:none;
+    border: none;
 
 }
-.right-ques{
-    padding: 14px 0 24px 0;;
+
+.right-ques {
+    padding: 14px 0 24px 0;
+    ;
 }
 
 .right-ques .ques-exist {
     margin-top: 14px;
 }
-.right-ques .ques-exist a{
+
+.right-ques .ques-exist a {
     color: #EE1C51;
 }
 
@@ -103,32 +109,36 @@ p{
 }
 
 @media only screen and (max-width: 1366px) {
-    .left-content, .right-content{
+    .left-content,
+    .right-content {
         flex: 0 0 calc(50% - 50px);
     }
 }
 
 @media only screen and (max-width: 1024px) {
-    .left-content{
+    .left-content {
         display: none !important;
     }
-    .right-content{
+
+    .right-content {
         flex: 1;
     }
-    .login-content{
+
+    .login-content {
         width: 80%;
     }
 }
 
-@media only screen and (max-width: 576px){
+@media only screen and (max-width: 576px) {
     .right-act button {
         width: 100%;
         margin-left: 0;
     }
+
     .right-act img[alt="Left Button"] {
         left: 0;
     }
-    
+
     .right-act img[alt="Right Button"] {
         right: 0;
     }
@@ -138,25 +148,33 @@ p{
         padding-top: 10vh;
         padding-bottom: 10vh;
     }
-    .right-act{
+
+    .right-act {
         display: flex;
     }
-    .right-form{
+
+    .right-form {
         padding: 20px 13px 20px 13px;
     }
-    .phone-input, .pass-input{
+
+    .phone-input,
+    .pass-input {
         gap: 8px;
     }
-    .right-form .phone-input, .right-form .pass-input {
+
+    .right-form .phone-input,
+    .right-form .pass-input {
         margin-left: 16px;
         margin-right: 16px;
         margin-bottom: 18px;
     }
-    .login-content{
+
+    .login-content {
         width: 90%;
     }
-    .form-item .pass-input, .form-item .phone-input{
+
+    .form-item .pass-input,
+    .form-item .phone-input {
         gap: 8px;
     }
 }
-
