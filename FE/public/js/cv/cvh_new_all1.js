@@ -6244,7 +6244,6 @@ function resg_new() {
     name = $("#cv-profile-fullname").text().replace(/\n/g, '').replace(/<br>/g, '').replace(/\s\s+/g, ' ').trim(),
     sex = $('#cv-profile-sex').text().replace(/\n/g, '').replace(/<br>/g, '').replace(/\s\s+/g, ' ').trim(),
     birthday = $("#cv-profile-birthday").text().replace(/\n/g, '').replace(/<br>/g, '').replace(/\s\s+/g, ' ').trim();
-  // cv_name = $('.modal_down_file input').val();
   if (name.toLowerCase() == 'admin') {
     alert('Tên không hợp lệ, vui lòng đặt lại tên')
     $("#modal_view").hide();

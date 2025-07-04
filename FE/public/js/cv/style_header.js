@@ -625,13 +625,10 @@ $('.close,.btn-pop-click:not(.close_uv)').click(function () {
 $('.close_uv').click(function () {
 	$('.pop-nangcao').fadeToggle('fast')
 })
-// if ($('.city_cate,.city_ab').length) {
-// 	$('.city_cate,.city_ab').select2()
-// }
 // js chung phần ứng tuyển
-$(document).on('click', '.close_pop_login', function () {
-	$('.overlay,.overlay_nhs,.overlay_lhs,.overlay_send_mess').hide()
-})
+// $(document).on('click', '.close_pop_login', function () {
+// 	$('.overlay,.overlay_nhs,.overlay_lhs,.overlay_send_mess').hide()
+// })
 $(document).on('change', '.check_vl', function () {
 	var sll = $('.check_vl:checked').length
 	$('.soluongcv').html(sll)
@@ -672,102 +669,6 @@ $(document).on('click', '.btn_ungtuyen_nvt', function () {
 		})
 	}
 })
-
-function getVlgy(id_new, user_id = 0) {
-	if ($('.pop_loader').length) {
-		$('.pop_loader').show()
-	}
-	$.ajax({
-		type: 'post',
-		url: '../ajax/goi_y_vl_new.php',
-		data: { new_id: id_new },
-		dataType: 'json',
-		success: function (data) {
-			if ($('.pop_loader').length) {
-				$('.pop_loader').hide()
-			}
-			let html_main = renderPopupNhs(data, user_id)
-			$('.overlay_nhs').html(html_main)
-			let html = ''
-			$.each(data, function (index, val) {
-				html += `
-                <div class="item_cate item_cate_nhs">
-                    <div class="input-checkbox">
-                        <input type="checkbox" class="check_vl" name="fieldset" id="checkbox2-${val.new_id}" checked="" value="${val.new_id}" />
-                        <label for="checkbox2-${val.new_id}"></label>
-                    </div>
-                    <div class="img_cate">
-                        <img src="${val.logo_avt}" onerror='this.onerror=null;this.src="https://devnext.timviec365.vn/static-tv/images/no-image.png";' alt="${val.usc_company}" />
-                    </div>
-                    <div class="center_cate">
-                        <div class="center_cate_l">
-                            <p><a rel="nofollow" href="${val.link_job}" title="${val.new_title}" target="blank" class="title_cate">${val.new_title}</a></p>
-                            <p><a href="${val.link_company}" rel="nofollow" title="${val.usc_company}">${val.usc_company}</a></p>
-                            <p style="color: #6F6F6F;">Hạn nộp: ${val.date}</p>
-                            <p>
-                                <span class="cate_dd">${val.city_name}</span>
-                                <span class="cate_ml">${val.salary}</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            `
-			})
-			$('.nhs_main_2').append(html)
-			$('.overlay_nhs').show()
-		},
-	})
-}
-
-function renderPopupNhs(list_new, user_id = 0) {
-	let html = ''
-	if (list_new.length > 0) {
-		html += `<div class="wapper wapper_nhs">
-                    <div class="auth_form form_vltt">
-                        <div class="nhs_header">
-                            <img class="nhs_bag" src="https://devnext.timviec365.vn/static-tv/images/loc/bag.png">
-                            <p class="nhs_title_2">Timviec365.vn Thông báo</p>
-                            <img class="close_pop_login" src="https://devnext.timviec365.vn/static-tv/images/loc/close.png" alt="close" />
-                        </div>
-                        <div class="nhs_main_2">
-                            <div class="gy_tit">
-                                <p class="gy_title" style="font-size: 16px"><span style="color: #3BB54A">Nộp hồ sơ thành công </span><span style="color: #307df1">Timviec365.vn</span> gợi ý cho bạn một số việc làm tương tự</p>
-                                <? if ($layoutType != 'mobile') { ?>
-                                    <p>Chúng tôi đã lọc ra danh sách công việc phù hợp với những tiêu chí của bạn</p>
-                                    <p style="color: #FD1616">Click vào từng việc làm để xem thêm thông tin chi tiết !!</p>
-                                <? } ?>
-                            </div>
-                        </div>
-                        <div class="pop_footer">
-                            <div class="pop_tf">
-                                <p>Click <img src="https://devnext.timviec365.vn/static-tv/images/loc/tick_2.png"> để bỏ chọn công việc bạn không mong muốn</p>
-                                <p>Bạn muốn ứng tuyển <span style="color: #FF490F;" class="soluongcv">5</span> vị trí ở trên</p>
-                            </div>
-                            <span class="btn_ungtuyen_nvt" data-id="${user_id}" data-alert="">Nộp hồ sơ</span>
-                        </div>
-                    </div>
-                </div>`
-	} else {
-		html += `<div class="wapper">
-                <div class="auth_form">
-                    <p class="nhs_title">Timviec365.vn Thông báo</p>
-                    <div class="nhs_main">
-                        <p class="nhs_info">Bạn đã nộp hồ sơ thành công!</p>
-                        <div class="nhs_nd">
-                            <p>Hồ sơ của bạn đã được gửi thành công tới vị trí <b><?= $row['new_title'] ?></b> của <b><?= $name_company ?></b></p>
-                            <p>Nhà tuyển dụng sẽ liên hệ với bạn qua email hoặc số điện thoại nếu hồ sơ của bạn phù hợp.</p>
-                            <p>Vui lòng thường xuyên kiểm tra email và mở máy điện thoại để không bỏ lỡ cơ hội được phỏng vấn</p>
-                        </div>
-                        <div class="nhs_kk">
-                            <p>Bạn gặp khó khăn? Hotline hỗ trợ <span style="color: #ff9a00;">1900633682</span> ấn phím <span style="color: #ff9a00;">1</span></p>
-                            <span class="close_pop_login">Hoàn thành</span>
-                        </div>
-                    </div>
-                </div>
-            </div>`
-	}
-	return html
-}
 $(document).on('click', function (e) {
 	let container = $('.usc_show_tb'),
 		btn = $('.menu_item ')

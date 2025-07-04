@@ -1171,12 +1171,3 @@ const appendScript = () => {
 function preventDefaultAction(e) {
   e.preventDefault();
 }
-
-function updateAvatarLibrary(url) {
-  const libraryContainer = $('.upload_avar_libra');
-
-  if (url && !url.includes('no_avatar')) {
-    const imgElement = $('<div class="avar_libra_item"><img loading="lazy" src="' + url + '" width="70" height="70" alt="Avar Library" /></div>');
-    libraryContainer.append(imgElement);
-  }
-}

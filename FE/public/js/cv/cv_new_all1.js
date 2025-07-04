@@ -423,11 +423,6 @@ $(document)
         box_id = $(this).parents(".cvo-block").attr("id");
       }
       $(`.item_suggest`).removeClass("active");
-      $("#hoso-scroll").css("height", $("#page-cv").height());
-      $("#hoso-scroll .box_suggest .box_suggest_content").css(
-        "max-height",
-        "calc(100vh - 90px)"
-      );
       boxOffset = $(this).offset();
       $(`.item_suggest[data-id="${box_id}"]`).addClass("active");
       if (
@@ -517,7 +512,6 @@ $(document)
   })
 
 function changeLayoutCv() {
-
   let layout = detectLayout()
   if (layout.cv_all != '.all') {
     console.log('falseeeee')
@@ -1208,148 +1202,11 @@ $(document).on('keyup', '#form-cv [contenteditable="true"]', function (e) {
 })
 
 $(document)
-  .on('click', '.content_qc .btn_remove_qc', function () {
-    $('.qc_create_bg').hide()
-  })
   .on('click', '.btn_change_bg', function () {
     $('input[name="radio_img"]:checked').prop('checked', false)
-    $('.change_background .box_select_img,.change_background .box_select_img .box_try_ai').show()
-    $('.change_background').show()
-  })
-  .on('click', '.pop_change_background .cancel_bg', function () {
-    $('.change_background .box_change_bg').hide()
-    $('.change_background .box_select_img,.change_background .box_select_img .box_try_ai').show()
-    $('.change_background .box_select_img').attr('data-ai', 0)
-    $('.change_background').hide()
-  })
-  .on('click', '.pop_change_background .box_select_img .btn_try', function () {
-    $('.change_background .box_change_bg').hide()
-    $('.change_background .box_input_des').show()
-  })
-  .on('click', '.pop_change_background .box_select_img .show_preview_bg', function () {
-    let img_select = $('input[name="radio_img"]:checked')
-    if (img_select.length) {
-      let url_img = img_select.attr('data-image')
-      if ($('.pop_change_background .box_select_img').attr('data-ai') == 1) {
-        let text = $('#inp_des_bg').val()
-        $.ajax({
-          url: 'https://api.timviec365.vn/api/timviec/cv/createBackgroundAI',
-          type: 'POST',
-          data: { text, url_img },
-          success: function (url_img) {
-            if (url_img) {
-              $('.change_background .box_preview .box_show_bg img').attr('src', `https://storage.timviec365.vn/timviec365${url_img}`)
-              $('.change_background .box_preview').attr('data-img', url_img)
-            }
-          },
-        })
-      } else {
-        $('.change_background .box_preview .box_show_bg img').attr('src', `https://storage.timviec365.vn/timviec365${url_img}`)
-        $('.change_background .box_preview').attr('data-img', url_img)
-      }
-      $('.change_background .box_change_bg').hide()
-      $('.change_background .box_preview').show()
-    } else {
-      $('.change_background').hide()
-      // window.alert('Bạn chưa chọn ảnh nền')
-    }
-  })
-  .on('click', '.pop_change_background .box_input_des .select_img_default', function () {
-    $('.change_background .box_change_bg,.change_background .box_select_img .box_try_ai').hide()
-    $('.change_background .box_select_img').attr('data-ai', 1).show()
-  })
-  .on('click', '.pop_change_background .box_input_des .btn_back', function () {
-    $('.change_background .box_change_bg').hide()
-    $('.change_background .box_select_img').attr('data-ai', 0)
-    $('.change_background .box_select_img,.change_background .box_select_img .box_try_ai').show()
-  })
-  .on('focusout', '#inp_des_bg', function () {
-    $('.change_background .box_input_des .err').text('')
-    let text = $('#inp_des_bg').val()
-    if (!text) {
-      $('.change_background .box_input_des .err').text('Bạn chưa điền đầy đủ thông tin')
-    }
-  })
-  .on('click', '.pop_change_background .box_input_des .btn_create_bg', function () {
-    $('.change_background .box_input_des .err').text('')
-    let text = $('#inp_des_bg').val(),
-      style = $('#bg_style').val(),
-      color = $('#bg_color').val()
-    if (!text) {
-      $('.change_background .box_input_des .err').text('Bạn chưa điền đầy đủ thông tin')
-    } else {
-      $.ajax({
-        url: 'https://api.timviec365.vn/api/timviec/cv/createBackgroundAI',
-        type: 'POST',
-        data: { text, style, color },
-        beforeSend: function (response) {
-          $('.bg-spinner').remove()
-          $('body').append(
-            '<div class="bg-spinner"><div class="spinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div></div>'
-          )
-        },
-        success: function (url_img) {
-          if (url_img) {
-            $('.change_background .box_preview .box_show_bg img').attr('src', `https://storage.timviec365.vn/timviec365${url_img}`)
-            $('.change_background .box_preview').attr('data-img', url_img)
-            $('.change_background .box_change_bg').hide()
-            $('.change_background .box_preview').show()
-          } else {
-            window.alert('Đã có lỗi xảy ra. Vui lòng thử lại sau!')
-          }
-        },
-      })
-    }
-  })
-  .on('click', '.pop_change_background .box_preview .btn_refresh_create_bg', function () {
-    $('.change_background .box_change_bg').hide()
-    $('.change_background .box_select_img').attr('data-ai', 0)
-    $('.change_background .box_select_img,.change_background .box_select_img .box_try_ai').show()
-  })
-  .on('click', '.pop_change_background .box_preview .btn_apply_bg', function () {
-    $('.change_background .box_select_img').attr('data-ai', 0)
-    $('.change_background .box_select_img .box_try_ai,.change_background .box_select_img').show()
-    $('.change_background .box_change_bg,.change_background').hide()
   })
   .on('click', '.pop_change_background .upload_file_bg', function () {
     $('#inp_bg_file').click()
-  })
-  .on('change', '#inp_bg_file', function () {
-    let files = $(this)[0].files
-    if (files.length) {
-      let file = files[0]
-      let base64 = getBase64(file).then((base64_bg) => {
-        $.ajax({
-          url: 'https://api.timviec365.vn/api/timviec/cv/uploadBackgroundCV',
-          type: 'POST',
-          data: { img: base64_bg },
-          success: function (data) {
-            const url_img = data && data.data ? data.data.img : ''
-            if (url_img) {
-              if ($('.pop_change_background .box_select_img').attr('data-ai') == 1) {
-                let text = $('#inp_des_bg').val()
-                $.ajax({
-                  url: 'https://api.timviec365.vn/api/timviec/cv/createBackgroundAI',
-                  type: 'POST',
-                  data: { text, url_img },
-                  success: function (url_img) {
-                    if (url_img) {
-                      $('.change_background .box_preview .box_show_bg img').attr('src', `https://storage.timviec365.vn/timviec365${url_img}`)
-                      $('.change_background .box_preview').attr('data-img', url_img)
-                    }
-                  },
-                })
-              } else {
-                $('.change_background .box_preview .box_show_bg img').attr('src', `https://storage.timviec365.vn/timviec365${url_img}`)
-                $('.change_background .box_preview').attr('data-img', url_img)
-              }
-              $('.change_background .box_change_bg').hide()
-              $('.change_background .box_preview').show()
-            }
-          },
-        })
-      })
-    }
   })
 
 function unPaginationCV() {

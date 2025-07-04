@@ -331,28 +331,6 @@ $(document).ready(function () {
                     JSON.parse(response?.html),
                   );
 
-                  // $('#cvo-profile-avatar').css('filter', decodeURIComponent(userFilter))
-                  // console.log(">>> Avatar: ", JSON.parse(response?.html)?.avatar);s
-
-                  // Lấy avatar từ hai nguồn
-                  const avatar1 = JSON.parse(response?.html)?.avatar;
-                  const avatar2 = decodeURIComponent(userLogo);
-
-                  // So sánh hai URL
-                  if (avatar1 && avatar2) {
-                    if (avatar1 !== avatar2) {
-                      // Nếu khác nhau, cập nhật cả hai
-                      updateAvatarLibrary(avatar1);
-                      updateAvatarLibrary(avatar2);
-                    } else {
-                      // Nếu giống nhau, chỉ cập nhật một
-                      updateAvatarLibrary(avatar1);
-                    }
-                  } else {
-                    // Trường hợp một trong hai URL là null hoặc undefined
-                    updateAvatarLibrary(avatar1 || avatar2);
-                  }
-
                   $('#cv_font').val(font);
                   $('[contenteditable="true"]').css('font-family', font)
 
@@ -364,15 +342,12 @@ $(document).ready(function () {
                   $('.line_height').val(fontSpacing);
                   $('#form-cv [contenteditable="true"]').css('line-height', fontSpacing);
 
-
                   $('#cv_font').change(function () {
                     var selectedFont = $(this).val();
                     $('[contenteditable="true"]').css('font-family', selectedFont);
                   });
 
-
                   $('.cv-top--content__color').css('background-color', `#${color}`);
-                  $('.modal-act-color--circle').css('background-color', `#${color}`);
                   $('.sidenav__color--item.sidenav--item').each(function () {
                     if ($(this).find('.sidenav__color--circle').attr('data-color') === color) {
                       $('.sidenav__color--item.sidenav--item').removeClass('active');
@@ -552,7 +527,6 @@ $(document).ready(function () {
 
           // Đổi màu
           $('.cv-top--content__color').css('background-color', `#${colorMap[0]}`);
-          $('.modal-act-color--circle').css('background-color', `#${colorMap[0]}`);
           $('#color-stylesheet').attr("href", `http://localhost:3050/api/topcv1s/CV/upload/cv/${alias}/css/colors/${colorMap[0]}.css`);
           const colorList = $('.sidenav__color--circle')
           for (let i = 0; i < colorList.length; i++) {
@@ -566,7 +540,6 @@ $(document).ready(function () {
             var bgColor = $(this).find('.sidenav__color--circle').attr('data-color');
             var cssFile = colorMap.find(item => item === bgColor)
             $('.cv-top--content__color').css('background-color', '#' + bgColor);
-            $('.modal-act-color--circle').css('background-color', $('.cv-top--content__color').css('background-color'));
             if (cssFile) {
               $('#color-stylesheet').attr('href', `http://localhost:3050/api/topcv1s/CV/upload/cv/${alias}/css/colors/${cssFile}.css`);
             }
@@ -693,7 +666,6 @@ $(".sidenav__target").on("click", function () {
 
   if ($targetCnt.length) {
     const $sidenav = $targetCnt.closest(".cv-sidenav");
-    $sidenav.removeClass("cv-sidenav--visible");
     $targetCnt.show();
 
     if (targetStyle === "2") {
@@ -808,29 +780,6 @@ $(document).ready(function () {
     .mouseup(function () {
       clearInterval(interval);
     });
-});
-
-// Xem trước
-$(document).ready(function () {
-  const $modalActColor = $(".modal-act-color");
-  const $modalActColorLabel = $(".modal-act-color--label");
-
-  $modalActColor.on("click", function (event) {
-    event.stopPropagation();
-    $modalActColorLabel.toggle();
-  });
-
-  $modalActColorLabel.on("click", function (event) {
-    event.stopPropagation();
-  });
-
-  $(document).on("click", function (event) {
-    if (!$modalActColor.is(event.target) &&
-      $modalActColor.has(event.target).length === 0
-    ) {
-      $modalActColorLabel.hide();
-    }
-  });
 });
 
 // Ẩn xem trước
@@ -992,7 +941,6 @@ $(document).ready(function () {
             });
             $(".custom_zoom_avar").val(parseInt(max) / 2);
           });
-        $(".filter_img_pre").attr("src", e.target.result);
         goToStep(3);
       };
       reader.readAsDataURL(files[0]);
@@ -1003,14 +951,6 @@ $(document).ready(function () {
     if (currentStep > 1) {
       $("#avar_input").val("");
       goToStep(currentStep - 1);
-    }
-  });
-
-  $(document).click(function (event) {
-    if (!$(event.target).closest(
-      ".choose_type_upload_avar, .upload_avar_choose"
-    ).length) {
-      $(".upload_avar_choose").removeClass("active");
     }
   });
 
@@ -1067,8 +1007,6 @@ $(document).ready(function () {
 
           $("#modal_avar").hide();
           $("#avar_input").val("");
-          $('.filter_item').removeClass('active');
-          $('.filter_item').first().addClass('active');
         }
 
         img.onerror = function () {
@@ -1094,19 +1032,6 @@ $(document).ready(function () {
   $('.cv-body-content').on('click', '.show_modal_avar', function () {
     $("#modal_avar").show();
     goToStep(1);
-  });
-  // $(".show_modal_avar").click(function () {
-
-  // });
-});
-
-// Bộ lọc avatar
-$(document).ready(function () {
-  $(".filter_item").click(function () {
-    $(".filter_item").removeClass("active");
-    $(this).addClass("active");
-    var targetFilter = $(this).data("target-filter");
-    $(".cr-image").css("filter", targetFilter);
   });
 });
 

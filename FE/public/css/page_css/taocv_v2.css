@@ -210,10 +210,6 @@ body {
   background-color: #f0faff;
 }
 
-div#liveChatContainer {
-  display: none;
-}
-
 .container_taocv_parent {
   width: 100%;
   height: calc(100% - 68px);
