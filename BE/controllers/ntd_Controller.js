@@ -35,15 +35,6 @@ export const ManageAll = async (req, res, next) => {
                 $lt: endDate
             }
         });
-        const tinlammoiPromise = New.countDocuments({
-            new_user_id: idNTD,
-            new_active: 1,
-            new_update_time: {
-                $gt: date,
-                $lt: endDate
-            },
-            new_refresh: { $gt: 0 }
-        });
         const tinGanDayPromise = New.aggregate([
             { $match: { new_user_id: idNTD, new_active: 1 } },
             { $sort: { new_update_time: -1, new_id: -1 } },
@@ -90,10 +81,8 @@ export const ManageAll = async (req, res, next) => {
             }
         ]);
         const hoSoUtPromise = NopHoSo.countDocuments({ nhs_com_id: idNTD });
-        const chuyenVienGuiUvPromise = NopHoSo.countDocuments({ nhs_com_id: idNTD, type: 2 });
-        const [tinconhan, tinsaphethan, tinhethan, tindangtrongngay, tinlammoi, tinGanDay, hoSoMoi, hoSoUt, hoSoDiemLoc, chuyenVienGuiUv] = await Promise.all([
-            tinconhanPromise, tinsaphethanPromise, tinhethanPromise, tindangtrongngayPromise,
-            tinlammoiPromise, tinGanDayPromise, hoSoMoiPromise, hoSoUtPromise, chuyenVienGuiUvPromise
+        const [tinconhan, tinsaphethan, tinhethan, tindangtrongngay, tinGanDay, hoSoMoi, hoSoUt] = await Promise.all([
+            tinconhanPromise, tinsaphethanPromise, tinhethanPromise, tindangtrongngayPromise, tinGanDayPromise, hoSoMoiPromise, hoSoUtPromise
         ]);
         const arr = [];
         const arrUV = [];
@@ -112,20 +101,16 @@ export const ManageAll = async (req, res, next) => {
             const element = tinGanDay[i];
             element.soUvTiemNang = dataa[i];
             element.uVungTuyen = dataa[i + tinGanDay.length];
-            element.chuyenVienGuiUv = dataa[i + tinGanDay.length * 2];
         }
         for (let i = 0; i < hoSoMoi.length; i++) {
             const element = hoSoMoi[i];
             element.nhs_time = new Date(element.nhs_time * 1000);
         }
         data.hoSoUt = hoSoUt;
-        data.hoSoDiemLoc = hoSoDiemLoc;
-        data.chuyenVienGuiUv = chuyenVienGuiUv;
         data.tinconhan = tinconhan;
         data.tinsaphethan = tinsaphethan;
         data.tinhethan = tinhethan;
         data.tindangtrongngay = tindangtrongngay;
-        data.tinlammoi = tinlammoi;
         data.tinGanDay = tinGanDay;
         data.hoSoMoi = hoSoMoi;
         return functions.success(res, 'get data success', { data });

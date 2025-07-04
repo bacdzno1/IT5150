@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản lý chung nhà tuyển dụng</title>
+    <link rel="icon" href="/images/img/default_logo.jpg">
     <link rel="stylesheet" href="/css/ntd/manahome_ntd.css" as="style" >
     <link rel="stylesheet" href="/css/common.css" as="style" >
     <link rel="stylesheet" href="/css/leftnav_ntd.css" as="style" >
@@ -61,9 +62,6 @@
                         <div class="cnt-statt-lef-it bg-white">
                             Số tin đăng trong ngày: <span id="tindangtrongngay">0</span>
                         </div>
-                        <div class="cnt-statt-lef-it bg-white">
-                            Số lần làm mới tin trong ngày: <span id="tinlammoi">0</span>
-                        </div>
                     </div>
                     <div class="cnt-statt-rig">
                         <div class="cnt-statt-rig-top d-flex gap-4">
@@ -77,19 +75,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="cnt-statt-rig-bot d-flex justify-c">
-                            <div class="cnt-update-btn d-flex color-white fs-4 align-c">
-                                <img width="48" height="48" src="/images/icon/boosticon.svg" alt="Boost Icon">
-                                TĂNG TỐC TUYỂN DỤNG
-                            </div>
-                        </div>
                     </div>
-                </div>
-                <div class="cnt-rate bg-white d-flex align-c flex-dr-c">
-                    <textarea placeholder="Nhằm nâng cao chất lượng dịch vụ cũng như giúp doanh nghiệp tuyển dụng nhanh chóng - thành công, mong quý công ty đưa ra đánh giá của mình về chuyên viên hỗ trợ và đóng góp về website. Mọi đóng góp của doanh nghiệp sẽ là nền tảng để chúng tôi phát triển và tối ưu!"></textarea>
-                    <button class="cnt-rate-btn bg-main color-white">
-                        Đánh giá
-                    </button>
                 </div>
                 <div class="cnt-job">
                     <div class="cnt-job-tit fw-600 fs-5 color-main mb-20px">
@@ -100,10 +86,8 @@
                             <tr>
                                 <th>STT</th>
                                 <th>Vị trí tuyển dụng</th>
-                                <th>Gói dịch vụ</th>
                                 <th>Lượt xem</th>
                                 <th>Ứng tuyển</th>
-                                <th>Chuyên viên gửi UV</th>
                             </tr>
                         </table>
                     </div>
@@ -191,33 +175,27 @@
             },
             success: function(response) {
                 if (response.data.result === true) {
+                    console.log(">>> ressponse: ", response);
                     let hoSoUt = response.data.data.hoSoUt;
                     let hoSoDiemLoc = response.data.data.hoSoDiemLoc;
-                    let chuyenVienGuiUv = response.data.data.chuyenVienGuiUv;
                     let tinGanDay = response.data.data.tinGanDay;
                     let tinconhan = response.data.data.tinconhan;
                     let tindangtrongngay = response.data.data.tindangtrongngay;
                     let tinhethan = response.data.data.tinhethan;
-                    let tinlammoi = response.data.data.tinlammoi;
                     let tinsaphethan = response.data.data.tinsaphethan;
                     let hoSoMoi = response.data.data.hoSoMoi;
                     $("#tinconhan").text(tinconhan);
                     $("#tinsaphethan").text(tinsaphethan);
                     $("#tinhethan").text(tinhethan);
                     $("#tindangtrongngay").text(tindangtrongngay);
-                    $("#tinlammoi").text(tinlammoi);
                     $("#hoSoUt").text(hoSoUt);
-                    $("#hoSoDiemLoc").text(hoSoDiemLoc);
-                    $("#chuyenVienGuiUv").text(chuyenVienGuiUv);
                     $(".cnt-job-table table tr:not(:first)").remove();
                     $.each(tinGanDay, function(index, job) {
                         let row = `<tr>
                             <td>${index + 1}</td>
                             <td><a href="/${job.new_alias}-${job.new_id}">${job.new_title}</a></td>
-                            <td>Miễn phí</td>
                             <td>${job.new_view_count}</td>
-                            <td>${job.uVungTuyen}</td>  
-                            <td>${job.chuyenVienGuiUv}</td>
+                            <td>${job.uVungTuyen}</td>
                         </tr>`;
                         $(".cnt-job-table table").append(row);
                     });

@@ -1,60 +1,50 @@
-
-#content{
+#content {
     background-color: #f1f1f1;
     font-family: Roboto;
 }
 
-.regis_form{
+.regis_form {
     padding-top: 50px;
     padding-bottom: 60px;
 }
 
-.regis_content{
+.regis_content {
     padding: 30px 109px;
     border-radius: 10px;
     position: relative;
 }
 
-.regis_title{
+.regis_title {
     margin-bottom: 30px;
 }
-.regis_inp:not(:first-child){
+
+.regis_inp:not(:first-child) {
     margin-top: 11px;
 }
 
-.regis_box{
+.regis_box {
     width: 100%;
 }
-.regis_box:not(:last-child),.regis_box-1{
+
+.regis_box:not(:last-child),
+.regis_box-1 {
     margin-bottom: 35px;
 }
 
-.regis_box-1{
+.regis_box-1 {
     flex: 0 0 calc(50% - 10px);
 }
 
-.regis_detail{
+.regis_detail {
     margin-bottom: 44px;
 }
 
-.regis_detail label span{
+.regis_detail label span {
     color: #E20B0B;
     font-weight: 400;
 }
-.regis_cvol btn, .regis_cvul btn{
-    border-radius: 53px;
-    padding: 12px 20px 11px 20px;
-}
-.regis_cvol btn{
-    background-color: #0075801A;
-}
 
-.regis_cvul btn{
-    color: #FF6B00;
-    background-color: #FFDEC7;
-}
-
-.regis_inp{
+.regis_inp {
     border: 1px solid #CECECE;
     background-color: #FFFFFF;
     height: 40px;
@@ -63,7 +53,7 @@
     padding-left: 10px;
 }
 
-.regis_con{
+.regis_con {
     margin-bottom: 25px;
 }
 
@@ -85,7 +75,7 @@
     border: 1px solid #00b14f;
 }
 
-.regis_con input[type="checkbox"]:checked + .checkmark {
+.regis_con input[type="checkbox"]:checked+.checkmark {
     background-color: #00b14f;
 }
 
@@ -105,11 +95,11 @@
     transition: opacity 0.3s ease;
 }
 
-.regis_con input[type="checkbox"]:checked + .checkmark::after {
+.regis_con input[type="checkbox"]:checked+.checkmark::after {
     opacity: 1;
 }
 
-.regis_con label{
+.regis_con label {
     font-size: 15px;
     cursor: pointer;
 }
@@ -118,7 +108,7 @@
     text-decoration: underline;
 }
 
-.regis-btn h3{
+.regis-btn h3 {
     padding: 14px 35.5px;
     background: #00b14f;
     color: #fff;
@@ -126,43 +116,30 @@
     border-radius: 53px;
     cursor: pointer;
 }
-.custom-select-input{
-    border: 1px solid #CECECE;
-    background-color: #FFFFFF;
-    height: 40px;
-    border-radius: 8px;
-    width: 100%;
-    display: flex;
-    margin-top: 11px;
-    overflow: hidden;
-    padding: 8px;
-}
-.custom-select-input input{
-    border: none;
-}
-.custom-select-input input:focus{
-    border: none;
-    cursor: pointer;
-}
+
 @media only screen and (max-width: 1024px) {
-    .regis_content{
+    .regis_content {
         padding: 30px 52px;
     }
 }
+
 @media only screen and (max-width: 1024px) {
-    .regis_content{
+    .regis_content {
         padding: 30px 37px;
     }
 }
+
 @media only screen and (max-width: 576px) {
-    .regis_content{
+    .regis_content {
         padding: 30px 12px;
     }
-    .regis_box-1{
+
+    .regis_box-1 {
         width: 100%;
         flex: unset;
     }
-    .regis_box-1:not(:last-child){
+
+    .regis_box-1:not(:last-child) {
         margin-bottom: 35px;
     }
 }

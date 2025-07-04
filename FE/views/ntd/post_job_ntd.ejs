@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng tin tuyển dụng việc làm miễn phí, nhanh chóng</title>
+    <link rel="icon" href="/images/img/default_logo.jpg">
     <link rel="stylesheet" href="/css/ntd/post_job_ntd.css" as="style" >
     <link rel="stylesheet" href="/css/common.css" as="style" >
     <link rel="stylesheet" href="/css/leftnav_ntd.css" as="style" >
@@ -360,23 +361,6 @@
                 </div>
             </div>
         </div>
-        <div class="post-conf modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <img src="/images/icon/ic_question.svg" width="56" height="56" alt="icon">
-                    <span class="close">&times;</span>
-                </div>
-                <div class="modal-body">
-                    <div class="tx-cof">Tăng hiệu quả tuyển dụng bằng cách sử dụng dịch vụ ghim tin. Bạn có muốn ghim tin này không ?</div>
-                </div>
-                <div class="modal-footer">
-                    <div class="modal-act">
-                        <button class="default_post post-btn">Tiếp tục đăng tin</button>
-                        <button class="gim_post post-btn">Đăng tin và sử dụng gói ghim tin</button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
     <%- include('../layouts/footer', {}); %>
     <script src="/js/custom_select.js"></script>
@@ -431,21 +415,6 @@
         $(document).ready(function() {
             $(".tog-mb").click(function() {
                 $(this).next(".menu-mb-clist").slideToggle();
-            });
-        });
-        $(document).ready(function(){
-            var modal = $(".post-conf");
-
-            var close_modal = $(".close");
-
-            close_modal.click(function() {
-                modal.css("display", "none");
-            });
-
-            $(window).click(function(event) {
-                if ($(event.target).is(modal)) {
-                    modal.css("display", "none");
-                }
             });
         });
         $(document).ready(function() {
@@ -640,83 +609,63 @@
                 } else if(!contact_email) {
                     alert("Chưa nhập email liên hệ"); 
                     check = false;
-                } 
+                }
+                var $btn = $(this);
                 if (!check) {
-                    $btn.prop('disabled', false);
-                    $(".post-conf").css("display", "none");
                     return;
                 }
-                $(".post-conf").css("display", "block");
-                var type = 1;
-                $(".default_post").off('click').click(function() {
-                    type = 1;
-                    console.log(type);
-                });
-                $(".gim_post").off('click').click(function() {
-                    type = 2;
-                    console.log(type);
-                });
-                $('.post-btn').off('click').click(function() {
-                    var $btn = $(this);
-                    if ($btn.prop('disabled')) {
-                        return;
-                    }
-                    $btn.prop('disabled', true); 
-                    $.ajax({
-                        url: 'http://localhost:3050/api/topcv1s/new/postNew',
-                        headers: {
-                            Authorization: 'Bearer ' + getCookie('accessToken')
-                        },
-                        method: 'POST',
-                        data: {
-                            title: post_job,
-                            capBac: parseInt(level_id),
-                            catId: cat_id.join(','),
-                            tag: tag_cate.join(','),
-                            city: parseInt(city_job),
-                            district: parseInt(distric_job),
-                            address: loc_job,
-                            hinhThuc: parseInt(typew_id),
-                            money: parseInt(monyr_id),
-                            soLuong: parseInt(nbpos_job),
-                            thuViec: trial_job,
-                            hoaHong: comis_job,
-                            moTa: des_job,
-                            exp: parseInt(exp_id),
-                            bangCap: parseInt(edu_id),
-                            gioiTinh: parseInt(gen_id),
-                            yeuCau: job_req,
-                            quyenLoi: bene_job,
-                            hoSo: required_cv,
-                            hanNop: deadline_cv,
-                            userContact: contact_per,
-                            addressContact: contact_loc,
-                            phoneContact: contact_phone,
-                            emailContact: contact_email,
-                        },
-                        success: function(response) {
-                            $(".post-conf").css("display", "none");
-                            alert('Đăng tin thành công');
-                            if (type == 1) {
-                                window.location.href = "/ntd/quan-ly-tin-dang";
-                            } else {
-                                window.location.href = "/ntd/quan-ly-diem-loc";
-                            }
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            console.error('AJAX Error:', textStatus, errorThrown);
-                            $(".post-conf").css("display", "none");
-                            var response = jqXHR.responseJSON;
-                            if (response && response.error) {
-                                alert('Đăng tin thất bại: '+ response.error.message);
-                            } else {
-                                alert('Có lỗi xảy ra');
-                            }
-                        },
-                        complete: function() {
-                            $btn.prop('disabled', false);
+                if ($btn.prop('disabled')) {
+                    return;
+                }
+                $btn.prop('disabled', true); 
+                $.ajax({
+                    url: 'http://localhost:3050/api/topcv1s/new/postNew',
+                    headers: {
+                        Authorization: 'Bearer ' + getCookie('accessToken')
+                    },
+                    method: 'POST',
+                    data: {
+                        title: post_job,
+                        capBac: parseInt(level_id),
+                        catId: cat_id.join(','),
+                        tag: tag_cate.join(','),
+                        city: parseInt(city_job),
+                        district: parseInt(distric_job),
+                        address: loc_job,
+                        hinhThuc: parseInt(typew_id),
+                        money: parseInt(monyr_id),
+                        soLuong: parseInt(nbpos_job),
+                        thuViec: trial_job,
+                        hoaHong: comis_job,
+                        moTa: des_job,
+                        exp: parseInt(exp_id),
+                        bangCap: parseInt(edu_id),
+                        gioiTinh: parseInt(gen_id),
+                        yeuCau: job_req,
+                        quyenLoi: bene_job,
+                        hoSo: required_cv,
+                        hanNop: deadline_cv,
+                        userContact: contact_per,
+                        addressContact: contact_loc,
+                        phoneContact: contact_phone,
+                        emailContact: contact_email,
+                    },
+                    success: function(response) {
+                        alert('Đăng tin thành công');
+                        window.location.href = "/ntd/quan-ly-tin-dang";
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error('AJAX Error:', textStatus, errorThrown);
+                        var response = jqXHR.responseJSON;
+                        if (response && response.error) {
+                            alert('Đăng tin thất bại: '+ response.error.message);
+                        } else {
+                            alert('Có lỗi xảy ra');
                         }
-                    });
+                    },
+                    complete: function() {
+                        $btn.prop('disabled', false);
+                    }
                 });
             });
             function getCookie(name) {
