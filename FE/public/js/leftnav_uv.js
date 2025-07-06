@@ -10,7 +10,6 @@ else{
     $('.lnav-cand-name').text("Chưa cập nhật");
 }
 
-// document.getElementsByClassName('lnav-cand-logo').setAttribute('src', logo);
 $('.lnav-cand-logo').attr("src",logo);
 
 
@@ -33,7 +32,7 @@ function getCookieNew(name) {
 $(document).ready(function(){
     $('.refresh_prf,.refresh_prf_moblie').click(function(){
         $.ajax({
-            url: URL_API_CANDI + "/RefreshProfileCandi",
+            url: "http://localhost:3050/api/topcv1s/candidate/RefreshProfileCandi",
             type: "POST",
             headers: {
                 "Authorization": "Bearer " + getCookie('accessToken')

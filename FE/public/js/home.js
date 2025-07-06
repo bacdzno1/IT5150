@@ -18,8 +18,6 @@ function getHomeData() {
             ViecLamMoiNhat = response.data.data.ViecLamThuongHieu;
             CongTyHangDau = response.data.data.CongTyHangDau;
             nganhNgheNoiBat = response.data.data.nganhNgheNoiBat;
-            console.log(">>> Việc làm mới nhất: ", ViecLamMoiNhat)
-            console.log(">>> Việc làm hấp dẫn: ", ViecLamHapDan)
             filterJobs('location', 'Tất cả', 'new-job');
             filterJobs('location', 'Tất cả', 'hot-job');
             displayCompanys();
@@ -68,7 +66,6 @@ function displayCompanys() {
         companyList.append(companyItem);
     });
 }
-
 function displayNganhNghe() {
     nganhNgheNoiBat.forEach(function (item) {
         const jobElement = $('.caarer-job[data-id="' + item._id + '"]');
@@ -80,7 +77,6 @@ function displayNganhNghe() {
     });
     paginateJobs('.hot-caarer', 8);
 }
-//
 $(document).ready(function () {
     getHomeData();
     $('.filterType').CustomSelect({
@@ -264,7 +260,6 @@ function filterJobs(criteria, value, jobType) {
         }
         if (match) {
             has_match = true
-            console.log(">>> item: ", item)
             let salaryText = getMucLuong(item.new_money_type, item.new_money_from, item.new_money_to, item.new_money);
             let saveClass = item.checkLuuTin ? 'saved' : '';
             let imgsave = item.checkLuuTin ? '/images/icon/BookmarkSaved.svg' : '/images/icon/Bookmark.svg';

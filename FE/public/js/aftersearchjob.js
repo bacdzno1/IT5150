@@ -36,20 +36,12 @@ $(document).ready(function() {
         $nextBtn.toggle(Math.abs(transform) + boxWidth < listWidth + 43);
     }
 
-    function getItemWidth(index) {
-        return $filItems.eq(index).outerWidth(true) + itemMargin;
-    }
-
     function getListWidth() {
         let totalWidth = 0;
         $filItems.each(function() {
             totalWidth += $(this).outerWidth(true) + itemMargin;
         });
         return totalWidth - itemMargin;
-    }
-
-    function getContainerWidth() {
-        return $filList.width() + 43;
     }
 
     $nextBtn.click(function() {
@@ -242,7 +234,6 @@ $(document).ready(function() {
                 url += '-tai-' + convertCit;
             }
 
-
             var queryParams = [];
             if (keyword && !getCategoryIdByName(keyword) && !findAliasByTag(keyword)) {
                 queryParams.push('name=' + keyword);
@@ -290,37 +281,11 @@ $(document).ready(function() {
     $('.remind-his-box').on('click', 'li', function () {
         handleSearch()
     })
-    function extractJobAndProvinceFromUrl(url) {
-        const keywords = ["tim", "kiem", "viec", "lam", "tai"];
-    
-        const path = new URL(url).pathname.replace(/^\//, '');
-        
-        const parts = path.split('-');
-    
-        let jobUrl = null;
-        let provinceUrl = null;
-    
-        parts.forEach((part, index) => {
-            if (keywords.includes(part)) {
-                const nextPart = parts[index + 1];
-                if (part === "viec" && nextPart !== "lam") {
-                    jobUrl = nextPart;
-                }
-                if (part === "tai" && nextPart) {
-                    provinceUrl = nextPart;
-                }
-            }
-        });
-    
-        return { jobUrl, provinceUrl };
-    }
-    const currentUrl = window.location.href;
-    const { jobUrl, provinceUrl } = extractJobAndProvinceFromUrl(currentUrl);
     const urlParams = new URLSearchParams(window.location.search);
     var sal_id = urlParams.get('salary') ? urlParams.get('salary') : '0';
     $('#sal_id').val(sal_id);
     $('#sal_id').trigger('change')
-    var exp_id = urlParams.get('exp') ? urlParams.get('exp') : '8';
+    var exp_id = urlParams.get('exp') ? urlParams.get('exp') : '0';
     $('#exp_id').val(exp_id);
     $('#exp_id').trigger('change')
     var district = urlParams.get('district') ? urlParams.get('district') : '0';
@@ -345,16 +310,14 @@ $(document).ready(function() {
     var tag = $('#tag_filter').val() ? $('#tag_filter').val() : '';
     if(tag && tag != ''){
         var keyword = tag;
-    }
-    else if(urlParams.get('name') && urlParams.get('name') != ''){
+    } else if(urlParams.get('name') && urlParams.get('name') != ''){
         var keyword = urlParams.get('name') ? urlParams.get('name') : '';
-    }
-    else{
+    } else {
         var keyword = '';
     }
     $('#s_key').val(keyword)
     if(cat_id !=0){
-        key2= getCategoryNameById(cat_id)
+        key2= getCategoryIdByName(cat_id)
         $('#s_key').val(key2)
     }
     function loadJobs(page) {
@@ -457,9 +420,6 @@ $(document).ready(function() {
                             </div>
                             <div class="job-act">
                                 <a class="job-apply" href="/${item.new_alias}-${item.new_id}" data_apply="${item.new_id}">Ứng tuyển</a>
-                                <button class="job-save" style="display:none" data_save="${item.new_id}">
-                                    <img src="/images/icon/saveJobIcon.svg" alt="Save Job Icon" width="15.75" height="21.203">
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -469,7 +429,6 @@ $(document).ready(function() {
         } else {
             $('.job-list').append(`<div class="not_found"><img src='/images/icon/notfound.svg' width='100' height='100' alt='Not Found Icon'><h3 class="fs-6 fw-400 mb-0">Chưa tìm thấy việc làm phù hợp với yêu cầu của bạn</h3></div>`);
         }
-
         toolTip('.job-name');
         toolTip('.job-comp');
     }
@@ -531,10 +490,6 @@ $(document).ready(function() {
                 sortField = 'new_money';
                 sortOrder = 'asc';
                 break;
-            case 'imp-urgent':
-                sortField = 'new_han_nop';
-                sortOrder = 'asc';
-                break;
         }
         currentPage = 1;
         cache = {};
@@ -568,7 +523,6 @@ $(document).ready(function() {
 
     loadJobs(currentPage);
 });
-
 function getTimeRemain(time){
     if(time > 946080000 ){
         return {value : Math.round(time / (60 * 60 * 24 * 30 * 365)), type : 'năm'};
@@ -656,26 +610,6 @@ const getMucLuong2 = (
 		return "Chưa cập nhật";
 	}
 };
-function handleUrlChange() {
-    console.log('URL hiện tại là:', window.location.href);
-    // const url = window.location.href
-    // const city = listCities.find((item) => url.includes(`-tai-${convertToUrl(item.cit_name)}`))
-    // // console.log("🚀 ~ handleUrlChange ~ city:", city)
-    // // console.log(listCities);
-    // if (city) {
-    //     // $('#cit_id').val(city.cit_id)
-    //     console.log("🚀 ~ handleUrlChange ~ $(`#cit_id option[value=${city.cit_id}]`):", $(`#cit_id option[value=${city.cit_id}]`))
-    //     $(`#cit_id option[value=${city.cit_id}]`).prop('selected', true)
-    // }
-}
-
-$(document).ready(function() {
-    handleUrlChange();
-});
-
-$(window).on('popstate', function(event) {
-    handleUrlChange();
-});
 
 function getCookie(name) {
     var value = "; " + document.cookie;
@@ -688,7 +622,6 @@ $(document).ready(function() {
     if(user_id){
         formData.append('id', user_id);
     }
-    console.log(user_id);
     $.ajax({
         url: "http://localhost:3050/api/topcv1s/new/getRecommentComp",
         type: "POST",

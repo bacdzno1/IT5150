@@ -441,7 +441,7 @@
                     var month = dateParts[1];
                     var day = dateParts[2];
                     $.ajax({
-                        url: URL_API_NTD+ '/UpdateTimeInterview',
+                        url: 'http://localhost:3050/api/topcv1s/ntd/UpdateTimeInterview',
                         type: 'POST',
                         contentType: 'application/json',
                         headers: {
@@ -487,7 +487,7 @@
                     return;
                 }else{
                     $.ajax({
-                        url: URL_API_NTD+ '/UpdateNoteInterview',
+                        url: 'http://localhost:3050/api/topcv1s/ntd/UpdateNoteInterview',
                         type: 'POST',
                         contentType: 'application/json',
                         headers: {

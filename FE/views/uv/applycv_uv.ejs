@@ -178,7 +178,7 @@
             const res = confirm('Bạn có muốn hủy lưu cv này không?')
             if (res) {
                 $.ajax({
-                    url: URL_API_CANDI + "/SaveCV",
+                    url: "http://localhost:3050/api/topcv1s/candidate/SaveCV",
                     type: "POST",
                     data: JSON.stringify({ id: idcv }),
                     contentType: "application/json",
@@ -245,7 +245,7 @@
                                 <div class="img_cv">
                                     <img class="img_cv_show" src=${data.image} alt="" />
                                     <div class="styles_hover_img">
-                                    <button class="btn_repair" type="button" onclick='window.open("${domain}/tao-cv/${data.alias}-${data.idcv}", "_blank")'>
+                                    <button class="btn_repair" type="button" onclick='window.open("/tao-cv/${data.alias}-${data.idcv}", "_blank")'>
                                         <img src="/images/icon/pen-new-square-svgrepo-com.svg" alt="edit cv" />
                                         <span>Tạo CV</span>
                                     </button>

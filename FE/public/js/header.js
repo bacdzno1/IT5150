@@ -9,7 +9,7 @@ $(document).ready(function () {
     );
     if(getCookie('accessToken') && getCookie('type') == 1){
         $.ajax({
-            url: URL_API_NTD + "/PointCpn",
+            url: "http://localhost:3050/api/topcv1s/ntd/PointCpn",
             type: "POST",
             contentType: "application/json",
             headers: {

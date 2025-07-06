@@ -5374,16 +5374,6 @@ function getMucLuong2(new_money_type, new_money_from, new_money_to, new_money) {
         return "Chưa cập nhật";
     }
 }
-function formatCurrency(amount) {
-    try {
-        return amount.toLocaleString("vi-VN", {
-            style: "currency",
-            currency: "VND"
-        });
-    } catch (error) {
-        return "Chưa cập nhật";
-    }
-}
 
 const getCookie = (cookieHeader, name) => {
     const value = `; ${cookieHeader}`;
@@ -5416,59 +5406,6 @@ function getCityIdByUrl(urlName) {
     }
     return null;
 }
-// function parseUrl(req, res, next) {
-//     const urlParts = req.path.replace('/tim-viec-lam', '').split('-').filter(part => part);
-
-//     let city = '';
-//     let category = '';
-
-//     if (urlParts.includes('tai')) {
-//         const taiIndex = urlParts.indexOf('tai');
-//         city = urlParts.slice(taiIndex + 1).join('-');
-//         category = urlParts.slice(0, taiIndex).join('-');
-//     } else {
-//         category = urlParts.join('-');
-//     }
-
-//     if (city) {
-//         req.query.city = city;
-//     }
-
-//     if (category) {
-//             req.query.category = category;
-//     }
-
-//     next();
-// }
-function parseUrl(req, res, next) {
-    let path = req.path.replace('/tim-viec-lam-', '');
-
-    var city = '';
-    var category = '';
-
-    for (let cityObj of listCities) {
-        const cityUrl = convertToUrl(cityObj.cit_name);
-        if (path.includes(cityUrl)) {
-            city = cityUrl;
-            path = path.replace(`tai-${cityUrl}`, '');
-            break;
-        }
-    }
-
-    if (path) {
-        category = path.split('-').filter(part => part).join('-');
-    }
-
-    if (city) {
-        req.query.city = city;
-    }
-
-    if (category) {
-        req.query.category = category;
-    }
-
-    next();
-}
 function findRangeMoney(id) {
     const money = listRangeMoney.find(item => item.hasOwnProperty(id.toString()));
     return money ? money[id] : "Thỏa thuận";
@@ -5481,11 +5418,6 @@ function findLangCV(alias) {
     const langCV = listLangCv.find(langCV => langCV.alias === alias);
     return langCV ? langCV : '';
 }
-// function capitalizeFirstLetter(text) {
-//     return text.replace(/\b\w/g, function(char) {
-//         return char.toUpperCase();
-//     });
-// }
 function getTimeRemain(timeup){
     const currentTime = Math.floor(Date.now() / 1000);
     const time = currentTime - timeup; 
@@ -5509,15 +5441,6 @@ function findTagByalias(alias) {
     const tag = data_tags.find(tag => tag.tag_alias === alias);
     return tag ? tag.tag_name : '';
 }
-// function capitalizeFirstLetter(text) {
-//     return text.split(' ').map(function(word) {
-//         if (word.length > 0) {
-//             return word[0].toUpperCase() + word.slice(1).toLowerCase();
-//         } else {
-//             return word;
-//         }
-//     }).join(' ');
-// }
 function capitalizeFirstLetter(text) {
     return text.split(' ').map(function (word) {
         if (word === 'Cv' || word == 'CV' || word == 'cv' || word == 'cV') {
@@ -5537,10 +5460,9 @@ function renderOTP() {
     return Math.floor(Math.random() * (999999 - 111111 + 1)) + 111111;
 }
 
-module.exports = { parseUrl };
 module.exports = {
     listCities, findCity, checkDeadline, findCompSize, getMucLuong,
     checkElapsedTime, convertTimestamp, findExp,findEdu, findTypeWork, findGender, findCate,getTimeRemain,
     levelList, cateList, listTypeWork, listRangeMoney, listSizeExp, listEdu, genderList,
-    findDistrict, convertTimestampDetail, listSizeCompany, city_array, findLevel, getCookie, getCategoryIdByUrl, getCityIdByUrl, parseUrl, findCateNewsAlias, convertToUrl, findRangeMoney, findCateCV, findLangCV, capitalizeFirstLetter, toLowerCaseString, findTagByalias, getMucLuong2, litsNewsCate, findCateNewsById, renderOTP
+    findDistrict, convertTimestampDetail, listSizeCompany, city_array, findLevel, getCookie, getCategoryIdByUrl, getCityIdByUrl, findCateNewsAlias, convertToUrl, findRangeMoney, findCateCV, findLangCV, capitalizeFirstLetter, toLowerCaseString, findTagByalias, getMucLuong2, litsNewsCate, findCateNewsById, renderOTP
 };

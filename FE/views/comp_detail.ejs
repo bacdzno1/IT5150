@@ -294,7 +294,7 @@
                 var letter = '';
                 var news_id = button.attr('data-id');
                 $.ajax({
-                    url: URL_API_CANDI+ '/ApplyJob',
+                    url: 'http://localhost:3050/api/topcv1s/candidate/ApplyJob',
                     type: 'POST',
                     contentType: 'application/json',
                     headers: {

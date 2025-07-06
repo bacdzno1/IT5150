@@ -75,7 +75,7 @@ $('.slider').on('click', function(event) {
     const value = usc_search==0?1:0;
     console.log(value)
     $.ajax({
-        url: URL_API_CANDI + "/AllowSearchCandi",
+        url: "http://localhost:3050/api/topcv1s/candidate/AllowSearchCandi",
         type: "POST",
         headers: {
             "Authorization": "Bearer " + getCookie('accessToken')

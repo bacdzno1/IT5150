@@ -1,5 +1,4 @@
-
-const listCities = [
+const cityList = [
     {
         "_id": "66666d51e2b01fd29e8e18e1",
         "cit_id": 1,
@@ -316,7 +315,7 @@ const listCities = [
         "cit_name": "Vĩnh Long"
     }
 ];
-const cateList = [
+const jobList = [
     {
         cat_id: 1,
         cat_name: "Kế toán - Kiểm toán",
@@ -9094,6 +9093,15 @@ function convertToUrl(name) {
         .replace(/-+/g, '-')
         .toLowerCase();
 }
+function getCategoryIdByName(cat_name) {
+    const category = jobList.find(category => category.cat_name === cat_name);
+    return category ? category.cat_id : null;
+}
+
+function getCityNameById(id) {
+    const city = cityList.find(city => city.cit_id === id);
+    return city ? city.cit_name : null;
+}
 $('#cit_id').CustomSelect({
     placeholder: 'Chọn địa điểm',
     searchPlaceholder: 'Tìm kiếm...'
@@ -9124,9 +9132,7 @@ $('#edu').CustomSelect({
 });
 $('#cit_id').change(function () {
     var id = parseInt($(this).val());
-    console.log(id)
     if (isNaN(id) || id === 0) {
-        console.log('313');
         $('#district').empty();
         $('#district').trigger('update');
         return;
@@ -9155,7 +9161,7 @@ $('#cit_id').change(function () {
 $(document).ready(function () {
     const $select = $('#cit_id');
 
-    listCities.forEach(city => {
+    cityList.forEach(city => {
         const $option = $('<option>', {
             value: city.cit_id,
             text: city.cit_name
@@ -9177,7 +9183,7 @@ $(document).ready(function () {
 });
 
 var cateItems = [];
-cateList.forEach(function (category) {
+jobList.forEach(function (category) {
     var item = '<li class="fw-500">' + category.cat_name + '</li>';
     cateItems.push(item);
     $('.remind-lis-box').append(item);

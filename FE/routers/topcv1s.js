@@ -6,7 +6,7 @@ const checkHardcodedRoutes = require('../middleware/checkHardcodedRoutes');
 const { checkPermission } = require('../middleware/checkAdminPermission');
 const { checkToken } = require('../middleware/authenToken');
 const cookieParser = require('cookie-parser');
-const { parseUrl } = require('../function/function_new');
+const { convertToUrl } = require('../function/function_new');
 
 router.use(cookieParser());
 
@@ -33,7 +33,7 @@ router.get('/dang-nhap', site.login_page);
 router.get('/dang-ky', site.regis_page);
 router.get('/tim-ung-vien', site.candi_page);
 router.get(/^(.+)-uv-(\d+)$/, site.candi_detail);
-router.get(['/tim-viec-lam', '/tim-viec-lam-tai-:city', '/tim-viec-lam-:category', '/tim-viec-lam-:category-tai-:city'], parseUrl, site.job_after_search);
+router.get(['/tim-viec-lam', '/tim-viec-lam-tai-:city', '/tim-viec-lam-:category', '/tim-viec-lam-:category-tai-:city'], site.job_after_search);
 // Định nghĩa route chính
 router.get('/cv-xin-viec-:slug', site.cv_sel);
 

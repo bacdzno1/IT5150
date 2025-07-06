@@ -428,7 +428,7 @@
                 }
                 var id_cv = $(this).data('id');
                 $.ajax({
-                    url: URL_API_CANDI + "/SaveCV",
+                    url: "http://localhost:3050/api/topcv1s/candidate/SaveCV",
                     type: "POST",
                     data: JSON.stringify({ id: id_cv }),
                     contentType: "application/json",

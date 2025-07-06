@@ -1,4 +1,3 @@
-
 const listCities = [
     {
         "_id": "66666d51e2b01fd29e8e18e1",
@@ -10345,6 +10344,7 @@ function convertToUrl(name) {
 function handleSearch() {
     var keyword = $('#s_key').val();
     var cit_id = $('#s_loc').val();
+    console.log(`>>> keyword: ${keyword}, cit_id: ${cit_id}`)
     if (keyword) {
         var searchKeywords = localStorage.getItem('searchKeywords');
 

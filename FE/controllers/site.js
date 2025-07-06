@@ -1,7 +1,6 @@
 const function_new = require('../function/function_new');
 const data_get = require('../function/data');
-const { checkDeadline, findCity, checkElapsedTime, findCompSize, getTimeRemain, getMucLuong, convertTimestamp, findExp, findEdu, findTypeWork, findGender, findCate, cateList, city_array, findLevel, convertTimestampDetail, listCities, getMucLuong2, findCateNewsById
-} = require('../function/function_new');
+const { checkDeadline, findCity, checkElapsedTime, findCompSize, getTimeRemain, getMucLuong, convertTimestamp, findExp, findEdu, findTypeWork, findGender, findCate, cateList, city_array, findLevel, convertTimestampDetail, listCities, getMucLuong2, findCateNewsById, convertToUrl } = require('../function/function_new');
 const { listQuanhuyen } = require('../function/functions');
 const axios = require('axios');
 
@@ -117,10 +116,20 @@ exports.candi_detail = async (req, res) => {
 };
 exports.job_after_search = async (req, res) => {
     const url = req.url;
-    const link = req.query.link;
-    const name = req.query.name;
-    const city = req.query.city;
-    const category = req.query.category;
+    let path = req.path.replace('/tim-viec-lam-', '');
+    var city = '';
+    var category = '';
+    for (let cityObj of listCities) {
+        const cityUrl = convertToUrl(cityObj.cit_name);
+        if (path.includes(cityUrl)) {
+            city = cityUrl;
+            path = path.replace(`tai-${cityUrl}`, '');
+            break;
+        }
+    }
+    if (path) {
+        category = path.split('-').filter(part => part).join('-');
+    }
     const getMucLuong2 = function_new.getMucLuong2;
     var tag = '';
     var findCity = function_new.findCity;
@@ -136,13 +145,13 @@ exports.job_after_search = async (req, res) => {
     if (city) {
         var city_id = function_new.getCityIdByUrl(city);
         var city_name = findCity(city_id);
+        console.log(`city_id: ${city_id}, city_name: ${city_name}`)
     }
     if (category) {
         var categoryId = function_new.getCategoryIdByUrl(category);
         if (!categoryId) {
             tag = findTagByalias(category);
         }
-
     }
     if (city_id && !categoryId) {
         seoTT = `Danh sách tin tuyển dụng việc làm tại ${city_name} mới nhất`;
@@ -167,8 +176,6 @@ exports.job_after_search = async (req, res) => {
     const currentTime = new Date();
     const formattedDate = `${currentTime.getDate().toString().padStart(2, '0')}/${(currentTime.getMonth() + 1).toString().padStart(2, '0')}/${currentTime.getFullYear()}`;
     let data = {
-        link: link,
-        name: name,
         formattedDate: formattedDate
     }
     return res.render('aftersearchjob', { data: data, listCities: function_new.listCities, city_id, categoryId, findCity, findCate, seoTT, seoCNT, seoh1, url, category, findDistrict, tag, job_recommend, getMucLuong2, id, type });

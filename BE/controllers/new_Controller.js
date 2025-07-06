@@ -945,7 +945,6 @@ const getConditionsRealCate = (arr) => {
 };
 export const SearchNew = async(req, res) => {
     try {
-        let arrIDSearchByAI = [];
         let data = [];
         let total = 0;
         const page = Number(req.body.page) || 1;
@@ -995,103 +994,70 @@ export const SearchNew = async(req, res) => {
             new_mota: 1,
         };
         const conditions = {};
-        const conditions_ai={};
-        if (arrIDSearchByAI.length > 0) {
-            const arr = arrIDSearchByAI.map(item => Number(item));
-            conditions.new_id = { $in: arr };
-            data = await New.aggregate([
-                { $match: conditions },
-                {
-                    $lookup: {
-                        from: "UserCompany",
-                        localField: "new_user_id",
-                        foreignField: "usc_id",
-                        as: "company",
-                    }
+        
+        const com = await UserCompany.distinct("usc_id", {
+            $and: [{
+                    usc_phone_tk: { $ne: "" }
                 },
-                { $unwind: "$company" },
-                { $project: item }
-            ]);
-        } else {
-            const com = await UserCompany.distinct("usc_id", {
-                $and: [{
-                        usc_phone_tk: { $ne: "" }
-                    },
-                    {
-                        usc_phone_tk: { $ne: null }
-                    },
-                    {
-                        usc_company: { $ne: "" }
-                    },
-                    {
-                        usc_company: { $ne: null }
-                    },
-                ]
-            })
-            conditions.new_user_id = { $in: com }
-            if (hinhThuc) conditions.new_hinh_thuc = hinhThuc;
-            if (hocVan) conditions.new_bang_cap = hocVan;
-            if (capBac) conditions.new_cap_bac = capBac;
-            if (kinhNghiem) conditions.new_exp = kinhNghiem;
-            if (district) conditions['$or'] = [
-                { usc_city: new RegExp(`(^|,)${diaDiem}(,|$)`) },
-                { usc_district: district },
-                { new_qh_id: new RegExp(`(^|,)${district}(,|$)`) }
-            ];
-            if (diaDiem) {
-                const cityData = await City.findOne({ cit_id: diaDiem });
-                console.log('123')
-                console.log(cityData)
-                const cityName = cityData ? cityData.cit_name : '';
-                conditions_ai['$or'] = [
-                    { $expr: { $eq: [{ $trim: { input: "$new_city" } }, cityName.trim()] } },
-                    { $expr: { $eq: [{ $trim: { input: "$new_qh_id" } }, cityName.trim()] } }
-                ];
-            }
-            if (gioiTinh) conditions.new_gioi_tinh = gioiTinh;
-            if (mucLuong) conditions.new_money = mucLuong;
-            if (tag_id) {
-                conditions.$or = [];    
-                conditions.$or.push({ new_tag: tag_id });
-                const key = keySearch(keywords);
-                const regex = new RegExp(functions.allVietnameseRegex(key), 'i');
-                conditions.$or.push({ new_title: regex });
-                conditions_ai.$or = [];    
-                conditions_ai.$or.push({ new_tag: tag_id });
-                conditions_ai.$or.push({ new_title: regex });
-            }
-            if (keywords && !tag_id) {
-                const key = keySearch(keywords);
-                conditions.new_title = new RegExp(functions.allVietnameseRegex(key), 'i');
-                conditions_ai.new_title = new RegExp(functions.allVietnameseRegex(key), 'i');
-            }
-            if (nganhNghe) {
-                conditions.new_cat_id = new RegExp(`(^|,)${nganhNghe}(,|$)`);
-                conditions_ai.new_cate_id = new RegExp(`(^|,)${nganhNghe}(,|$)`);
-            }
-            if (diaDiem) conditions.new_city = new RegExp(`(^|,)${diaDiem}(,|$)`);
-            conditions.new_active = 1;
-            conditions.new_han_nop = { $gt: new Date().getTime() / 1000 }
-            data = await New.aggregate([
-                { $match: conditions },
-                { $sort: { [sortField]: sortOrder } },
-                { $skip: skip },
-                { $limit: limit },
                 {
-                    $lookup: {
-                        from: "UserCompany",
-                        localField: "new_user_id",
-                        foreignField: "usc_id",
-                        as: "company",
-                    }
+                    usc_phone_tk: { $ne: null }
                 },
-                { $unwind: { path: "$company", preserveNullAndEmptyArrays: true } },
-                { $project: item }
-            ]);
-            console.log(conditions_ai)
-            const totalTinThuong = await New.countDocuments(conditions);
-            total = totalTinThuong ;
+                {
+                    usc_company: { $ne: "" }
+                },
+                {
+                    usc_company: { $ne: null }
+                },
+            ]
+        })
+        conditions.new_user_id = { $in: com }
+        if (hinhThuc) conditions.new_hinh_thuc = hinhThuc;
+        if (hocVan) conditions.new_bang_cap = hocVan;
+        if (capBac) conditions.new_cap_bac = capBac;
+        if (kinhNghiem) conditions.new_exp = kinhNghiem;
+        if (district) conditions['$or'] = [
+            { usc_city: new RegExp(`(^|,)${diaDiem}(,|$)`) },
+            { usc_district: district },
+            { new_qh_id: new RegExp(`(^|,)${district}(,|$)`) }
+        ];
+        if (gioiTinh) conditions.new_gioi_tinh = gioiTinh;
+        if (mucLuong) conditions.new_money = mucLuong;
+        if (tag_id) {
+            conditions.$or = [];    
+            conditions.$or.push({ new_tag: tag_id });
+            const key = keySearch(keywords);
+            const regex = new RegExp(functions.allVietnameseRegex(key), 'i');
+            conditions.$or.push({ new_title: regex });
         }
+        if (keywords && !tag_id) {
+            const key = keySearch(keywords);
+            conditions.new_title = new RegExp(functions.allVietnameseRegex(key), 'i');
+        }
+        if (nganhNghe) {
+            conditions.new_cat_id = new RegExp(`(^|,)${nganhNghe}(,|$)`);
+        }
+        if (diaDiem) conditions.new_city = new RegExp(`(^|,)${diaDiem}(,|$)`);
+        conditions.new_active = 1;
+        conditions.new_han_nop = { $gt: new Date().getTime() / 1000 }
+        data = await New.aggregate([
+            { $match: conditions },
+            { $sort: { [sortField]: sortOrder } },
+            { $skip: skip },
+            { $limit: limit },
+            {
+                $lookup: {
+                    from: "UserCompany",
+                    localField: "new_user_id",
+                    foreignField: "usc_id",
+                    as: "company",
+                }
+            },
+            { $unwind: { path: "$company", preserveNullAndEmptyArrays: true } },
+            { $project: item }
+        ]);
+        const totalTinThuong = await New.countDocuments(conditions);
+        total = totalTinThuong ;
+        
         const iduser = await functions.getTokenJustUser(req, res);
         const arrPromiseLuuTin = []
         const arrPromiseNopHoSo = []
