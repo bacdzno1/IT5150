@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
-    <link rel="canonical" href="http://localhost:9020<%= url %>">
     <link rel="icon" href="/images/img/default_logo.jpg">
     <link rel="stylesheet" href="/css/common.css" as="style">
     <link rel="stylesheet" href="/css/header.css" as="style">
@@ -27,8 +26,7 @@
                 </div>
             </div>
         </div>
-        <img src="/images/img/bannercvrec-min.webp" loading="eager" style="display:none;" id="preloadImage">
-        <div class="banner" style="background-image: url('/images/img/bannercvrec-min.webp');">
+        <div class="banner" style="background-image: url('/images/img/bannercvrec.webp');">
             <div class="banner-box container d-flex">
                 <div class="banner-til">
                     <h1 class="banner-til-top">
@@ -71,31 +69,7 @@
                 </div>
             </div>
         </div>
-        <link rel="stylesheet" href="/css/ck_blog.css" as="style">
-        <% if (response.data.data.blog && response.data.data.blog.idnganh !=0) { %>
-            <div class="guide-bg">
-                <div class="container">
-                    <div class="guide_cnt">
-                        <div class="cv-guide">
-                            <p class="guide-des ck-content fst-italic"><%- response.data.data.blog.mota %></p>
-                            <div class="guide-body ck-content"><%- response.data.data.blog.noidung %></div>
-                        </div>
-                        <div class="cv-toc">
-                            <div class="cv_toc_tit">
-                                <span class="cv_toc_tit_name">Mục lục</span>
-                                <span class="cv_toc_tit_hide">[ẩn]</span>
-                            </div>
-                            <ul id="toc-list"></ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <% } %>
     </div>
-    <div id="myModal" class="modal">
-        <div id="modal-body"></div>
-    </div>
-
     <div class="modal_cv" id="modal_cv">
         <div class="modal_cnt">
             <div class="modal_view">
@@ -161,7 +135,6 @@
 
                     const cvUnit = this.closest('.cv-unit');
                     if (cvUnit) {
-                        // Get the data-preview-image attribute value
                         const previewImage = cvUnit.getAttribute('data-preview-image');
                         cvUnit.classList.toggle('show-hover-image');
                     }
@@ -174,170 +147,6 @@
                         cvUnit.classList.remove('show-hover-image');
                     }
                 });
-            });
-        });
-    </script>
-    <script>
-        $(document).ready(function () {
-            $('.guide_cnt a').each(function() {
-                var link = $(this).attr('href');
-                if (link && (link.endsWith('.docx') || link.endsWith('.pdf') || link.endsWith('.xlsx'))) {
-                    $(this).attr('link-active', '0');
-                }
-            });
-            let timer;
-            let $modal = $('#myModal');
-            let $modalBody = $('#modal-body');
-
-            $('.cv-guide a').hover(function (e) {
-                const $link = $(this);
-                const url = $link.attr('href');
-                if ($link.attr('link-active') == '0') {
-                    console.log("Hủy");
-                    return;
-                }
-                // Hiển thị modal với hiệu ứng fadeIn
-                $modal.stop(true, true).fadeIn(300);
-
-                // Lấy dữ liệu từ URL
-                $.ajax({
-                    url: url,
-                    method: 'GET',
-                    success: function (data) {
-                        // Tạo một phần tử DOM tạm thời để phân tích HTML
-                        const tempDiv = $('<div>').html(data);
-
-                        // Tìm tất cả các thẻ <script> với type="application/ld+json"
-                        const jsonLdScripts = tempDiv.find('script[type="application/ld+json"]');
-
-                        // Lấy thẻ <script> cuối cùng
-                        const lastJsonLdScript = jsonLdScripts.last().html();
-
-                        if (lastJsonLdScript) {
-                            try {
-                                // Phân tích dữ liệu JSON-LD
-                                const jsonLdData = JSON.parse(lastJsonLdScript);
-                                console.log(jsonLdData);
-
-                                // Hiển thị dữ liệu trong modal
-                                $modalBody.html(`
-                                    <img class="w-100" src="${jsonLdData.thumbnail || 'http://localhost:9020/images/img/default_logo.jpg'}">
-                                    <div class="modal-des">${jsonLdData.description || 'N/A'}</div>
-                                `);
-                            } catch (e) {
-                                console.error('Không thể phân tích dữ liệu JSON-LD', e);
-                                $modalBody.html('<div>Không thể phân tích dữ liệu JSON-LD</div>');
-                            }
-                        } else {
-                            console.log('Không tìm thấy thẻ <script> JSON-LD nào');
-                        }
-                    },
-                    error: function () {
-                        console.error('Không thể lấy nội dung trang');
-                        $modalBody.html('<p>Không thể lấy nội dung trang</p>');
-                    }
-                });
-
-                // Tính toán vị trí của modal liên tục khi di chuyển chuột
-                $link.on('mousemove', function (e) {
-                    const cursorX = e.clientX;
-                    const cursorY = e.clientY;
-                    const modalWidth = $modal.outerWidth();
-                    const modalHeight = $modal.outerHeight();
-                    const windowWidth = $(window).width();
-                    const windowHeight = $(window).height();
-
-                    // Điều chỉnh vị trí modal dựa trên con trỏ chuột và viewport
-                    let left, top;
-                    if (cursorX > windowWidth / 2) {
-                        left = cursorX - modalWidth - 10; // Modal nằm bên trái con trỏ chuột
-                    } else {
-                        left = cursorX + 10; // Modal nằm bên phải con trỏ chuột
-                    }
-
-                    if (cursorY + modalHeight > windowHeight) {
-                        top = windowHeight - modalHeight - 10; // Modal nằm phía trên con trỏ chuột
-                    } else if (cursorY < modalHeight + 10) {
-                        top = 10; // Modal nằm phía dưới con trỏ chuột
-                    } else {
-                        top = cursorY - 10; // Modal ở vị trí con trỏ chuột
-                    }
-
-                    // Đặt vị trí của modal
-                    $modal.css({
-                        top: top + 'px',
-                        left: left + 'px'
-                    });
-                });
-            }, function () {
-                // Ẩn modal với hiệu ứng fadeOut khi rời chuột khỏi liên kết
-                timer = setTimeout(function () {
-                    $modal.stop(true, true).fadeOut(300);
-                }, 0); // Thay đổi thời gian delay nếu cần
-
-                // Gỡ bỏ sự kiện mousemove khi rời khỏi liên kết
-                $(this).off('mousemove');
-            });
-
-            // Xử lý nút đóng modal
-            $('.close').click(function () {
-                $modal.hide();
-            });
-        });
-    </script>
-    <script>
-        $(document).ready(function () {
-            $('.nav-item').hover(function () {
-                $(this).children('.nav-dropdown').stop(true, true).fadeIn(300);
-            }, function () {
-                $(this).children('.nav-dropdown').stop(true, true).fadeOut(300);
-            });
-        });
-        $(document).ready(function () {
-            const tocList = $('#toc-list');
-            const headers = $('.guide-body h2, .guide-body h3, .guide-body h4');
-
-            headers.each(function (index) {
-                const header = $(this);
-                const text = header.text();
-                const id = 'header-' + index;
-                header.attr('id', id);
-
-                const listItem = $('<li></li>')
-                    .text(text)
-                    .click(function () {
-                        $('html, body').animate({
-                            scrollTop: $('#' + id).offset().top - 80
-                        }, 500);
-                    });
-
-                const tag = header.prop('tagName').toLowerCase();
-                if (tag === 'h3') {
-                    listItem.css('margin-left', '20px');
-                } else if (tag === 'h4') {
-                    listItem.css('margin-left', '40px');
-                }
-
-                tocList.append(listItem);
-            });
-
-            $('.cv_toc_tit').click(function () {
-                tocList.toggle();
-                const toggleText = tocList.is(':visible') ? '[ẩn]' : '[hiện]';
-                $('.cv_toc_tit_hide').text(toggleText);
-            });
-            $('.blog-sh').click(function () {
-                const content = $('.guide-body');
-                const toc = $('.cv-toc');
-                if (content.is(':visible') && toc.is(':visible')) {
-                    content.slideUp();
-                    toc.slideUp();
-                    $(this).text('Hiện thêm');
-                } else {
-                    content.slideDown();
-                    toc.slideDown();
-                    $(this).text('Thu gọn');
-                }
             });
         });
     </script>

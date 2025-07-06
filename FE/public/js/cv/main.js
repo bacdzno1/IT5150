@@ -1,42 +1,4 @@
-function deletePop() {
-  $("#imageEditorWraper_AI").hide();
-  $("#imageEditorWraper_AI .container").hide();
-  $("#imageEditorWraper_AI .avatar-container").show();
-  $(
-    ".choose_image .bottom-container .right-span, .choose_image_style .bottom-container .right-span"
-  ).attr("data-class", "");
-  $(".choose_image .image-container").show();
-  $(".avatar_handle").css({
-    background: ``,
-  });
-  $("input:checked").parent().css({
-    border: "none",
-  });
-  $("input:checked").attr("checked", false);
-  $("#inp_avatar_ai365").val("");
-  file_avatar = "";
-  file_style = "";
-}
-
-function newCrop() {
-  $("#imageEditorWraper .container h3:first-child").html(
-    "Chỉnh sửa ảnh phong cách"
-  );
-  $("#imageEditorWraper .editor-col-right h4").html("Phong cách CV");
-  $(".tipCompress").html("Lưu ý ảnh phong cách cần đủ sáng và nhìn thẳng");
-}
-
-function oldCrop() {
-  $("#imageEditorWraper .container h3:first-child").html(
-    "Chỉnh sửa ảnh đại diện"
-  );
-  $("#imageEditorWraper .editor-col-right h4").html("Ảnh hiển thị trên CV");
-  $(".tipCompress").html(
-    "Nếu ảnh của bạn có dung lượng trên 5MB, vui lòng giảm dung lượng ảnh trước khi tải lên."
-  );
-}
 $(function () {
-  // var console = window.console || { log: function () {} }
   var URL = window.URL || window.webkitURL;
   var $image = $("#image");
   var $download = $(".btn-save-image");
@@ -72,413 +34,12 @@ $(function () {
   // Tooltip
   $('[data-toggle="tooltip"]').tooltip();
 
-  // Cropper
-  // $image
-  //   .on({
-  //     ready: function (e) {
-  //       console.log(e.type);
-  //     },
-  //     cropstart: function (e) {
-  //       console.log(e.type, e.detail.action);
-  //     },
-  //     cropmove: function (e) {
-  //       console.log(e.type, e.detail.action);
-  //     },
-  //     cropend: function (e) {
-  //       console.log(e.type, e.detail.action);
-  //     },
-  //     crop: function (e) {
-  //       console.log(e.type);
-  //     },
-  //     zoom: function (e) {
-  //       console.log(e.type, e.detail.ratio);
-  //     },
-  //   })
-  //   .cropper(options);
-
   // Buttons
   if (!$.isFunction(document.createElement("canvas").getContext)) {
     $('button[data-method="getCroppedCanvas"]').prop("disabled", true);
     $("button.btn-save-image").prop("disabled", true);
   }
 
-  // if (
-  //   typeof document.createElement("cropper").style.transition === "undefined"
-  // ) {
-  //   $('button[data-method="rotate"]').prop("disabled", true);
-  //   $('button[data-method="scale"]').prop("disabled", true);
-  // }
-
-  // Download
-  // if (typeof $download[0].download === "undefined") {
-  //   $download.addClass("disabled");
-  // }
-
-  // Options
-  // $(".docs-toggles").on("change", "input", function () {
-  //   var $this = $(this);
-  //   var name = $this.attr("name");
-  //   var type = $this.prop("type");
-  //   var cropBoxData;
-  //   var canvasData;
-
-  //   if (!$image.data("cropper")) {
-  //     return;
-  //   }
-
-  //   if (type === "checkbox") {
-  //     options[name] = $this.prop("checked");
-  //     cropBoxData = $image.cropper("getCropBoxData");
-  //     canvasData = $image.cropper("getCanvasData");
-
-  //     options.ready = function () {
-  //       $image.cropper("setCropBoxData", cropBoxData);
-  //       $image.cropper("setCanvasData", canvasData);
-  //     };
-  //   } else if (type === "radio") {
-  //     options[name] = $this.val();
-  //   }
-
-  //   $image.cropper("destroy").cropper(options);
-  // });
-
-  // Methods
-  // $(".docs-buttons").on("click", "[data-method]", function () {
-  //   var $this = $(this);
-  //   var data = $this.data();
-  //   var cropper = $image.data("cropper");
-  //   var cropped;
-  //   var $target;
-  //   var result;
-
-  //   if ($this.prop("disabled") || $this.hasClass("disabled")) {
-  //     return;
-  //   }
-
-  //   if (cropper && data.method) {
-  //     data = $.extend({}, data); // Clone a new one
-
-  //     if (typeof data.target !== "undefined") {
-  //       $target = $(data.target);
-
-  //       if (typeof data.option === "undefined") {
-  //         try {
-  //           data.option = JSON.parse($target.val());
-  //         } catch (e) {
-  //           console.log(e.message);
-  //         }
-  //       }
-  //     }
-
-  //     cropped = cropper.cropped;
-
-  //     switch (data.method) {
-  //       case "rotate":
-  //         if (cropped && options.viewMode > 0) {
-  //           $image.cropper("clear");
-  //         }
-
-  //         break;
-
-  //       case "getCroppedCanvas":
-  //         if (uploadedImageType === "image/jpeg") {
-  //           if (!data.option) {
-  //             data.option = {};
-  //           }
-
-  //           data.option.fillColor = "#fff";
-  //         }
-
-  //         break;
-  //     }
-
-  //     result = $image.cropper(data.method, data.option, data.secondOption);
-
-  //     switch (data.method) {
-  //       case "rotate":
-  //         if (cropped && options.viewMode > 0) {
-  //           $image.cropper("crop");
-  //         }
-
-  //         break;
-
-  //       case "scaleX":
-  //       case "scaleY":
-  //         $(this).data("option", -data.option);
-  //         break;
-
-  //       case "getCroppedCanvas":
-  //         if (result) {
-  //           // Bootstrap's Modal
-  //           $("#getCroppedCanvasModal")
-  //             .modal()
-  //             .find(".modal-body")
-  //             .html(result);
-
-  //           if (!$download.hasClass("disabled")) {
-  //             download.download = uploadedImageName;
-  //             $download.attr("href", result.toDataURL(uploadedImageType));
-  //           }
-  //         }
-
-  //         break;
-
-  //       case "destroy":
-  //         if (uploadedImageURL) {
-  //           URL.revokeObjectURL(uploadedImageURL);
-  //           uploadedImageURL = "";
-  //           $image.attr("src", originalImageURL);
-  //         }
-
-  //         break;
-  //     }
-
-  //     if ($.isPlainObject(result) && $target) {
-  //       try {
-  //         $target.val(JSON.stringify(result));
-  //       } catch (e) {
-  //         console.log(e.message);
-  //       }
-  //     }
-  //   }
-  // });
-
-  // Keyboard
-  /*$(document.body).on('keydown', function (e) {
-
-    if (!$image.data('cropper') || this.scrollTop > 300) {
-    return;
-    }
-
-    switch (e.which) {
-    case 37:
-      e.preventDefault();
-      $image.cropper('move', -1, 0);
-      break;
-
-    case 38:
-      e.preventDefault();
-      $image.cropper('move', 0, -1);
-      break;
-
-    case 39:
-      e.preventDefault();
-      $image.cropper('move', 1, 0);
-      break;
-
-    case 40:
-      e.preventDefault();
-      $image.cropper('move', 0, 1);
-      break;
-    }
-
-  });
-  */
-  // Import image
-  // var $inputImage = $("#inputImage");
-
-  // if (URL) {
-  //   $inputImage.change(function () {
-  //     var files = this.files;
-  //     var file;
-  //     if (!$image.data("cropper")) {
-  //       return;
-  //     }
-
-  //     if (files && files.length) {
-  //       file = files[0];
-
-  //       if (/^image\/\w+$/.test(file.type)) {
-  //         uploadedImageName = file.name;
-  //         uploadedImageType = file.type;
-
-  //         if (uploadedImageURL) {
-  //           URL.revokeObjectURL(uploadedImageURL);
-  //         }
-
-  //         uploadedImageURL = URL.createObjectURL(file);
-  //         $image
-  //           .cropper("destroy")
-  //           .attr("src", uploadedImageURL)
-  //           .cropper(options);
-  //         $inputImage.val("");
-  //         //Add them
-  //         $(".imageEditor").show();
-  //         $(".editorChooseImage").hide();
-  //         $(".image-controls").show();
-  //         $(".edit-image-btns").show();
-  //         $(".edit-image-btns").css({
-  //           display: "flex",
-  //         });
-  //         let bool = $(".isNewImage").val();
-  //         if (bool == "no") {
-  //           $(".tipCompress").hide();
-  //           $(".tipCompress").css({
-  //             "padding-bottom": "5px",
-  //             "text-algin": "",
-  //           });
-  //         } else {
-  //           $(".tipCompress").show();
-  //           $(".tipCompress").css({
-  //             "padding-bottom": "10px",
-  //             "text-algin": "center",
-  //           });
-  //         }
-  //         $download.removeClass("disabled");
-  //         /////////////
-  //       } else {
-  //         window.alert("Hãy chọn file dạng ảnh!");
-  //         $download.addClass("disabled");
-  //       }
-  //     }
-  //   });
-  // } else {
-  //   $inputImage.prop("disabled", true).parent().addClass("disabled");
-  //   $download.addClass("disabled");
-  // }
-
-  // change image
-  // var $inputImage = $("#inputImage1");
-
-  // if (URL) {
-  //   $inputImage.change(function () {
-  //     var files = this.files;
-  //     var file;
-  //     if (!$image.data("cropper")) {
-  //       return;
-  //     }
-
-  //     if (files && files.length) {
-  //       file = files[0];
-
-  //       if (/^image\/\w+$/.test(file.type)) {
-  //         uploadedImageName = file.name;
-  //         uploadedImageType = file.type;
-
-  //         if (uploadedImageURL) {
-  //           URL.revokeObjectURL(uploadedImageURL);
-  //         }
-
-  //         uploadedImageURL = URL.createObjectURL(file);
-  //         $image
-  //           .cropper("destroy")
-  //           .attr("src", uploadedImageURL)
-  //           .cropper(options);
-  //         $inputImage.val("");
-  //         //Add them
-  //         $(".imageEditor").show();
-  //         $(".editorChooseImage").hide();
-  //         $(".image-controls").show();
-  //         $(".edit-image-btns").show();
-  //         $(".tipCompress").hide();
-  //         $download.removeClass("disabled");
-  //         /////////////
-  //       } else {
-  //         window.alert("Hãy chọn file dạng ảnh!");
-  //         $download.addClass("disabled");
-  //       }
-  //     }
-  //   });
-  // } else {
-  //   $inputImage.prop("disabled", true).parent().addClass("disabled");
-  //   $download.addClass("disabled");
-  // }
-
-  // $(".img-edit-preview").click(function () {
-  //   $("#inputImage").trigger("click");
-  // });
-
-  // $(".btn-remove-image").click(function () {
-  //   $image.cropper("destroy").cropper(options);
-  //   $(".imageEditor").hide();
-  //   $(".editorChooseImage").show();
-  // });
-  // $(".btn-rotate-right").click(function () {
-  //   $image.cropper("rotate", 90);
-  // });
-  // $(".btn-rotate-left").click(function () {
-  //   $image.cropper("rotate", -90);
-  // });
-  // $(".btn-zoom-in-image").click(function () {
-  //   $image.cropper("zoom", 0.2);
-  // });
-  // $(".btn-zoom-out-image").click(function () {
-  //   $image.cropper("zoom", -0.2);
-  // });
-  // $("#save_cropped_image").click(function () {
-  //   if ($(this).hasClass("disabled")) {
-  //   } else {
-  //     var dataX = $dataX.val();
-  //     var dataY = $dataY.val();
-  //     var dataHeight = $dataHeight.val();
-  //     var dataWidth = $dataWidth.val();
-  //     var dataRotate = $dataRotate.val();
-  //     var dataScaleX = $dataScaleX.val();
-  //     var dataScaleY = $dataScaleY.val();
-  //     var cropper = $image.data("cropper");
-  //     var result = $image.cropper("getCroppedCanvas", {
-  //       width: baseW,
-  //       height: baseH,
-  //       minWidth: 100,
-  //       minHeight: 100,
-  //       maxWidth: 4000,
-  //       maxHeight: 4000,
-  //       fillColor: "#fff",
-  //       imageSmoothingEnabled: true,
-  //       imageSmoothingQuality: "high",
-  //     });
-
-  //     var img = result.toDataURL(uploadedImageType);
-  //     let bool = $(".isNewImage").val();
-  //     if (!bool || bool == "no") {
-  //       $.ajax("http://localhost:9020/api/work247/user/uploadAvatarCV", {
-  //         method: "POST",
-  //         data: { image64: img },
-  //         cache: false,
-  //         success: function (img) {
-  //           $("#cvo-profile-avatar").attr("src", img?.data?.img);
-  //           console.log("Upload success");
-  //         },
-  //         error: function () {
-  //           console.log("Upload error");
-  //         },
-  //       });
-
-  //       $("#modal_avar").hide();
-  //     } else {
-  //       base64 = img;
-  //       detectAvatarUpload(base64);
-  //     }
-  //   }
-  // });
-
-  // // $(document).on('click', '#imageEditorWraper_AI .choose_image_style .update_examp', function (e) {
-  // // 	$image.cropper('destroy').cropper(options)
-  // // 	// $('#imageEditorWraper .img-edit-preview img').attr('src','images/no_avatar.webp');
-  // // 	$('.imageEditor').hide()
-  // // 	$('.editorChooseImage').show()
-  // // 	$('#imageEditorWraper').show()
-
-  // // 	$('#imageEditorWraper_AI').hide()
-  // // })
-
-  // //Upload image
-  // function uploadImageCut(file) {
-  //   $("#imageEditorWraper_AI").hide();
-  //   $(".imageEditor").hide();
-  //   $(".editorChooseImage").show();
-  //   $("#imageEditorWraper").show();
-  //   $(".edit-image-btns").css({
-  //     display: "flex",
-  //   });
-  //   uploadedImageURL = URL.createObjectURL(file);
-  //   $image.cropper("destroy").attr("src", uploadedImageURL).cropper(options);
-  //   $(".imageEditor").show();
-  //   $(".editorChooseImage").hide();
-  //   $(".image-controls").show();
-  //   $(".edit-image-btns").show();
-  //   $download.removeClass("disabled");
-  // }
   $(document).on("change", "#inp_avatar_ai365", function (e) {
     let file = this.files[0];
     if (file) {
@@ -567,7 +128,6 @@ $(function () {
       error: function (XMLHttpRequest, textStatus, errorThrown) {
         console.log(errorThrown);
         window.alert("Có lỗi xảy ra!");
-        deletePop();
       },
     });
   }
@@ -597,74 +157,16 @@ $(function () {
 });
 
 $(document).on("click", "#cvo-profile-avatar, .fake_img", function () {
-  // $image.cropper('destroy').cropper(options);
-  // $('#imageEditorWraper').show()
-  // if ($(this).parents("#form-cv").length) {
-  //   $("#imageEditorWraper_AI").show();
-  //   // $('.avatar-containere').show()
-  // } else {
-  //   $("#imageEditorWraper").show();
-  // }
   $(".isNewImage").val("no");
-  $("#imageEditorWraper").show();
-});
-
-// $(document).on("click", ".avatar-container .show_new_avatar", function (e) {
-//   newCrop();
-//   $(".isNewImage").val("yes");
-// });
-
-$(document).on(
-  "click",
-  ".delete_wraper, .choose_image .bottom-container .left-span",
-  function (e) {
-    deletePop();
-  }
-);
-
-$(document).on("click", function (e) {
-  if (!$(e.target).closest(".avatar-container.container").length) {
-    if ($(e.target).attr("id") !== "cvo-profile-avatar" && $(e.target).attr("id") !== "imageEditorWraper" && !$(e.target).closest(".container_crop_image").length) {
-      // Thêm mã xử lý tại đây
-      deletePop();
-    }
-  }
-});
-
-$(document).on("click", function (e) {
-  if (!$(e.target).closest(".container_crop_image").length) {
-    if ($(e.target).attr("id") !== "cvo-profile-avatar" && !$(e.target).closest(".avatar-container.container").length) {
-      $("#imageEditorWraper").hide();
-    }
-  }
 });
 
 $(document).on("click", ".avatar-container .show_old_avatar", function (e) {
-  oldCrop();
   $(".isNewImage").val("no");
   $("#imageEditorWraper_AI").hide();
-  $("#imageEditorWraper").show();
   $(".edit-image-btns").css({
     display: "flex",
   });
 });
-// $(document).on("click", ".avatar-container .show_new_avatar", function (e) {
-//   // $('#imageEditorWraper .img-edit-preview img').hide();
-//   newCrop();
-//   $(".isNewImage").val("yes");
-// });
-// $(".btn-close-image-editor").on("click", function () {
-//   let bool = $(".isNewImage").val();
-//   if (bool == "no") {
-//     $("#imageEditorWraper").hide();
-//   } else {
-//     $("#imageEditorWraper").hide();
-//     $("#imageEditorWraper_AI").show();
-//   }
-// });
-// Create avatar AI
-// Olf dunction
-// Detect Avatar
 function detectAvatar(base64) {
   $.ajax({
     url: "http://43.239.223.19:4090/detect",
@@ -727,7 +229,6 @@ function detectAvatarUpload(base64) {
       const result = success?.data;
       $(".bg-spinner").remove();
       if (result && result.face) {
-        $("#imageEditorWraper").hide();
         $("#imageEditorWraper_AI").show();
         $(".choose_image_style").hide();
         $(".choose_image").show();
@@ -904,7 +405,6 @@ $(document).on(
         $(".bg-spinner").remove();
         $("#cvo-profile-avatar").attr("src", img);
         file_avatar = "";
-        deletePop();
       },
       error: function () {
         console.log("Upload error");
@@ -1041,16 +541,3 @@ $(document).on("click", ".bottom-container span", function (e) {
     $(`#imageEditorWraper_AI .${data_class}`).show();
   }
 });
-// Delete Pop
-$(document).on("click", "#imageEditorWraper_AI .delete_wraper", function (e) {
-  deletePop();
-});
-// Back pop
-$(document).on(
-  "click",
-  "#imageEditorWraper_AI .choose_image .bottom-container .left-span",
-  function (e) {
-    $("#imageEditorWraper_AI .container").hide();
-    $("#imageEditorWraper_AI .avatar-container").show();
-  }
-);

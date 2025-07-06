@@ -400,16 +400,6 @@ span#cv-profile-job {
   padding-top: 5px;
 }
 
-.bar-value-exp {
-  width: 100%;
-}
-
-.bar-value-exp input[type="text"] {
-  color: #000;
-  width: 95%;
-  height: 70px;
-}
-
 .icoweb label {
   display: block;
 }

@@ -201,33 +201,6 @@ const arrPromiseUV = (new_cat_id, new_city) => {
     });
     return soUngVien;
 };
-export const RefreshNew = async(req, res) => {
-    try {
-        const idNTD = req.idNTD;
-        const idNew = Number(req.body.idNew);
-        if (idNew) {
-            const check = await New.findOne({ new_user_id: idNTD }, { new_time_refresh: 1, new_update_time: 1 }).sort({ new_time_refresh: -1 }).lean();
-            if (check) {
-                const checkExists = await New.findOne({ new_id: idNew, new_user_id: idNTD }).lean();
-                if (checkExists) {
-                    const time = functions.getTime();
-                    await New.updateMany({ new_user_id: idNTD }, { new_time_refresh: 0 });
-                    await New.updateOne({ new_id: idNew }, {
-                        $inc: { new_refresh: +1 },
-                        new_update_time: time,
-                        new_time_refresh: time
-                    });
-                    return functions.success(res, 'Làm mới tin thành công');
-                }
-                return functions.setError(res, 'Không tìm thấy tin làm mới', 404);
-            }
-            return functions.setError(res, 'Bạn chưa đăng tin nào', 400);
-        }
-        return functions.setError(res, 'Không tìm thấy idNew', 404);
-    } catch (error) {
-        return functions.setError(res, error.message);
-    }
-};
 export const UpdateNew = async(req, res) => {
     try {
         const idNTD = req.idNTD;

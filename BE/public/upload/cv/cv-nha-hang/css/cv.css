@@ -430,16 +430,6 @@ div#box02::before {
   height: 34px;
 }
 
-.bar-value-exp {
-  width: 100%;
-}
-
-.bar-value-exp input[type="text"] {
-  color: #000;
-  width: 95%;
-  height: 70px;
-}
-
 .icoweb label {
   display: block;
 }

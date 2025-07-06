@@ -5,11 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= dataToRender.data.usc_company %> và thông tin tuyển dụng hấp dẫn</title>
-    <link rel="preload" href="/css/common.css" as="style">
+    <link rel="icon" href="/images/img/default_logo.jpg">
     <link rel="stylesheet" href="/css/common.css" as="style">
-    <link rel="preload" href="/css/header.css" as="style">
     <link rel="stylesheet" href="/css/header.css" as="style">
-    <link rel="preload" href="/css/page_css/comp_detail.css" as="style">
     <link rel="stylesheet" href="/css/page_css/comp_detail.css" as="style">
     <link rel="stylesheet" href="/css/custom_select2.css">
 </head>
@@ -98,35 +96,6 @@
                             <h2 class="bg-main comp-title mb-0">
                                 Tuyển dụng
                             </h2>
-                            <div class="recuit-body " style="display: none;">
-                                <div class="search-row ">
-                                    <div class="search-container">
-                                        <div class="search-icon d-flex">
-                                            <img src="/images/icon/glass.svg" alt="Search Icon">
-                                        </div>
-                                        <input type="text" placeholder="Tên công ty các vị trí ứng tuyển">
-                                    </div>
-                                    <div class="search-container">
-                                        <div class="search-icon d-flex">
-                                            <img src="/images/icon/glass.svg" alt="Search Icon">
-                                        </div>
-                                        <select id="job_comp_city">
-                                            <option value="">
-                                                Tất cả tỉnh/thành phố
-                                            </option>
-                                            <% if (city_array && city_array.length > 0) { %>
-                                                <% city_array.forEach(function(item) { %>
-                                                    <option value="<%= item.cit_id %>"><%= item.cit_name %></option>
-                                                <% }); %>
-                                            <% }  %>
-                                        </select>
-                                    </div>
-                                    <button class="d-flex align-c search-job">
-                                        <img src="/images/icon/white-glass.svg" alt="Search Icon" width="19px" height="20px">
-                                        <span class="color-white">Tìm kiếm</span>
-                                    </button>
-                                </div>
-                            </div>
                             <div class="recuit-list">
                                 <% if (dataToRender.data.news && dataToRender.data.news.length > 0) { %>
                                     <% dataToRender.data.news.forEach(function(item) { %>
@@ -159,7 +128,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="recuit-act">
-                                                        <button class="recuit-appl <%= item.checkUngTuyen == true?"":"apply_action"%> " data-id="<%= item.new_id%>"><%= item.checkUngTuyen == true?"Đã ứng tuyển":"Ứng tuyển"%></button>
+                                                        <button class="recuit-appl <%= item.checkUngTuyen == true?'':'apply_action'%>" data-id="<%= item.new_id%>"><%= item.checkUngTuyen == true?"Đã ứng tuyển":"Ứng tuyển"%></button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -229,7 +198,7 @@
     </div>
     <link rel="stylesheet" href="/css/footer.css" as="style">
     <%- include('layouts/footer', {}); %>
-
+    <script src="/js/custom_select.js"></script>
     <script>
         $(document).ready(function() {
             $('.nav-item').hover(function() {
@@ -326,7 +295,6 @@
             })
         });
     </script>
-    <script src="/js/custom_select.js"></script>
     <script>
         $('#job_comp_city').CustomSelect({
             placeholder: 'Chọn tỉnh thành',

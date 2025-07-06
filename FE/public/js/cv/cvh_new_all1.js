@@ -4114,71 +4114,6 @@ $(document).ready(function () {
     }
   });
 
-  $(document).on("click", ".js-edit-content", function (e) {
-    $(this).parent().parent().addClass("edit-content");
-    $(this).parent().html('<div class="save js-save-content">Save</div>');
-  });
-
-  //fix input can be character
-  $(document).on("keydown", ".bar-value-exp input", function (e) {
-    var charCode = e.which ? e.which : e.keyCode;
-
-    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-      e.preventDefault();
-      return false;
-    }
-  });
-
-  $(document).on("input", ".bar-value-exp input", function (e) {
-    if ($(this).val() > 100) {
-      $(this).val(100);
-    } else if ($(this).val() < 0) {
-      $(this).val(0);
-    }
-  });
-
-  $(document).on("click", ".js-save-content", function (e) {
-    var div = $(this).parent().parent();
-    var bar = div.removeClass("edit-content").find(".bar-exp");
-    var p = div.find(".bar-value-exp input").val();
-    if (p > 100) {
-      p = 100;
-    } else if (p < 0) {
-      p = 0;
-    }
-    div.find(".bar-value-exp input").val(p);
-    bar.find("div").css("width", `${p}%`);
-    // bar.html('<div style="width: ' + p + '%"></div>');
-    $(this)
-      .parent()
-      .html(
-        '<div class="clone"><i class="fa fa-plus"></i> Thêm</div>\n' +
-        '<div class="edit js-edit-content">Sửa</div>\n' +
-        '<div class="remove"><i class="fa fa-minus"></i> Xóa</div>'
-      );
-  });
-
-  $(document).on("click", ".js-save-content", function (e) {
-    var div = $(this).parent().parent();
-    var bar = div.removeClass("edit-content").find(".bar-exp");
-    var p = div.find(".bar-value-exp input").val();
-    if (p > 100) {
-      p = 100;
-    } else if (p < 0) {
-      p = 0;
-    }
-    div.find(".bar-value-exp input").val(p);
-    console.log("exp: ", p);
-    bar.find("div").css("width", `${p}%`);
-    $(this)
-      .parent()
-      .html(
-        '<div class="clone"><i class="fa fa-plus"></i> Thêm</div>\n' +
-        '<div class="edit js-edit-content">Sửa</div>\n' +
-        '<div class="remove"><i class="fa fa-minus"></i> Xóa</div>'
-      );
-  });
-
   $(".cv-top_act--view").click(() => {
     xemtruoc_cv();
   });
@@ -4221,25 +4156,6 @@ $(document).ready(function () {
     });
   };
 
-  //Hide block from data
-  $.hideBlock = function (area, id) {
-    data[area].forEach(function (arrayItem, index) {
-      if (data[area][index].id === id) {
-        // data[area][index].status = 'hide'
-        $("#layout-editor")
-          .find("[blockkey='" + id + "']")
-          .removeClass("active");
-      }
-    });
-  };
-
-  $.showBlock = function (area, id) {
-    data[area].forEach(function (arrayItem, index) {
-      if (data[area][index].id === id) {
-        // data[area][index].status = null
-      }
-    });
-  };
   //Update order by id
   $.updateOrder = function (area, id, order) {
     for (var i = 0; i < data[area].length; i++) {
@@ -4561,26 +4477,9 @@ $(document).ready(function () {
                 type: "skill",
                 skills: [],
               };
-
-              $(".box-skills .ctbx").each(function () {
-                let width = 0;
-                if ($(this).find(".bar-exp div")[0]) {
-                  const widthString =
-                    $(this).find(".bar-exp div")[0].style.width;
-                  width = Number(widthString?.replace("%", ""));
-                }
-                content.skills.push({
-                  name: $(this).find(".skill-name").text().replace(/\n/g, '').replace(/<br>/g, '').replace(/\s\s+/g, ' ').trim(),
-                  exp: width,
-                });
-              });
             } else {
               content = tmpItem.find(".box-content").html();
             }
-            // var status = "";
-            // if (tmpItem.is(":hidden") == true) {
-            //   status = "hide";
-            // }
             if (content) {
               data["menu"][k].content = {
                 title: tmpItem.find(".box-title").text().replace(/\n/g, '').replace(/<br>/g, '').replace(/\s\s+/g, ' ').trim(),
@@ -4667,12 +4566,6 @@ $(document).ready(function () {
             type: "skill",
             skills: [],
           };
-          $(".box-skills .ctbx").each(function () {
-            content.skills.push({
-              name: $(this).find(".skill-name").text().replace(/\n/g, '').replace(/<br>/g, '').replace(/\s\s+/g, ' ').trim(),
-              exp: $(this).find(".bar-value-exp input").val(),
-            });
-          });
         } else {
           content = tmpItem.find(".box-content").html();
         }
@@ -4883,19 +4776,6 @@ $(document).ready(function () {
                 type: "skill",
                 skills: [],
               };
-
-              $(".box-skills .ctbx").each(function () {
-                let width = 0;
-                if ($(this).find(".bar-exp div")[0]) {
-                  const widthString =
-                    $(this).find(".bar-exp div")[0].style.width;
-                  width = Number(widthString?.replace("%", ""));
-                }
-                content.skills.push({
-                  name: $(this).find(".skill-name").text().replace(/\n/g, '').replace(/<br>/g, '').replace(/\s\s+/g, ' ').trim(),
-                  exp: width,
-                });
-              });
             } else {
               for (var m = 0; m < tmpItem.find(".box-content").length; m++) {
                 var content1 = tmpItem.find(".box-content").html();
@@ -4904,17 +4784,12 @@ $(document).ready(function () {
                 }
               }
             }
-            // var status = "";
-            // if (tmpItem.is(":hidden") == true) {
-            //   status = "hide";
-            // }
             if (content) {
               data["menu"][k].content = {
                 title: tmpItem.find(".box-title").text().replace(/\n/g, '').replace(/<br>/g, '').replace(/\s\s+/g, ' ').trim(),
                 content: content,
               };
             }
-            // data["menu"][k].status = status;
           }
         }
         //export data for box experience
@@ -4994,12 +4869,6 @@ $(document).ready(function () {
             type: "skill",
             skills: [],
           };
-          $(".box-skills .ctbx").each(function () {
-            content.skills.push({
-              name: $(this).find(".skill-name").text().replace(/\n/g, '').replace(/<br>/g, '').replace(/\s\s+/g, ' ').trim(),
-              exp: $(this).find(".bar-value-exp input").val(),
-            });
-          });
         } else {
           for (var m = 0; m < tmpItem.find(".box-content").length; m++) {
             var content1 = tmpItem.find(".box-content").html();
@@ -5205,109 +5074,6 @@ $(document).ready(function () {
         "1px dashed red";
       return false;
     }
-
-    //Check nội dung cv
-    if (!check_cv_content()) {
-      return false;
-    }
-
-    // $('#cvo-toolbar').removeClass('fx');
-    // $('body').append('<div class="bg-spinner"><div class="spinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div></div>');
-    const json_html_cv = $.exportData();
-
-    var ckcook = $("#ckcook").val();
-    if (ckcook == 1) {
-      var x = $("#cv-profile-phone").text();
-      var y = $("#cv-profile-email").text();
-      // $('#cv-profile-phone').text('Xem ở trên');
-      // $('#cv-profile-email').text('Xem ở trên');
-    }
-
-    $(".bar-value-exp").hide();
-    $(".bar-exp").show();
-    $(".bg-spinner").remove();
-    $("body").append(
-      '<div class="bg-spinner"><div class="spinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div></div>'
-    );
-    var cvid = $("#cvid").val();
-    var height_cv = $("#form-cv").height();
-    var lang = $("#cvo-toolbar-lang .active").attr("data-lang");
-    $.ajax({
-      type: "POST",
-      url: "save.php",
-      async: true,
-      data: {
-        json_html_cv,
-        cvid,
-        height_cv,
-        lang,
-        allowSendChat,
-      },
-      dataType: "json",
-      beforeSend: function (response) {
-        $(".bg-spinner").remove();
-        $("body").append(
-          '<div class="bg-spinner"><div class="spinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div></div>'
-        );
-      },
-      success(response) {
-        $(".bg-spinner").remove();
-        var url = getCookie("url");
-        if (isMac) {
-          openChat(1192, linkChatMac, 'SendCv')
-          // $('.popup_send_chat .btn_close').attr('onclick', `update_cv(${uid})`);
-          // $(".popup_send_chat").find(".qr_area").html("");
-          // let id_chat365 = get_Cookie_c("id_chat365"),
-          //   uid_type = get_Cookie_c("UT");
-          // let link_qr = `https://appchat365.timviec365.vn?apn=vn.timviec365.chat_365&ibi=vn.timviec365.chat365&isi=1623353330&link=https://chat365.timviec365.vn?userId=${btoa(
-          //   id_chat365
-          // )}%26contactId=${btoa("1191")}%26type365=${uid_type}&efr=1`;
-          // let qr_box = $(".popup_send_chat").find(".qr_area")[0];
-          // var QR_CODE = new QRCode(qr_box, {
-          //   width: 110,
-          //   height: 110,
-          //   colorDark: "#000000",
-          //   colorLight: "#ffffff",
-          //   correctLevel: QRCode.CorrectLevel.L,
-          // });
-          // QR_CODE.makeCode(link_qr);
-          // $(".popup_send_chat").show();
-          // $(".popup_send_chat .download_mobile").hide();
-          // $(".popup_send_chat .download_pc .btn_area").hide();
-          // if (url != "") {
-          //   $("#popup_back_ut").show();
-          //   $(".back_ut").attr("href", url);
-          //   document.cookie =
-          //     "url=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-          // } else {
-          //   $(".popup_send_chat").show();
-          // }
-        } else if (isMobile.any()) {
-          if (isMobile.any()) {
-            var url = getCookie("url");
-            if (url != "") {
-              $("#popup_back_ut").show();
-              $(".back_ut").attr("href", url);
-              document.cookie =
-                "url=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            } else {
-              $(".popup_send_chat").show();
-            }
-            openChatMobile(1192);
-          }
-          // openChatMobile(1192);
-        } else {
-          if (url != "") {
-            $("#popup_back_ut").show();
-            $(".back_ut").attr("href", url);
-            document.cookie =
-              "url=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-          }
-        }
-
-        // window.location.href = "/ung-vien/danh-sach-mau-cv";
-      },
-    });
   });
 
   $.randomStr = function () {
@@ -5317,9 +5083,7 @@ $(document).ready(function () {
     );
   };
 
-  //Them tool
   $(document).on("click", "#toolbar-color .pos_clr .color", function (e) {
-    // if (!isMobile.any()) {
     var oldcolor = $("#toolbar-color .color.active").attr("data-color");
     $("#toolbar-color .pos_clr .color").removeClass("active");
     $(this).addClass("active");
@@ -5330,61 +5094,17 @@ $(document).ready(function () {
       var newlink = oldlink.replace(oldcolor, newcolor);
     }
     $("#cv-color-css").attr("href", newlink);
-    // }
-  });
-
-  // if(window.location.href.includes){
-
-  // }
-
-  // $(document).on("click", "#cvo-toolbar-lang .btn-lang-option", function () {
-  //   var lang = $(this).attr("data-lang");
-  //   $.ajax({
-  //     cache: false,
-  //     type: "POST",
-  //     // url: "site/loadLang",
-  //     url: "site/loadLang",
-  //     dataType: "json",
-  //     data: { lang: lang },
-  //     success: function (result) {
-  //       location.reload();
-  //     },
-  //   });
-  // });
-
-  $(document).on("click", "#layout-editor .group .block", function (e) {
-    var id = $(this).attr("blockkey");
-    var boxid = $(this).attr("blockmain");
-    if ($(this).hasClass("active")) {
-      $(this).removeClass("active");
-      $.hideBlock(boxid, id);
-      $("#" + id).hide();
-    } else {
-      $(this).addClass("active");
-      $.showBlock(boxid, id);
-      $("#" + id).show();
-    }
   });
 
   $(document).on("click", "#btn-edit-layout", function (e) {
     $(window).scrollTop(0);
     $(window).scrollLeft(0);
-    $("#layout-editor-container").show();
     $("#btn-shadow").show();
   });
 
   $(document).on("click", ".action-bar .btn-finish", function (e) {
-    $("#layout-editor-container").hide();
     $("#btn-shadow").hide();
   });
-
-  // jQuery.validator.addMethod('checkTwoCate', function (value, element) {
-  // 	if ($('#cate-dk').val().length > 0 || $('#cate-suggest').val().length > 0) {
-  // 		return true
-  // 	} else {
-  // 		return false
-  // 	}
-  // })
 
   // Chọn ngành nghề
   $(document).on('change', '#cate-dk', function (e) {
@@ -5531,7 +5251,6 @@ $(document).ready(function () {
       });
       $(window).scrollTop(0);
       $(window).scrollLeft(0);
-      $("#cvo-toolbar").removeClass("fx");
       var json_html_cv = $.exportData();
 
       const body = {};
@@ -5623,30 +5342,6 @@ $(document).ready(function () {
       body["candiCateID"] = candi.join(",");
       body['candiCityID'] = city
       body["qh_id"] = qh;
-
-      // fetch(`/api/get_suggest_cv_title?keyword=${cv_title}`)
-      //   .then((response) => {
-      //     if (!response.ok) {
-      //       throw new Error("Network response was not ok");
-      //     }
-      //     return response.json();
-      //   })
-      //   .then((data) => {
-      //     let dataCVJson = "";
-      //     data.data.forEach((item) => {
-      //       dataCVJson += `
-      // 			<option value=${item.cat_id}>${item.cat_name}</option>
-      // 			`;
-      //     });
-      //     $("#cate-suggest").html(dataCVJson);
-      //   })
-      //   .catch((error) => {
-      //     $("#cate-suggest").html("");
-      //     console.error(
-      //       "There was a problem with your fetch operation:",
-      //       error
-      //     );
-      //   });
       var arrNganhNghe = $("#cate-dk").val();
       var phone = $("#mobile").val(),
         password = $("#password").val(),
@@ -5659,7 +5354,7 @@ $(document).ready(function () {
         username = $("#cv-profile-fullname").text().replace(/\n/g, '').replace(/<br>/g, '').replace(/\s\s+/g, ' ').trim(),
         jobName = $("#cv-profile-job").text().replace(/\n/g, '').replace(/<br>/g, '').replace(/\s\s+/g, ' ').trim(),
         address = $("#cv-profile-address").text().replace(/\n/g, '').replace(/<br>/g, '').replace(/\s\s+/g, ' ').trim(),
-        lang = $("#cvo-toolbar-lang .active").attr("data-lang"),
+        lang = $(".sidenav__lague--item.sidenav--item.active").attr("data-language"),
         height_cv = $("#form-cv").height();
       $.ajax({
         type: "POST",
@@ -5792,13 +5487,10 @@ function doi_mau_cl(e) {
 function save_cv_login(uid) {
   $(window).scrollTop(0);
   $(window).scrollLeft(0);
-  $("#cvo-toolbar").removeClass("fx");
   $(".bg-spinner").remove();
   $("body").append(
     '<div class="bg-spinner"><div class="spinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div></div>'
   );
-  $(".bar-value-exp").hide();
-  $(".bar-exp").show();
 
   $.exportData();
   var img_val = "",
@@ -5859,7 +5551,6 @@ function save_cv_login(uid) {
 function update_cv(uid) {
   $(window).scrollTop(0);
   $(window).scrollLeft(0);
-  $("#cvo-toolbar").removeClass("fx");
   $("body").append(
     '<div class="bg-spinner"><div class="spinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div></div>'
   );
@@ -5869,8 +5560,6 @@ function update_cv(uid) {
   $("#cv-profile-phone").text("Xem ở trên");
   $("#cv-profile-email").text("Xem ở trên");
 
-  $(".bar-value-exp").hide();
-  $(".bar-exp").show();
   var name = $("#cv-title").text();
   if (name == "") {
     name = $("#cv_alias").val();
@@ -5912,8 +5601,6 @@ function update_cv(uid) {
 function cv_login_user(uid) {
   $(window).scrollTop(0);
   $(window).scrollLeft(0);
-
-  $("#cvo-toolbar").removeClass("fx");
   $("body").append(
     '<div class="bg-spinner"><div class="spinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div></div>'
   );
@@ -5924,8 +5611,6 @@ function cv_login_user(uid) {
 
   $("#cv-profile-phone").text("Xem ở trên");
   $("#cv-profile-email").text("Xem ở trên");
-  $(".bar-value-exp").hide();
-  $(".bar-exp").show();
   var name = $("#cv-title").text();
   if (name == "") {
     name = $("#cv_alias").val();
@@ -6000,14 +5685,6 @@ function xemtruoc_cv() {
       $(".bg-spinner").remove();
     },
   });
-}
-
-function btnsb() {
-  $(window).scrollTop(0);
-  $(window).scrollLeft(0);
-
-  $("#cvo-toolbar").removeClass("fx");
-  // $.exportData();
 }
 
 //Xác thực tài khoản
@@ -6376,7 +6053,6 @@ function resg_new() {
       return false;
     }
     err = "1";
-    // console.log(">>> Check error: ", err);
   }
 
   let user_tk = phone;
@@ -6392,8 +6068,6 @@ function resg_new() {
   if (err != "" && cookieIsLogin != "true") {
     console.log('>>> Tạo cv rồi đăng ký');
     if (!token) {
-      // Gửi thông tin tạo trước
-
       $(window).scrollTop(0);
       $(window).scrollLeft(0);
       $(".box_content_taocv").animate({ scrollTop: 0 }, "slow");
@@ -6415,16 +6089,9 @@ function resg_new() {
 
     $(window).scrollTop(0);
     $(window).scrollLeft(0);
-    $("#cvo-toolbar").removeClass("fx");
 
-    // var json_html_cv = $.exportData();
     const formatted = JSON.parse(json_html_cv);
     const listerr = [];
-    const pathname = window.location.pathname;
-    // const LIST = [
-    //   "/tao-cv-marketing/mau-26",
-    //   "/tao-cv-giao-thong-van-tai/mau-14",
-    // ];
     const block04Data = formatted?.experiences?.find((x) => x.id === "block04");
 
     // check block04
@@ -6628,44 +6295,6 @@ function setCookie(name, value, days) {
   const expires = "expires=" + date.toUTCString();
   document.cookie = name + "=" + encodeURIComponent(value) + ";" + expires + ";path=/";
 }
-
-$(document).on("click", "#cvo-toolbar .line-height", function (e) {
-  $("#cvo-toolbar .line-height").removeClass("active");
-  $(this).addClass("active");
-  var newspacing = $(this).attr("data-spacing");
-  var oldlink = $("#cv-cpacing-css").attr("href");
-  let version = Math.ceil(new Date().getTime() / 1000);
-  var newlink =
-    oldlink.slice(0, oldlink.lastIndexOf("/")) +
-    "/" +
-    newspacing +
-    `.css?v=${version}`;
-  $("#cv-cpacing-css").attr("href", newlink);
-});
-
-$(document).on("change", "#toolbar-font #font-selector", function (e) {
-  e.preventDefault();
-  var newfont = $(this).find("option:selected").val();
-  var oldlink = $("#cv-font").attr("href");
-  var newlink =
-    oldlink.slice(0, oldlink.lastIndexOf("/")) + "/" + newfont + ".css";
-  $("#cv-font").attr("href", newlink);
-});
-$(document).on("click", "#cvo-toolbar .fontsize", function (e) {
-  e.preventDefault();
-  let version = Math.ceil(new Date().getTime() / 1000);
-  $("#cvo-toolbar .fontsize").removeClass("active");
-  $(this).addClass("active");
-  var newsize = $(this).attr("data-size");
-  var oldlink = $("#cv-font-size").attr("href");
-  var newlink =
-    oldlink.slice(0, oldlink.lastIndexOf("/")) +
-    "/" +
-    newsize +
-    ".css?v=" +
-    version;
-  $("#cv-font-size").attr("href", newlink);
-});
 
 $("#verify_otp_btn").click(function () {
   let account = document.getElementById("phone").innerHTML;

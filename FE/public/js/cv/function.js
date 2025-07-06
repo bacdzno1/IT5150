@@ -317,21 +317,6 @@ const handleSetData = async (html, hide, lang, idlang) => {
       // set skill name
       const skillName = item.querySelector('.skill-name')
       if (skillName) skillName.innerHTML = skilldata?.[index]?.name
-
-      // set skill point
-
-      const skillPoint = item.querySelector('.bar-exp > div')
-
-      if (skillPoint) {
-        skillPoint.setAttribute('style', `width : ${skilldata?.[index]?.exp}%;`)
-      }
-
-      //fix cv
-      const skillPoint2 = item.querySelector('.bar-value-exp > input')
-
-      if (skillPoint2) {
-        skillPoint2.value = `${skilldata?.[index]?.exp}`
-      }
     })
 
   // awards
@@ -683,21 +668,6 @@ const handleSetDataNew = async (html, hide, lang, idlang) => {
       // set skill name
       const skillName = item.querySelector('.skill-name')
       if (skillName) skillName.innerHTML = skilldata?.[index]?.name
-
-      // set skill point
-
-      const skillPoint = item.querySelector('.bar-exp > div')
-
-      if (skillPoint) {
-        skillPoint.setAttribute('style', `width : ${skilldata?.[index]?.exp}%;`)
-      }
-
-      //fix cv
-      const skillPoint2 = item.querySelector('.bar-value-exp > input')
-
-      if (skillPoint2) {
-        skillPoint2.value = `${skilldata?.[index]?.exp}`
-      }
     })
 
   // awards
@@ -963,10 +933,6 @@ const setPlaceholderHTMl = (lang, html, sample) => {
       isSample = true;
     }
   }
-
-  document.querySelectorAll(".bar-value-exp > input").forEach((el) => {
-    el.setAttribute("type", "number");
-  });
 
   //handle remove watermark
   document.querySelector(".watermark")?.setAttribute("style", "display:none;");

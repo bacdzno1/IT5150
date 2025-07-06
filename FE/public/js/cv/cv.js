@@ -208,24 +208,6 @@ function addMore(e) {
 	$('#list-add').append(s)
 }
 
-function loadModal() {
-	var e = document.getElementById('myModal')
-	document.getElementById('imgZoom'),
-		(e.style.display = 'block'),
-		(document.getElementsByClassName('close')[0].onclick = function () {
-			e.style.display = 'none'
-		})
-}
-
-function loadModal2($id_cv) {
-	var e = document.getElementById('myModal' + $id_cv)
-	document.getElementById('imgZoom'),
-		(e.style.display = 'block'),
-		(document.getElementsByClassName('close')[0].onclick = function () {
-			e.style.display = 'none'
-		})
-}
-
 function btnDown(e) {
 	var t = $('#ltid').val(),
 		a = $('#lttype').val(),
@@ -803,27 +785,13 @@ function hide() {
 	$('.v-modal').hide();
 	$('.el-message-box__wrapper').hide();
 }
-document.getElementById &&
-	// (window.alert = function (e) {
-	// 	createCustomAlert(e)
-	// })
-	// $(document).on('click', '#toolbar-color.mobile .color', function() {
-	//     let color = $(this).attr('data-color');
-	//     $('.box-title, .block-title, .exp-title, #cv-profile-fullname, #cv-profile-job,#prof .icf .fa').css('color', `#${color}`);
-	//     $('.bar-exp div').css('background', `#${color}`);
-	// });
-	// $(document).ready(function() {
-	//     if ($('#toolbar-color.mobile .color').length) {
-	//         $('#toolbar-color.mobile .color.active').first().click();
-	//     }
-	// })
 
-	function t_setCookie(cname, cvalue, exdays) {
-		var d = new Date()
-		d.setTime(d.getTime() + exdays)
-		var expires = 'expires=' + d.toUTCString()
-		document.cookie = cname + '=' + cvalue + '; ' + expires
-	}
+function t_setCookie(cname, cvalue, exdays) {
+	var d = new Date()
+	d.setTime(d.getTime() + exdays)
+	var expires = 'expires=' + d.toUTCString()
+	document.cookie = cname + '=' + cvalue + '; ' + expires
+}
 
 function create_cookie_idcv(cv_id) {
 	t_setCookie('cv_id', cv_id, 1800000)

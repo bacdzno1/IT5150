@@ -479,16 +479,6 @@ $(document)
       $(this).parents('.item_suggest').addClass('active')
     }
   })
-  .on('focus', '.box-title,.block-title', function () {
-    let selector = $(this)
-    if ($('#page-cv').attr('data-type') == 'mobile') {
-      $('#page-cv').css('zoom', '1')
-      setTimeout(function () {
-        $('#cvo-toolbar').removeClass('fx')
-      }, 300)
-      return false
-    }
-  })
   .on('click', '.close_zoom_cv', function () {
     $('#zoom_cv').hide()
     $('#cv_mau_new').hide()

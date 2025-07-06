@@ -186,9 +186,7 @@ $(document).on('click', function (e) {
 		if ($(e.target).parents('#form-cv').length) {
 			$('#co_chu').show()
 			$('#tool_1, #tool_2').css('display', 'flex')
-			$('#cvo-toolbar-lang,#toolbar-color').hide()
 		} else {
-			$('#cvo-toolbar-lang,#toolbar-color').show()
 			let list_hide = `#co_chu,#tool_2,.cmd-removeFormat`
 			if ($(document).width() < 1024) {
 				list_hide = `#tool_1,#tool_2,.cmd-removeFormat`

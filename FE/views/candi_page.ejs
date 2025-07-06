@@ -121,7 +121,7 @@
                         <p>Thêm vào đó, TopCv1s cung cấp một giao diện thân thiện, dễ sử dụng, giúp người dùng có thể nhanh chóng tạo và đăng tải các thông tin tuyển dụng. Với vài bước đơn giản, doanh nghiệp có thể thiết lập một tin tuyển dụng hấp dẫn, bao gồm mô tả công việc chi tiết, yêu cầu ứng viên và thông tin liên hệ. Sự tiện lợi này không chỉ tiết kiệm thời gian mà còn mang lại hiệu quả cao hơn trong việc tiếp cận ứng viên.</p>
                         <h3 id="section2_2">2.2. Tiếp cận hàng ngàn ứng viên tiềm năng</h3>
                         <p>Một trong những lợi ích nổi bật nhất khi sử dụng TopCv1s là khả năng tiếp cận hàng ngàn ứng viên tiềm năng, điều này không chỉ mang lại cho doanh nghiệp một nguồn nhân lực đa dạng mà còn đảm bảo chất lượng của những ứng viên được lựa chọn. Với cộng đồng ứng viên lớn và chuyên nghiệp, TopCv1s đã khẳng định vị thế của mình như một nền tảng hàng đầu trong lĩnh vực tuyển dụng. Cụ thể, TopCv1s tập trung vào việc kết nối các doanh nghiệp với những ứng viên phù hợp từ nhiều lĩnh vực khác nhau, từ công nghệ thông tin, <a href="/tim-viec-lam-marketing">marketing</a>  cho đến <a href="/tim-viec-lam-nhan-vien-kinh-doanh">nhân viên kinh doanh</a>, điều này tạo ra một bức tranh đa dạng về nguồn nhân lực sẵn có.</p>
-                        <img class="blog_img_find_candidate" src="/images/blog_img/tiep-can-hang-ngan-ung-vien.jpg" alt="Tiếp cận hàng ngàn ứng viên tiềm năng">
+                        <img class="blog_img_find_candidate" src="/images/blog_img/tiep-can-hang-ngan-ung-vien.png" alt="Tiếp cận hàng ngàn ứng viên tiềm năng">
                         <p class="blig_img_title">Tiếp cận hàng ngàn ứng viên tiềm năng</p>
                         <p>Việc có một cộng đồng ứng viên đa dạng và chất lượng không chỉ giúp doanh nghiệp dễ dàng tìm ra ứng viên tiềm năng mà còn mở rộng cơ hội tìm kiếm cho những vị trí đặc thù mà doanh nghiệp cần. Khi sử dụng TopCv1s, các doanh nghiệp có thể tiếp cận những ứng viên có chuyên môn cao, kinh nghiệm phong phú và thái độ làm việc tích cực. Hơn nữa, điều này cũng giúp tăng cường khả năng cạnh tranh của doanh nghiệp trong thị trường lao động, khi mà việc thu hút nhân tài đang trở thành một thách thức lớn trong bối cảnh hiện nay.</p>
 
@@ -187,7 +187,6 @@
             });
         });
     </script>
-
     <script>
         $(document).ready(function () {
             function checkSavedProfile(dataID, button) {
@@ -268,10 +267,6 @@
             $('.search-btn').click(function () {
                 handleSearch()
             });
-
-            // $("#s_loc").change(function() {
-            //     handleSearch()
-            // })
         
             function loadMoreData(page) {
                 var url = 'http://localhost:3050/api/topcv1s/new/SearchCandi';
@@ -285,7 +280,6 @@
                 var level = getParameterByName('level', window.location.href);
                 var type = getParameterByName('type', window.location.href);
                 var accessToken = getCookie('accessToken');
-                // console.log(nameValue);
                 $.ajax({
                     url: url,
                     type: 'POST',

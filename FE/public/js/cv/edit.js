@@ -228,25 +228,6 @@ setInterval(function () {
 	})
 }, 100)
 
-// $(window).scroll(function () {
-// 	if ($(this).scrollTop() >= 420 && $('#cvo-toolbar').hasClass('fx') == false) {
-// 		$('#cvo-toolbar').addClass('fx')
-// 	}
-// 	if ($(this).scrollTop() < 420 && $('#cvo-toolbar').hasClass('fx') == true) {
-// 		$('#cvo-toolbar').removeClass('fx')
-// 	}
-// })
-// if ($('#page-cv').attr('data-type') == 'mobile') {
-// 	$('.box_content_taocv').scroll(function () {
-// 		if ($(this).scrollTop() >= 100 && $('#cvo-toolbar').hasClass('fx') == false) {
-// 			$('#cvo-toolbar').addClass('fx')
-// 		}
-// 		if ($(this).scrollTop() < 100 && $('#cvo-toolbar').hasClass('fx') == true) {
-// 			$('#cvo-toolbar').removeClass('fx')
-// 		}
-// 	})
-// }
-
 $(document)
 	.on('focus', '.exp-content, .box-content,#lto-about, #lto-content', function () {
 		$('.editor-control-group').removeClass('disabled')

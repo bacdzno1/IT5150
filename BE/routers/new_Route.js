@@ -27,7 +27,6 @@ const limiter = rateLimit({
 
 router.post('/postNew', formdata.parse(), functions.checkToken(1), New.PostNew);
 router.post('/listNewNTD', formdata.parse(), functions.checkToken(1), New.ListNewNTD);
-router.post('/RefreshNew', formdata.parse(), functions.checkToken(1), New.RefreshNew);
 router.post('/UpdateNew', formdata.parse(), functions.checkToken(1), New.UpdateNew);
 router.post('/DeleteNew', formdata.parse(), functions.checkToken(1), New.DeleteNew);
 router.post('/Home', limiter, formdata.parse(), New.Home);

@@ -15,8 +15,7 @@
     <%- include('layouts/header', {}); %>
     <div id="content" class="xem_truoc_full_none" style="padding-top:80px">
         <div class="cv-header">
-            <img class="banner" src="/images/img/backgroundlogin.png" width="376" height="158" alt="Ảnh Banner"
-                decoding="async">
+            <img class="banner" src="/images/img/backgroundlogin.png" width="376" height="158" alt="Ảnh Banner" decoding="async">
             <div class="cv-header-cont text-c color-white d-flex flex-dr-c align-c">
                 <h1 class="cv-header-tit mb-0">
                     Danh sách mẫu CV online đẹp, hỗ trợ tạo và tải về máy miễn phí
@@ -63,7 +62,7 @@
                             <div class="save_cv <%=cvList[i].saveCV?'bg-white':''%>" data-id="<%= cvList[i].id %>">
                                 <img src="/images/icon/<%=cvList[i].saveCV?'act_saved_cv.svg':'act_save_cv.svg'%>" alt="save_cv">
                             </div>
-                            <div class="cv-item-fix d-flex gap-2 align-c" data-img1="<%= cvList[i].image %>" data-img2="<%= cvList[i].image2 %>" data-img3="<%= cvList[i].image3 %>" data-color="<%= cvList[i].codecolor %>" data-name="<%= cvList[i].name %>" data-alias="<%= cvList[i].alias %>" data-id="<%= cvList[i].id %>">
+                            <div class="cv-item-preview d-flex gap-2 align-c" data-img1="<%= cvList[i].image %>" data-img2="<%= cvList[i].image2 %>" data-img3="<%= cvList[i].image3 %>" data-color="<%= cvList[i].codecolor %>" data-name="<%= cvList[i].name %>" data-alias="<%= cvList[i].alias %>" data-id="<%= cvList[i].id %>">
                                 <img loading="lazy" src="/images/icon/preview.svg" width="20" height="20" alt="Chỉnh sửa CV">
                                 <span>Xem trước CV</span>
                             </div>
@@ -176,25 +175,9 @@
                     <div class="cv-intro-foot-lef">
                         <img loading="lazy" src="/images/img/image35.webp" width="103" height="200" alt="Intro CV Img">
                     </div>
-                    <div class="cv-intro-foot-rig">
-                        <h2 class="cv-intro-foot-tit fw-600">
-                            <h2 class="cv-intro-foot-tit fw-600">
-                                Tạo những CV tuyệt vời cho công việc tiếp theo của bạn
-                            </h2>
-                        </h2>
-                        <div class="cv-intro-foot-des fs-5 mb-4">
-                            Chỉ trong 3 bước, tạo ấn tượng ngay với nhà tuyển dụng và công ty với CV chuyên nghiệp và tuyệt vời của bạn.
-                        </div>
-                        <button class="cv-intro-foot-btn bg-main color-white fs-5">
-                            Tạo CV Ngay
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div id="myModal" class="modal">
-        <div id="modal-body"></div>
     </div>
     <div class="modal_cv" id="modal_cv">
         <div class="modal_cnt">
@@ -249,9 +232,10 @@
     </div>
     <link rel="stylesheet" href="/css/footer.css" as="style">
     <%- include('layouts/footer', {}); %>
+    <script src="/js/custom_select.js"></script>
     <script>
         $(document).ready(function () {
-            $('.cv-item-fix').each(function () {
+            $('.cv-item-preview').each(function () {
                 $(this).click(function () {
                     $('.color_item').removeClass('active');
                     const img = $(this).attr('data-img1')
@@ -311,13 +295,6 @@
         })
     </script>
     <script>
-        $('.nav-item').hover(function () {
-            $(this).children('.nav-dropdown').stop(true, true).fadeIn(300);
-        }, function () {
-            $(this).children('.nav-dropdown').stop(true, true).fadeOut(300);
-        });
-    </script>
-    <script>
         $('.modal_cls').click(function () {
             $('#modal_cv').hide();
             $('.color_item').removeClass('active');
@@ -325,7 +302,6 @@
         $(document).mouseup(function (e) {
             var modalContent = $(".modal_cnt");
             var modalContainer = $(".modal_cv");
-
             if (!modalContent.is(e.target) && modalContent.has(e.target).length === 0) {
                 modalContainer.hide();
             }
@@ -333,90 +309,6 @@
     </script>
     <script>
         $(document).ready(function () {
-            let timer;
-            let $modal = $('#myModal');
-            let $modalBody = $('#modal-body');
-
-            $('.blog-content a').hover(function (e) {
-                const $link = $(this);
-                const url = $link.attr('href');
-
-                $modal.stop(true, true).fadeIn(300);
-
-                $.ajax({
-                    url: url,
-                    method: 'GET',
-                    success: function (data) {
-                        const tempDiv = $('<div>').html(data);
-
-                        const jsonLdScripts = tempDiv.find('script[type="application/ld+json"]');
-
-                        const lastJsonLdScript = jsonLdScripts.last().html();
-
-                        if (lastJsonLdScript) {
-                            try {
-                                const jsonLdData = JSON.parse(lastJsonLdScript);
-                                console.log(jsonLdData);
-
-                                $modalBody.html(`
-                                    <img class="w-100" src="${jsonLdData.thumbnail || 'http://localhost:9020/images/img/default_logo.jpg'}">
-                                    <div class="modal-des">${jsonLdData.description || 'N/A'}</div>
-                                `);
-                            } catch (e) {
-                                console.error('Không thể phân tích dữ liệu JSON-LD', e);
-                                $modalBody.html('<div>Không thể phân tích dữ liệu JSON-LD</div>');
-                            }
-                        } else {
-                            console.log('Không tìm thấy thẻ <script> JSON-LD nào');
-                        }
-                    },
-                    error: function () {
-                        console.error('Không thể lấy nội dung trang');
-                        $modalBody.html('<p>Không thể lấy nội dung trang</p>');
-                    }
-                });
-
-                $link.on('mousemove', function (e) {
-                    const cursorX = e.clientX;
-                    const cursorY = e.clientY;
-                    const modalWidth = $modal.outerWidth();
-                    const modalHeight = $modal.outerHeight();
-                    const windowWidth = $(window).width();
-                    const windowHeight = $(window).height();
-
-                    let left, top;
-                    if (cursorX > windowWidth / 2) {
-                        left = cursorX - modalWidth - 10;
-                    } else {
-                        left = cursorX + 10;
-                    }
-
-                    if (cursorY + modalHeight > windowHeight) {
-                        top = windowHeight - modalHeight - 10;
-                    } else if (cursorY < modalHeight + 10) {
-                        top = 10;
-                    } else {
-                        top = cursorY - 10;
-                    }
-
-                    $modal.css({
-                        top: top + 'px',
-                        left: left + 'px'
-                    });
-                });
-            }, function () {
-                timer = setTimeout(function () {
-                    $modal.stop(true, true).fadeOut(300);
-                }, 0);
-
-                $(this).off('mousemove');
-            });
-
-            // Xử lý nút đóng modal
-            $('.close').click(function () {
-                $modal.hide();
-            });
-
             // Lưu cv
             $('.save_cv').on('click', function() {
                 var img = $(this).find('img')
@@ -456,58 +348,6 @@
         });
     </script>
     <script>
-        $('.cv-nav-item').click(function () {
-            $('.cv-nav-item').removeClass('active');
-            $(this).addClass('active');
-        })
-        const tocList = $('#toc-list');
-        const headers = $('.blog-content h2, .blog-content h3, .blog-content h4');
-
-        headers.each(function (index) {
-            const header = $(this);
-            const text = header.text();
-            const id = 'header-' + index;
-            header.attr('id', id);
-
-            const listItem = $('<li></li>')
-                .text(text)
-                .click(function () {
-                    $('html, body').animate({
-                        scrollTop: $('#' + id).offset().top - 80
-                    }, 500);
-                });
-
-            const tag = header.prop('tagName').toLowerCase();
-            if (tag === 'h3') {
-                listItem.css('margin-left', '20px');
-            } else if (tag === 'h4') {
-                listItem.css('margin-left', '40px');
-            }
-
-            tocList.append(listItem);
-        });
-
-        $('.news_toc_tit').click(function () {
-            tocList.toggle();
-            const toggleText = tocList.is(':visible') ? '[ẩn]' : '[hiện]';
-            $('.news_toc_tit_hide').text(toggleText);
-        });
-        $('.blog-sh').click(function () {
-            const content = $('.blog-content');
-            const toc = $('.news_toc');
-            if (content.is(':visible') && toc.is(':visible')) {
-                content.slideUp();
-                toc.slideUp();
-                $(this).text('Hiện thêm');
-            } else {
-                content.slideDown();
-                toc.slideDown();
-                $(this).text('Thu gọn');
-            }
-        });
-    </script>
-    <script src="/js/custom_select.js"></script>
-    <script>
         $('#cat_id').CustomSelect({
             placeholder: 'Chọn ngành nghề',
             searchPlaceholder: 'Tìm kiếm...'
@@ -522,11 +362,9 @@
             contentType: "application/json",
             success: function (response) {
                 if (response.data.data.length > 0) {
-                    // $('#cat_id').empty();
                     response.data.data.forEach(function (cat) {
                         $('#cat_id').append('<option id="' + cat.id + '" value="' + cat.alias + '">' + cat.name + '</option>');
                     });
-
                     $('#cat_id').trigger('update');
                 }
             },
@@ -540,11 +378,9 @@
             contentType: "application/json",
             success: function (response) {
                 if (response.data.data.length > 0) {
-                    // $('#lang_id').empty();
                     response.data.data.forEach(function (cat) {
                         $('#lang_id').append('<option value="' + cat.alias + '">' + cat.name + '</option>');
                     });
-
                     $('#lang_id').trigger('update');
                 }
             },
@@ -570,9 +406,7 @@
                     $('.cv-header-tit br').remove();
                 }
             }
-
             removeBrOnSmallScreens();
-
             $(window).resize(function () {
                 removeBrOnSmallScreens();
             });
