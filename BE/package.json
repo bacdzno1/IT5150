@@ -32,11 +32,14 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.15.1",
     "morgan": "^1.10.0",
+    "multer": "^2.0.1",
     "node-cron": "^4.1.0",
     "nodemailer": "^7.0.3",
     "nodemon": "^3.1.10",
     "path": "^0.12.7",
+    "pdf-poppler": "^0.2.1",
     "puppeteer": "^24.10.0",
+    "sharp": "^0.34.2",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {

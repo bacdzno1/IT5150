@@ -1,6 +1,9 @@
 
 import * as functions from '../services/functions.js';
 import * as fs from 'node:fs';
+import multer from 'multer';
+import pdf from 'pdf-poppler';
+import sharp from 'sharp';
 import UserCompany from '../models/user/UserCompany.js';
 import Users from '../models/user/Users.js';
 import UserCvUpload from '../models/user/UserCvUpload.js';
@@ -520,7 +523,7 @@ export const RegisterCandidate = async (req, res, next) => {
                 use_mail: email,
             })
             await candidateCleanUp(use_id)
-            const Token = await functions.createToken({ use_id, phone: phoneTK, type: 2, auth: 0, userName: name }, '60d');
+            const Token = await functions.createToken({ use_id, phone: phoneTK, type: 2, auth: 1, userName: name }, '60d');
             return functions.success(res, 'Đăng ký thành công', {
                 Token,
                 use_id,
@@ -562,6 +565,7 @@ export const CandidateRegisterByUploadCV = async (req, res, next) => {
         const bangcap = req.body.bangcap;
         let type = req.body.type;
         if (!type) type = 1
+        let idupload = 0
         if (file && file.CV && birthday && !isNaN(Number(exp)) && bangcap && id) {
             const checkUser = await Users.findOne({ use_id: id })
             if (checkUser) {
@@ -571,9 +575,9 @@ export const CandidateRegisterByUploadCV = async (req, res, next) => {
                     $set: {
                         birthday: functions.getTime(new Date(birthday)),
                         exp_years: Number(exp),
+                        use_authentic: 1,
                     }
                 })
-                let idupload = 0
                 if (type == 1) {
                     const id_upload = await functions.getMaxId(UserCvUpload, 'id_upload');
                     await UserCvUpload.create({

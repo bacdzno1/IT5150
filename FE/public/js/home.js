@@ -472,25 +472,3 @@ function getCookie(name) {
     }
     return null;
 }
-window.onload = function () {
-    const auth = getCookie('auth');
-    const token = getCookie('accessToken');
-    const type = getCookie("type");
-
-    if (auth == '0' && token) {
-        const confirmBoxSeen = getCookie('confirmBoxSeen');
-        if (confirmBoxSeen !== 'true') {
-            if (type == 2) {
-                alert("Vui lòng xác thực tài khoản!");
-                window.location.href = '/otp'
-            } else {
-                if (confirm('Bạn chưa xác thực tài khoản, xác thực ngay?')) {
-                    window.location.href = '/otp';
-                    setCookie('confirmBoxSeen', 'true', 7);
-                } else {
-                    setCookie('confirmBoxSeen', 'true', 7);
-                }
-            }
-        }
-    }
-}

@@ -3668,9 +3668,6 @@ exports.convertToSlugMucLuc = (str)=>{
 	}
 }
 
-exports.base_timviec365 = "https://api.timviec365.vn";
-
-
 exports.listNganhNghe = [
 	{
 		_id: '64b7e4481ac50d92920c3ce9',
@@ -6645,32 +6642,6 @@ const convertToSlugMucLuc = (str) => {
 			return str
 		}
 	}
-}
-
-exports.findCitiesURL = (id) => {
-	if (id === '0') {
-		return `<a href="https://timviec365.vn/">Toàn quốc</a>`
-	} else if (typeof id === 'string') {
-		const sortedCities = id
-			.split(',')
-			.map((cityId, index) => {
-				const city = listCitys.find((item) => item.cit_id === parseInt(cityId, 10));
-				return city?.cit_name === 'Hà Nội' ? (
-					`<a class="tag" target="blank" href="https://timviec365.vn/tim-viec-lam-tai-ha-noi.html" title="Việc làm tại Hà Nội">Hà Nội</a>`
-				) : (
-                    `<a class="tag" target="blank" href="https://timviec365.vn/viec-lam-tai-${convertToSlugMucLucInter(city?.cit_name)}-c0v${city?.cit_id}" title="Việc làm tại ${city?.cit_name}">${city?.cit_name}</a>`
-				)
-			})
-			.sort((a, b) => {
-				const aId = listCitys.find((item) => item.cit_name === a)?.cit_id || 0
-				const bId = listCitys.find((item) => item.cit_name === b)?.cit_id || 0
-				return aId - bId
-			})
-
-
-		return sortedCities
-	}
-	return null
 }
 
 const renderCity = (id = '') => {

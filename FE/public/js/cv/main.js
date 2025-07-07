@@ -316,29 +316,6 @@ $(document).on(
     $("#inp_avatar_ai365").click();
   }
 );
-//Show list source image
-$(document).on(
-  "click",
-  ".profile_descripe .bottom-container .right-span",
-  function (e) {
-    let gender = $('input[name="radio1"]:checked').attr("data-gender");
-    if (gender != undefined) {
-      $(this).parents(":eq(1)").hide();
-      $("#imageEditorWraper_AI .choose_image_style").show();
-    }
-    html = "";
-    for (let i = 1; i <= 6; i++) {
-      html += `
-        <div class="image-ai-wraper" data-image="/images/avatar_cv/${gender}/image_${i}.jpg?v=1" style = "background: url(https://devnext.timviec365.vn/static-tv/images/avatar_cv/${gender}/image_${i}.jpg?v=1) no-repeat; background-size: cover;">
-        <div class="select-image-click"> </div>
-        </div>
-        `;
-    }
-    $(
-      ".choose_image_style .image-ai-container .image-ai-wraper-container"
-    ).html(html);
-  }
-);
 //Call api fakeface
 $(document).on(
   "click",

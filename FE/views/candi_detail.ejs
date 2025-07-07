@@ -275,9 +275,6 @@
                 var dataID = button.attr('data_id');
 
                 var accessToken = getCookie('accessToken');
-                // console.log(accessToken);
-
-
                 if (!accessToken) {
                     alert('Vui lý đăng nhập để thực hiện thao tác');
                     $('#login_ntd_modal').show();
@@ -286,7 +283,6 @@
                     var data = {
                         id_uv: dataID
                     }
-                    // console.log(accessToken + '/' + dataID);
                     $.ajax({
                         url: 'http://localhost:3050/api/topcv1s/ntd/SaveCandi',
                         type: 'POST',
@@ -343,22 +339,22 @@
                 $(this).children('.nav-dropdown').stop(true, true).fadeOut(300);
             });
             $('.search-btn').click(function () {
-                        var searchText = $('#s_key').val();
-                        var searchCity = $('#s_loc').val();
-                        var params = {};
-                        if (searchText) {
-                            params.name = searchText;
-                        }
-                        if (searchCity && searchCity != 0) {
-                            params.city = searchCity;
-                        }
-                        var queryString = $.param(params);
-                        var newUrl = '/tim-ung-vien';
-                        if (queryString) {
-                            newUrl += '?' + queryString;
-                        }
-                        window.location.href = newUrl;
-                    });
+                var searchText = $('#s_key').val();
+                var searchCity = $('#s_loc').val();
+                var params = {};
+                if (searchText) {
+                    params.name = searchText;
+                }
+                if (searchCity && searchCity != 0) {
+                    params.city = searchCity;
+                }
+                var queryString = $.param(params);
+                var newUrl = '/tim-ung-vien';
+                if (queryString) {
+                    newUrl += '?' + queryString;
+                }
+                window.location.href = newUrl;
+            });
         });
     </script>
 </body>

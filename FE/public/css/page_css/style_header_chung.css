@@ -37,7 +37,6 @@
 }
 
 .mobi-sel {
-	background: url(https://devnext.timviec365.vn/static-tv/images/New_images/sel.png) no-repeat;
 	width: 34px;
 	height: 26px;
 	display: none;
@@ -45,7 +44,6 @@
 }
 
 .close_mobi_sel {
-	background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_close_pop.png) no-repeat;
 	width: 30px;
 	height: 31px;
 	display: none;
@@ -113,7 +111,6 @@
 }
 
 .chat_notifice {
-	background: url(https://devnext.timviec365.vn/static-tv/images/chat_icon/mess_icon2.png?v=1) no-repeat;
 	background-size: 100% 100%;
 	float: left;
 	width: 26px;
@@ -276,75 +273,57 @@ ul .box_cv_ngonngu li {
 }
 
 .ctn_box_ch .menu_blog {
-	background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_blogger.png) 1px 13px no-repeat;
 }
 
 .sub_domain .box_sub .ctn_box_ch .menu_bgia {
-	background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_banggia.png) 3px 13px no-repeat;
 }
 
 .sub_domain .box_sub .ctn_box_ch .menu_tv {
-	background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_trangvang.png) 1px 13px no-repeat;
 }
 
 .sub_domain .box_sub .ctn_box_ch .menu_ctv {
-	background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_ctvien.png) 1px 13px no-repeat;
 }
 
 .sub_domain .box_sub .ctn_box_ch .menu_cv_xviec {
-	background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_cv_xviec.png) 1px 13px no-repeat;
 }
 
 .sub_domain .box_sub .ctn_box_ch .menu_don_xviec {
-	background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_don_xviec.png) 1px 13px no-repeat;
 }
 
 .sub_domain .box_sub .ctn_box_ch .menu_thu_xviec {
-	background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_thu_xviec.png) 1px 13px no-repeat;
 }
 
 .sub_domain .box_sub .ctn_box_ch .menu_syllich {
-	background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_syllich.png) 1px 13px no-repeat;
 }
 
 .sub_domain .box_sub .ctn_box_ch .menu_cv_nganhnghe {
-	background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_cv_nganhnghe.png) 1px 13px no-repeat;
 }
 
 .sub_domain .box_sub .ctn_box_ch .menu_cv_ngonngu {
-	background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_cv_ngonngu.png) 1px 13px no-repeat;
 }
 
 .sub_domain .box_sub .ctn_box_ch .menu_cv365 {
-	background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_cv365.png) 1px 13px no-repeat;
 }
 
 .sub_domain .box_sub .ctn_box_ch .menu_cv_ngnghe {
-	background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_cv_ngnghe.png) 1px 13px no-repeat;
 }
 
 .sub_domain .box_sub .ctn_box_ch .menu_cv_ngngu {
-	background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_cv_ngngu.png) 1px 13px no-repeat;
 }
 
 .sub_domain .box_sub .ctn_box_ch .menu_bquyet_vietcv {
-	background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_bquyet_vietcv.png) 1px 13px no-repeat;
 }
 
 .sub_domain .box_sub .ctn_box_ch .menu_tra_cluong {
-	background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_tra_cluong.png) 1px 13px no-repeat;
 }
 
 .sub_domain .box_sub .ctn_box_ch .menu_luong_grn {
-	background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_luong_grn.png) 1px 13px no-repeat;
 }
 
 .sub_domain .box_sub .ctn_box_ch .menu_email {
-	background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_email365.png) 1px 13px no-repeat;
 }
 
 .sub_domain .box_sub .ctn_box_ch .menu_taiapp {
-	background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_taiapp.png) 1px 13px no-repeat;
 }
 
 .box-top-uv {
@@ -366,22 +345,18 @@ ul .box_cv_ngonngu li {
 }
 
 .header_hths {
-	background: url(https://devnext.timviec365.vn/static-tv/images/New_images/ic_1.png) no-repeat;
 	background-position: 20px;
 }
 
 .header_qltk {
-	background: url(https://devnext.timviec365.vn/static-tv/images/New_images/ic_2.png) no-repeat;
 	background-position: 20px;
 }
 
 .header_vlut {
-	background: url(https://devnext.timviec365.vn/static-tv/images/New_images/ic_3.png) no-repeat;
 	background-position: 20px;
 }
 
 .header_vldl {
-	background: url(https://devnext.timviec365.vn/static-tv/images/New_images/ic_4.png) no-repeat;
 	background-position: 20px;
 }
 
@@ -458,7 +433,6 @@ ul .box_cv_ngonngu li {
 
 .notifice_2,
 .notifice_1 {
-	background: url(https://devnext.timviec365.vn/static-tv/images/New_images/icn_bell_th.png) no-repeat;
 	background-size: 100% 100%;
 	float: right;
 	width: 24px;
@@ -556,97 +530,78 @@ ul .box_cv_ngonngu li {
 }
 
 .header_hths {
-	background: url(https://devnext.timviec365.vn/static-tv/images/New_images/ic_1.png) no-repeat;
 	background-position: 20px;
 }
 
 .header_hths:hover {
-	background: url(https://devnext.timviec365.vn/static-tv/images/New_images/ic_1a.png) 20px center #4c5bd4 no-repeat;
 	color: #fff;
 }
 
 .header_qltk {
-	background: url(https://devnext.timviec365.vn/static-tv/images/New_images/ic_2.png) no-repeat;
 	background-position: 20px;
 }
 
 .header_qltk:hover {
-	background: url(https://devnext.timviec365.vn/static-tv/images/New_images/ic_2a.png) 20px center #4c5bd4 no-repeat;
 	background-position: 20px;
 }
 
 .header_vlut {
-	background: url(https://devnext.timviec365.vn/static-tv/images/New_images/ic_3.png) no-repeat;
 	background-position: 20px;
 }
 
 .header_vlut:hover {
-	background: url(https://devnext.timviec365.vn/static-tv/images/New_images/ic_3a.png) 20px center #4c5bd4 no-repeat;
 	background-position: 20px;
 }
 
 .header_vldl {
-	background: url(https://devnext.timviec365.vn/static-tv/images/New_images/ic_4.png) no-repeat;
 	background-position: 20px;
 }
 
 .header_vldl:hover {
-	background: url(https://devnext.timviec365.vn/static-tv/images/New_images/ic_4a.png) 20px center #4c5bd4 no-repeat;
 	background-position: 20px;
 }
 
 .header_logout {
-	background: url(https://devnext.timviec365.vn/static-tv/images/New_images/ic_5.png) no-repeat;
 	background-position: 20px;
 }
 
 .header_logout:hover {
-	background: url(https://devnext.timviec365.vn/static-tv/images/New_images/ic_5a.png) 20px center #ffa800 no-repeat;
 	background-position: 20px;
 }
 
 .hdt_1 {
-	background: url(https://devnext.timviec365.vn/static-tv/images/New_images/ict_1.png) no-repeat;
 	background-position: 20px;
 }
 
 .hdt_2 {
-	background: url(https://devnext.timviec365.vn/static-tv/images/New_images/ict_2.png) no-repeat;
 	background-position: 20px;
 }
 
 .hdt_3 {
-	background: url(https://devnext.timviec365.vn/static-tv/images/New_images/ict_3.png) no-repeat;
 	background-position: 20px;
 }
 
 .hdt_4 {
-	background: url(https://devnext.timviec365.vn/static-tv/images/New_images/ict_4.png) no-repeat;
 	background-position: 20px;
 }
 
 .hdt_5 {
-	background: url(https://devnext.timviec365.vn/static-tv/images/loc/ctv_t1.png) no-repeat;
 	background-position: 20px;
 }
 
 .hdt_1:hover {
-	background: url(https://devnext.timviec365.vn/static-tv/images/New_images/ict_1a.png) 20px center #4c5bd4 no-repeat;
 	color: #fff;
 }
 
 .hdt_2:hover {
-	background: url(https://devnext.timviec365.vn/static-tv/images/New_images/ict_2a.png) 20px center #4c5bd4 no-repeat;
 	background-position: 20px;
 }
 
 .hdt_3:hover {
-	background: url(https://devnext.timviec365.vn/static-tv/images/New_images/ict_3a.png) 20px center #4c5bd4 no-repeat;
 	background-position: 20px;
 }
 
 .hdt_4:hover {
-	background: url(https://devnext.timviec365.vn/static-tv/images/New_images/ict_4a.png) 20px center #4c5bd4 no-repeat;
 	background-position: 20px;
 }
 
@@ -827,7 +782,6 @@ ul .box_cv_ngonngu li {
 }
 
 .auth_form .link_dow_lg {
-	background: url(https://devnext.timviec365.vn/static-tv/images/New_images/footer_apptimviec.png) no-repeat;
 	background-size: 100% 100%;
 	height: 38px;
 	float: left;
@@ -927,7 +881,6 @@ ul .box_cv_ngonngu li {
 		position: absolute;
 		top: 20px;
 		left: 20px;
-		background: url(https://devnext.timviec365.vn/static-tv/images/New_images/sel.png) no-repeat;
 		width: 34px;
 		height: 26px;
 		float: right;
@@ -942,7 +895,6 @@ ul .box_cv_ngonngu li {
 	}
 
 	.close_mobi_sel {
-		background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_close_pop.png) no-repeat;
 		width: 30px;
 		height: 31px;
 		display: none;
@@ -962,7 +914,6 @@ ul .box_cv_ngonngu li {
 	}
 
 	.ctn_new_header .ul_menu {
-		/* width: 100%; */
 		float: left;
 		height: 94vh;
 		margin: 0;
@@ -1002,13 +953,11 @@ ul .box_cv_ngonngu li {
 		position: absolute;
 		right: 16px;
 		top: 21px;
-		background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_down_up.png) no-repeat;
 		width: 14px;
 		height: 8px;
 	}
 
 	.ctn_mobi_sub_domain.active .ctn_mobi_sub2::after {
-		background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_down_up.png) no-repeat;
 		transform: rotate(180deg);
 	}
 
@@ -1045,99 +994,75 @@ ul .box_cv_ngonngu li {
 	}
 
 	.ctn_mobi_sub_ul .menu_blog {
-		background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_blogger.png) 1px 12px no-repeat;
 	}
 
 	.ctn_mobi_sub_ul .menu_bgia {
-		background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_banggia.png) 3px 12px no-repeat;
 	}
 
 	.ctn_mobi_sub_ul .menu_tv {
-		background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_trangvang.png) 1px 12px no-repeat;
 	}
 
 	.ctn_mobi_sub_ul .menu_ctv {
-		background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_ctvien.png) 1px 12px no-repeat;
 	}
 
 	.ctn_mobi_sub_ul .menu_cv_xviec {
-		background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_cv_xviec.png) 1px 12px no-repeat;
 	}
 
 	.ctn_mobi_sub_ul .menu_don_xviec {
-		background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_don_xviec.png) 1px 12px no-repeat;
 	}
 
 	.ctn_mobi_sub_ul .menu_thu_xviec {
-		background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_thu_xviec.png) 1px 12px no-repeat;
 	}
 
 	.ctn_mobi_sub_ul .menu_syllich {
-		background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_syllich.png) 1px 12px no-repeat;
 	}
 
 	.ctn_mobi_sub_ul .menu_cv365 {
-		background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_cv365.png) 1px 12px no-repeat;
 	}
 
 	.ctn_mobi_sub_ul .menu_cv_nganhnghe {
-		background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_cv_nganhnghe.png) 1px 12px no-repeat;
 	}
 
 	.ctn_mobi_sub_ul .menu_cv_ngonngu {
-		background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_cv_ngonngu.png) 1px 12px no-repeat;
 	}
 
 	.ctn_mobi_sub_ul .menu_bquyet_vietcv {
-		background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_bquyet_vietcv.png) 1px 12px no-repeat;
 	}
 
 	.ctn_mobi_sub_ul .menu_tra_cluong {
-		background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_tra_cluong.png) 1px 12px no-repeat;
 	}
 
 	.ctn_mobi_sub_ul .menu_luong_grn {
-		background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_luong_grn.png) 1px 12px no-repeat;
 	}
 
 	.ctn_mobi_sub_ul .menu_email {
-		background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_email365.png) 1px 12px no-repeat;
 	}
 
 	.ctn_mobi_sub_ul .menu_taiapp {
-		background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_taiapp.png) 1px 12px no-repeat;
 	}
 
 	.ctn_mobi_sub_ul .menu_hthien_hso {
-		background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_hthien_hso.png) 1px 12px no-repeat;
 	}
 
 	.ctn_mobi_sub_ul .menu_ql_mail_ntd {
-		background: url(https://devnext.timviec365.vn/static-tv/images/loc/exp_hthien_hso.png) 1px 12px no-repeat;
 	}
 
 	.ctn_mobi_sub_ul .menu_qly_tkhoan {
-		background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_qly_ttchung.png) 1px 12px no-repeat;
 	}
 
 	.ctn_mobi_sub_ul .menu_vlam_utuyen {
-		background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_vlam_dutuyen.png) 1px 12px no-repeat;
 	}
 
 	.ctn_mobi_sub_ul .menu_vlam_daluu {
-		background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_vlam_daluu.png) 1px 12px no-repeat;
 	}
 
 	.ctn_mobi_sub_ul .menu_dangxuat {
-		background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_dangxuat.png) 1px 12px no-repeat;
 	}
 
 	.ctn_mobi_sub_ul .menu_ttuyen_ddang {
-		background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_ttuyen_ddang.png) 1px 12px no-repeat;
 	}
 
 	.ctn_mobi_sub_ul .menu_uvien_utuyen {
-		background: url(https://devnext.timviec365.vn/static-tv/images/banner/exp_qly_uvien_utuyen.png) 1px 12px no-repeat;
 	}
 
 	.ctn_new_header .ul_menu li a.menu_dangxuat {

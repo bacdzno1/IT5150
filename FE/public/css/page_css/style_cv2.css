@@ -181,39 +181,6 @@ input#name {
   text-align: center;
 }
 
-.bhs_hc {
-  background: url(https://devnext.timviec365.vn/static-tv/images/luu_pc.png)
-    no-repeat;
-  background-size: 100% 100%;
-  padding: 30px 60px;
-  width: 100%;
-  height: 500px;
-  box-sizing: border-box;
-  margin-bottom: 45px;
-}
-
-.bhs_hc ul {
-  display: inline-block;
-  vertical-align: top;
-  padding-top: 120px;
-  float: right;
-}
-
-.bhs_hc ul li {
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 19px;
-  text-align: center;
-  color: #363636;
-  padding: 10px 60px;
-  background-color: #fff;
-  border-radius: 13px;
-  width: 360px;
-  margin-bottom: 28px;
-  box-sizing: border-box;
-  position: relative;
-}
-
 #page-done .btn {
   color: #fff;
   background: #02b5e1;
@@ -550,78 +517,7 @@ ul.lelf li a {
   width: 65%;
 }
 
-#acc .menu_login {
-  float: left;
-  width: 300px;
-  position: absolute;
-  right: 60px;
-  z-index: 999;
-  background: #fff;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
-  padding: 15px 10px 0;
-  border-radius: 4px;
-  margin-top: 5px;
-}
-
-#acc .menu_login ul {
-  float: left;
-  width: 100%;
-  padding: 6px 0;
-}
-
-#acc .menu_login ul li a {
-  display: block;
-  margin-bottom: 18px;
-  width: 100%;
-  font-size: 16px;
-  text-align: left;
-  padding: 7px 48px;
-  box-sizing: border-box;
-  height: unset;
-  border: none;
-}
-
-#acc .menu_login .hsct {
-  background: url(https://devnext.timviec365.vn/static-tv/images/hsct.png) 18px
-    12px no-repeat #232f87;
-}
-
-#acc .menu_login .logout {
-  background: url(https://devnext.timviec365.vn/static-tv/images/logout.png)
-    18px 12px no-repeat #ffa800;
-}
-
-#acc .menu_login,
-.acc_lg .menu_login .ttuv {
-  display: none;
-}
-
-#acc .menu_login.active,
-.acc_lg .menu_login .ttuv.active {
-  display: block !important;
-}
-
-#acc .menu_login .menu_login_top {
-  float: left;
-  width: 100%;
-  border-bottom: 1px solid #b3b3b3;
-  padding-bottom: 18px;
-  text-align: left;
-}
-
-#acc .menu_login:before {
-  content: "";
-  width: 0;
-  height: 0;
-  border: solid 8px;
-  border-color: transparent transparent #fff;
-  position: absolute;
-  top: -15px;
-  right: 15px;
-}
-
-#acc > .name_use::after,
-.acc_lg .menu_login .name_use::after {
+#acc > .name_use::after {
   content: "";
   border-color: #363636 transparent transparent;
   border-style: solid;
@@ -801,14 +697,6 @@ ul.right li a i.ico1 {
   background-color: #fff;
 }
 
-#b {
-  position: relative;
-  width: 100%;
-  background-image: url(https://devnext.timviec365.vn/static-tv/images/new_banner.png);
-  background-size: 100% 100%;
-  padding: 140px 0;
-}
-
 #b .text_1 h1,
 .text_1 h1 {
   color: #fff;
@@ -858,23 +746,6 @@ ul.right li a i.ico1 {
 #b .search_bar_cv select,
 select.category_cv {
   display: none;
-}
-
-#b .search_bar_cv .btn_search {
-  width: 180px;
-  height: 60px;
-  line-height: 60px;
-  box-shadow: 0 0 4px #000;
-  border-radius: 45px;
-  display: inline-block;
-  font-size: 17px;
-  color: #fff;
-  font-weight: 500;
-  background: url(https://devnext.timviec365.vn/static-tv/images/icon_search.png)
-    35px center no-repeat #ffa800;
-  padding-left: 17px;
-  margin-left: 17px;
-  cursor: pointer;
 }
 
 .search_cate {
@@ -4582,16 +4453,6 @@ ul.menu-user > li {
   display: inline-block;
 }
 
-.blog-hd .plugin li i.tcv_share {
-  background: url(https://devnext.timviec365.vn/static-tv/images/tcv_2.png)
-    center center no-repeat #fff;
-}
-
-.blog-hd .plugin li i.tcv_tt {
-  background: url(https://devnext.timviec365.vn/static-tv/images/tcv_5.png)
-    center center no-repeat #fff;
-}
-
 .blog-hd .plugin ul {
   left: -50px;
 }
@@ -7649,20 +7510,6 @@ iframe#twitter-widget-0 {
   margin-top: 0;
 }
 
-.phu_luc .conten-pl .tt_phu_luc {
-  height: 30px;
-  width: 88%;
-  margin: 0 auto;
-  background: url(https://devnext.timviec365.vn/static-tv/images/phu_luc.png);
-  background-size: 100% 100%;
-  margin-bottom: 20px;
-  padding-top: 5px;
-  color: #fff;
-  text-align: center;
-  text-transform: uppercase;
-  font-family: Roboto;
-}
-
 .table-of-contents {
   float: left;
   width: 100%;
@@ -7775,8 +7622,6 @@ iframe#twitter-widget-0 {
   font-size: 18px;
   text-transform: uppercase;
   font-weight: 700;
-  background: url(https://devnext.timviec365.vn/static-tv/images/bg/bg2.png)
-    right repeat-x;
 }
 
 .box-news-other .title span {
@@ -8042,8 +7887,6 @@ li.dmca_icon {
   width: 57%;
   float: left;
   margin-top: 38px;
-  background: url(https://devnext.timviec365.vn/static-tv/images/New_images/img_app_footer.png)
-    no-repeat right 5px;
   padding-bottom: 45px;
   padding-top: 0;
   background-size: 36% 96%;
@@ -8112,26 +7955,18 @@ li.dmca_icon {
 }
 
 .bot_btn_tv {
-  background: url(https://devnext.timviec365.vn/static-tv/images/New_images/bg_dl_ft.png)
-    no-repeat;
   margin-right: 12px;
 }
 
 .bot_btn_tv_uv {
-  background: url(https://devnext.timviec365.vn/static-tv/images/New_images/bg_dl_ft1.png)
-    no-repeat;
 }
 
 .bot_btn_app {
   margin-top: 15px;
-  background: url(https://devnext.timviec365.vn/static-tv/images/New_images/bg_dl_ft2.png)
-    no-repeat;
   margin-left: 25%;
 }
 
 .foot-cod.foot-hid li:nth-child(2) {
-  background: url(https://devnext.timviec365.vn/static-tv/images/New_images/icn_foot_local.png)
-    no-repeat;
   padding: 5px 0 5px 35px;
 }
 
@@ -8141,14 +7976,10 @@ li.dmca_icon {
 }
 
 .foot-cod.foot-hid li:nth-child(5) {
-  background: url(https://devnext.timviec365.vn/static-tv/images/New_images/icn_foot_phone.png)
-    no-repeat;
   padding: 5px 0 5px 35px;
 }
 
 .foot-cod.foot-hid li:nth-child(6) {
-  background: url(https://devnext.timviec365.vn/static-tv/images/New_images/icn_foot_mail.png)
-    no-repeat;
   padding: 7px 0 5px 35px;
 }
 
@@ -9222,29 +9053,7 @@ li.dmca_icon {
     line-height: 23px;
   }
 
-  .bhs_hc {
-    background: url(https://devnext.timviec365.vn/static-tv/images/luu_mb.png)
-      no-repeat;
-    background-size: 100% 100%;
-    height: 460px;
-    padding: 15px;
-  }
-
-  .bhs_hc ul {
-    padding-top: 190px;
-  }
-
-  .bhs_hc ul li {
-    font-size: 13px;
-    line-height: 15px;
-    padding: 5px 0;
-    width: 145px;
-    margin-bottom: 15px;
-  }
-
   .banner_app_cv {
-    background: url(https://devnext.timviec365.vn/static-tv/images/bg_app_mobi.png)
-      no-repeat;
     height: 410px;
     background-size: 100% auto;
   }
@@ -9337,9 +9146,6 @@ li.dmca_icon {
     padding: 18px;
     overflow-x: hidden;
     float: left;
-    background: #043379
-      url(https://devnext.timviec365.vn/static-tv/images/New_images/img_app_footer.png)
-      no-repeat right 395px;
     background-size: 150px 234px;
   }
 
@@ -9386,8 +9192,6 @@ li.dmca_icon {
     margin-top: 0;
   }
 
-  /*.bot_btn_tv{background:url(https://devnext.timviec365.vn/static-tv/images/New_images/footer_apptimviec.png) no-repeat;background-size:100% 100%}
-.bot_btn_app{margin-top:0;background:url(https://devnext.timviec365.vn/static-tv/images/New_images/footer_appcv.png) no-repeat;background-size:100% 100%}*/
   .footer-right-left {
     width: 100%;
     float: left;
@@ -9501,9 +9305,6 @@ li.dmca_icon {
   }
 
   .footer.foot {
-    background: #043379
-      url(https://devnext.timviec365.vn/static-tv/images/New_images/img_app_footer.png)
-      no-repeat right 480px;
     background-size: 126px 221px;
   }
 
@@ -9817,12 +9618,6 @@ li.dmca_icon {
   line-height: 22px;
 }
 
-.box_content_notify {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
 .box_form_notify {
   border: 1px dashed #4c5bd4;
   border-radius: 8px;
@@ -9855,16 +9650,6 @@ li.dmca_icon {
   line-height: 19px;
   color: #999999;
   padding: 5px 10px;
-}
-
-.box_show_pqchat .btn_confirm_notify {
-  height: 30px;
-  background: #4c5bd4;
-  border: navajowhite;
-  border-radius: 5px;
-  padding: 0px 5px;
-  color: #ffffff;
-  margin-left: 5px;
 }
 
 .error_noti {
@@ -10009,15 +9794,6 @@ li.dmca_icon {
   font-size: 16px;
   line-height: 19px;
   color: #ffffff;
-}
-
-.txt_show_user {
-  background: #f2f4ff;
-  border-radius: 2px;
-  padding: 5px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
 }
 
 .txt_show_email {

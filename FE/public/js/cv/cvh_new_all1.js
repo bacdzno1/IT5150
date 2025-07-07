@@ -5222,33 +5222,14 @@ $(document).ready(function () {
           required: "Vui lòng nhập mật khẩu",
           equalTo: "Không khớp với mật khẩu",
         },
-        // candiCateID2: "Vui lòng chọn ngành nghề",
         candiCateID: "Vui lòng chọn ngành nghề",
         candiTitle: "Vui lòng nhập công việc mong muốn.",
         "candiCityID[]": "Vui lòng chọn tỉnh thành",
-        // diachi: "Vui lòng nhập địa chỉ",
         qh_id: "Vui lòng chọn quận huyện",
       },
     });
     const isValid = $("#form_res").valid();
     if (isValid) {
-      let arr_noti = [];
-      $(".box_content_notify .box_form_notify").each(function (i) {
-        let arr_type_noti = [];
-        $(this)
-          .find(".box_content_loaitbao")
-          .each(function (t, type) {
-            arr_type_noti.push($(type).attr("data-type"));
-          });
-        $(this)
-          .find(".txt_show_user")
-          .each(function (u, user) {
-            arr_noti.push({
-              id_chat: $(user).attr("data-id_chat"),
-              type_noti: arr_type_noti.join(","),
-            });
-          });
-      });
       $(window).scrollTop(0);
       $(window).scrollLeft(0);
       var json_html_cv = $.exportData();
@@ -5512,90 +5493,16 @@ function save_cv_login(uid) {
     },
   });
 
-  var is_busy = false;
   var x = $("#cv-profile-phone").text();
   var y = $("#cv-profile-email").text();
 
   $("#cv-profile-phone").text("Xem ở trên");
   $("#cv-profile-email").text("Xem ở trên");
-
-  html2canvas($("#form-cv"), {
-    onrendered: function (canvas) {
-      img_val2 = canvas.toDataURL("image/png", 1.0);
-      $.ajax({
-        cache: false,
-        type: "POST",
-        url: "save_test.php",
-        data: { img_val: img_val2, name: name, cvid: cvid, uid: uid, auto: 1 },
-        dataType: "JSON",
-        //success: function(res) {
-        //result = res.result;
-        //$('.bg-spinner').remove();
-        //is_busy = false;
-        //$('#cv-profile-phone').text(x);
-        //$('#cv-profile-email').text(y);
-        // $.exportData();
-        //window.location.href = 'https://timviec365.vn/dang-ky-thanh-cong';
-        //}
-      });
-      is_busy = false;
-    },
-  });
   $("#cv-profile-phone").text(x);
   $("#cv-profile-email").text(y);
   let user_tk = $("#email").val(),
     user_name = $("#name").val();
   show_xt(user_tk, uid, user_name);
-}
-
-function update_cv(uid) {
-  $(window).scrollTop(0);
-  $(window).scrollLeft(0);
-  $("body").append(
-    '<div class="bg-spinner"><div class="spinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div></div>'
-  );
-  $.exportData();
-  var is_busy = false;
-
-  $("#cv-profile-phone").text("Xem ở trên");
-  $("#cv-profile-email").text("Xem ở trên");
-
-  var name = $("#cv-title").text();
-  if (name == "") {
-    name = $("#cv_alias").val();
-  }
-  var token = $("#token").val();
-  var cvid = $("#cvid").val();
-  if (is_busy == true) {
-    return false;
-  }
-  var result = false;
-  while (!result) {
-    $.ajax({
-      cache: false,
-      type: "POST",
-      url: "save.php",
-      async: false,
-      data: { name: name, cvid: cvid, uid: uid, auto: 1 },
-      dataType: "JSON",
-      beforeSend: function (response) {
-        $(".bg-spinner").remove();
-        $("body").append(
-          '<div class="bg-spinner"><div class="spinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div></div>'
-        );
-      },
-      success: function (res) {
-        result = res.result;
-        $(".bg-spinner").remove();
-        is_busy = false;
-        window.location.href =
-          "https://timviec365.vn/luu-cv/" + token + "-" + cvid;
-      },
-      error: function () {
-        result = true;
-      },
-    });
-  }
 }
 
 function cv_login_user(uid) {
@@ -5858,52 +5765,6 @@ var isMobile = {
     );
   },
 };
-
-var isMac = navigator.platform.toUpperCase().indexOf("MAC") >= 0;
-if ($(".popup_send_chat").hasClass("open_app")) {
-  if (isMobile.any()) {
-    openChatMobile(1192);
-  } else if (isMac) {
-    let id_chat365 = get_Cookie_c("id_chat365"),
-      uid_type = get_Cookie_c("UT");
-    let link_qr = `https://appchat365.timviec365.vn?apn=vn.timviec365.chat_365&ibi=vn.timviec365.chat365&isi=1623353330&link=https://chat365.timviec365.vn?userId=${btoa(
-      id_chat365
-    )}%26contactId=${btoa("1191")}%26type365=${uid_type}&efr=1`;
-    $(".popup_send_chat").find(".qr_area").html("");
-    let qr_box = $(".popup_send_chat").find(".qr_area")[0];
-    var QR_CODE = new QRCode(qr_box, {
-      width: 110,
-      height: 110,
-      colorDark: "#000000",
-      colorLight: "#ffffff",
-      correctLevel: QRCode.CorrectLevel.L,
-    });
-    QR_CODE.makeCode(link_qr);
-    $(".popup_send_chat").show();
-    $(".popup_send_chat .download_mobile").hide();
-    $(".popup_send_chat .download_pc .btn_area").hide();
-  } else {
-  }
-}
-
-function openChatMobile(id_chat, conv_id = 0) {
-  if (false) {
-  } else {
-    let id_chat365 = get_Cookie_c("id_chat365"),
-      uid_type = get_Cookie_c("UT");
-    let link_qr = `https://appchat365.timviec365.vn?apn=vn.timviec365.chat_365&ibi=vn.timviec365.chat365&isi=1623353330&link=https://chat365.timviec365.vn?userId=${btoa(
-      id_chat365
-    )}%26contactId=${btoa(id_chat)}%26type365=${uid_type}`;
-
-    if (conv_id) {
-      link_qr += `%26conversationId=${btoa(conv_id)}`;
-    }
-    link_qr += `&efr=1`;
-    setTimeout(() => {
-      window.location.href = link_qr;
-    }, 200);
-  }
-}
 
 function generateUUID() {
   return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>

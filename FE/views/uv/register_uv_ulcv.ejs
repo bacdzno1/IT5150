@@ -29,7 +29,7 @@
                         <div class="regis_upload d-flex flex-dr-c align-c">
                             <img class="" src="/images/icon/upload-outline.svg" alt="Upload Icon" width="81" height="81">
                             <div class="regis_tyned text-c">
-                                Tải lên DOC, DOCX, PDF, PNG, JPG, JPEG, MP4, MOV. Tối đa: 100MB
+                                Tải lên DOC, DOCX, PDF, PNG, JPG, JPEG. Tối đa: 100MB
                             </div>
                         </div>
                         <input type="file" class="upload_file" id="user_cv" accept=".doc, .docx, .pdf, .png, .jpg, .jpeg">
@@ -138,8 +138,8 @@
                     processData: false,
                     success: function(response) {
                         console.log(response);
-                        alert('Tải file lên thành công, vui lòng xác thực tài khoản');
-                        window.location.href = '/otp';
+                        alert('Tải file lên thành công');
+                        window.location.href = '/';
                     },
                     error: function(xhr, status, error) {
                         let errorMessage;

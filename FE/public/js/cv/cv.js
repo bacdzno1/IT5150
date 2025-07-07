@@ -53,122 +53,6 @@ function login(e) {
 		$('.sign-up-suggestion').hide()
 }
 
-function resg() {
-	var e = $('#cv-profile-job').text(),
-		t = $('#cv-profile-phone').text(),
-		a = $('#cv-profile-email').text(),
-		i = $('#cv-profile-address').text(),
-		s = $('#cv-profile-fullname').text()
-	b = $('#cv-profile-birthday').text()
-	n = $('#cv-profile-job').text()
-
-	var err = 2
-
-	if ('' != $('#cvid').val()) {
-		if ('' == t || '' == s || '' == i || '' == n || '' == b) {
-			'' == s && (document.getElementById('cv-profile-fullname').style.outline = '1px dashed red'),
-				'' == t && (document.getElementById('cv-profile-phone').style.outline = '1px dashed red'),
-				'' == a && (document.getElementById('cv-profile-email').style.outline = '1px dashed red'),
-				'' == n && (document.getElementById('cv-profile-job').style.outline = '1px dashed red'),
-				'' == b && (document.getElementById('cv-profile-birthday').style.outline = '1px dashed red'),
-				'' == i && (document.getElementById('cv-profile-address').style.outline = '1px dashed red')
-			var l = '<div class="v-modal" style="z-index: 2009;"></div><div tabindex="-1" class="el-message-box__wrapper" style="z-index: 2010;">'
-			var text_mis = ''
-			if ('' == s) {
-				text_mis += 'Họ tên, '
-			}
-			if ('' == b) {
-				text_mis += 'Ngày sinh, '
-			}
-			if ('' == a) {
-				text_mis += 'Email, '
-			}
-			if ('' == t) {
-				text_mis += 'Số điện thoại, '
-			}
-			if ('' == i) {
-				text_mis += 'Địa chỉ, '
-			}
-			if ('' == e) {
-				text_mis += 'Công việc mong muốn, '
-			}
-			text_mis = text_mis.substring(0, text_mis.length - 2)
-			console.log(text_mis)
-				; (l +=
-					'<div class="el-message-box"><div class="el-message-box__header"><div class="el-message-box__title">Thông báo</div></div><div class="el-message-box__content"><div class="el-message-box__status el-icon-warning"></div><div class="el-message-box__message" style="margin-left: 50px;">'),
-					(l += "Vui lòng nhập đầy đủ thông tin: <span style='color:red'>" + text_mis + '</span> trong khung đỏ trước khi lưu CV</div></div>'),
-					(l += '<div class="el-message-box__btns">'),
-					(l += '<button type="button" onclick="hide()" class="el-button el-button--default"><span>Hủy bỏ</span></button>')
-			$('body').append(l)
-			console.log(l)
-			return !1
-		}
-		if (!/^[0-9]+$/.test(t))
-			return (
-				(l = '<div class="v-modal" style="z-index: 2009;"></div><div tabindex="-1" class="el-message-box__wrapper" style="z-index: 2010;">'),
-				(l +=
-					'<div class="el-message-box"><div class="el-message-box__header"><div class="el-message-box__title">Thông báo</div></div><div class="el-message-box__content"><div class="el-message-box__status el-icon-warning"></div><div class="el-message-box__message" style="margin-left: 50px;">'),
-				(l += 'Số điện thoại không hợp lệ</div></div>'),
-				(l += '<div class="el-message-box__btns">'),
-				(l += '<button type="button" onclick="hide()" class="el-button el-button--default"><span>Hủy bỏ</span></button>'),
-				$('body').append(l),
-				!1
-			)
-		if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/g.test(a))
-			return (
-				(l = '<div class="v-modal" style="z-index: 2009;"></div><div tabindex="-1" class="el-message-box__wrapper" style="z-index: 2010;">'),
-				(l +=
-					'<div class="el-message-box"><div class="el-message-box__header"><div class="el-message-box__title">Thông báo</div></div><div class="el-message-box__content"><div class="el-message-box__status el-icon-warning"></div><div class="el-message-box__message" style="margin-left: 50px;">'),
-				(l += 'Địa chỉ email không hợp lệ</div></div>'),
-				(l += '<div class="el-message-box__btns">'),
-				(l += '<button type="button" onclick="hide()" class="el-button el-button--default"><span>Hủy bỏ</span></button>'),
-				$('body').append(l),
-				!1
-			)
-
-		if (!check_cv_content()) {
-			return false
-		}
-
-		err = '1'
-	}
-
-	$.ajax({
-		url: 'https://timviec365.vn/service/cv_mail_unset.php',
-		type: 'POST',
-		dataType: 'html',
-		async: false,
-		data: { email: t, phone: t, name: s, email_lh: a },
-		success: function (result) {
-			if (result == 'false') {
-				err = '1'
-			} else {
-				err = '2'
-			}
-		},
-	})
-	let user_tk = t
-
-	if (err != '') {
-		$(window).scrollTop(0)
-		$(window).scrollLeft(0)
-		$('.box_content_taocv').animate({ scrollTop: 0 }, 'slow')
-		$('.box_content_taocv').animate({ scrollTop: 0 }, 'slow')
-		$('#form_res #birthday').val(b),
-			$('#form_res #email').val(user_tk),
-			$('#form_res #name').val(s),
-			$('#form_res #mobile').val(a),
-			$('#form_res #cv_title').val(e),
-			$('#form_res #diachi').val(i),
-			$('#boxLog').hide(),
-			$('#boxRes').show(),
-			$('.modal').hide(),
-			$('#loadjs').append(
-				'<script type="text/javascript">$("#cate-dk").select2({multiple: true,maximumSelectionLength: 3,placeholder: "Chọn ngành nghề bạn mong muốn",allowClear: true});$("#city-selector").select2({maximumSelectionLength: 3,placeholder: "Chọn nơi làm việc bạn mong muốn",allowClear: true});$("#district-selector").select2({maximumSelectionLength: 3,placeholder: "Chọn quận huyện",allowClear: true});$("#city2").select2();$("#qh2").select2();</script>'
-			)
-	}
-}
-
 function resetpass() {
 	$('#boxLog').hide(), $('#boxLos').show()
 }
@@ -427,7 +311,6 @@ jQuery(window).scroll(function () {
 			}),
 			$('.name_use').click(function () {
 				$('.ttuv').hasClass('active') ? $('.ttuv').removeClass('active') : $('.ttuv').addClass('active')
-				$('.menu_login').hasClass('active') ? $('.menu_login').removeClass('active') : $('.menu_login').addClass('active')
 			}),
 			$('#box_down .close').click(function () {
 				$('#box_down .close').hide()

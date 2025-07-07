@@ -2,6 +2,8 @@ import axios from "axios";
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import path, { dirname } from "path";
+import pdf from 'pdf-poppler';
+import sharp from 'sharp';
 import * as fs from 'node:fs';
 import puppeteer from 'puppeteer';
 import Users from '../models/user/Users.js';
@@ -49,12 +51,6 @@ export const checkToken = (conditions, type) => {
 			if (err) {
 				return res.status(402).json({ message: 'Invalid token' });
 			};
-			if (user.data.auth == 0 && !type) {
-				if (user.data.type == 2) {
-				} else {
-					return setError(res, "Vui lòng xác thực tài khoản", 401);
-				}
-			}
 			if (conditions == 1 && user.data.type == 2) {
 				return setError(res, "Please log in to your employer account", 403);
 			} else if (conditions == 2 && user.data.type == 1) {
@@ -604,33 +600,77 @@ export const deleteEmptySubfolders = async (dirPath) => {
 		console.log(error.message);
 	}
 }
+function toASCII(str) {
+  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z0-9_\-\.]/g, "_");
+}
 export const uploadCV = async (folder, file, time, type) => {
-	const path1 = `./upload/${folder}/`;
-	const filePath = `./upload/${folder}/${time}_${file.name}`;
-	const fileCheck = path.extname(filePath);
-	if (['.jpg', '.png', '.jpeg', '.gif', '.pdf', '.doc', '.docx'].includes(fileCheck.toLocaleLowerCase()) === false) {
+	const uploadDir = `./upload/${folder}/`;
+	const fileExt = path.extname(file.name).toLowerCase();
+	const originalName = path.parse(file.name).name;
+	const safeName = toASCII(originalName); // loại bỏ dấu
+	const baseFilename = `${time}_${safeName}`;
+	const uploadedPath = path.join(uploadDir, `${baseFilename}${fileExt}`);
+
+	// Kiểm tra định dạng hợp lệ
+	if (!['.jpg', '.png', '.jpeg', '.gif', '.pdf', '.doc', '.docx'].includes(fileExt)) {
 		return false;
 	}
-	if (!fs.existsSync(path1)) {
-		fs.mkdirSync(path1, { recursive: true });
+
+	// Tạo thư mục nếu chưa có
+	if (!fs.existsSync(uploadDir)) {
+		fs.mkdirSync(uploadDir, { recursive: true });
 	}
-	fs.readFile(file.path, (err, data) => {
-		if (err) {
-			console.log(err);
-			return false;
-		}
-		fs.writeFile(filePath, data, (err) => {
-			if (err) {
-				return false;
-			} else if (type === 1) {
-				fs.rename(`./upload/${folder}/${file.name}`, `./upload/${folder}/cv_${time}${fileCheck}`, function (err) {
-					if (err) return false;
-				});
-				return `upload/${folder}/cv_${time}${fileCheck}`;
-			}
+
+	// Đọc và lưu file upload
+	const fileData = fs.readFileSync(file.path);
+	fs.writeFileSync(uploadedPath, fileData);
+
+	// ✅ Nếu là PDF → Chuyển sang ảnh
+	if (fileExt === '.pdf') {
+		await pdf.convert(uploadedPath, {
+			format: 'jpeg',
+			out_dir: uploadDir,
+			out_prefix: baseFilename,
+			resolution: 150,
 		});
-	});
-	return `upload/${folder}/${time}_${file.name}`;
+
+		// 🖼️ Gộp thành 1 ảnh duy nhất:
+		const imageFiles = fs.readdirSync(uploadDir)
+			.filter(f => f.startsWith(baseFilename) && f.endsWith('.jpg'))
+			.sort()
+			.map(f => path.join(uploadDir, f));
+
+		const buffers = await Promise.all(imageFiles.map(f => sharp(f).resize({ width: 1000 }).toBuffer()));
+		const { height } = await sharp(buffers[0]).metadata();
+
+		const mergedBuffer = await sharp({
+			create: {
+				width: 1000,
+				height: height * buffers.length,
+				channels: 3,
+				background: 'white',
+			}
+		}).composite(buffers.map((img, i) => ({
+			input: img,
+			top: i * height,
+			left: 0
+		}))).jpeg().toBuffer();
+
+		const mergedImgPath = path.join(uploadDir, `${baseFilename}_merged.jpg`);
+		fs.writeFileSync(mergedImgPath, mergedBuffer);
+
+		// Xoá các ảnh từng trang (chỉ giữ ảnh ghép nếu muốn)
+		// imageFiles.forEach(f => fs.unlinkSync(f));
+	}
+
+	// ✅ Nếu muốn đổi tên file thành `cv_time.pdf`
+	if (type === 1) {
+		const newPath = path.join(uploadDir, `cv_${time}${fileExt}`);
+		fs.renameSync(uploadedPath, newPath);
+		return newPath;
+	}
+
+	return uploadedPath;
 };
 export const hideInfoCV = async (id, link, UserCvUpload) => {
 	try {
