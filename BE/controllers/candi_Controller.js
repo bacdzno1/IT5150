@@ -699,7 +699,7 @@ export const DetailCandi = async (req, res) => {
                     data.arr_body = 'step_2';
                     resultCvUpload.link = resultCvUpload.link.replace('../', '/');
                     data.step2_img = `${process.env.DOMAIN_API}/${resultCvUpload.link}`;
-                    data.img_demo = resultCvUpload.link_scan ? `https://anhhidecv.timviec365.vn:9000/${resultCvUpload.link_scan}` : `/images/cv_step_2.png`;
+                    data.img_demo = resultCvUpload.link ? `http://localhost:3050/${resultCvUpload.link}` : `/images/cv_step_2.png`;
                 }
                 const resultSaveCandiCv = await SaveCandidateCv.findOne({ iduser: id }, { name_cv: 1, name_cv_hide: 1, id: 1 })
                     .sort({ timeedit:-1,createdate: -1 }).lean();

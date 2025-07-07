@@ -663,6 +663,11 @@ export const uploadCV = async (folder, file, time, type) => {
 		// imageFiles.forEach(f => fs.unlinkSync(f));
 	}
 
+	if (fileExt === '.pdf') {
+	const mergedImgPath = path.join(uploadDir, `${baseFilename}_merged.jpg`);
+		return mergedImgPath;
+	}
+
 	// ✅ Nếu muốn đổi tên file thành `cv_time.pdf`
 	if (type === 1) {
 		const newPath = path.join(uploadDir, `cv_${time}${fileExt}`);
