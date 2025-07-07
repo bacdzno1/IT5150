@@ -5102,7 +5102,7 @@ exports.listNganhNghe = [
 		cat_title: 'Tìm việc làm Phục vụ - Tạp vụ lương cực cao',
 		cat_tags: null,
 		cat_description:
-			'Việc làm Phục vụ - Tạp vụ - Giúp việc,tuyển dụng Phục vụ - Tạp vụ - Giúp việc, với hơn 250.000 việc làm Phục vụ - Tạp vụ - Giúp việc. Thông tin tuyển dụng Phục vụ - Tạp vụ - Giúp việc cập nhật 24/24 trên website Timviec365.vn.',
+			'Việc làm Phục vụ - Tạp vụ - Giúp việc,tuyển dụng Phục vụ - Tạp vụ - Giúp việc, với hơn 250.000 việc làm Phục vụ - Tạp vụ - Giúp việc. Thông tin tuyển dụng Phục vụ - Tạp vụ - Giúp việc cập nhật 24/24 trên website Topcv1s.com.',
 		cat_keyword: 'Phục vụ - Tạp vụ',
 		cat_mota: '',
 		cat_parent_id: 0,
@@ -9065,7 +9065,7 @@ const listNganhNghe = [
 		cat_title: 'Tìm việc làm Phục vụ - Tạp vụ lương cực cao',
 		cat_tags: null,
 		cat_description:
-			'Việc làm Phục vụ - Tạp vụ - Giúp việc,tuyển dụng Phục vụ - Tạp vụ - Giúp việc, với hơn 250.000 việc làm Phục vụ - Tạp vụ - Giúp việc. Thông tin tuyển dụng Phục vụ - Tạp vụ - Giúp việc cập nhật 24/24 trên website Timviec365.vn.',
+			'Việc làm Phục vụ - Tạp vụ - Giúp việc,tuyển dụng Phục vụ - Tạp vụ - Giúp việc, với hơn 250.000 việc làm Phục vụ - Tạp vụ - Giúp việc. Thông tin tuyển dụng Phục vụ - Tạp vụ - Giúp việc cập nhật 24/24 trên website Topcv1s.com.',
 		cat_keyword: 'Phục vụ - Tạp vụ',
 		cat_mota: '',
 		cat_parent_id: 0,

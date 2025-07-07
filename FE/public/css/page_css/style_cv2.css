@@ -54,7 +54,6 @@ body {
 
 .box::before,
 .download:before,
-.download_timviec365:before,
 .gallery .l::before,
 .s2::before {
   content: "";
@@ -900,8 +899,7 @@ select.category_cv {
 }
 
 .btn,
-.download,
-.download_timviec365 {
+.download {
   border-radius: 5px;
   display: inline-block;
 }
@@ -994,13 +992,11 @@ blockquote {
   color: #ffa800;
 }
 
-.box_seo_dm .download,
-.box_seo_dm .download_timviec365 {
+.box_seo_dm .download {
   color: #fff;
 }
 
 .download:hover,
-.download_timviec365,
 .tit-ab span:first-child {
   color: #fff;
 }
@@ -1088,8 +1084,7 @@ iframe#yoube {
   display: inline-block;
 }
 
-.download,
-.download_timviec365 {
+.download {
   padding: 4px 8px;
   background: #02b5e1;
   font-size: 15px;
@@ -1097,8 +1092,7 @@ iframe#yoube {
   text-indent: 0;
 }
 
-.download:before,
-.download_timviec365:before {
+.download:before {
   margin-right: 5px;
   background: url(/images/download.png) left center no-repeat;
   width: 18px;
