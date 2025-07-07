@@ -35,7 +35,7 @@
                     </div>
                     <div class="cnt-supp-mail">
                         <span>Email:</span>
-                        <span class="color-alert"> nguyenhongg2609@gmail.com</span>
+                        <span class="color-alert"> chuyenvienhotro@gmail.com</span>
                     </div>
                 </div>
                 <div class="cnt-sts">
@@ -169,28 +169,6 @@
                             Xem tất cả<img src="/images/icon/more_icon.svg" width="22" height="22" alt="More Icon">
                         </a>
                     </div>
-                </div>
-                <div class="cnt-tip bg-white">
-                    <div class="cnt-tip-tit fw-600 fs-4 color-main">
-                        BÍ QUYẾT VIẾT CV
-                    </div>
-                    <div class="cnt-lis-blg">
-                        <% if (dataFromAPI.data.camNangTimViec && dataFromAPI.data.camNangTimViec.length > 0) { %>
-                            <% dataFromAPI.data.camNangTimViec.forEach(function(item) { %>
-                                <div class="cnt-blg">
-                                    <a href="<%= item.new_title_rewrite %>">
-                                        <img src="<%= item.new_picture %>" onerror="this.onerror=null;this.src='/images/img/default_logo.jpg';" alt="<%= item.new_title %>">
-                                    </a>
-                                    <span>
-                                        <a href="<%= item.new_title_rewrite %>"><%= item.new_title %></a>
-                                    </span>
-                                </div>
-                            <% }); %>
-                        <% } %>
-                    </div>
-                    <a href="/tin-tuc" class="cnt-lis-blg-more color-main fw-600 fs-4 d-flex justify-c gap-1 align-c">
-                        Xem tất cả<img src="/images/icon/more_icon.svg" width="22" height="22" alt="More Icon">
-                    </a>
                 </div>
             </div>
         </div>
