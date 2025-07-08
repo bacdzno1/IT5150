@@ -167,7 +167,6 @@ function filterJobs(criteria, value, jobType) {
     let listJobs = $(`.${jobType}`).find(".jobs-list.list-slide");
     listJobs.empty();
     let has_match = false
-    let checkLazy = (jobType === 'new-job') ? '' : 'loading="lazy"';
     let jobList = (jobType === 'new-job') ? ViecLamMoiNhat : ViecLamHapDan;
     jobList.forEach(function (item) {
         let match = false;
@@ -268,7 +267,7 @@ function filterJobs(criteria, value, jobType) {
                     <div class="jobs-left">
                         <div class="jobs-box d-flex align-c">
                             <div class="jobs-avar">
-                                <img class="rounded-circle" ${checkLazy} width="70" height="70" alt="Avartar Job" onerror="this.onerror=null;this.src='/images/img/default_logo.jpg';" src=" ${item.usc_logo}">
+                                <img class="rounded-circle" width="70" height="70" alt="Avartar Job" onerror="this.onerror=null;this.src='/images/img/default_logo.jpg';" src=" ${item.usc_logo}">
                             </div>
                             <div class="jobs-title fw-700">
                                 <h3 class="jobs-qview fs-6 color-main mb-2" data-id="${item.new_id}" >

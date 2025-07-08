@@ -531,7 +531,7 @@ export const RegisterCandidate = async (req, res, next) => {
                 email: email,
                 use_mail: email,
                 type: 2,
-                auth: 0,
+                auth: 1,
                 userName: name,
                 use_logo: functions.getAvatarCandi(time, logo),
                 usc_search: 1,
@@ -638,7 +638,7 @@ export const uploadAvatarCV = async (req, res, next) => {
 };
 export const CreateCVInOrderToRegister = async (req, res, next) => {
     try {
-        const { phone, username, password, jobName, address, ddlv, nganhNghe, dataCVJson, idcv, lang, height_cv, rePassword, district } = req.body;
+        const { phone, username, password, jobName, address, ddlv, nganhNghe, dataCVJson, idcv, lang, rePassword, district } = req.body;
         const email_notlower = req.body.email
         const email = email_notlower.toLowerCase();
         const arrCityJob = [];
@@ -654,11 +654,9 @@ export const CreateCVInOrderToRegister = async (req, res, next) => {
                         const checkExistsEmail = await Users.findOne({ use_mail: email }, { use_phone: 1 }).lean();
                         const checkExistsPhone = await Users.findOne({ use_phone: phone }, { use_phone: 1 }).lean();
                         if (checkExistsEmail) {
-
                             return functions.setError(res, "Email này đã được sử dụng, vui lòng kiểm tra lại.", 400);
                         }
                         if (checkExistsPhone) {
-
                             return functions.setError(res, "Số điện thoại này đã được sử dụng, vui lòng kiểm tra lại.", 400);
                         }
                         const checkExists = await Users.findOne({
@@ -688,7 +686,36 @@ export const CreateCVInOrderToRegister = async (req, res, next) => {
                                 logo = nameFileOld;
                                 functions.deleteFile(`./tmp/${nameFileOld}`);
                             }
+                            await Users.create({
+                                use_id,
+                                use_mail: email,
+                                use_phone: phone,
+                                use_pass: functions.createMd5(password),
+                                use_time: time,
+                                use_authentic: 1,
+                                use_name: username,
+                                address: address,
+                                use_logo: logo,
+                                use_job_name: jobName,
+                                use_city_job: arrCityJob,
+                                use_nganh_nghe: arrNganhNghe,
+                                use_create_time: time,
+                                use_update_time: time,
+                                use_district_job: arrDistrictJob,
+                            });
                             await candidateCleanUp(use_id)
+                            await SaveCandidateCv.create({
+                                id: idSave,
+                                iduser: use_id,
+                                idcv,
+                                lang,
+                                html: JSON.stringify(jsonCV),
+                                nameimg: linkNew != '' ? linkNew.replace('.', '..') : null,
+                                name_cv: `u_cv_${time}.png`,
+                                name_cv_hide: `u_cv_hide_${time}.png`,
+                                status: 2,
+                                createdate: time,
+                            });
                             const Token = await functions.createToken({ use_id, phone, type: 2, auth: 0 }, '60d');
                             await UserTempNoAuth.deleteMany({ use_id: use_id })
                             await UserTempNoAuth.create({
@@ -724,7 +751,7 @@ export const CreateCVInOrderToRegister = async (req, res, next) => {
                                     use_id,
                                     phone: phone,
                                     type: 2,
-                                    auth: 0,
+                                    auth: 1,
                                     userName: username,
                                     use_logo: functions.getAvatarCandi(time, logo),
                                     usc_search: 1,

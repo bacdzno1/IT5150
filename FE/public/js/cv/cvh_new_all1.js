@@ -3981,14 +3981,6 @@ function setCandiAllowEmployerSearch(allow) {
   saveDataWithTime(cookieCandiAllowSearch, allow);
 }
 
-// function downloadAsPDF(base64String, cv_name) {
-//   const downloadLink = document.createElement("a");
-//   downloadLink.target = "_blank";
-//   downloadLink.href = base64String;
-//   downloadLink.download = `${cv_name}.pdf`;
-//   downloadLink.click();
-// }
-
 function downloadAsPDF(base64String, cv_name) {
   const downloadLink = document.createElement('a')
   downloadLink.href = `data:application/octet-stream;base64,${base64String}`
@@ -4152,6 +4144,25 @@ $(document).ready(function () {
     data[area].forEach(function (arrayItem, index) {
       if (data[area][index].id === id) {
         data[area].splice(index, 1);
+      }
+    });
+  };
+
+  $.hideBlock = function (area, id) {
+    data[area].forEach(function (arrayItem, index) {
+      if (data[area][index].id === id) {
+        // data[area][index].status = 'hide'
+        $("#layout-editor")
+          .find("[blockkey='" + id + "']")
+          .removeClass("active");
+      }
+    });
+  };
+
+  $.showBlock = function (area, id) {
+    data[area].forEach(function (arrayItem, index) {
+      if (data[area][index].id === id) {
+        // data[area][index].status = null
       }
     });
   };
@@ -4477,6 +4488,11 @@ $(document).ready(function () {
                 type: "skill",
                 skills: [],
               };
+              $(".box-skills .ctbx").each(function () {
+                content.skills.push({
+                  name: $(this).find(".skill-name").text().replace(/\n/g, '').replace(/<br>/g, '').replace(/\s\s+/g, ' ').trim(),
+                });
+              });
             } else {
               content = tmpItem.find(".box-content").html();
             }
@@ -4486,10 +4502,8 @@ $(document).ready(function () {
                 content: content,
               };
             }
-            // data["menu"][k].status = status;
           }
         }
-        //export data for box experience
         for (var k = 0; k < data["experiences"].length; k++) {
           if (data["experiences"][k].id) {
             var tmpItem = $("#form-cv .cv_page")
@@ -4566,6 +4580,11 @@ $(document).ready(function () {
             type: "skill",
             skills: [],
           };
+          $(".box-skills .ctbx").each(function () {
+            content.skills.push({
+              name: $(this).find(".skill-name").text().replace(/\n/g, '').replace(/<br>/g, '').replace(/\s\s+/g, ' ').trim(),
+            });
+          });
         } else {
           content = tmpItem.find(".box-content").html();
         }
@@ -4776,6 +4795,11 @@ $(document).ready(function () {
                 type: "skill",
                 skills: [],
               };
+              $(".box-skills .ctbx").each(function () {
+                content.skills.push({
+                  name: $(this).find(".skill-name").text().replace(/\n/g, '').replace(/<br>/g, '').replace(/\s\s+/g, ' ').trim(),
+                });
+              });
             } else {
               for (var m = 0; m < tmpItem.find(".box-content").length; m++) {
                 var content1 = tmpItem.find(".box-content").html();
@@ -4869,6 +4893,11 @@ $(document).ready(function () {
             type: "skill",
             skills: [],
           };
+          $(".box-skills .ctbx").each(function () {
+            content.skills.push({
+              name: $(this).find(".skill-name").text().replace(/\n/g, '').replace(/<br>/g, '').replace(/\s\s+/g, ' ').trim(),
+            });
+          });
         } else {
           for (var m = 0; m < tmpItem.find(".box-content").length; m++) {
             var content1 = tmpItem.find(".box-content").html();
@@ -5186,18 +5215,9 @@ $(document).ready(function () {
           required: !0,
           equalTo: "#password",
         },
-        // candiCateID: {
-        // 	checkTwoCate: true,
-        // },
-        // candiCateID2: {
-        // 	checkTwoCate: true,
-        // },
         candiCateID: "required",
         candiTitle: "required",
         "candiCityID[]": "required",
-        // candiCateID2: "required",
-        // diachi: "required",
-        // city_id: "required",
         qh_id: "required",
       },
       messages: {
@@ -5274,16 +5294,7 @@ $(document).ready(function () {
           candi.push(item?.value);
         });
 
-      // let candi2 = [];
-      // data
-      //   ?.filter((item) => item?.name === "candiCateID2")
-      //   ?.forEach((item) => {
-      //     candi2.push(item?.value);
-      //   });
-      //handle city
-
       let city = "";
-
       data
         .filter((item) => item.name === "candiCityID[]")
         .forEach((item) => {
@@ -5296,18 +5307,6 @@ $(document).ready(function () {
           candi.push(candi.shift());
         }
       }
-      // body["candiCateID"] = candi.join(",");
-      // body["candiCityID"] = city;
-
-      // $("#city-selector").change(function () {
-      //   var citySelected = $(this).val();
-
-      //   $("#district-selector option").hide();
-      //   citySelected.forEach((city) => {
-      //     $('#district-selector option[data-province="' + city + '"]').show();
-      //   })
-      // })
-
       let qh = ""
       data
         ?.filter((item) => item?.name === "qh_id")
@@ -5335,8 +5334,7 @@ $(document).ready(function () {
         username = $("#cv-profile-fullname").text().replace(/\n/g, '').replace(/<br>/g, '').replace(/\s\s+/g, ' ').trim(),
         jobName = $("#cv-profile-job").text().replace(/\n/g, '').replace(/<br>/g, '').replace(/\s\s+/g, ' ').trim(),
         address = $("#cv-profile-address").text().replace(/\n/g, '').replace(/<br>/g, '').replace(/\s\s+/g, ' ').trim(),
-        lang = $(".sidenav__lague--item.sidenav--item.active").attr("data-language"),
-        height_cv = $("#form-cv").height();
+        lang = $(".sidenav__lague--item.sidenav--item.active").attr("data-language");
       $.ajax({
         type: "POST",
         url: "http://localhost:3050/api/topcv1s/user/CreateCVInOrderToRegister",
@@ -5360,17 +5358,13 @@ $(document).ready(function () {
           jobName: $("#cv_title").val(),
           address,
           lang,
-          height_cv,
         },
         dataType: "json",
         success: function (respons) {
           if (respons.data && respons.data.result == true) {
             console.log(">>> Check res: ", respons.data);
-            alert("Đăng ký ứng viên thành công, vui lòng xác thực tài khoản để tải xuống CV");
-
-            // downloadAsPDF(
-            //   respons?.data?.base64StringPDF, username
-            // );
+            alert("Đăng ký ứng viên thành công");
+            downloadAsPDF(respons?.data?.base64StringPDF, name);
             setMultipleCookie(
               `${respons?.data.Token}`,
               `${respons?.data.use_id}`,
@@ -5379,14 +5373,11 @@ $(document).ready(function () {
               `${respons?.data.userName}`,
               `${respons?.data.phone}`,
               `${respons?.data.email}`,
-              `${respons?.data.use_logo}`,
+              `${respons?.data.use_logo || '/images/img/default_logo.jpg'}`,
             );
             localStorage.setItem('topcv1s_cv', respons?.data.base64StringPDF);
             localStorage.setItem('topcv1s_name', username);
-
-
             setCookie('topcv1s_typeRegister', 'dangkycv', 1)
-            // setCookie('filter', $('#cvo-profile-avatar').css('filter'), 60)
             setAll(
               `${respons?.data.userName}`,
               `${respons?.data.phone}`,
@@ -5394,14 +5385,13 @@ $(document).ready(function () {
             );
             $(".bg-spinner").remove();
             setCandiAllowEmployerSearch("1");
-
             deleteCookie(cookieStep1);
             if (isIoS()) {
               setTimeout(function () {
-                window.location.href = "/otp";
+                window.location.href = "/tim-viec-lam";
               }, 3000)
             } else {
-              window.location.href = "/otp";
+              window.location.href = "/tim-viec-lam";
             }
           } else {
             window.alert(respons?.error?.message);
@@ -5416,11 +5406,8 @@ $(document).ready(function () {
       return false;
     }
   });
-  //fix lỗi load lần đầu bị text chèn thừa ra bên ngoài trang
   $("img#cvo-profile-avatar").on("load", function () {
-    // Thực hiện các hành động bạn muốn khi hình ảnh được tải
     adjustPage();
-    // alert('Hình ảnh đã được tải thành công')
   });
   setTimeout(() => {
     changeLayoutCv()
@@ -5919,7 +5906,6 @@ function resg_new() {
   let user_tk = phone;
   var token = Cookies.get("accessToken");
   let cookieIsLogin = getCookie(cookieLogin);
-  let cookieIsAuth = getCookie(cookieAuth);
 
   var json_html_cv = $.exportData();
   var lang = $(".sidenav__lague--item.sidenav--item.active").attr("data-language");
@@ -5938,7 +5924,6 @@ function resg_new() {
         $("#form_res #name").val(name),
         $("#form_res #mobile").val(phone),
         $("#form_res #cv_title").val(cv_title),
-        // $("#form_res #diachi").val(address),
         $("#modal_login").hide(),
         $("#modal_view").hide(),
         $("#boxRes").show(),
@@ -6031,9 +6016,6 @@ function resg_new() {
   }
   if (err != "" && cookieIsLogin == "true") {
     console.log(">>> Đã đăng nhập và tạo cv");
-    // var idcv = $("#cvid").val();
-    // var filter = $('#cvo-profile-avatar').css(filter) 
-
     var id = getCookie(cookieId);
     $.ajax({
       type: "POST",
@@ -6055,18 +6037,8 @@ function resg_new() {
       },
       dataType: "json",
       success(response) {
-        console.log('>>>  check payload: ', json_html_cv);
-        if (response?.data?.result) {
-          // setCookie('filter', $('#cvo-profile-avatar').css('filter'), 60)
-          if (cookieIsAuth != 0) {
-            downloadAsPDF(
-              response?.data?.base64StringPDF, name
-            );
-          }
-      
+        if (response?.data?.result) {      
           $(".bg-spinner").remove();
-
-          // getAccountDetail()
           $.ajax({
             url: "http://localhost:3050/api/topcv1s/user/getAccountDetail",
             type: "POST",
@@ -6083,7 +6055,6 @@ function resg_new() {
                 document.cookie = `accessToken=${infoUV.Token}; max-age=${60 * 24 * 60 * 60}; path=/`;
                 document.cookie = `type=2; max-age=${60 * 24 * 60 * 60}; path=/`;
                 setCookie("userName", infoUV.name, 60);
-                // document.cookie = `userName=${response.data.data.data.userName}; max-age=${60 * 24 * 60 * 60}`;
                 document.cookie = `use_phone=${infoUV.phone}; max-age=${60 * 24 * 60 * 60}; path=/`;
                 document.cookie = `use_logo=${infoUV.avatar}; max-age=${60 * 24 * 60 * 60}; path=/`;
                 document.cookie = `isLogin=true; max-age=${60 * 24 * 60 * 60}; path=/`;
@@ -6094,19 +6065,16 @@ function resg_new() {
             },
           });
           
-          if (cookieIsAuth == 0) {
-            localStorage.setItem('topcv1s_cv', response?.data.base64StringPDF);
-            localStorage.setItem('topcv1s_name', name);
-            alert("Lưu CV thành công, vui lòng xác thực tài khoản để tải xuống cv");
-            window.location.href = '/otp'
-          } else {
-            if (isIoS()) {
-              setTimeout(function () {
-                window.location.href = "/uv/quan-ly-cv-xin-viec";
-              }, 3000)
-            } else {
+          localStorage.setItem('topcv1s_cv', response?.data.base64StringPDF);
+          localStorage.setItem('topcv1s_name', name);
+          alert("Lưu CV thành công");
+          downloadAsPDF(response?.data?.base64StringPDF, name);
+          if (isIoS()) {
+            setTimeout(function () {
               window.location.href = "/uv/quan-ly-cv-xin-viec";
-            }
+            }, 3000)
+          } else {
+            window.location.href = "/uv/quan-ly-cv-xin-viec";
           }
         }
       },

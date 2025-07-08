@@ -172,10 +172,6 @@ $(document).ready(function () {
 
           handleSetData(handleChangeLang(lang), false, lang, idlang)
           dataForMuc(lang)
-          // dataMuc.forEach(item => {
-          //   $('.show_mucchuasd').append(mucChuaSd(item))
-          //   $('.show_mucdasd').append(mucDaSd(item))
-          // });
 
           if (isLogin === "true") {
             const id = getCookie("use_id");
@@ -426,11 +422,6 @@ $(document).ready(function () {
                       handleChangeLang(lang),
                       in4CVSsr?.[`html_${lang}`]
                     );
-                    // dataForMuc(lang)
-                    // dataMuc.forEach(item => {
-                    //   $('.show_mucchuasd').append(mucChuaSd(item))
-                    //   $('.show_mucdasd').append(mucDaSd(item))
-                    // });
                   });
 
                   updateAvatarLibrary(decodeURIComponent(userLogo))
@@ -571,11 +562,6 @@ $(document).ready(function () {
               handleChangeLang(lang),
               in4CVSsr?.[`html_${lang}`]
             );
-            // dataForMuc(lang)
-            // dataMuc.forEach(item => {
-            //   $('.show_mucchuasd').append(mucChuaSd(item))
-            //   $('.show_mucdasd').append(mucDaSd(item))
-            // });
 
             $('.exp-title, .exp-content, .exp-date, .exp-subtitle, .box-content, .skill-name, #cv-profile-sex, #cv-profile-phone, #cv-profile-birthday, #cv-profile-address, #cv-profile-email').addClass('err_cv_content')
           });

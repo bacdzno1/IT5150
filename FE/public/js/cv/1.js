@@ -153,7 +153,6 @@ function doi_muc(el, blockKey, blockMain) {
 				</div>`;
     $(".box_show_mucchuasd").find(".show_mucchuasd").append(html1);
     $(e).parent().remove();
-    // $.hideBlock(boxid, id);
     $("#" + id).hide();
   } else {
     var html1 = `<div class="mucchuasd muc_da_sd " id="muc_da_sd_${id}">

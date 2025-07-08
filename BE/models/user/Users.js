@@ -71,7 +71,7 @@ const Users = new mongoose.Schema({
     salary: {
         type: Number,
         default: 0
-    }, // Check sau
+    },
     use_view_count: {
         type: Number,
         default: 0
