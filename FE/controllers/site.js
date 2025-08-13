@@ -343,12 +343,9 @@ exports.managlistpost = async (req, res) => {
     return res.render('ntd/manapost_ntd', { url });
 }
 exports.editpost = async (req, res) => {
-    const url = req.url;
     try {
-        const { titleId } = req.params;
-        const parts = titleId.split('-');
-        const id = parts.pop();
-        const title = parts.join('-');
+        const id = req.params.id;
+        const title = req.params.title;
         var levelList = function_new.levelList;
         var cateList = function_new.cateList;
         var listTypeWork = function_new.listTypeWork;
@@ -360,7 +357,8 @@ exports.editpost = async (req, res) => {
         var findDistrict = function_new.findDistrict;
         const response = await axios.post('http://localhost:3050/api/topcv1s/new/DetailNew', { id: id });
         let post = response.data.data.data;
-        return res.render('ntd/edit_job_ntd', { title, id, levelList, cateList, listTypeWork, listRangeMoney, listSizeExp, listEdu, genderList, listCities, findDistrict, post, url });
+        console.log(">>> post: ", post);
+        return res.render('ntd/edit_job_ntd', { title, id, levelList, cateList, listTypeWork, listRangeMoney, listSizeExp, listEdu, genderList, listCities, findDistrict, post });
     } catch (error) {
         console.log(error);
     }

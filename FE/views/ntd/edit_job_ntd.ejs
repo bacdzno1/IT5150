@@ -457,7 +457,7 @@
                 placeholder: 'Chọn quận / huyện',
                 searchPlaceholder: 'Tìm kiếm...'
             });
-            var post = JSON.parse('<%- JSON.stringify(post) %>');
+            var post = <%- JSON.stringify(post) %>;
             function loadDistricts(cityId, selectedDistrictId) {
                 $.ajax({
                     url: '/api/getDistrict',

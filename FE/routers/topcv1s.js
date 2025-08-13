@@ -48,7 +48,7 @@ router.get('/ntd/quan-ly-nha-tuyen-dung', checkToken('1'), site.managemphome);
 router.get('/ntd/quan-ly-ung-vien-ung-tuyen', checkToken('1'), site.managcanapply);
 router.get('/ntd/quan-ly-ung-vien-da-luu', checkToken('1'), site.managcansave);
 router.get('/ntd/quan-ly-tin-dang', checkToken('1'), site.managlistpost);
-router.get('/ntd/sua-tin-tuyen-dung/:titleId', checkToken('1'), site.editpost);
+router.get('/ntd/sua-tin-tuyen-dung/:title-:id', checkToken('1'), site.editpost);
 router.get('/ntd/cap-nhat-thong-tin-cong-ty', checkToken('1'), site.managinfo);
 router.get('/ntd/doi-mat-khau-nha-tuyen-dung', checkToken('1'), site.managrepass);
 router.get('/ntd/dang-tin-tuyen-dung', checkToken('1'), site.managuppost);

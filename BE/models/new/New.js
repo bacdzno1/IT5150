@@ -19,10 +19,6 @@ const New = new mongoose.Schema({
     new_real_cate: [{
         id: { type: String },
     }],
-    new_tag: {
-        type: String,
-        default: 0
-    },
     new_city: {
         type: String,
         default: 0

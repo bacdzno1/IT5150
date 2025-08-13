@@ -4,6 +4,7 @@ const functions = require('../function/functions');
 exports.getDiscByCity = async (req, res) => {
     try {
         const { id } = req.body;
+        console.log(">>> id: ", id)
         const district = await function_new.findDistrict(parseInt(id));
         res.status(200).json({ district });
     } catch (error) {

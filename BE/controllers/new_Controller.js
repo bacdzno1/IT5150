@@ -796,6 +796,7 @@ export const DetailNew = async(req, res) => {
             new_money: 1,
             new_so_luong: 1,
             new_addr: 1,
+            new_tag: 1,
             new_real_cate: 1,
             new_money_type: 1,
             new_money_from: 1,
@@ -841,7 +842,7 @@ export const DetailNew = async(req, res) => {
                     arrNganhNghe.push(cate.find(item => item.cat_id == element));
                 }
                 const name_tag = await Promise.all(
-                    data.new_tag.split(',').map(
+                    data?.new_tag.split(',').map(
                         (item) => {
                             if (item && item != 'NaN')
                                 return TblTagsNew.findOne({ tag_parent: 3, tag_id: item }, { tag_id: 1, tag_name: 1 }).lean()

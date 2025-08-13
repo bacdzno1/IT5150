@@ -168,11 +168,6 @@
             }
         }
         function editNew(new_alias, new_id, soLuongNHS) {
-            if (soLuongNHS > 0) {
-                alert("Tin tuyển dụng này đã có ứng viên ứng tuyển. Bạn không thể chỉnh sửa, vui lòng tạo tin mới.");
-                window.location.href = "/ntd/dang-tin-tuyen-dung";
-                return;
-            }
             const url = `/ntd/sua-tin-tuyen-dung/${new_alias}-${new_id}`;
             window.location.href = url;
         }
