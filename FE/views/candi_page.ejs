@@ -26,6 +26,11 @@
             </div>
             <div class="lcandi-content container d-flex">
                 <div class="lcandi-left">
+                    <% if (response.data.data.aiFilters && response.data.data.aiFilters.aiSummary) { %>
+                        <div class="lcandi-ai-summary bg-white">
+                            <strong>AI:</strong> <%= response.data.data.aiFilters.aiSummary %>
+                        </div>
+                    <% } %>
                     <div class="lcandi-list d-flex flex-dr-c">
                         <% if (response.data.data.data && response.data.data.data.length > 0) { %>
                             <% response.data.data.data.forEach(function(item, index) { %>
@@ -249,12 +254,16 @@
             function handleSearch() {
                 var searchText = $('#s_key').val();
                 var searchCity = $('#s_loc').val();
+                var aiPrompt = $('#ai_prompt').val();
                 var params = {};
                 if (searchText) {
                     params.name = searchText;
                 }
                 if (searchCity && searchCity != 0) {
                     params.city = searchCity;
+                }
+                if (aiPrompt) {
+                    params.aiPrompt = aiPrompt;
                 }
                 var queryString = $.param(params);
                 var newUrl = '/tim-ung-vien';
@@ -266,6 +275,17 @@
 
             $('.search-btn').click(function () {
                 handleSearch()
+            });
+
+            $('.search-ai-btn').click(function () {
+                handleSearch()
+            });
+
+            $('#ai_prompt').on('keydown', function (event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    handleSearch();
+                }
             });
         
             function loadMoreData(page) {
@@ -279,6 +299,7 @@
                 var address = getParameterByName('address', window.location.href);
                 var level = getParameterByName('level', window.location.href);
                 var type = getParameterByName('type', window.location.href);
+                var aiPrompt = getParameterByName('aiPrompt', window.location.href);
                 var accessToken = getCookie('accessToken');
                 $.ajax({
                     url: url,
@@ -289,7 +310,14 @@
                     },
                     data: JSON.stringify({
                         keywords: nameValue,
+                        aiPrompt: aiPrompt,
                         city: cityValue,
+                        catid: catidValue,
+                        district: district,
+                        kinhNghiem: exp,
+                        mucLuong: money,
+                        level: level,
+                        hinhThuc: type,
                         pageSize: 10,
                         page: page
                     }),

@@ -64,6 +64,7 @@ exports.candi_page = async (req, res) => {
     const city = req.query.city;
     const catid = req.query.catid;
     const name = req.query.name;
+    const aiPrompt = req.query.aiPrompt;
     const pageSize = 10;
     const page = req.query.page || 1;
     const accessToken = req.cookies.accessToken;
@@ -72,6 +73,7 @@ exports.candi_page = async (req, res) => {
     var findExp = function_new.findExp;
     const response = await axios.post('http://localhost:3050/api/topcv1s/new/SearchCandi', {
         keywords: name,
+        aiPrompt: aiPrompt,
         city: city,
         catid: catid,
         pageSize: pageSize,
@@ -85,7 +87,7 @@ exports.candi_page = async (req, res) => {
     let data = {
         test: 'data test'
     }
-    return res.render('candi_page', { data, city, catid, name, listCities, url, response, convertToUrl, getTimeRemain, findExp });
+    return res.render('candi_page', { data, city, catid, name, aiPrompt, listCities, url, response, convertToUrl, getTimeRemain, findExp });
 }
 exports.candi_detail = async (req, res) => {
     const url = req.url;

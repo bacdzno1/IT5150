@@ -30,6 +30,17 @@
                 Tìm kiếm
             </button>
         </div>
+        <div class="search-ai bg-white">
+            <div class="search-ai-header">
+                <span class="search-ai-badge">AI</span>
+                <span class="search-ai-title">Lọc ứng viên bằng ngôn ngữ tự nhiên</span>
+            </div>
+            <div class="search-ai-control d-flex align-c gap-2">
+                <input id="ai_prompt" type="text" value="<%= typeof aiPrompt !== 'undefined' ? aiPrompt || '' : '' %>" placeholder="VD: Backend Node.js ở Hà Nội, trên 2 năm kinh nghiệm, lương từ 15 triệu">
+                <button type="button" class="search-ai-btn fw-700 color-white">Lọc AI</button>
+            </div>
+            <p class="search-ai-hint">AI sẽ tự hiểu từ khóa, địa điểm, ngành nghề, kinh nghiệm và mức lương phù hợp.</p>
+        </div>
     </div>
 </div>
 <script src="/js/search_job.js"></script>

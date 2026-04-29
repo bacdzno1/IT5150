@@ -13,6 +13,7 @@ import TblTagsNew from '../models/tbl/TblTagsNew.js';
 import TblPointCompany from '../models/tbl/TblPointCompany.js';
 import SaveCandidateCv from '../models/save/SaveCandidateCv.js';
 import UserCvUpload from '../models/user/UserCvUpload.js';
+import { buildCandidateFiltersFromPrompt } from '../services/aiCandidateFilter.js';
 
 export const PostNew = async(req, res) => {
     try {
@@ -1086,21 +1087,39 @@ const promiseNopHoSo = (iduser, new_id) => {
     const query = NopHoSo.findOne({ nhs_use_id: iduser, nhs_new_id: new_id, type: 1 }, { id: 1 }).lean();
     return query;
 }
+const optionalNumber = (value) => {
+    if (value === undefined || value === null || value === '') return NaN;
+    return Number(value);
+}
 export const SearchCandi = async(req, res) => {
     try {
         const page = Number(req.body.page) || 1;
         const pageSize = Number(req.body.pageSize) || 10;
         const skip = (page - 1) * pageSize;
         const limit = pageSize;
-        const catid = req.body.catid;
-        const city = req.body.city;
+        let catid = req.body.catid;
+        let city = req.body.city;
         const district = req.body.district;
         const hinhThuc = Number(req.body.hinhThuc);
         const capBac = Number(req.body.capBac);
-        const kinhNghiem = Number(req.body.kinhNghiem);
-        const gioiTinh = Number(req.body.gioiTinh);
-        const mucLuong = Number(req.body.mucLuong);
-        const keywords = req.body.keywords;
+        let kinhNghiem = optionalNumber(req.body.kinhNghiem);
+        let gioiTinh = optionalNumber(req.body.gioiTinh);
+        let mucLuong = optionalNumber(req.body.mucLuong);
+        let keywords = req.body.keywords;
+        const aiPrompt = req.body.aiPrompt;
+        const [aiCities, aiCategories] = aiPrompt ? await Promise.all([
+            City.find({}, { cit_id: 1, cit_name: 1, _id: 0 }).lean(),
+            Category.find({ cat_active: 1 }, { cat_id: 1, cat_name: 1, _id: 0 }).lean()
+        ]) : [[], []];
+        const aiFilters = aiPrompt ? await buildCandidateFiltersFromPrompt(aiPrompt, aiCities, aiCategories) : null;
+        if (aiFilters) {
+            keywords = keywords || aiFilters.keywords;
+            city = city || aiFilters.city;
+            catid = catid || aiFilters.catid;
+            if (!Number.isFinite(kinhNghiem) && aiFilters.kinhNghiem !== undefined) kinhNghiem = Number(aiFilters.kinhNghiem);
+            if (!Number.isFinite(gioiTinh) && aiFilters.gioiTinh !== undefined) gioiTinh = Number(aiFilters.gioiTinh);
+            if (!Number.isFinite(mucLuong) && aiFilters.mucLuong !== undefined) mucLuong = Number(aiFilters.mucLuong);
+        }
         const conditionsAI = {
             site: "uvTopcv1s",
             size: pageSize,
@@ -1256,7 +1275,7 @@ export const SearchCandi = async(req, res) => {
             }
         }
         const total = totalAI > 0 ? totalAI : total_thuong;
-        return functions.success(res, 'success', { total, data, dataSeo, showNew, ungVienTheoNganhNghe, ungVienTheoTinhThanh });
+        return functions.success(res, 'success', { total, data, dataSeo, showNew, ungVienTheoNganhNghe, ungVienTheoTinhThanh, aiFilters });
     } catch (error) {
         return functions.setError(res, error.message);
     }
